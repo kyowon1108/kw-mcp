@@ -580,8 +580,9 @@ def install_autostart() -> str:
     if os.name == "nt":
         import winreg
 
-        with winreg.OpenKey(winreg.HKEY_CURRENT_USER, r"Software\Microsoft\Windows\CurrentVersion\Run", 0,
-                            winreg.KEY_SET_VALUE) as run_key:
+        # CreateKeyEx opens the Run key, or creates it on profiles that don't have one yet.
+        with winreg.CreateKeyEx(winreg.HKEY_CURRENT_USER, r"Software\Microsoft\Windows\CurrentVersion\Run", 0,
+                                winreg.KEY_SET_VALUE) as run_key:
             winreg.SetValueEx(run_key, WINDOWS_RUN_VALUE, 0, winreg.REG_SZ, subprocess.list2cmdline(agent_command()))
         flags = subprocess.DETACHED_PROCESS | subprocess.CREATE_NEW_PROCESS_GROUP | subprocess.CREATE_NO_WINDOW
         subprocess.Popen([*agent_command(), "--replace"], creationflags=flags, close_fds=True)
