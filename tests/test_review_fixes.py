@@ -189,3 +189,28 @@ def test_failed_registration_keeps_the_current_link(monkeypatch):
     with pytest.raises(httpx.HTTPStatusError):
         agent.register(agent.make_invite(SERVER, "tok"))
     assert touched == []
+
+
+# --- deadlines: an online-list link to a quiz must not show up twice ------------------------
+
+class QuizLinkClient(ItemClient):
+    async def post(self, path: str, body: dict[str, Any] | None = None) -> Any:
+        from kw_mcp.service import ONLINE, QUIZZES
+
+        subj = (body or {}).get("selectSubj")
+        if path == ONLINE and subj == "U2026A":
+            # KLAS can list other coursework in the online-content list; this row is the quiz below.
+            return [{"evltnSe": "quiz", "sbjt": "11주차 퀴즈", "startDate": "2026-11-05 00:00",
+                     "endDate": "2026-11-07 23:59", "prog": 0}]
+        if path == QUIZZES and subj == "U2026A":
+            return [{"papernm": "11주차 퀴즈", "sdt": "2026-11-05 00:00:00", "edt": "2026-11-07 23:59:00",
+                     "issubmit": "N"}]
+        if path in (ONLINE, QUIZZES):
+            return []
+        return await super().post(path, body)
+
+
+async def test_a_quiz_linked_from_the_online_list_is_listed_once():
+    svc = KlasService(QuizLinkClient(), now=lambda: at(2026, 11, 5, 12))
+    items = [(i["kind"], i["title"]) for i in (await svc.deadlines(7))["items"] if "퀴즈" in (i["title"] or "")]
+    assert items == [("quiz", "11주차 퀴즈")]

@@ -1,6 +1,6 @@
 # Runs the live Windows installer and the agent's Windows-only code (Run key, pythonw spawn,
 # single-instance lock). A fake invite stops `kw-mcp link` before it would touch KLAS.
-name: Windows agent install
+name: Agent install (Windows, macOS)
 
 on:
   workflow_dispatch:
@@ -8,7 +8,7 @@ on:
     paths:
       - "src/kw_mcp/agent.py"
       - "src/kw_mcp/__init__.py"
-      - ".github/workflows/windows-agent.yml"
+      - ".github/workflows/**"
 
 jobs:
   install:
@@ -66,3 +66,40 @@ jobs:
           $log = "$env:LOCALAPPDATA\kw-campus\update.log"
           if (Test-Path $log) { Get-Content $log }
           if ($v -ne '0.99.0') { throw 'the detached update did not install the new version' }
+
+  macos:
+    # A fresh Mac, like a friend's first install: live installer, launchd job, lock, self-update.
+    runs-on: macos-latest
+    timeout-minutes: 20
+    env:
+      BRIDGE: https://l9doaodgw6.execute-api.ap-northeast-2.amazonaws.com
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Live installer (stops at link with a fake invite)
+        run: |
+          set +e
+          curl -fsSL "$BRIDGE/install.sh" | sh -s -- kwc_not-a-real-invite < /dev/null
+          set -e
+          export PATH="$HOME/.local/bin:$PATH"
+          kw-mcp --help > /dev/null
+          kw-mcp status
+
+      - name: Install this commit over the live release
+        run: |
+          export PATH="$HOME/.local/bin:$PATH"
+          uv tool install --force --quiet --python 3.13 .
+
+      - name: launchd job, single-instance lock
+        run: |
+          export PATH="$HOME/.local/bin:$PATH"
+          "$(uv tool dir)/kw-mcp/bin/python" .github/workflows/macos_agent_check.py
+
+      - name: Self-update installs a newer wheel
+        run: |
+          export PATH="$HOME/.local/bin:$PATH"
+          sed -i '' 's/^version = ".*"/version = "0.99.0"/' pyproject.toml
+          uv build --wheel --out-dir dist-update --quiet
+          py="$(uv tool dir)/kw-mcp/bin/python"
+          "$py" -c "import sys; from pathlib import Path; from kw_mcp import agent; sys.exit(0 if agent.install_update(Path(sys.argv[1])) else 1)" dist-update/kw_mcp-0.99.0-py3-none-any.whl
+          uv tool list | grep -E '^kw-mcp v0\.99\.0'
