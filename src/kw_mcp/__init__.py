@@ -23,6 +23,7 @@ def main() -> None:
     link.add_argument("invite", help="받은 초대 코드 (kwc_...)")
     link.add_argument("--no-autostart", action="store_true", help="자동 실행을 등록하지 않음")
     link.add_argument("--server", help=argparse.SUPPRESS)  # set by the installer: the bridge it came from
+    link.add_argument("--relink", action="store_true", help="이미 연결돼 있어도 기기를 새로 등록 (기존 커넥터는 다시 연결해야 함)")
     sub.add_parser("code", help="Claude/ChatGPT 커넥터 승인에 넣을 1회용 연결 코드 발급")
     sub.add_parser("status", help="연결·자동 실행 상태 확인")
     sub.add_parser("unlink", help="이 PC 연결 해제 (커넥터도 더 이상 동작하지 않음)")
@@ -41,7 +42,7 @@ def main() -> None:
         credentials.delete()
         print("키체인에서 KLAS 로그인 정보를 삭제했습니다.")
     elif args.command == "link":
-        sys.exit(_link(args.invite, autostart=not args.no_autostart, server=args.server))
+        sys.exit(_link(args.invite, autostart=not args.no_autostart, server=args.server, relink=args.relink))
     elif args.command == "code":
         sys.exit(_code())
     elif args.command == "status":
@@ -62,7 +63,7 @@ def main() -> None:
         run()
 
 
-def _link(invite: str, autostart: bool, server: str | None = None) -> int:
+def _link(invite: str, autostart: bool, server: str | None = None, relink: bool = False) -> int:
     import httpx
 
     from . import agent, credentials
@@ -82,7 +83,13 @@ def _link(invite: str, autostart: bool, server: str | None = None) -> int:
     if asyncio.run(_login_ok()) != 0:
         return 1
     try:
-        _, mcp_url = agent.register(invite, server)
+        if not relink and agent.linked_to(invite_server):
+            # Re-running the installer is how people update: keep the device (and the Claude/ChatGPT
+            # connections bound to it), just restart the agent on the new version.
+            print("이미 연결된 PC입니다. 에이전트만 새 버전으로 다시 시작합니다.")
+            mcp_url = f"{invite_server}/mcp"
+        else:
+            _, mcp_url = agent.register(invite, server)
         if autostart:
             print(f"자동 실행 등록: {agent.install_autostart()}")
         code = agent.pair_code()

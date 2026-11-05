@@ -119,7 +119,8 @@ async def get_team_projects(course: str | None = None, semester: str | None = No
 
 @mcp.tool(annotations=READ_ONLY)
 async def get_course_notices(course: str | None = None, semester: str | None = None) -> list[dict[str, Any]]:
-    """과목 게시판의 최근 글(공지사항·강의 자료실 등): 과목, 게시판, 제목, 작성일."""
+    """과목 게시판의 최근 글(KLAS 홈 화면에 뜨는 몇 개만): 과목, 게시판, 제목, 작성일.
+    오래된 공지나 특정 주제(시험·휴강 등)는 search_course_posts로 찾으세요."""
     with expected_errors():
         return await (await service()).notices(semester, course)
 
@@ -146,6 +147,38 @@ async def get_quizzes(
     """퀴즈(마감순): 제목, 유형, 시작·마감, 제출 여부, 제한 시간, 문항 수. pending_only=True면 미제출만."""
     with expected_errors():
         return await (await service()).quizzes(semester, course, pending_only)
+
+
+@mcp.tool(annotations=READ_ONLY)
+async def get_assignment_detail(course: str, title: str) -> dict[str, Any]:
+    """과제 하나의 상세: 무엇을 내야 하는지(본문), 제출 형식·용량, 첨부 파일 이름, 기간, 지금 제출 가능한지,
+    내 제출 시각·점수(공개된 경우)·교수 의견. course는 과목명 일부, title은 과제 제목 일부(get_assignments 결과)."""
+    with expected_errors():
+        return await (await service()).assignment_detail(course, title)
+
+
+@mcp.tool(annotations=READ_ONLY)
+async def search_course_posts(course: str, keyword: str = "") -> dict[str, Any]:
+    """한 과목의 강의 공지사항·자료실 전체에서 글 찾기(최신순, 게시판마다 10개). keyword는 제목·본문 검색어
+    (예: "시험", "휴강", "기말"). get_course_notices는 홈 화면의 최근 글만 보므로, 오래된 공지나 특정 주제는 이걸 쓰세요.
+    본문은 get_course_post로 여세요."""
+    with expected_errors():
+        return await (await service()).search_course_posts(course, keyword)
+
+
+@mcp.tool(annotations=READ_ONLY)
+async def get_course_post(course: str, title: str) -> dict[str, Any]:
+    """과목 게시판(강의 공지사항·강의 자료실) 글 하나의 본문과 첨부 파일 이름.
+    course는 과목명 일부, title은 글 제목 일부(get_course_notices 결과)."""
+    with expected_errors():
+        return await (await service()).course_post(course, title)
+
+
+@mcp.tool(annotations=READ_ONLY)
+async def get_syllabus(course: str) -> dict[str, Any]:
+    """강의계획서: 개요·학습목표, 주차별 계획, 평가 비율, 교재, 교수 이메일·연구실 전화. course는 과목명 일부."""
+    with expected_errors():
+        return await (await service()).syllabus(course)
 
 
 @mcp.tool(annotations=READ_ONLY)

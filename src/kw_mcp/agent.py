@@ -52,6 +52,18 @@ DENIED_BACKOFF_S = 600.0  # the bridge refused this PC (unlinked, clock far off)
 LOCK_PORT = 47811  # one agent per user: the running agent holds this localhost port
 LAUNCHD_LABEL = "kr.kwcampus.agent"
 WINDOWS_RUN_VALUE = "KWCampusAgent"
+# Sent on connect so the bridge knows which requests this agent understands.
+# 1: "snapshot" only. 2: also "call" with an op from CALLS.
+PROTOCOL_VERSION = 2
+# Single-item reads the bridge may ask for: op -> argument names. Each op is a read-only
+# KlasService method taking those arguments as strings.
+CALLS: dict[str, tuple[str, ...]] = {
+    "assignment_detail": ("course", "title"),
+    "syllabus": ("course",),
+    "course_post": ("course", "title"),
+    "search_course_posts": ("course", "keyword"),
+}
+MAX_ARG_CHARS = 100
 
 
 class NotLinked(RuntimeError):
@@ -180,6 +192,18 @@ def register(invite: str, expected_server: str | None = None) -> tuple[Link, str
     return link, data["mcp_url"]
 
 
+def linked_to(server: str) -> bool:
+    """True if this PC is already registered with `server` and the bridge still knows it."""
+    try:
+        link = load_link()
+        if link.server != server.rstrip("/"):
+            return False
+        pair_code()  # signed request: fails if the device was removed on the bridge
+        return True
+    except (NotLinked, httpx.HTTPError, KeyringError):
+        return False
+
+
 def pair_code() -> dict[str, Any]:
     """A one-time code (15 minutes) to type on the connector's approval page."""
     link, key = load_link(), DeviceKey.load()
@@ -229,16 +253,26 @@ class KlasHolder:
         self._client = self._service = None
 
 
-async def build_result(klas: KlasHolder) -> dict[str, Any]:
+async def build_result(klas: KlasHolder, op: str | None = None, args: dict[str, Any] | None = None) -> dict[str, Any]:
+    """The snapshot (op None) or one CALLS read, as a dict the bridge decrypts; errors as {"error": code}."""
     try:
-        return await (await klas.service()).snapshot()
+        service = await klas.service()
+        if op is None:
+            return await service.snapshot()
+        names = CALLS.get(op)
+        if names is None or not hasattr(service, op):
+            return {"error": "unsupported", "message": f"이 에이전트는 '{op}' 요청을 모릅니다."}
+        clean = {n: str((args or {}).get(n) or "")[:MAX_ARG_CHARS] for n in names}
+        return {"result": await getattr(service, op)(**clean)}
+    except LookupError as e:
+        return {"error": "not_found", "message": str(e)}
     except (credentials.MissingCredentials, KeyringError) as e:
         return {"error": "klas_login_required", "message": str(e)}
     except KlasLoginBlocked as e:
         return {"error": "klas_blocked", "message": str(e)}
     except KlasLoginError as e:
         return {"error": "klas_login_required", "message": str(e)}
-    except (KlasError, LookupError, httpx.HTTPError) as e:
+    except (KlasError, httpx.HTTPError) as e:
         log.warning("KLAS read failed: %s", e.__class__.__name__)
         return {"error": "klas_error"}
 
@@ -263,16 +297,17 @@ async def answer(klas: KlasHolder, link: Link, message: dict[str, Any], http: ht
         log.warning("ignored a request without a valid key")
         return
     started = time.monotonic()
-    data = await build_result(klas)
+    op = str(message["op"]) if message.get("type") == "call" else None
+    data = await build_result(klas, op, message.get("args") if isinstance(message.get("args"), dict) else None)
     r = await http.post(result_url, json=encrypt_result(key, request_id, data))
-    log.info("answered a request in %.1fs (%s, HTTP %s)", time.monotonic() - started,
+    log.info("answered a %s request in %.1fs (%s, HTTP %s)", op or "snapshot", time.monotonic() - started,
              data.get("error", "ok"), r.status_code)
 
 
 # --- the long-running agent -------------------------------------------------------------
 
 def _connect_url(link: Link, key: DeviceKey) -> str:
-    return f"{link.ws_url}?{urlencode(key.signed(link.uid, 'connect'))}"
+    return f"{link.ws_url}?{urlencode({**key.signed(link.uid, 'connect'), 'v': PROTOCOL_VERSION})}"
 
 
 async def _serve(ws: Any, klas: KlasHolder, link: Link, http: httpx.AsyncClient) -> None:
@@ -299,7 +334,7 @@ async def _serve(ws: Any, klas: KlasHolder, link: Link, http: httpx.AsyncClient)
             if isinstance(message, dict) and message.get("type") == "paired":
                 log.info("a new app was connected with this PC's code: %s (%s)",
                          str(message.get("client_name", ""))[:100], str(message.get("redirect_host", ""))[:100])
-            elif isinstance(message, dict) and message.get("type") == "snapshot":
+            elif isinstance(message, dict) and message.get("type") in ("snapshot", "call"):
                 task = asyncio.create_task(safe_answer(message))
                 tasks.add(task)
                 task.add_done_callback(tasks.discard)

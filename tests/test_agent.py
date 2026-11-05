@@ -128,3 +128,26 @@ def test_invite_must_point_at_a_plain_https_server():
     assert agent.parse_invite(agent.make_invite("http://localhost:8080", "t"))[0] == "http://localhost:8080"
     with pytest.raises(ValueError):
         agent.register(agent.make_invite("https://other.example", "tok"), expected_server=SERVER)
+
+
+class CallService:
+    async def assignment_detail(self, course, title):
+        if title == "missing":
+            raise LookupError("'missing'와 일치하는 과제가 없습니다.")
+        return {"course": course, "title": title}
+
+
+async def test_calls_run_only_allowlisted_ops_with_clean_args():
+    holder = FixedHolder(CallService())
+    ok = await agent.build_result(holder, "assignment_detail", {"course": "데이터", "title": "HW3", "extra": "x"})
+    assert ok == {"result": {"course": "데이터", "title": "HW3"}}
+    long = await agent.build_result(holder, "assignment_detail", {"course": "c" * 500, "title": None})
+    assert long["result"] == {"course": "c" * agent.MAX_ARG_CHARS, "title": ""}
+    assert (await agent.build_result(holder, "assignment_detail", {"course": "a", "title": "missing"}))["error"] == "not_found"
+    assert (await agent.build_result(holder, "delete_everything", {}))["error"] == "unsupported"
+    assert (await agent.build_result(holder, "syllabus", {"course": "a"}))["error"] == "unsupported"  # not implemented here
+
+
+def test_connect_url_announces_protocol_version():
+    url = agent._connect_url(LINK, agent.DeviceKey.generate())
+    assert url.startswith(LINK.ws_url + "?") and f"v={agent.PROTOCOL_VERSION}" in url

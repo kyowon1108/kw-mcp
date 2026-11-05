@@ -16,6 +16,7 @@ from typing import Any
 from zoneinfo import ZoneInfo
 
 from .klas import KlasClient
+from .text import html_to_text
 
 KST = ZoneInfo("Asia/Seoul")
 
@@ -25,6 +26,18 @@ TASKS = "/std/lis/evltn/TaskStdList.do"
 ONLINE = "/std/lis/evltn/SelectOnlineCntntsStdList.do"
 PROJECTS = "/std/lis/evltn/PrjctStdList.do"
 QUIZZES = "/std/lis/evltn/AnytmQuizStdList.do"
+TASK_VIEW = "/std/lis/evltn/TaskStdView.do"
+FILE_LIST = "/common/file/UploadFileList.do"
+SYLLABUS = "/std/cps/atnlc/LectrePlanData.do"
+# Course boards (same ids for every course; from the course home page). Q&A is left out on
+# purpose: its posts and comments are written by other students.
+BOARDS = (("강의 공지사항", "d052b8f845784c639f036b102fdc3023", "1"),
+          ("강의 자료실", "6972896bfe72408eb72926780e85d041", "3"))
+SYLLABUS_TEXT_CHARS = 2000
+# Syllabus grading fields (percent; null means 0) -> our names.
+GRADING = (("attendance", "attendBiyul"), ("midterm", "middleBiyul"), ("final", "lastBiyul"),
+           ("assignments", "reportBiyul"), ("participation", "learnBiyul"), ("quizzes", "quizBiyul"),
+           ("presentation", "presentationBiyul"), ("discussion", "discussionBiyul"), ("other", "gitaBiyul"))
 GRADES = "/std/cps/inqire/AtnlcScreSungjukInfo.do"
 GRADE_TOTALS = "/std/cps/inqire/AtnlcScreSungjukTot.do"
 
@@ -381,6 +394,166 @@ class KlasService:
             "courses": [pick("courses", r) for r in home.get("atnlcSbjectList") or []],
             "course_posts": [pick("course_posts", n) for n in home.get("subjNotiList") or []],
             "sections": sections,
+        }
+
+    # -- single items ----------------------------------------------------------
+
+    async def _one_course(self, course: str) -> dict[str, Any]:
+        rows = await self._course_rows(None, course or None)
+        exact = [r for r in rows if (r.get("subjNm") or "").strip() == course.strip()]
+        if len(exact) == 1 or len(rows) == 1:
+            return (exact or rows)[0]
+        names = ", ".join(r.get("subjNm") or "?" for r in rows)
+        raise LookupError(f"과목을 하나로 정할 수 없습니다. 과목명을 더 구체적으로 주세요: {names}")
+
+    async def search_course_posts(self, course: str, keyword: str = "") -> dict[str, Any]:
+        """Notice and materials posts of one course, newest first; keyword searches titles and bodies.
+
+        The home page's list (notices()) only has the latest few posts; this reaches the whole board.
+        Each board returns its first page (10 posts); `total` says how many matched.
+        """
+        row = await self._one_course(course)
+        base = {"selectYearhakgi": row.get("yearhakgi"), "selectSubj": row.get("subj"), "selectChangeYn": "Y"}
+        posts, total = [], {}
+        for board, master_id, _ in BOARDS:
+            listed = await self._client.post(f"/std/lis/sport/{master_id}/BoardStdList.do", {
+                **base, "cmd": None, "pageInit": True, "searchCondition": "ALL", "searchKeyword": keyword.strip(),
+                "currentPage": 0}) or {}
+            total[board] = ((listed.get("page") or {}).get("totalElements"))
+            posts += [{"board": board, "title": html_to_text(item.get("title")), "posted": fmt_kst(item.get("registDt")),
+                       "pinned": item.get("topAt") == "Y", "attachments": _int(item.get("fileCnt")) or 0}
+                      for item in listed.get("list") or []]
+        posts.sort(key=lambda p: p["posted"] or "", reverse=True)
+        return {"course": row.get("subjNm"), "keyword": keyword.strip() or None, "total": total, "posts": posts}
+
+    async def course_post(self, course: str, title: str) -> dict[str, Any]:
+        """One notice/materials post: body as text and attachment names. Author ids, names and IPs are left out."""
+        row = await self._one_course(course)
+        base = {"selectYearhakgi": row.get("yearhakgi"), "selectSubj": row.get("subj"), "selectChangeYn": "Y"}
+        found = []
+        for board, master_id, master_no in BOARDS:
+            listed = await self._client.post(f"/std/lis/sport/{master_id}/BoardStdList.do", {
+                **base, "cmd": None, "pageInit": True, "searchCondition": "TLE", "searchKeyword": title,
+                "currentPage": 0})
+            for item in (listed or {}).get("list") or []:
+                if _matches(html_to_text(item.get("title")), title or None):
+                    found.append((board, master_id, master_no, item))
+        exact = [f for f in found if html_to_text(f[3].get("title")) == title.strip()]
+        if not found:
+            raise LookupError(f"{row.get('subjNm')} 공지사항·자료실에서 '{title}' 제목의 글을 찾지 못했습니다.")
+        if len(exact) != 1 and len(found) > 1:
+            names = ", ".join(f"[{b}] {html_to_text(i.get('title'))}" for b, _, _, i in found[:8])
+            raise LookupError(f"'{title}'와 일치하는 글이 여러 개입니다. 제목을 더 구체적으로 주세요: {names}")
+        board, master_id, master_no, item = (exact or found)[0]
+        view = await self._client.post(f"/std/lis/sport/{master_id}/BoardStdView.do", {
+            **base, "cmd": "select", "boardNo": str(item.get("boardNo")), "masterNo": master_no})
+        post = (view or {}).get("board") or {}
+        if not post:
+            raise LookupError("글을 열지 못했습니다(삭제됐거나 권한이 없을 수 있음).")
+        files: list[dict[str, Any]] = []
+        if post.get("atchFileId"):
+            listed = await self._client.post(FILE_LIST, {"storageId": "CLS_BOARD", "attachId": post["atchFileId"]})
+            files = [{"name": f.get("fileName"), "size_kb": round((f.get("fileSize") or 0) / 1024)}
+                     for f in listed or [] if isinstance(f, dict)]
+        return {
+            "course": row.get("subjNm"),
+            "board": board,
+            "title": html_to_text(post.get("title")),
+            "posted": fmt_kst(post.get("registDt")),
+            "updated": fmt_kst(post.get("updtDt")),
+            "body": html_to_text(post.get("content")),
+            "attachments": files,
+        }
+
+    async def syllabus(self, course: str) -> dict[str, Any]:
+        """The course's syllabus (강의계획서). Professor's mobile number and TA details are left out."""
+        row = await self._one_course(course)
+        data = await self._client.post(SYLLABUS, {"selectSubj": row.get("subj")})
+        plan = data[0] if isinstance(data, list) and data and isinstance(data[0], dict) else {}
+        if not plan:
+            raise LookupError(f"{row.get('subjNm')}의 강의계획서가 아직 없습니다.")
+
+        def text(field: str) -> str | None:
+            value = (plan.get(field) or "").strip()
+            return value[:SYLLABUS_TEXT_CHARS] or None
+
+        weeks = [{"week": i, "topic": text(f"week{i}Lecture"), "note": text(f"week{i}Bigo")}
+                 for i in range(1, 17) if text(f"week{i}Lecture") or text(f"week{i}Bigo")]
+        grading = {name: _int(plan.get(field)) or 0 for name, field in GRADING}
+        books = [{"title": text(f"{p}Name"), "author": text(f"{w}Name"), "publisher": text(f"{c}Name"),
+                  "year": text(f"{y}Year")}
+                 for p, w, c, y in [("book", "write", "company", "print")]
+                 + [(f"book{i}", f"write{i}", f"company{i}", f"print{i}") for i in (1, 2, 3)]
+                 if text(f"{p}Name")]
+        return {
+            "course": row.get("subjNm"),
+            "category": text("codeName1"),
+            "credits": plan.get("hakjumNum"),
+            "professor": text("memberName") or row.get("profNm"),
+            "professor_title": text("jikgeubName"),
+            "professor_email": text("email"),
+            "professor_office_phone": text("telNo"),
+            "overview": text("summary"),
+            "objectives_and_method": text("purpose"),
+            "competencies": text("gwamokAble"),
+            "prerequisites": text("preGwamok"),
+            "weekly_plan": weeks,
+            "grading_percent": {k: v for k, v in grading.items() if v},
+            "grading_note": text("gitaDetail"),
+            "textbooks": books,
+            "notes": text("bigo"),
+            "other": text("weekGita"),
+        }
+
+    async def _find_task(self, course: str, title: str) -> tuple[dict[str, Any], dict[str, Any]]:
+        found = [(row, t) for row, items in await self._per_course(TASKS, None, course or None)
+                 for t in items if _matches(t.get("title"), title or None)]
+        exact = [(row, t) for row, t in found if (t.get("title") or "").strip() == title.strip()]
+        if len(exact) == 1 or len(found) == 1:
+            return (exact or found)[0]
+        if not found:
+            raise LookupError(f"'{title}'와 일치하는 과제가 없습니다. my_assignments로 과제 제목을 확인하세요.")
+        names = ", ".join(f"{row.get('subjNm')}: {t.get('title')}" for row, t in found[:8])
+        raise LookupError(f"'{title}'와 일치하는 과제가 여러 개입니다. 과목명이나 제목을 더 구체적으로 주세요: {names}")
+
+    async def assignment_detail(self, course: str, title: str) -> dict[str, Any]:
+        """What one assignment asks for: instructions, format, attachments (names), my submission.
+
+        Fields are whitelisted: the view response also carries my student id (projid), name and
+        department, which are left out.
+        """
+        row, task = await self._find_task(course, title)
+        view = await self._client.post(TASK_VIEW, {"selectChangeYn": "Y", "selectYearhakgi": row.get("yearhakgi"),
+                                                   "selectSubj": row.get("subj"), "ordseq": task.get("ordseq")})
+        rpt = (view or {}).get("rpt") or {}
+        smt = (view or {}).get("smt") or None
+        files: list[dict[str, Any]] = []
+        if rpt.get("atchFileId") and rpt.get("attachopen") != "N":
+            listed = await self._client.post(FILE_LIST, {"storageId": "CLS_PROF_TASK", "attachId": rpt["atchFileId"]})
+            files = [{"name": f.get("fileName"), "size_kb": round((f.get("fileSize") or 0) / 1024)}
+                     for f in listed or [] if isinstance(f, dict)]
+        # Same rule as the KLAS page: a score shows only once graded and the professor made scores public.
+        score_visible = bool(smt and smt.get("tutordate") and rpt.get("isopenscore") == "Y")
+        return {
+            "course": row.get("subjNm"),
+            "title": rpt.get("title") or task.get("title"),
+            "instructions": html_to_text(rpt.get("contents")),
+            "submit_format": rpt.get("submitfiletype"),
+            "file_limit_mb": _int(rpt.get("filelimit")),
+            "team_assignment": rpt.get("reptype") not in (None, "P"),
+            "opens": fmt_kst(task.get("startdate")),
+            "due": fmt_kst(task.get("expiredate")),
+            "late_due": fmt_kst(task.get("reexpiredate")),
+            "can_submit_now": rpt.get("indate") == "Y" or rpt.get("adddate") == "Y",
+            "attachments": files,
+            "attachments_hidden_until_due": rpt.get("attachopen") == "N",
+            "submitted": rpt.get("submityn") == "Y" or smt is not None,
+            "my_submission": None if not smt else {
+                "submitted_at": fmt_kst(smt.get("registDt")),
+                "score": smt.get("finalscore") if score_visible else None,
+                "score_status": "공개" if score_visible else ("채점 전" if not smt.get("tutordate") else "비공개"),
+                "feedback": html_to_text(smt.get("tutorcontents")) or None,
+            },
         }
 
     # -- grades ----------------------------------------------------------------

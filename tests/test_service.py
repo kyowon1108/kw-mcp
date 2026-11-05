@@ -190,6 +190,7 @@ async def test_mcp_tools_are_registered_and_callable(svc):
     assert set(tools) == {
         "list_semesters", "get_courses", "get_assignments", "get_online_lectures",
         "get_team_projects", "get_course_notices", "get_deadlines", "get_grades", "get_quizzes",
+        "get_assignment_detail", "get_syllabus", "get_course_post", "search_course_posts",
         "this_week", "today_briefing", "my_notices", "school_notices", "cafeteria_menu", "academic_calendar",
     }
     assert all(t.annotations.read_only_hint for t in tools.values())
