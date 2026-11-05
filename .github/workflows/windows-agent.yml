@@ -37,3 +37,22 @@ jobs:
           $py = Join-Path (uv tool dir) 'kw-mcp\Scripts\python.exe'
           & $py .github/workflows/windows_agent_check.py
           if ($LASTEXITCODE -ne 0) { throw 'Windows agent check failed' }
+
+      - name: Self-update installs a new wheel after the agent exits
+        shell: powershell
+        run: |
+          $env:Path = "$env:USERPROFILE\.local\bin;$env:Path"
+          (Get-Content pyproject.toml) -replace '^version = ".*"', 'version = "0.99.0"' | Set-Content pyproject.toml
+          uv build --wheel --out-dir dist-update --quiet
+          if ($LASTEXITCODE -ne 0) { throw 'building the test wheel failed' }
+          $py = Join-Path (uv tool dir) 'kw-mcp\Scripts\python.exe'
+          $whl = (Get-ChildItem dist-update\kw_mcp-0.99.0-py3-none-any.whl).FullName
+          & $py -c "import sys; from pathlib import Path; from kw_mcp import agent; sys.exit(0 if agent.install_update(Path(sys.argv[1])) else 1)" $whl
+          if ($LASTEXITCODE -ne 0) { throw 'install_update refused' }
+          for ($i = 0; $i -lt 60; $i++) {
+            $v = & $py -c "from importlib.metadata import version; print(version('kw-mcp'))" 2>$null
+            if ($v -eq '0.99.0') { break }
+            Start-Sleep -Seconds 2
+          }
+          Write-Host "installed version after update: $v"
+          if ($v -ne '0.99.0') { throw 'the detached update did not install the new version' }
