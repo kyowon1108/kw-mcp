@@ -87,3 +87,50 @@ def test_schedule_note_for_unassigned_rooms():
     assert schedule_note("토 18교시/미지정")
     assert schedule_note("") and schedule_note(None)
     assert schedule_note("화 3교시/새빛103") is None
+
+
+class GradClient(NeedsClient):
+    admitted = "2025"
+
+    async def post(self, path: str, body: dict[str, Any] | None = None) -> Any:
+        from kw_mcp.service import GEN_ED, STUDENT_RECORD
+
+        if path == GEN_ED:
+            # Field names from a live GyoyangIsuInfo response; values made up.
+            return {"aa8128": 1, "aa62": 3, "aa64": 3, "aa63": 3, "aa76": 3, "aa65": 0, "aa66": 3, "aa67": 0,
+                    "aa68": 0, "aa7881": 3, "aa83": 9, "aa84": 9}
+        if path == STUDENT_RECORD:
+            return {"hakgwa": "정보융합학부", "kname": "홍길동", "hakbun": f"{self.admitted}000000", "email": "a@kw.ac.kr",
+                    "jidoName": "김지도", "grade": 2, "hakjukStatu": "재학"}
+        return await super().post(path, body)
+
+
+async def test_graduation_progress_applies_the_2025_rule_without_leaking_identity():
+    client = GradClient()
+    svc = KlasService(client, now=lambda: datetime(2026, 11, 5, 12, 0, tzinfo=KST))
+    out = await svc.graduation_progress()
+    text = json.dumps(out, ensure_ascii=False)
+    assert "홍길동" not in text and "2025000000" not in text and "a@kw.ac.kr" not in text and "김지도" not in text
+    gen = out["general_education"]
+    assert gen["balanced_by_area"]["과학과기술"] == 6 and gen["balanced_areas_taken"] == 5
+    assert gen["total"] == 1 + 3 + 3 + 6 + 3 + 3  # aa83/aa84 are not part of the page's total
+    assert out["student"]["admission_year"] == 2025 and out["check"] == {"areas_needed": 0, "credits_needed": 11,
+                                                                        "met": False}
+    client.admitted = "2022"
+    older = await KlasService(client, now=lambda: datetime(2026, 11, 5, tzinfo=KST)).graduation_progress()
+    assert older["check"]["kwangwoonin_done"] is True and older["check"]["met"] is None
+
+
+async def test_online_list_skips_links_to_other_coursework():
+    from kw_mcp.service import ONLINE
+
+    class LinkClient(NeedsClient):
+        async def post(self, path, body=None):
+            if path == ONLINE:
+                return [{"evltnSe": "lesson", "sbjt": "1주차", "endDate": "2026-11-09 23:59", "prog": 10},
+                        {"evltnSe": "quiz", "sbjt": "퀴즈 링크", "endDate": "2026-11-09 23:59"},
+                        {"evltnSe": "proj", "sbjt": "팀플 링크"}]
+            return await super().post(path, body)
+
+    svc = KlasService(LinkClient(), now=lambda: datetime(2026, 11, 5, tzinfo=KST))
+    assert [o["title"] for o in await svc.online_lectures(course="데이터")] == ["1주차"]

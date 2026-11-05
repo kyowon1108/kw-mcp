@@ -185,6 +185,14 @@ async def get_attachment_text(course: str, title: str, file_name: str = "", part
 
 
 @mcp.tool(annotations=READ_ONLY)
+async def get_graduation_progress() -> dict[str, Any]:
+    """졸업 이수 현황: 취득 학점(전공·교양·기타), 필수교양(광운인되기)과 균형교양 8개 영역별 이수 학점,
+    입학 연도에 맞는 교양 규칙 충족 여부. "균형교양 더 들어야 해?", "졸업까지 교양 몇 학점?"에 쓰세요."""
+    with expected_errors():
+        return await (await service()).graduation_progress()
+
+
+@mcp.tool(annotations=READ_ONLY)
 async def get_attendance(course: str | None = None) -> list[dict[str, Any]]:
     """출석 현황(KLAS 전자출석): 과목별 출석·결석·지각·조퇴·공결 횟수와 주차·회차별 기록. course는 과목명 일부(생략하면 전체)."""
     with expected_errors():

@@ -44,6 +44,13 @@ GRADES = "/std/cps/inqire/AtnlcScreSungjukInfo.do"
 GRADE_TOTALS = "/std/cps/inqire/AtnlcScreSungjukTot.do"
 STUDENT_RECORD = "/std/cps/inqire/AtnlcScreHakjukInfo.do"
 ATTENDANCE = "/std/ads/admst/KwAttendStdAttendList.do"
+GEN_ED = "/std/cps/inqire/GyoyangIsuInfo.do"
+# GyoyangIsuStdPage.do's table: 필수교양 aa8128, then the 8 balanced areas (과학과기술 = aa63 + aa76).
+BALANCED_AREAS = (("대학실용영어", ("aa62",)), ("언어와표현", ("aa64",)), ("과학과기술", ("aa63", "aa76")),
+                  ("인간과철학", ("aa65",)), ("사회와경제", ("aa66",)), ("글로벌문화와제2외국어", ("aa67",)),
+                  ("예술과체육", ("aa68",)), ("수리와자연", ("aa7881",)))
+# Online-list rows that point at other coursework (already listed as tasks/quizzes/projects).
+NOT_LECTURES = {"proj", "task", "report", "quiz", "exam", "test"}
 # Status codes of KLAS's e-attendance page (KwAttendListStdPage.do: O, X, L, R, A).
 ATTEND_STATUS = {"AT": "출석", "AB": "결석", "LT": "지각", "LE": "조퇴", "OA": "공결"}
 EXAM_WORDS = re.compile(r"시험|고사|중간|기말|퀴즈|평가 방법|범위")
@@ -296,7 +303,7 @@ class KlasService:
             for o in items:
                 # The online-content list also carries project links (evltnSe "proj", no progress);
                 # those already show up in assignments/projects.
-                if o.get("evltnSe") == "proj":
+                if o.get("evltnSe") in NOT_LECTURES:
                     continue
                 progress = _int(o.get("prog"))
                 if incomplete_only and progress is not None and progress >= 100:
@@ -765,6 +772,47 @@ class KlasService:
         return {"days": days, "since": since, "posts": posts,
                 "note": "각 과목 강의 공지사항에서 '휴강'·'보강'을 검색한 결과입니다. 내용은 게시판 글 열기 도구로 확인하세요."}
 
+    async def graduation_progress(self) -> dict[str, Any]:
+        """Where I stand on credits and general-education rules (교양 필수·균형 이수현황).
+
+        The admission year is read from the first four digits of the student id; the id itself is
+        not returned. Department-specific major requirements are not in KLAS's data, so they are
+        pointed to the department office.
+        """
+        gen, totals, record = await _gather(self._client.post(GEN_ED), self._client.post(GRADE_TOTALS),
+                                            self._client.post(STUDENT_RECORD))
+        gen = gen if isinstance(gen, dict) else {}
+        totals = totals if isinstance(totals, dict) else {}
+        record = record if isinstance(record, dict) else {}
+        areas = {name: sum(_int(gen.get(k)) or 0 for k in keys) for name, keys in BALANCED_AREAS}
+        required = _int(gen.get("aa8128")) or 0
+        general_total = required + sum(areas.values())
+        areas_taken = sum(1 for v in areas.values() if v > 0)
+        hakbun = str(record.get("hakbun") or "")
+        admitted = int(hakbun[:4]) if hakbun[:4].isdigit() else None
+        if admitted and admitted >= 2025:
+            rule = "균형교양 8개 영역 중 4개 영역 이상을 포함해 교양 30학점"
+            check = {"areas_needed": max(0, 4 - areas_taken), "credits_needed": max(0, 30 - general_total),
+                     "met": areas_taken >= 4 and general_total >= 30}
+        else:
+            rule = "필수교양 '광운인되기' 이수 + 입학 연도별 총 교양 학점(나머지는 균형교양으로 채움)"
+            check = {"kwangwoonin_done": required > 0, "met": None,
+                     "note": "총 교양 이수 학점 기준은 입학 연도·학과 졸업기준표를 확인하세요."}
+        return {
+            "student": {"department": record.get("hakgwa"), "year": record.get("grade"),
+                        "status": record.get("hakjukStatu"), "admission_year": admitted},
+            "earned_credits": {"total": totals.get("chidukHakjum"), "major": totals.get("majorChidukHakjum"),
+                               "general_education": totals.get("cultureChidukHakjum"),
+                               "other": totals.get("etcChidukHakjum")},
+            "gpa": {"transcript_record": totals.get("hwakinScoresum"), "certificate": totals.get("jaechulScoresum")},
+            "general_education": {"required_kwangwoonin": required, "balanced_by_area": areas,
+                                  "balanced_areas_taken": areas_taken, "total": general_total},
+            "rule": rule,
+            "check": check,
+            "notes": ["성적 처리가 끝난 과목만 합산(F·NP·삭제 학점 제외)", "균형교양은 3·4학점 과목만 인정, e러닝·K-MOOC 등 일부 계열 제외",
+                      "전공 졸업 학점·공학인증 등 학과별 요건은 학과 사무실에 확인하세요"],
+        }
+
     # -- grades ----------------------------------------------------------------
 
     async def grades(self) -> dict[str, Any]:
@@ -804,7 +852,8 @@ class KlasService:
             "student": {"department": record.get("hakgwa"), "year": record.get("grade"),
                         "status": record.get("hakjukStatu")},
             "gpa": {"transcript_record": totals.get("hwakinScoresum"), "certificate": totals.get("jaechulScoresum"),
-                    "scale": 4.5, "note": "KLAS 계산값(학적부 기준 / 성적증명서 기준). 학기별 gpa는 이 도구가 계산한 값"},
+                    "scale": 4.5, "note": "KLAS 계산값(학적부 기준 / 성적증명서 기준, 재수강 반영). 학기별 gpa는 "
+                                          "이 도구가 그 학기 당시 성적으로 계산한 값"},
             "credits": {"applied": credits("applied"), "earned": credits("earned"), "deleted": credits("deleted")},
             "transfer_credits": transfer if any(transfer.values()) else None,
             "semesters": out_semesters,
