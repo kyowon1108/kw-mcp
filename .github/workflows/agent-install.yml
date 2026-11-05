@@ -79,7 +79,8 @@ jobs:
       - name: Live installer (stops at link with a fake invite)
         run: |
           set +e
-          curl -fsSL "$BRIDGE/install.sh" | sh -s -- kwc_not-a-real-invite < /dev/null
+          # Exactly what a user pastes. The last step (link) needs a terminal and stops on the fake invite.
+          curl -fsSL "$BRIDGE/install.sh" | sh -s -- kwc_not-a-real-invite
           set -e
           export PATH="$HOME/.local/bin:$PATH"
           kw-mcp --help > /dev/null
