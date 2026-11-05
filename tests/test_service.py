@@ -198,8 +198,10 @@ async def test_notices_and_grades(svc):
     assert "홍길동" not in text and "2022000000" not in text and "a@kw.ac.kr" not in text and "김지도" not in text
     first, current = grades["semesters"]
     assert first["courses"][0] == {"course": "회귀분석", "category": "전선", "credits": 3, "grade": "A+", "retake": False}
-    assert first["gpa"] == round((3 * 4.5 + 2 * 3.0) / 5, 2) and first["credits"] == 6  # P counts credits, not GPA
+    assert first["gpa"] == round((3 * 4.5 + 2 * 3.0) / 5, 2)  # P counts credits, not GPA
+    assert first["registered_credits"] == 6 and first["earned_credits"] == 6
     assert current["gpa"] is None and current["courses"][0]["grade"] is None  # not graded yet
+    assert current["earned_credits"] is None
     assert grades["gpa"]["transcript_record"] == 3.91 and grades["gpa"]["certificate"] == 3.95
     assert grades["credits"]["earned"] == {"major": 57, "general_education": 38, "other": 4, "total": 99}
     assert grades["credits"]["applied"]["total"] == 105
@@ -213,6 +215,7 @@ async def test_mcp_tools_are_registered_and_callable(svc):
         "list_semesters", "get_courses", "get_assignments", "get_online_lectures",
         "get_team_projects", "get_course_notices", "get_deadlines", "get_grades", "get_quizzes",
         "get_assignment_detail", "get_syllabus", "get_course_post", "search_course_posts", "get_attachment_text",
+        "get_attendance", "get_exam_info", "get_class_changes",
         "this_week", "today_briefing", "my_notices", "school_notices", "cafeteria_menu", "academic_calendar",
     }
     assert all(t.annotations.read_only_hint for t in tools.values())

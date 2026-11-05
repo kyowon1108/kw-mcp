@@ -10,7 +10,7 @@ from datetime import datetime, timedelta
 from typing import Any
 
 from .public_api import PublicApi
-from .service import KST, KlasService, parse_kst, parse_schedule
+from .service import CLASS_CHANGE_WORDS, KST, KlasService, parse_kst, parse_schedule, term_in_session
 
 WEEKDAYS = "월화수목금토일"
 
@@ -22,7 +22,8 @@ def _today(svc: KlasService) -> datetime:
 async def this_week(svc: KlasService, public: PublicApi, days: int = 7) -> dict[str, Any]:
     deadlines = await svc.deadlines(days)
     today = _today(svc).date()
-    events = await public.calendar(today.isoformat(), (today + timedelta(days=days)).isoformat())
+    # deadlines() clamps days (0..180); use the same range for the calendar.
+    events = await public.calendar(today.isoformat(), (today + timedelta(days=deadlines["days"])).isoformat())
     return {
         **deadlines,
         "academic_events": events,
@@ -33,7 +34,9 @@ async def this_week(svc: KlasService, public: PublicApi, days: int = 7) -> dict[
 async def today_briefing(svc: KlasService, public: PublicApi) -> dict[str, Any]:
     now = _today(svc)
     weekday = WEEKDAYS[now.weekday()]
-    courses = await svc.courses()
+    semester = await svc.current_semester()
+    in_session = term_in_session(semester, now)
+    courses = await svc.courses() if in_session else []  # no timetable during breaks
     classes = []
     for c in courses:
         for slot in parse_schedule(c.get("schedule")):
@@ -57,9 +60,12 @@ async def today_briefing(svc: KlasService, public: PublicApi) -> dict[str, Any]:
         "date": now.strftime("%Y-%m-%d"),
         "weekday": weekday,
         "classes": classes,
+        **({} if in_session else {"classes_note": f"{semester} 학기 수업 기간이 아니라 시간표를 비웠습니다."}),
         "due_today_or_tomorrow": soon,
         "cafeteria": await public.menu(now.date().isoformat()),
         "new_course_posts": course_posts,
+        # Recent posts that look like a class being cancelled, made up or moved online.
+        "possible_class_changes": [n for n in course_posts if CLASS_CHANGE_WORDS.search(n.get("title") or "")],
         "new_school_notices": school,
         "note": "교시 번호는 KLAS 표기 그대로입니다. 강의실 변경·휴강은 과목 게시판을 확인하세요.",
     }

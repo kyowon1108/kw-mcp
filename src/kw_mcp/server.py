@@ -2,11 +2,10 @@
 
 from __future__ import annotations
 
-import asyncio
 import logging
 from collections.abc import Iterator
 from contextlib import contextmanager
-from typing import Any
+from typing import Any, Literal
 
 import httpx
 from keyring.errors import KeyringError
@@ -15,7 +14,8 @@ from mcp.server.mcpserver.exceptions import ToolError
 from mcp.types import ToolAnnotations
 
 from . import combined, credentials
-from .klas import KlasClient, KlasError
+from .holder import KlasHolder
+from .klas import KlasError
 from .public_api import PublicApi
 from .service import KlasService
 
@@ -54,13 +54,12 @@ def set_service(service: KlasService | None) -> None:
     _service = service
 
 
+_holder = KlasHolder()
+
+
 async def service() -> KlasService:
-    global _service
-    if _service is None:
-        # Keychain access can block on a macOS permission prompt; keep it off the event loop.
-        creds = await asyncio.to_thread(credentials.load)
-        _service = KlasService(KlasClient(creds.login_id, creds.password))
-    return _service
+    """The KLAS service; re-reads the saved login each call so a fixed password takes effect at once."""
+    return _service if _service is not None else await _holder.service()
 
 
 @contextmanager
@@ -127,8 +126,8 @@ async def get_course_notices(course: str | None = None, semester: str | None = N
 
 @mcp.tool(annotations=READ_ONLY)
 async def get_deadlines(days: int = 7) -> dict[str, Any]:
-    """현재 학기에서 앞으로 days일(최대 180) 안에 마감되는 미제출 과제와 진도 100% 미만 온라인 강의.
-    마감은 지났지만 지각 제출 기간인 과제도 late_submission=true로 포함합니다."""
+    """현재 학기에서 앞으로 days일(최대 180) 안에 마감되는 미제출 과제·퀴즈·팀플과 진도 100% 미만 온라인 강의.
+    마감은 지났지만 지각 제출 기간인 과제·팀플도 late_submission=true로 포함합니다(이때 due는 과거)."""
     with expected_errors():
         return await (await service()).deadlines(days)
 
@@ -177,12 +176,34 @@ async def get_course_post(course: str, title: str) -> dict[str, Any]:
 
 @mcp.tool(annotations=READ_ONLY)
 async def get_attachment_text(course: str, title: str, file_name: str = "", part: int = 1,
-                              source: str = "post") -> dict[str, Any]:
+                              source: Literal["post", "assignment"] = "post") -> dict[str, Any]:
     """첨부 파일 내용을 텍스트로 읽기(PDF·PPTX·DOCX·XLSX·HWP·HWPX·ipynb·코드/텍스트, zip은 파일 목록).
     source="post"면 과목 게시판 글(title=글 제목), "assignment"면 과제(title=과제 제목)의 첨부.
     file_name은 파일 이름 일부(첨부가 하나면 생략 가능). 길면 part=2, 3…으로 이어서 읽으세요(total_parts 참고)."""
     with expected_errors():
         return await (await service()).read_attachment(course, title, file_name, str(part), source)
+
+
+@mcp.tool(annotations=READ_ONLY)
+async def get_attendance(course: str | None = None) -> list[dict[str, Any]]:
+    """출석 현황(KLAS 전자출석): 과목별 출석·결석·지각·조퇴·공결 횟수와 주차·회차별 기록. course는 과목명 일부(생략하면 전체)."""
+    with expected_errors():
+        return await (await service()).attendance(course)
+
+
+@mcp.tool(annotations=READ_ONLY)
+async def get_exam_info(course: str | None = None) -> list[dict[str, Any]]:
+    """시험 정보 모아 보기: 과목별 강의계획서의 시험 주차·평가 비율과, 게시판에서 '시험'이 들어간 글(최신 6개).
+    "시험 범위", "기말 언제" 같은 질문에 먼저 쓰고, 범위·장소는 get_course_post로 글을 열어 확인하세요."""
+    with expected_errors():
+        return await (await service()).exam_info(course)
+
+
+@mcp.tool(annotations=READ_ONLY)
+async def get_class_changes(days: int = 14) -> dict[str, Any]:
+    """휴강·보강 공지: 모든 수강 과목의 강의 공지사항에서 최근 days일 안의 '휴강'·'보강' 글. "오늘 휴강이야?"에 쓰세요."""
+    with expected_errors():
+        return await (await service()).class_changes(days)
 
 
 @mcp.tool(annotations=READ_ONLY)
@@ -208,7 +229,8 @@ async def today_briefing() -> dict[str, Any]:
 
 @mcp.tool(annotations=READ_ONLY)
 async def my_notices(days: int = 7) -> dict[str, Any]:
-    """내 공지함: 최근 days일의 내 과목 게시판 글 + 학교 학사·장학 공지."""
+    """내 공지함: 최근 days일의 학교 학사·장학 공지 + 내 과목 게시판 새 글(KLAS 홈에 뜨는 최근 몇 개만).
+    오래된 과목 공지나 특정 주제는 search_course_posts로 찾으세요."""
     with expected_errors():
         return await combined.my_notices(await service(), public(), days)
 

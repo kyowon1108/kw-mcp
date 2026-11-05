@@ -40,8 +40,8 @@ from cryptography.hazmat.primitives.ciphers.aead import AESGCM
 from keyring.errors import KeyringError, PasswordDeleteError
 
 from . import credentials, release
-from .klas import KlasClient, KlasError, KlasLoginBlocked, KlasLoginError
-from .service import KlasService
+from .holder import KlasHolder
+from .klas import KlasError, KlasLoginBlocked, KlasLoginError
 
 log = logging.getLogger("kw_mcp.agent")
 
@@ -67,8 +67,12 @@ CALLS: dict[str, tuple[str, ...]] = {
     "search_course_posts": ("course", "keyword"),
     "grades": (),
     "read_attachment": ("course", "title", "file_name", "part", "source"),
+    "attendance": ("course",),
+    "exam_info": ("course",),
+    "class_changes": ("days",),
 }
 MAX_ARG_CHARS = 100
+MAX_RESULT_CHARS = 300_000  # same cap as the bridge's /device/result
 # Self-update: check the bridge's signed latest.json soon after start, then every few hours.
 UPDATE_FIRST_CHECK_S = 600
 UPDATE_INTERVAL_S = 6 * 3600
@@ -185,31 +189,42 @@ def register(invite: str, expected_server: str | None = None) -> tuple[Link, str
     server, token = parse_invite(invite)
     if expected_server and server != expected_server.rstrip("/"):
         raise ValueError(f"초대 코드의 서버({server})가 설치한 곳({expected_server})과 다릅니다. 받은 링크를 다시 확인하세요.")
-    try:
-        unlink(quiet=True)  # re-linking replaces the old device
-    except NotLinked:
-        pass
     key = DeviceKey.generate()
+    # Register first: if the network or the bridge fails here, the current link stays as it was.
     r = httpx.post(f"{server}/device/register", json={"invite": token, "public_key": key.public_jwk()}, timeout=20)
     if r.status_code == 403:
         raise ValueError("초대 코드가 유효하지 않습니다. 받은 코드를 다시 확인하세요.")
     r.raise_for_status()
     data = r.json()
+    _forget_previous_device()
     key.save()
     link = Link(server=server, ws_url=data["ws_url"], uid=data["uid"])
     save_link(link)
     return link, data["mcp_url"]
 
 
+def _forget_previous_device() -> None:
+    """Best effort: ask the bridge to drop this PC's previous device after a new one registered."""
+    try:
+        old, old_key = load_link(), DeviceKey.load()
+        httpx.post(f"{old.server}/device/unlink", json=old_key.signed(old.uid, "unlink"), timeout=20)
+    except (NotLinked, httpx.HTTPError, KeyringError, ValueError):
+        pass
+
+
 def linked_to(server: str) -> bool:
-    """True if this PC is already registered with `server` and the bridge still knows it."""
+    """True if this PC is already registered with `server` and the bridge still knows it.
+
+    Only "not linked here" or "the bridge doesn't know this device" count as False; a network
+    error is raised, so a flaky connection during an update never triggers a re-registration.
+    """
     try:
         link = load_link()
         if link.server != server.rstrip("/"):
             return False
-        pair_code()  # signed request: fails if the device was removed on the bridge
+        pair_code()  # signed request: NotLinked (403) if the device was removed on the bridge
         return True
-    except (NotLinked, httpx.HTTPError, KeyringError):
+    except NotLinked:
         return False
 
 
@@ -239,29 +254,6 @@ def unlink(*, quiet: bool = False) -> None:
 
 # --- answering requests -------------------------------------------------------------
 
-class KlasHolder:
-    """One KLAS client for the agent's lifetime, rebuilt when `kw-mcp setup` saves a new login."""
-
-    def __init__(self) -> None:
-        self._creds: credentials.Credentials | None = None
-        self._client: KlasClient | None = None
-        self._service: KlasService | None = None
-
-    async def service(self) -> KlasService:
-        creds = await asyncio.to_thread(credentials.load)
-        if creds != self._creds or self._service is None:
-            await self.aclose()
-            self._client = KlasClient(creds.login_id, creds.password)
-            self._service = KlasService(self._client)
-            self._creds = creds
-        return self._service
-
-    async def aclose(self) -> None:
-        if self._client:
-            await self._client.aclose()
-        self._client = self._service = None
-
-
 async def build_result(klas: KlasHolder, op: str | None = None, args: dict[str, Any] | None = None) -> dict[str, Any]:
     """The snapshot (op None) or one CALLS read, as a dict the bridge decrypts; errors as {"error": code}."""
     try:
@@ -284,6 +276,9 @@ async def build_result(klas: KlasHolder, op: str | None = None, args: dict[str, 
     except (KlasError, httpx.HTTPError) as e:
         log.warning("KLAS read failed: %s", e.__class__.__name__)
         return {"error": "klas_error"}
+    except Exception:  # always answer: otherwise the connector waits out its timeout and blames sleep
+        log.exception("unexpected error while answering %s", op or "snapshot")
+        return {"error": "klas_error", "message": "PC 에이전트에서 예상하지 못한 오류가 났습니다."}
 
 
 def encrypt_result(key: bytes, request_id: str, data: dict[str, Any]) -> dict[str, str]:
@@ -308,7 +303,11 @@ async def answer(klas: KlasHolder, link: Link, message: dict[str, Any], http: ht
     started = time.monotonic()
     op = str(message["op"]) if message.get("type") == "call" else None
     data = await build_result(klas, op, message.get("args") if isinstance(message.get("args"), dict) else None)
-    r = await http.post(result_url, json=encrypt_result(key, request_id, data))
+    body = encrypt_result(key, request_id, data)
+    if len(body["ct"]) > MAX_RESULT_CHARS:  # the bridge would refuse it; say why instead of timing out
+        data = {"error": "too_large", "message": "결과가 너무 큽니다. 과목이나 기간을 좁혀서 다시 물어보세요."}
+        body = encrypt_result(key, request_id, data)
+    r = await http.post(result_url, json=body)
     log.info("answered a %s request in %.1fs (%s, HTTP %s)", op or "snapshot", time.monotonic() - started,
              data.get("error", "ok"), r.status_code)
 
@@ -368,7 +367,8 @@ async def run_forever() -> None:
                 except websockets.InvalidStatus as e:
                     status = e.response.status_code
                     if status in (401, 403):
-                        log.error("the bridge refused this PC (HTTP %s); run `kw-mcp link` again if it was unlinked",
+                        log.error("the bridge refused this PC (HTTP %s). Check that the PC clock is right "
+                                  "(more than 5 minutes off is refused); if this PC was unlinked, run `kw-mcp link` again",
                                   status)
                         await asyncio.sleep(DENIED_BACKOFF_S)
                         continue
