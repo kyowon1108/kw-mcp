@@ -30,6 +30,13 @@ jobs:
           if ($LASTEXITCODE -ne 0) { throw 'kw-mcp did not run after install' }
           kw-mcp status
 
+      - name: Install this commit over the live release
+        shell: powershell
+        run: |
+          $env:Path = "$env:USERPROFILE\.local\bin;$env:Path"
+          uv tool install --force --quiet --python 3.13 .
+          if ($LASTEXITCODE -ne 0) { throw 'installing this commit failed' }
+
       - name: Autostart round trip and single-instance lock
         shell: powershell
         run: |
