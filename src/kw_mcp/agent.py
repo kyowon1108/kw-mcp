@@ -13,14 +13,17 @@ from __future__ import annotations
 
 import asyncio
 import base64
+import hashlib
 import json
 import logging
 import logging.handlers
 import os
 import plistlib
+import shutil
 import socket
 import subprocess
 import sys
+import tempfile
 import time
 from dataclasses import asdict, dataclass
 from pathlib import Path
@@ -36,7 +39,7 @@ from cryptography.hazmat.primitives.asymmetric.utils import decode_dss_signature
 from cryptography.hazmat.primitives.ciphers.aead import AESGCM
 from keyring.errors import KeyringError, PasswordDeleteError
 
-from . import credentials
+from . import credentials, release
 from .klas import KlasClient, KlasError, KlasLoginBlocked, KlasLoginError
 from .service import KlasService
 
@@ -64,6 +67,10 @@ CALLS: dict[str, tuple[str, ...]] = {
     "search_course_posts": ("course", "keyword"),
 }
 MAX_ARG_CHARS = 100
+# Self-update: check the bridge's signed latest.json soon after start, then every few hours.
+UPDATE_FIRST_CHECK_S = 600
+UPDATE_INTERVAL_S = 6 * 3600
+RESTART_EXIT_CODE = 75  # non-zero, so launchd (KeepAlive SuccessfulExit=false) starts the new version
 
 
 class NotLinked(RuntimeError):
@@ -374,6 +381,85 @@ async def run_forever() -> None:
             await klas.aclose()
 
 
+# --- self-update -----------------------------------------------------------------------
+
+def installed_version() -> str:
+    from importlib.metadata import PackageNotFoundError, version
+
+    try:
+        return version("kw-mcp")
+    except PackageNotFoundError:
+        return "0"
+
+
+def find_uv() -> str | None:
+    """uv is on PATH in a terminal, but launchd and the Run key start us with a bare PATH."""
+    exe = "uv.exe" if os.name == "nt" else "uv"
+    for candidate in (shutil.which("uv"), Path.home() / ".local" / "bin" / exe, Path.home() / ".cargo" / "bin" / exe):
+        if candidate and Path(candidate).exists():
+            return str(candidate)
+    return None
+
+
+async def fetch_update(http: httpx.AsyncClient, server: str) -> tuple[dict[str, Any], Path] | None:
+    """Download a newer release if the bridge offers one signed by the release key."""
+    r = await http.get(f"{server}/dist/latest.json")
+    if r.status_code != 200:
+        return None
+    manifest = r.json()
+    if not release.verify(manifest):
+        log.warning("ignored an update whose signature does not match the release key")
+        return None
+    if release.version_tuple(manifest["version"]) <= release.version_tuple(installed_version()):
+        return None
+    wheel = await http.get(f"{server}/dist/{manifest['wheel']}")
+    if wheel.status_code != 200 or hashlib.sha256(wheel.content).hexdigest() != manifest["sha256"]:
+        log.warning("ignored an update whose download does not match the signed hash")
+        return None
+    path = Path(tempfile.mkdtemp(prefix="kw-campus-update-")) / manifest["wheel"]
+    path.write_bytes(wheel.content)
+    return manifest, path
+
+
+def install_update(wheel: Path) -> bool:
+    """Install the verified wheel. True means: exit now so the new version starts."""
+    uv = find_uv()
+    if not uv:
+        log.warning("uv not found; skipping the update")
+        return False
+    spec = f"kw-mcp @ {wheel.as_uri()}"
+    if os.name == "nt":
+        # Windows can't replace the interpreter that is running us: a detached shell waits for us to
+        # exit, installs, then starts the agent again.
+        command = (f'timeout /t 5 /nobreak >nul & "{uv}" tool install --force --quiet --python 3.13 "{spec}" '
+                   f'& {subprocess.list2cmdline([*agent_command(), "--replace"])}')
+        flags = subprocess.DETACHED_PROCESS | subprocess.CREATE_NEW_PROCESS_GROUP | subprocess.CREATE_NO_WINDOW
+        subprocess.Popen(["cmd", "/c", command], creationflags=flags, close_fds=True)
+        return True
+    done = subprocess.run([uv, "tool", "install", "--force", "--quiet", "--python", "3.13", spec],
+                          capture_output=True, text=True, timeout=900)
+    shutil.rmtree(wheel.parent, ignore_errors=True)
+    if done.returncode != 0:
+        log.warning("installing the update failed: %s", done.stderr.strip()[-300:])
+        return False
+    return True
+
+
+async def update_loop(server: str) -> None:
+    """Returns once a newer signed version is installed (the caller then exits to restart)."""
+    await asyncio.sleep(UPDATE_FIRST_CHECK_S)
+    async with httpx.AsyncClient(timeout=120) as http:
+        while True:
+            try:
+                found = await fetch_update(http, server)
+                if found and await asyncio.to_thread(install_update, found[1]):
+                    log.info("updated %s -> %s; restarting", installed_version(), found[0]["version"])
+                    return
+            except Exception:  # never let the updater take the agent down
+                log.exception("update check failed")
+            await asyncio.sleep(UPDATE_INTERVAL_S)
+
+
 class AlreadyRunning(RuntimeError):
     pass
 
@@ -418,16 +504,20 @@ async def _watch_lock(sock: socket.socket) -> None:
             return
 
 
-async def main(replace: bool = False) -> None:
+async def main(replace: bool = False) -> int:
+    """Run until replaced (0) or updated (RESTART_EXIT_CODE)."""
     lock = single_instance(replace)
     try:
+        server = load_link().server
         runner = asyncio.create_task(run_forever())
         watcher = asyncio.create_task(_watch_lock(lock))
-        done, pending = await asyncio.wait({runner, watcher}, return_when=asyncio.FIRST_COMPLETED)
+        updater = asyncio.create_task(update_loop(server))
+        done, pending = await asyncio.wait({runner, watcher, updater}, return_when=asyncio.FIRST_COMPLETED)
         for task in pending:
             task.cancel()
         for task in done:
             task.result()
+        return RESTART_EXIT_CODE if updater in done else 0
     finally:
         lock.close()
 

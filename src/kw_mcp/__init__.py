@@ -153,7 +153,8 @@ def _agent(log_file: str | None, replace: bool) -> None:
 
     agent.configure_logging(log_file)
     try:
-        asyncio.run(agent.main(replace))
+        if code := asyncio.run(agent.main(replace)):
+            sys.exit(code)
     except agent.AlreadyRunning as e:
         agent.log.info("%s", e)
     except agent.NotLinked as e:
