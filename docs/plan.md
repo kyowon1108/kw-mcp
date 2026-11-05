@@ -138,6 +138,6 @@ PC 에이전트는 서명된 릴리스로 스스로 업데이트합니다(서명
 
 - API 전체 초당 5건 제한이 IP별이 아니라서, 누가 계속 두드리면 모두 429를 받음 (HTTP API에는 WAF를 못 붙임)
 - Claude 데스크톱 설치 창(설정값 입력)을 거친 `.mcpb` 설치: 친구 첫 사용 때 확인
-- Windows 실제 PC에서 KLAS 로그인까지 (설치·자동 실행·잠금은 GitHub Actions Windows 러너에서 운영 서버 설치 스크립트로 확인, `.github/workflows/windows-agent.yml`)
+- 친구 PC에서 실제 설치·KLAS 로그인 (설치 스크립트·자동 실행·잠금·자동 업데이트는 GitHub Actions의 새 Windows·macOS 러너에서 운영 서버 설치 스크립트로 확인, `.github/workflows/agent-install.yml`)
 - KLAS가 AWS IP 로그인을 막거나 이상 로그인으로 보는지 관찰
 - 알람 메일 구독, root 대신 배포용 IAM 역할
