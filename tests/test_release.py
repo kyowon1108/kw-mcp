@@ -75,7 +75,7 @@ def test_install_update_runs_uv_with_the_local_wheel(tmp_path, monkeypatch):
                         lambda cmd, **kw: ran.append(cmd) or type("R", (), {"returncode": 0, "stderr": ""})())
     assert agent.install_update(wheel) is True
     assert ran[0][:4] == ["/usr/local/bin/uv", "tool", "install", "--force"]
-    assert ran[0][-1] == f"kw-mcp @ {wheel.as_uri()}"
+    assert ran[0][-1] == f"kw-mcp @ {wheel.resolve().as_uri()}"
     assert not wheel.parent.exists()  # temp download removed
     monkeypatch.setattr(agent, "find_uv", lambda: None)
     assert agent.install_update(wheel) is False
@@ -97,3 +97,15 @@ def test_windows_update_command_is_one_verbatim_cmd_line():
     assert r'"C:\Users\Kim Lee\.local\bin\uv.exe" tool install --force' in line
     assert r'>> "C:\Users\Kim Lee\AppData\Local\kw-campus\update.log" 2>&1' in line
     assert line.endswith(r'& "C:\Users\Kim Lee\AppData\Roaming\uv\tools\kw-mcp\Scripts\pythonw.exe" -m kw_mcp agent --replace"')
+
+
+def test_install_update_accepts_a_relative_path(tmp_path, monkeypatch):
+    (tmp_path / "w").mkdir()
+    (tmp_path / "w" / "kw_mcp-0.9.0-py3-none-any.whl").write_bytes(b"x")
+    monkeypatch.chdir(tmp_path)
+    ran = []
+    monkeypatch.setattr(agent, "find_uv", lambda: "uv")
+    monkeypatch.setattr(agent.subprocess, "run",
+                        lambda cmd, **kw: ran.append(cmd) or type("R", (), {"returncode": 0, "stderr": ""})())
+    assert agent.install_update(Path("w/kw_mcp-0.9.0-py3-none-any.whl")) is True
+    assert ran[0][-1].startswith("kw-mcp @ file:///")

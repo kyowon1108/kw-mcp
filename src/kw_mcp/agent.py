@@ -439,6 +439,7 @@ def install_update(wheel: Path) -> bool:
     if not uv:
         log.warning("uv not found; skipping the update")
         return False
+    wheel = wheel.resolve()  # a file:// URI needs an absolute path
     spec = f"kw-mcp @ {wheel.as_uri()}"
     if os.name == "nt":
         # Windows can't replace the interpreter that is running us: a detached shell waits for us to
