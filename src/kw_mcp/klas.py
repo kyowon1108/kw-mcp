@@ -28,6 +28,7 @@ LOGIN_FORM = "/usr/cmn/login/LoginForm.do"
 LOGIN_SECURITY = "/usr/cmn/login/LoginSecurity.do"
 LOGIN_CAPTCHA = "/usr/cmn/login/LoginCaptcha.do"
 LOGIN_CONFIRM = "/usr/cmn/login/LoginConfirm.do"
+DOWNLOAD_PREFIX = "/common/file/DownloadFile/"
 
 # The login page asks for a captcha once LoginCaptcha.do reports more than this many failures.
 CAPTCHA_THRESHOLD = 2
@@ -124,6 +125,38 @@ class KlasClient:
         except SessionExpired:
             await self._relogin(generation)
             return await self._raw_post(path, body or {})
+
+    async def download(self, path: str, max_bytes: int) -> bytes:
+        """GET a file (attachment download), logging in again if the session expired."""
+        if not path.startswith(DOWNLOAD_PREFIX):
+            raise KlasError(f"refusing to fetch {path!r}: only attachment downloads are allowed")
+        generation = self._generation
+        if generation == 0:
+            await self._relogin(0)
+            generation = self._generation
+        try:
+            return await self._raw_download(path, max_bytes)
+        except SessionExpired:
+            await self._relogin(generation)
+            return await self._raw_download(path, max_bytes)
+
+    async def _raw_download(self, path: str, max_bytes: int) -> bytes:
+        async with self._slots, self._http.stream("GET", path) as resp:
+            if resp.is_redirect:
+                if LOGIN_FORM in resp.headers.get("location", ""):
+                    raise SessionExpired(f"{path}: redirected to the login page")
+                raise KlasError(f"{path}: unexpected redirect")
+            if resp.status_code >= 400:
+                raise KlasError(f"{path}: HTTP {resp.status_code}")
+            if "text/html" in resp.headers.get("content-type", ""):
+                raise SessionExpired(f"{path}: got an HTML page instead of a file")
+            chunks, total = [], 0
+            async for chunk in resp.aiter_bytes():
+                total += len(chunk)
+                if total > max_bytes:
+                    raise KlasError(f"파일이 너무 큽니다({max_bytes // (1024 * 1024)}MB 넘음).")
+                chunks.append(chunk)
+        return b"".join(chunks)
 
     async def _relogin(self, seen_generation: int) -> None:
         async with self._login_lock:

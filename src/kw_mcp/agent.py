@@ -65,6 +65,8 @@ CALLS: dict[str, tuple[str, ...]] = {
     "syllabus": ("course",),
     "course_post": ("course", "title"),
     "search_course_posts": ("course", "keyword"),
+    "grades": (),
+    "read_attachment": ("course", "title", "file_name", "part", "source"),
 }
 MAX_ARG_CHARS = 100
 # Self-update: check the bridge's signed latest.json soon after start, then every few hours.

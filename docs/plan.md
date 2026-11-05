@@ -52,7 +52,8 @@
 | 퀴즈 | `AnytmQuizStdList.do` |
 | 팀 프로젝트 (팀원 정보 제외) | `PrjctStdList.do` |
 | 과목 게시판 새 글 | `StdHome.do`의 과목 알림 목록 |
-| 성적 | 방법 2(로컬)에서만. 서버를 거치는 방법에는 넣지 않음 |
+| 성적·학점 (학기별 성적, 평량평균, 이수학점) | `AtnlcScreSungjukInfo.do`, `AtnlcScreSungjukTot.do`, `AtnlcScreHakjukInfo.do` |
+| 첨부 파일 내용 (PDF·PPTX·HWP 등 텍스트) | `/common/file/DownloadFile/…` (물을 때만, PC에서 텍스트로 변환) |
 
 KLAS 응답에서 정해 둔 필드만 골라 냅니다(`kw_mcp.service.SNAPSHOT_FIELDS`). KLAS가 나중에 팀원 이름 같은 필드를 더해도 밖으로 나가지 않습니다.
 

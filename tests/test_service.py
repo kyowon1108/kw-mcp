@@ -9,6 +9,7 @@ from kw_mcp import server
 from kw_mcp.service import (
     GRADE_TOTALS,
     GRADES,
+    STUDENT_RECORD,
     HOME,
     KST,
     ONLINE,
@@ -89,9 +90,22 @@ class FakeClient:
                      "totalscore": 10, "subj": "U2026A"}]
         if path == GRADES:
             return [{"thisYear": "2026", "hakgi": "1", "sungjukList": [
-                {"gwamokKname": "회귀분석", "codeName1": "전선", "hakjumNum": 3, "getGrade": "A+", "retakeOpt": "N"}]}]
+                {"gwamokKname": "회귀분석", "codeName1": "전선", "hakjumNum": 3, "getGrade": "A+", "retakeOpt": "N"},
+                {"gwamokKname": "글쓰기", "codeName1": "교필", "hakjumNum": 2, "getGrade": "B0", "retakeOpt": "Y"},
+                {"gwamokKname": "봉사", "codeName1": "일선", "hakjumNum": 1, "getGrade": "P", "retakeOpt": "N"}]},
+                    {"thisYear": "2026", "hakgi": "2", "sungjukList": [
+                        {"gwamokKname": "데이터마이닝", "codeName1": "전선", "hakjumNum": 3, "getGrade": "", "retakeOpt": "N"}]}]
         if path == GRADE_TOTALS:
-            return {"chidukHakjum": 99}
+            # Field names from a live AtnlcScreSungjukTot response; values made up.
+            return {"applyHakjum": 105, "majorApplyHakjum": 60, "cultureApplyHakjum": 40, "etcApplyHakjum": 5,
+                    "chidukHakjum": 99, "majorChidukHakjum": 57, "cultureChidukHakjum": 38, "etcChidukHakjum": 4,
+                    "delHakjum": 0, "majorDelHakjum": 0, "cultureDelHakjum": 0, "etcDelHakjum": 0,
+                    "hwakinScoresum": 3.91, "jaechulScoresum": 3.95}
+        if path == STUDENT_RECORD:
+            # AtnlcScreHakjukInfo also carries name, student id, e-mail and advisor: must not leave the PC.
+            return {"hakgwa": "정보융합학부", "kname": "홍길동", "hakbun": "2022000000", "email": "a@kw.ac.kr",
+                    "jidoName": "김지도", "grade": 4, "hakjukStatu": "재학", "majorHakjum": 0, "cultureHakjum": 0,
+                    "generalHakjum": 0, "prevHakjumNum": 0}
         raise AssertionError(f"unexpected path {path}")
 
 
@@ -180,9 +194,17 @@ async def test_notices_and_grades(svc):
     assert notices == [{"course": "데이터마이닝", "board": "강의 자료실", "title": "10주차 자료", "posted": "2026-11-04 22:04"}]
 
     grades = await svc.grades()
-    assert grades["semesters"][0]["courses"][0] == {
-        "course": "회귀분석", "category": "전선", "credits": 3, "grade": "A+", "retake": "N"}
-    assert grades["credit_totals"] == {"chidukHakjum": 99}
+    text = json.dumps(grades, ensure_ascii=False)
+    assert "홍길동" not in text and "2022000000" not in text and "a@kw.ac.kr" not in text and "김지도" not in text
+    first, current = grades["semesters"]
+    assert first["courses"][0] == {"course": "회귀분석", "category": "전선", "credits": 3, "grade": "A+", "retake": False}
+    assert first["gpa"] == round((3 * 4.5 + 2 * 3.0) / 5, 2) and first["credits"] == 6  # P counts credits, not GPA
+    assert current["gpa"] is None and current["courses"][0]["grade"] is None  # not graded yet
+    assert grades["gpa"]["transcript_record"] == 3.91 and grades["gpa"]["certificate"] == 3.95
+    assert grades["credits"]["earned"] == {"major": 57, "general_education": 38, "other": 4, "total": 99}
+    assert grades["credits"]["applied"]["total"] == 105
+    assert grades["student"] == {"department": "정보융합학부", "year": 4, "status": "재학"}
+    assert grades["transfer_credits"] is None
 
 
 async def test_mcp_tools_are_registered_and_callable(svc):
@@ -190,7 +212,7 @@ async def test_mcp_tools_are_registered_and_callable(svc):
     assert set(tools) == {
         "list_semesters", "get_courses", "get_assignments", "get_online_lectures",
         "get_team_projects", "get_course_notices", "get_deadlines", "get_grades", "get_quizzes",
-        "get_assignment_detail", "get_syllabus", "get_course_post", "search_course_posts",
+        "get_assignment_detail", "get_syllabus", "get_course_post", "search_course_posts", "get_attachment_text",
         "this_week", "today_briefing", "my_notices", "school_notices", "cafeteria_menu", "academic_calendar",
     }
     assert all(t.annotations.read_only_hint for t in tools.values())

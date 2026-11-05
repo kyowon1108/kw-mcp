@@ -15,6 +15,7 @@ from datetime import datetime, timedelta
 from typing import Any
 from zoneinfo import ZoneInfo
 
+from .attachments import MAX_DOWNLOAD_BYTES, UnreadableAttachment, extract_text, split_parts
 from .klas import KlasClient
 from .text import html_to_text
 
@@ -40,6 +41,10 @@ GRADING = (("attendance", "attendBiyul"), ("midterm", "middleBiyul"), ("final", 
            ("presentation", "presentationBiyul"), ("discussion", "discussionBiyul"), ("other", "gitaBiyul"))
 GRADES = "/std/cps/inqire/AtnlcScreSungjukInfo.do"
 GRADE_TOTALS = "/std/cps/inqire/AtnlcScreSungjukTot.do"
+STUDENT_RECORD = "/std/cps/inqire/AtnlcScreHakjukInfo.do"
+# Korean 4.5 scale; P/NP and not-yet-graded courses don't count toward a semester average.
+GRADE_POINTS = {"A+": 4.5, "A0": 4.0, "A": 4.0, "B+": 3.5, "B0": 3.0, "B": 3.0, "C+": 2.5, "C0": 2.0, "C": 2.0,
+                "D+": 1.5, "D0": 1.0, "D": 1.0, "F": 0.0}
 
 # Raw KLAS fields the PC agent may send to the bridge (kwcampus.bridge.shapes reads these).
 SNAPSHOT_FIELDS = {
@@ -426,8 +431,8 @@ class KlasService:
         posts.sort(key=lambda p: p["posted"] or "", reverse=True)
         return {"course": row.get("subjNm"), "keyword": keyword.strip() or None, "total": total, "posts": posts}
 
-    async def course_post(self, course: str, title: str) -> dict[str, Any]:
-        """One notice/materials post: body as text and attachment names. Author ids, names and IPs are left out."""
+    async def _find_post(self, course: str, title: str) -> tuple[dict[str, Any], dict[str, Any], tuple, dict[str, Any]]:
+        """(course row, list base body, (board, master_id, master_no), list item) for one post by title."""
         row = await self._one_course(course)
         base = {"selectYearhakgi": row.get("yearhakgi"), "selectSubj": row.get("subj"), "selectChangeYn": "Y"}
         found = []
@@ -445,6 +450,11 @@ class KlasService:
             names = ", ".join(f"[{b}] {html_to_text(i.get('title'))}" for b, _, _, i in found[:8])
             raise LookupError(f"'{title}'와 일치하는 글이 여러 개입니다. 제목을 더 구체적으로 주세요: {names}")
         board, master_id, master_no, item = (exact or found)[0]
+        return row, base, (board, master_id, master_no), item
+
+    async def course_post(self, course: str, title: str) -> dict[str, Any]:
+        """One notice/materials post: body as text and attachment names. Author ids, names and IPs are left out."""
+        row, base, (board, master_id, master_no), item = await self._find_post(course, title)
         view = await self._client.post(f"/std/lis/sport/{master_id}/BoardStdView.do", {
             **base, "cmd": "select", "boardNo": str(item.get("boardNo")), "masterNo": master_no})
         post = (view or {}).get("board") or {}
@@ -464,6 +474,47 @@ class KlasService:
             "body": html_to_text(post.get("content")),
             "attachments": files,
         }
+
+    async def read_attachment(self, course: str, title: str, file_name: str = "", part: str = "1",
+                              source: str = "post") -> dict[str, Any]:
+        """Text of one attachment on a board post (source "post") or an assignment (source "assignment").
+
+        Long text comes in parts of PART_CHARS characters; ask again with part=2, 3, ...
+        """
+        if source == "assignment":
+            row, task = await self._find_task(course, title)
+            view = await self._client.post(TASK_VIEW, {"selectChangeYn": "Y", "selectYearhakgi": row.get("yearhakgi"),
+                                                       "selectSubj": row.get("subj"), "ordseq": task.get("ordseq")})
+            rpt = (view or {}).get("rpt") or {}
+            if rpt.get("attachopen") == "N":
+                raise LookupError("이 과제의 첨부 파일은 제출 기한 전에는 공개되지 않습니다.")
+            attach_id, storage, where = rpt.get("atchFileId"), "CLS_PROF_TASK", rpt.get("title") or task.get("title")
+        else:
+            row, base, (_, master_id, master_no), item = await self._find_post(course, title)
+            attach_id, storage, where = item.get("atchFileId"), "CLS_BOARD", html_to_text(item.get("title"))
+            if not attach_id:  # list rows normally carry it; open the post if this one doesn't
+                view = await self._client.post(f"/std/lis/sport/{master_id}/BoardStdView.do", {
+                    **base, "cmd": "select", "boardNo": str(item.get("boardNo")), "masterNo": master_no})
+                attach_id = ((view or {}).get("board") or {}).get("atchFileId")
+        files = [f for f in (await self._client.post(FILE_LIST, {"storageId": storage, "attachId": attach_id})
+                             if attach_id else []) or [] if isinstance(f, dict)]
+        if not files:
+            raise LookupError(f"'{where}'에는 첨부 파일이 없습니다.")
+        chosen = [f for f in files if _matches(f.get("fileName"), file_name or None)]
+        if len(chosen) != 1:
+            names = ", ".join(str(f.get("fileName")) for f in files)
+            hint = "파일 이름을 정해 주세요" if len(chosen) > 1 else f"'{file_name}'와 일치하는 파일이 없습니다"
+            raise LookupError(f"{hint}. 첨부 파일: {names}")
+        f = chosen[0]
+        try:
+            data = await self._client.download(str(f.get("download") or ""), MAX_DOWNLOAD_BYTES)
+            kind, text = extract_text(str(f.get("fileName")), data)
+        except UnreadableAttachment as e:
+            raise LookupError(f"{f.get('fileName')}: {e}") from None
+        chunk, total = split_parts(text, _int(part) or 1)
+        return {"course": row.get("subjNm"), "from": where, "file": f.get("fileName"),
+                "size_kb": round((f.get("fileSize") or 0) / 1024), "kind": kind,
+                "part": min(max(_int(part) or 1, 1), total), "total_parts": total, "text": chunk}
 
     async def syllabus(self, course: str) -> dict[str, Any]:
         """The course's syllabus (강의계획서). Professor's mobile number and TA details are left out."""
@@ -559,24 +610,42 @@ class KlasService:
     # -- grades ----------------------------------------------------------------
 
     async def grades(self) -> dict[str, Any]:
-        semesters, totals = await _gather(self._client.post(GRADES), self._client.post(GRADE_TOTALS))
+        """Grades by semester, credits and the two KLAS grade averages.
+
+        Whitelisted: the student record endpoint also returns my name, student id, e-mail and
+        advisor, which are left out.
+        """
+        semesters, totals, record = await _gather(self._client.post(GRADES), self._client.post(GRADE_TOTALS),
+                                                  self._client.post(STUDENT_RECORD))
+        totals = totals if isinstance(totals, dict) else {}
+        record = record if isinstance(record, dict) else {}
+
+        def credits(kind: str) -> dict[str, Any]:
+            prefix = {"applied": "Apply", "deleted": "Del", "earned": "Chiduk"}[kind]
+            return {"major": totals.get(f"major{prefix}Hakjum"), "general_education": totals.get(f"culture{prefix}Hakjum"),
+                    "other": totals.get(f"etc{prefix}Hakjum"), "total": totals.get(f"{prefix[0].lower()}{prefix[1:]}Hakjum")}
+
+        out_semesters = []
+        for s in semesters or []:
+            courses = [{"course": g.get("gwamokKname"), "category": g.get("codeName1"), "credits": g.get("hakjumNum"),
+                        "grade": (g.get("getGrade") or "").strip() or None, "retake": g.get("retakeOpt") == "Y"}
+                       for g in s.get("sungjukList") or []]
+            graded = [(c["credits"] or 0, GRADE_POINTS[c["grade"]]) for c in courses if c["grade"] in GRADE_POINTS]
+            weight = sum(w for w, _ in graded)
+            out_semesters.append({
+                "year": s.get("thisYear"), "term": s.get("hakgi"),
+                "credits": sum(c["credits"] or 0 for c in courses),
+                "gpa": round(sum(w * p for w, p in graded) / weight, 2) if weight else None,
+                "courses": courses,
+            })
+        transfer = {"general_education": record.get("cultureHakjum"), "major": record.get("majorHakjum"),
+                    "elective": record.get("generalHakjum"), "total": record.get("prevHakjumNum")}
         return {
-            "semesters": [
-                {
-                    "year": s.get("thisYear"),
-                    "term": s.get("hakgi"),
-                    "courses": [
-                        {
-                            "course": g.get("gwamokKname"),
-                            "category": g.get("codeName1"),
-                            "credits": g.get("hakjumNum"),
-                            "grade": g.get("getGrade"),
-                            "retake": g.get("retakeOpt"),
-                        }
-                        for g in s.get("sungjukList") or []
-                    ],
-                }
-                for s in semesters or []
-            ],
-            "credit_totals": totals,
+            "student": {"department": record.get("hakgwa"), "year": record.get("grade"),
+                        "status": record.get("hakjukStatu")},
+            "gpa": {"transcript_record": totals.get("hwakinScoresum"), "certificate": totals.get("jaechulScoresum"),
+                    "scale": 4.5, "note": "KLAS 계산값(학적부 기준 / 성적증명서 기준). 학기별 gpa는 이 도구가 계산한 값"},
+            "credits": {"applied": credits("applied"), "earned": credits("earned"), "deleted": credits("deleted")},
+            "transfer_credits": transfer if any(transfer.values()) else None,
+            "semesters": out_semesters,
         }

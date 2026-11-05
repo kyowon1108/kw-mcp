@@ -22,9 +22,10 @@ KLAS에는 공개 API가 없다. 웹 화면이 내부적으로 호출하는 `*.d
 | `get_course_notices` | 과목 게시판 최근 글 (공지·강의 자료실 등) |
 | `get_quizzes` | 퀴즈: 유형, 시작·마감, 제출 여부, 제한 시간, 문항 수 |
 | `get_deadlines` | N일 안에 마감되는 미제출 과제·퀴즈·팀플 + 미완료 온라인 강의 |
-| `get_grades` | 학기별 성적과 학점 합계 |
+| `get_grades` | 학기별 과목 성적·학기 평점(계산값), KLAS 평량평균(학적부·성적증명서 기준), 전공·교양·기타 신청/취득/삭제 학점, 학과·학년·학적 상태(이름·학번·이메일·지도교수는 뺌) |
 | `get_assignment_detail` | 과제 하나의 상세: 무엇을 내야 하는지(본문), 제출 형식·용량, 첨부 이름, 지금 제출 가능한지, 내 제출·점수(공개된 경우)·교수 의견 |
 | `get_syllabus` | 강의계획서: 개요·학습목표, 주차별 계획, 평가 비율, 교재, 교수 이메일·연구실 전화(휴대전화·조교 정보는 뺌) |
+| `get_attachment_text` | 게시글·과제 첨부 파일 내용을 텍스트로(PDF·PPTX·DOCX·XLSX·HWP·HWPX·ipynb·코드, zip은 목록). 길면 part로 나눠 읽음 |
 | `search_course_posts` | 한 과목의 공지사항·자료실 전체에서 키워드 검색(예: "시험"). `get_course_notices`는 홈 화면의 최근 글만 본다 |
 | `get_course_post` | 강의 공지사항·자료실 글 하나의 본문과 첨부 이름(작성자 정보는 뺌, Q&A는 다른 학생 글이라 제외) |
 
@@ -119,7 +120,9 @@ Claude Desktop은 `claude_desktop_config.json`의 `mcpServers`에 같은 명령�
 | 강의계획서 | `/std/cps/atnlc/LectrePlanData.do` `{selectSubj}` |
 | 과목 게시판 목록 / 글 | `/std/lis/sport/<게시판 id>/BoardStdList.do`, `BoardStdView.do` `{boardNo, masterNo}` |
 
-첨부 파일은 이름과 크기만 보여 주고 내려받지 않는다. 다른 학생의 제출물이나 Q&A는 읽지 않는다.
+첨부 파일은 `get_attachment_text`를 부를 때만 `/common/file/DownloadFile/…`로 받아(30MB까지) 이 PC에서 텍스트로 바꾼다. 원본 파일은 남기지 않는다. 다른 학생의 제출물이나 Q&A는 읽지 않는다.
+
+| 학적·학점 합계 | `/std/cps/inqire/AtnlcScreHakjukInfo.do`(이름·학번·이메일·지도교수 필드는 버림) |
 
 ## 개발
 

@@ -135,7 +135,8 @@ async def get_deadlines(days: int = 7) -> dict[str, Any]:
 
 @mcp.tool(annotations=READ_ONLY)
 async def get_grades() -> dict[str, Any]:
-    """학기별 성적(과목, 이수구분, 학점, 등급)과 학점 합계."""
+    """성적·학점: 학기별 과목 성적과 학기 평점(4.5 만점, 도구 계산), KLAS 평량평균(학적부·성적증명서 기준),
+    전공·교양·기타 신청/취득/삭제 학점, 학과·학년·학적 상태. 이름·학번·이메일·지도교수는 포함하지 않습니다."""
     with expected_errors():
         return await (await service()).grades()
 
@@ -172,6 +173,16 @@ async def get_course_post(course: str, title: str) -> dict[str, Any]:
     course는 과목명 일부, title은 글 제목 일부(get_course_notices 결과)."""
     with expected_errors():
         return await (await service()).course_post(course, title)
+
+
+@mcp.tool(annotations=READ_ONLY)
+async def get_attachment_text(course: str, title: str, file_name: str = "", part: int = 1,
+                              source: str = "post") -> dict[str, Any]:
+    """첨부 파일 내용을 텍스트로 읽기(PDF·PPTX·DOCX·XLSX·HWP·HWPX·ipynb·코드/텍스트, zip은 파일 목록).
+    source="post"면 과목 게시판 글(title=글 제목), "assignment"면 과제(title=과제 제목)의 첨부.
+    file_name은 파일 이름 일부(첨부가 하나면 생략 가능). 길면 part=2, 3…으로 이어서 읽으세요(total_parts 참고)."""
+    with expected_errors():
+        return await (await service()).read_attachment(course, title, file_name, str(part), source)
 
 
 @mcp.tool(annotations=READ_ONLY)
