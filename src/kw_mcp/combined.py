@@ -78,10 +78,12 @@ async def my_notices(svc: KlasService, public: PublicApi, days: int = 7) -> dict
     since = (now.date() - timedelta(days=days)).isoformat()
     academic = await public.notices(category="학사", limit=20, since=since)
     scholarship = await public.notices(category="장학", limit=20, since=since)
+    department = await public.notices(category="인공지능융합대학", limit=20, since=since)
     return {
         "days": days,
         "course_posts": course_posts,
         "school_academic": academic,
         "school_scholarship": scholarship,
+        "department": department,
         "public_data": "ok" if public.configured else "공개 API(kw-campus)가 설정되지 않아 학교 공지는 비어 있습니다.",
     }
