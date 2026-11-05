@@ -20,7 +20,7 @@ TASK_VIEW_RESPONSE = {
 SYLLABUS_ROW = {
     "gwamokKname": "데이터마이닝", "codeName1": "전선", "hakjumNum": 3, "memberName": "김교수",
     "jikgeubName": "교수", "email": "prof@kw.ac.kr", "telNo": "02-000-0000", "hpNo": "010-0000-0000",
-    "jogyoName": "조교", "jogyoEmail": "ta@kw.ac.kr", "summary": "데이터에서 패턴을 찾는다.\n",
+    "jogyoName": "조교", "jogyoEmail": "ta@kw.ac.kr", "summary": "데이터에서 패턴을 찾는다.\r\n- 실습 포함\n",
     "purpose": "분류·군집", "week1Lecture": "소개", "week2Lecture": "결정트리", "week2Bigo": "실습",
     "attendBiyul": 10, "middleBiyul": 30, "lastBiyul": 40, "reportBiyul": 20, "quizBiyul": None,
     "bookName": "Data Mining", "writeName": "Han", "companyName": "MK", "printYear": "2022",
@@ -97,7 +97,7 @@ async def test_syllabus_keeps_course_content_and_work_contact_only():
     out = await svc.syllabus("데이터마이닝")
     text = json.dumps(out, ensure_ascii=False)
     assert "010-0000-0000" not in text and "ta@kw.ac.kr" not in text and "조교" not in text
-    assert out["professor_email"] == "prof@kw.ac.kr" and out["overview"] == "데이터에서 패턴을 찾는다."
+    assert out["professor_email"] == "prof@kw.ac.kr" and out["overview"] == "데이터에서 패턴을 찾는다.\n- 실습 포함"
     assert out["weekly_plan"] == [{"week": 1, "topic": "소개", "note": None},
                                   {"week": 2, "topic": "결정트리", "note": "실습"}]
     assert out["grading_percent"] == {"attendance": 10, "midterm": 30, "final": 40, "assignments": 20}

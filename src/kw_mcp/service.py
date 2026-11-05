@@ -525,7 +525,7 @@ class KlasService:
             raise LookupError(f"{row.get('subjNm')}의 강의계획서가 아직 없습니다.")
 
         def text(field: str) -> str | None:
-            value = (plan.get(field) or "").strip()
+            value = str(plan.get(field) or "").replace("\r\n", "\n").replace("\r", "\n").strip()
             return value[:SYLLABUS_TEXT_CHARS] or None
 
         weeks = [{"week": i, "topic": text(f"week{i}Lecture"), "note": text(f"week{i}Bigo")}
