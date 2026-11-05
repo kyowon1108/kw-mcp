@@ -403,7 +403,7 @@ wheels = [
 
 [[package]]
 name = "kw-mcp"
-version = "0.5.3"
+version = "0.7.2"
 source = { editable = "." }
 dependencies = [
     { name = "cryptography" },

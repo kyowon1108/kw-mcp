@@ -1,6 +1,6 @@
 [project]
 name = "kw-mcp"
-version = "0.5.3"
+version = "0.7.2"
 description = "Read-only MCP server for Kwangwoon University KLAS"
 readme = "README.md"
 authors = [

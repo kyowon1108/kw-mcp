@@ -86,7 +86,9 @@ npx -y @anthropic-ai/mcpb pack . dist/kw-klas.mcpb   # 또는 로컬에 설치�
 
 **자동 업데이트**: 에이전트는 시작 10분 뒤와 6시간마다 연결 서버의 `/dist/latest.json`을 본다. 버전이 더 높고, Ed25519 서명이 `kw_mcp/release.py`의 공개키와 맞고, 받은 파일이 서명된 SHA-256과 같을 때만 설치하고 다시 시작한다(macOS는 launchd가, Windows는 에이전트가 끝난 뒤 별도 프로세스가 설치하고 띄움). 서명 키는 릴리스하는 PC의 키체인에만 있어서, 서버만으로는 PC에 코드를 밀어 넣을 수 없다. 처음 설치한 명령을 다시 실행해도 업데이트되고, 이때 기기 등록과 커넥터 연결은 그대로다.
 
-**릴리스**: `pyproject.toml`의 version을 올리고 kw-campus의 `scripts/build_lambda.sh` → `cdk deploy`. 빌드가 키체인의 키로 서명한다(`python -m kw_mcp.release keygen`은 처음 한 번만). Claude 데스크톱 `.mcpb`는 자동 업데이트가 없으니 새 파일을 받아 다시 설치한다.
+**릴리스**: `pyproject.toml`과 `manifest.json`의 version을 같은 값으로 올리고, `mcpb pack . dist/kw-klas.mcpb` → kw-campus의 `scripts/build_lambda.sh` → `cdk deploy`. 빌드가 키체인의 키로 wheel과 `.mcpb`를 함께 서명한다(`python -m kw_mcp.release keygen`은 처음 한 번만).
+
+**확장 업데이트**: Claude 데스크톱은 파일로 설치한 확장을 스스로 업데이트하지 않는다. 그래서 확장이 초대 코드의 서버에서 `latest.json`의 `mcpb` 항목을 6시간마다 확인하고, 서명이 맞는 더 높은 버전이 있으면 `this_week`·`today_briefing`·`my_notices` 답에 `update_available`을 붙인다. `download_update` 도구(읽기 전용이 아니라 Claude가 사용자에게 먼저 묻는다)는 새 파일을 받아 서명된 SHA-256과 맞을 때만 다운로드 폴더에 저장한다. 확장은 `uv run --frozen --no-dev`로 uv.lock에 고정된 버전·해시만, 개발용 패키지 없이 설치한다. 서명 단계는 `.mcpb` 안의 코드가 같은 버전 wheel과 다르면 거부한다(오래된 파일이 서명되는 것 방지).
 
 ## Claude Code에 등록
 

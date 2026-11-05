@@ -83,7 +83,8 @@ def test_install_update_runs_uv_with_the_local_wheel(tmp_path, monkeypatch):
 
 def test_versions_compare_numerically():
     assert release.version_tuple("0.10.0") > release.version_tuple("0.9.9")
-    assert json.dumps(release.version_tuple("0.2.0")) == "[0, 2, 0]"
+    assert json.dumps(release.version_tuple("0.2.0")) == "[0, 2, 0, 0]"
+    assert release.version_tuple("0.6") == release.version_tuple("0.6.0")  # no spurious update
 
 
 def test_windows_update_command_is_one_verbatim_cmd_line():

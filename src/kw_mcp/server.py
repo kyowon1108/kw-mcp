@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import asyncio
 import logging
 from collections.abc import Iterator
 from contextlib import contextmanager
@@ -13,7 +14,7 @@ from mcp.server.mcpserver import MCPServer
 from mcp.server.mcpserver.exceptions import ToolError
 from mcp.types import ToolAnnotations
 
-from . import combined, credentials
+from . import combined, credentials, updates
 from .holder import KlasHolder
 from .klas import KlasError
 from .public_api import PublicApi
@@ -27,9 +28,12 @@ INSTRUCTIONS = """\
 - "이번 주 할 일"은 this_week, "오늘 뭐 있어"는 today_briefing, "새 공지"는 my_notices를 먼저 쓰세요.
   이 세 도구는 KLAS 개인 데이터와 학교 공개 정보(공지·학식·학사일정)를 이 PC에서 합칩니다.
 - 학교 공지·학식·학사일정만 필요하면 school_notices, cafeteria_menu, academic_calendar를 쓰세요.
+- 결과에 update_available이 있으면 새 버전이 있다고 사용자에게 한 번 알려 주세요.
 """
 
 READ_ONLY = ToolAnnotations(readOnlyHint=True, idempotentHint=True, openWorldHint=True)
+# Saves one file into Downloads; Claude asks the user before calling a tool that isn't read-only.
+SAVES_FILE = ToolAnnotations(readOnlyHint=False, destructiveHint=False, idempotentHint=True, openWorldHint=True)
 
 mcp = MCPServer("kw-klas", instructions=INSTRUCTIONS)
 
@@ -221,18 +225,41 @@ async def get_syllabus(course: str) -> dict[str, Any]:
         return await (await service()).syllabus(course)
 
 
+UPDATE_WAIT_S = 1.5
+_checks: set[asyncio.Task] = set()  # keep running checks referenced until they finish
+
+
+def _settle(task: asyncio.Task) -> None:
+    _checks.discard(task)
+    if not task.cancelled():
+        task.exception()  # retrieved, so a failure is never logged as unhandled
+
+
+async def with_update_notice(answer: Any) -> dict[str, Any]:
+    """Run a combined tool while the (cached) new-version check runs alongside it. The answer never
+    waits more than UPDATE_WAIT_S for the check; a slow check still fills the cache for next time."""
+    check = asyncio.create_task(updates.latest())
+    _checks.add(check)
+    check.add_done_callback(_settle)
+    result = await answer
+    done, _ = await asyncio.wait({check}, timeout=UPDATE_WAIT_S)
+    if check in done and not check.cancelled() and check.exception() is None and check.result():
+        result["update_available"] = updates.notice(check.result())
+    return result
+
+
 @mcp.tool(annotations=READ_ONLY)
 async def this_week(days: int = 7) -> dict[str, Any]:
     """이번 주 할 일: 앞으로 days일 안에 마감되는 미제출 과제·퀴즈·팀플과 미완료 온라인 강의, 그리고 같은 기간의 학사일정."""
     with expected_errors():
-        return await combined.this_week(await service(), public(), days)
+        return await with_update_notice(combined.this_week(await service(), public(), days))
 
 
 @mcp.tool(annotations=READ_ONLY)
 async def today_briefing() -> dict[str, Any]:
     """오늘 브리핑: 오늘 수업(교시·강의실), 오늘·내일 마감, 오늘 학식, 최근 과목 게시판 글과 학교 공지."""
     with expected_errors():
-        return await combined.today_briefing(await service(), public())
+        return await with_update_notice(combined.today_briefing(await service(), public()))
 
 
 @mcp.tool(annotations=READ_ONLY)
@@ -240,7 +267,7 @@ async def my_notices(days: int = 7) -> dict[str, Any]:
     """내 공지함: 최근 days일의 학교 학사·장학 공지 + 내 과목 게시판 새 글(KLAS 홈에 뜨는 최근 몇 개만).
     오래된 과목 공지나 특정 주제는 search_course_posts로 찾으세요."""
     with expected_errors():
-        return await combined.my_notices(await service(), public(), days)
+        return await with_update_notice(combined.my_notices(await service(), public(), days))
 
 
 @mcp.tool(annotations=READ_ONLY)
@@ -263,6 +290,25 @@ async def academic_calendar(start: str | None = None, end: str | None = None) ->
     """학사일정(공개). start~end(YYYY-MM-DD, 기본: 오늘부터 30일)."""
     api = public()
     return {"events": await api.calendar(start, end), "configured": api.configured}
+
+
+async def check_update() -> dict[str, Any]:
+    """이 확장(광운대 KLAS)의 새 버전이 있는지 확인합니다. 우리 릴리스 키로 서명된 버전만 알려 줍니다."""
+    newer = await updates.latest(force=True)
+    return {"installed": updates.installed_version(), "update_available": updates.notice(newer) if newer else None}
+
+
+async def download_update() -> dict[str, Any]:
+    """새 버전 확장 파일을 받아 서명된 해시와 맞는지 확인한 뒤 다운로드 폴더에 저장합니다.
+    사용자가 받겠다고 할 때만 쓰세요. 저장된 파일을 더블클릭하면 Claude 데스크톱이 새 버전을 설치합니다."""
+    with expected_errors():
+        path = await updates.download()
+    return {"saved_to": str(path), "next": "이 파일을 더블클릭해 설치하세요. 학번·비밀번호를 다시 물으면 다시 입력하면 됩니다."}
+
+
+if updates.enabled():  # only the Claude Desktop extension can't update itself
+    mcp.tool(annotations=READ_ONLY)(check_update)
+    mcp.tool(annotations=SAVES_FILE)(download_update)
 
 
 def run() -> None:

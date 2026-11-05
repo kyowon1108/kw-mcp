@@ -9,6 +9,8 @@ the access token in the path and generic filters (category, date range).
 
 from __future__ import annotations
 
+import asyncio
+import json
 import os
 from pathlib import Path
 from typing import Any
@@ -16,6 +18,8 @@ from typing import Any
 import httpx
 
 CONFIG_FILE = Path.home() / ".config" / "kw-campus" / "api-url"
+MAX_RESPONSE_BYTES = 2 * 1024 * 1024
+DEADLINE_S = 10.0  # whole request: httpx timeouts are per read, so a trickling server could stall the tools
 
 
 def _from_invite(invite: str) -> str | None:
@@ -50,11 +54,19 @@ class PublicApi:
         if not self._url:
             return None
         try:
-            response = await self._http.get(f"{self._url}{path}", params={k: v for k, v in params.items() if v is not None})
-            response.raise_for_status()
-            return response.json()
-        except (httpx.HTTPError, ValueError):
-            return None  # public data is a bonus; personal tools must keep working without it
+            query = {k: v for k, v in params.items() if v is not None}
+            async with asyncio.timeout(DEADLINE_S), \
+                    self._http.stream("GET", f"{self._url}{path}", params=query) as response:
+                response.raise_for_status()
+                chunks, total = [], 0
+                async for chunk in response.aiter_bytes():
+                    total += len(chunk)
+                    if total > MAX_RESPONSE_BYTES:
+                        return None
+                    chunks.append(chunk)
+            return json.loads(b"".join(chunks))
+        except Exception:  # noqa: BLE001 -- public data is a bonus; personal tools must keep working without it
+            return None
 
     async def notices(self, category: str | None = None, limit: int = 10, query: str | None = None,
                       since: str | None = None, pinned: bool = True) -> list[dict[str, Any]]:
