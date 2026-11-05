@@ -7,15 +7,20 @@ from mcp.server.mcpserver.exceptions import ToolError
 
 from kw_mcp import server
 from kw_mcp.service import (
+    DISCUSSIONS,
+    GRADE_TERM,
     GRADE_TOTALS,
     GRADES,
-    STUDENT_RECORD,
     HOME,
     KST,
     ONLINE,
+    ONLINE_TESTS,
     PROJECTS,
     QUIZZES,
     SEMESTERS,
+    STANDING,
+    STUDENT_RECORD,
+    SURVEYS,
     TASKS,
     KlasService,
     fmt_kst,
@@ -106,6 +111,14 @@ class FakeClient:
             return {"hakgwa": "정보융합학부", "kname": "홍길동", "hakbun": "2022000000", "email": "a@kw.ac.kr",
                     "jidoName": "김지도", "grade": 4, "hakjukStatu": "재학", "majorHakjum": 0, "cultureHakjum": 0,
                     "generalHakjum": 0, "prevHakjumNum": 0}
+        if path in (ONLINE_TESTS, DISCUSSIONS, SURVEYS):
+            return []
+        if path == STANDING:
+            # Field names from a live StandStdList row (values made up).
+            return [{"thisYear": "2026", "hakgi": "1", "applyHakjum": 6, "applySum": 19.5, "applyPoint": 3.9,
+                     "classOrder": 12, "manNum": 80, "warningOpt": None, "pcnt": 15.0}]
+        if path == GRADE_TERM:
+            return {"nowMap": {"nowdate": "20261105", "nowtime": "120000"}, "termMap": None}
         raise AssertionError(f"unexpected path {path}")
 
 
@@ -207,6 +220,10 @@ async def test_notices_and_grades(svc):
     assert grades["credits"]["applied"]["total"] == 105
     assert grades["student"] == {"department": "정보융합학부", "year": 4, "status": "재학"}
     assert grades["transfer_credits"] is None
+    assert grades["standing"] == [{"year": "2026", "term": "1", "credits": 6, "gpa": 3.9, "rank": 12, "of": 80,
+                                   "percentile": 15.0, "academic_warning": None}]
+    assert grades["grade_viewing_period"]["status"] == "not_set"
+    assert grades["summary"]["major_gpa"] == 4.5 and grades["summary"]["f_not_retaken"] == []
 
 
 async def test_mcp_tools_are_registered_and_callable(svc):
@@ -217,6 +234,7 @@ async def test_mcp_tools_are_registered_and_callable(svc):
         "get_assignment_detail", "get_syllabus", "get_course_post", "search_course_posts", "get_attachment_text",
         "get_attendance", "get_exam_info", "get_class_changes", "get_graduation_progress",
         "this_week", "today_briefing", "my_notices", "school_notices", "cafeteria_menu", "academic_calendar",
+        "get_online_tests", "get_surveys", "get_discussions", "get_course_evaluation", "academic_deadlines",
     }
     assert all(t.annotations.read_only_hint for t in tools.values())
 

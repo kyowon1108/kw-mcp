@@ -6,6 +6,8 @@ API, which only receives generic filters (date range, category).
 
 from __future__ import annotations
 
+import asyncio
+import re
 from datetime import datetime, timedelta
 from typing import Any
 
@@ -49,7 +51,7 @@ async def today_briefing(svc: KlasService, public: PublicApi) -> dict[str, Any]:
     deadlines = await svc.deadlines(2)
     soon = []
     for item in deadlines["items"]:
-        due = parse_kst(item.get("late_due") if item.get("late_submission") else item.get("due"))
+        due = parse_kst(item.get("late_due") if item.get("late_submission") else item.get("effective_due") or item.get("due"))
         if due and due <= end_of_tomorrow:
             soon.append(item)
 
@@ -62,6 +64,7 @@ async def today_briefing(svc: KlasService, public: PublicApi) -> dict[str, Any]:
         "classes": classes,
         **({} if in_session else {"classes_note": f"{semester} 학기 수업 기간이 아니라 시간표를 비웠습니다."}),
         "due_today_or_tomorrow": soon,
+        **({"deadlines_incomplete": deadlines["incomplete"]} if deadlines.get("incomplete") else {}),
         "cafeteria": await public.menu(now.date().isoformat()),
         "new_course_posts": course_posts,
         # Recent posts that look like a class being cancelled, made up or moved online.
@@ -86,4 +89,25 @@ async def my_notices(svc: KlasService, public: PublicApi, days: int = 7) -> dict
         "school_scholarship": scholarship,
         "department": department,
         "public_data": "ok" if public.configured else "공개 API(kw-campus)가 설정되지 않아 학교 공지는 비어 있습니다.",
+    }
+
+
+# 학사일정 entries students ask deadlines for (에브리타임: "학사일정에 안 뜬다", 2026-11).
+ACADEMIC_DEADLINE_WORDS = re.compile(r"수강|수업평가|강의평가|성적|이의|휴학|복학|등록|계절|졸업|장학|학점\s*포기|정정|중간고사|기말고사")
+
+
+async def academic_deadlines(svc: KlasService, public: PublicApi, days: int = 30) -> dict[str, Any]:
+    """학사 기한 모음: KLAS's own "open now?" answers (scholarship applications, dropping earned
+    credits, grade viewing, course evaluation) next to the 학사일정 entries for registration,
+    course changes, evaluation, grades, leave of absence and the like."""
+    days = max(1, min(int(days), 180))
+    today = _today(svc).date()
+    end = today + timedelta(days=days)
+    windows, events = await asyncio.gather(svc.application_windows(), public.calendar(today.isoformat(), end.isoformat()))
+    return {
+        "from": today.isoformat(), "to": end.isoformat(),
+        "klas": windows,
+        "calendar": [e for e in events if ACADEMIC_DEADLINE_WORDS.search(e.get("title") or "")],
+        "public_data": "ok" if public.configured else "공개 API(kw-campus)가 설정되지 않아 학사일정은 비어 있습니다.",
+        "note": "klas는 KLAS가 지금 열려 있는지 직접 알려 준 값, calendar는 학교 학사일정입니다. 학과별 일정은 학과 공지를 확인하세요.",
     }

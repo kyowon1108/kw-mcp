@@ -116,17 +116,18 @@ class KlasClient:
         """Log in now, even if a session exists."""
         await self._relogin(self._generation)
 
-    async def post(self, path: str, body: dict[str, Any] | None = None) -> Any:
-        """POST a JSON body to a KLAS endpoint, logging in (again) when needed."""
+    async def post(self, path: str, body: dict[str, Any] | None = None, *, allow_empty: bool = False) -> Any:
+        """POST a JSON body to a KLAS endpoint, logging in (again) when needed. An empty answer is an
+        error unless allow_empty (then None): elsewhere it would read as "nothing due"."""
         generation = self._generation
         if generation == 0:
             await self._relogin(0)
             generation = self._generation
         try:
-            return await self._raw_post(path, body or {})
+            return await self._raw_post(path, body or {}, allow_empty)
         except SessionExpired:
             await self._relogin(generation)
-            return await self._raw_post(path, body or {})
+            return await self._raw_post(path, body or {}, allow_empty)
 
     async def download(self, path: str, max_bytes: int) -> bytes:
         """GET a file (attachment download), logging in again if the session expired."""
@@ -225,7 +226,7 @@ class KlasClient:
         if info.get("gradAt") == "Y":
             raise KlasLoginBlocked("졸업생 계정은 KLAS를 이용할 수 없습니다.")
 
-    async def _raw_post(self, path: str, body: dict[str, Any]) -> Any:
+    async def _raw_post(self, path: str, body: dict[str, Any], allow_empty: bool = False) -> Any:
         async with self._slots:
             resp = await self._http.post(
                 path,
@@ -240,6 +241,8 @@ class KlasClient:
             raise KlasError(f"{path}: unexpected redirect to {location or '?'}")
         if resp.status_code >= 400:
             raise KlasError(f"{path}: HTTP {resp.status_code}")
+        if allow_empty and not resp.content.strip():
+            return None  # LctreEvlTermCheck says "not the evaluation period" with an empty body
         try:
             return resp.json()
         except ValueError:

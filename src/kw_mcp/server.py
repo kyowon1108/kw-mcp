@@ -130,16 +130,55 @@ async def get_course_notices(course: str | None = None, semester: str | None = N
 
 @mcp.tool(annotations=READ_ONLY)
 async def get_deadlines(days: int = 7) -> dict[str, Any]:
-    """현재 학기에서 앞으로 days일(최대 180) 안에 마감되는 미제출 과제·퀴즈·팀플과 진도 100% 미만 온라인 강의.
-    마감은 지났지만 지각 제출 기간인 과제·팀플도 late_submission=true로 포함합니다(이때 due는 과거)."""
+    """현재 학기에서 앞으로 days일(최대 180) 안에 마감되는 안 한 일: 과제·퀴즈·온라인시험(재응시 포함)·팀플·설문,
+    진도 100% 미만 온라인 강의, 그리고 그 안에 끝나는 토론(참여 여부는 KLAS가 알려 주지 않음).
+    마감은 지났지만 지각 제출 기간인 과제·팀플도 late_submission=true로 포함합니다(이때 due는 과거).
+    incomplete가 있으면 일부 목록을 읽지 못한 것이니 사용자에게 알리세요."""
     with expected_errors():
         return await (await service()).deadlines(days)
 
 
 @mcp.tool(annotations=READ_ONLY)
+async def get_online_tests(course: str | None = None, pending_only: bool = False) -> list[dict[str, Any]]:
+    """온라인시험 목록: 응시 기간, 응시 여부(in_progress는 응시 중), 교수가 연 재응시 기간(retry)."""
+    with expected_errors():
+        return await (await service()).online_tests(None, course, pending_only)
+
+
+@mcp.tool(annotations=READ_ONLY)
+async def get_surveys(course: str | None = None, pending_only: bool = False) -> list[dict[str, Any]]:
+    """과목 설문 목록: 기간과 참여 여부."""
+    with expected_errors():
+        return await (await service()).surveys(None, course, pending_only)
+
+
+@mcp.tool(annotations=READ_ONLY)
+async def get_discussions(course: str | None = None) -> list[dict[str, Any]]:
+    """과목 토론 주제: 시작·종료와 글 수. 내가 참여했는지는 KLAS 목록에 없어 토론실에서 확인해야 합니다."""
+    with expected_errors():
+        return await (await service()).discussions(None, course)
+
+
+@mcp.tool(annotations=READ_ONLY)
+async def get_course_evaluation() -> dict[str, Any]:
+    """수업평가: 지금 평가 기간인지(중간/기말)와 아직 평가하지 않은 과목. 평가는 KLAS에서 직접 해야 합니다."""
+    with expected_errors():
+        return await (await service()).course_evaluation()
+
+
+@mcp.tool(annotations=READ_ONLY)
+async def academic_deadlines(days: int = 30) -> dict[str, Any]:
+    """학사 기한 모음: KLAS가 알려 주는 장학 신청·취득학점포기·성적 조회·수업평가 기간과, 앞으로 days일(최대 180)
+    학사일정 중 수강신청·정정·포기, 등록, 휴·복학, 성적·이의신청, 계절학기, 졸업 관련 일정."""
+    with expected_errors():
+        return await combined.academic_deadlines(await service(), public(), days)
+
+
+@mcp.tool(annotations=READ_ONLY)
 async def get_grades() -> dict[str, Any]:
     """성적·학점: 학기별 과목 성적과 학기 평점(4.5 만점, 도구 계산), KLAS 평량평균(학적부·성적증명서 기준),
-    전공·교양·기타 신청/취득/삭제 학점, 학과·학년·학적 상태. 이름·학번·이메일·지도교수는 포함하지 않습니다."""
+    전공·교양·기타 신청/취득/삭제 학점, 학과·학년·학적 상태, 학기별 석차·학사경고(standing), 이번 학기 성적 조회 기간,
+    summary(전공·전공 외 평점, F 제외 평점, 재수강하지 않은 F 과목; 도구 계산). 이름·학번·이메일·지도교수는 포함하지 않습니다."""
     with expected_errors():
         return await (await service()).grades()
 

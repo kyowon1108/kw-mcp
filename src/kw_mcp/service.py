@@ -17,7 +17,7 @@ from typing import Any
 from zoneinfo import ZoneInfo
 
 from .attachments import MAX_DOWNLOAD_BYTES, UnreadableAttachment, extract_text, split_parts
-from .klas import KlasClient
+from .klas import KlasClient, KlasLoginError
 from .text import html_to_text
 
 KST = ZoneInfo("Asia/Seoul")
@@ -45,6 +45,15 @@ GRADE_TOTALS = "/std/cps/inqire/AtnlcScreSungjukTot.do"
 STUDENT_RECORD = "/std/cps/inqire/AtnlcScreHakjukInfo.do"
 ATTENDANCE = "/std/ads/admst/KwAttendStdAttendList.do"
 GEN_ED = "/std/cps/inqire/GyoyangIsuInfo.do"
+ONLINE_TESTS = "/std/lis/evltn/OnlineTestStdList.do"
+DISCUSSIONS = "/std/lis/evltn/DscsnStdList.do"
+SURVEYS = "/std/lis/sport/QustnrStdList.do"
+EVAL_TERM = "/std/cps/inqire/LctreEvlTermCheck.do"
+EVAL_COURSES = "/std/cps/inqire/LctreEvlsugangList.do"
+GRADE_TERM = "/std/cps/inqire/AtnlcScreCheckTerm.do"
+STANDING = "/std/cps/inqire/StandStdList.do"
+SCHOLARSHIP_TERM = "/std/cps/inqire/JanghakApplyStdTerm.do"
+DROP_CREDITS_TERM = "/std/cps/inqire/DelHakjumApplyStdTerm.do"
 # GyoyangIsuStdPage.do's table: 필수교양 aa8128, then the 8 balanced areas (과학과기술 = aa63 + aa76).
 BALANCED_AREAS = (("대학실용영어", ("aa62",)), ("언어와표현", ("aa64",)), ("과학과기술", ("aa63", "aa76")),
                   ("인간과철학", ("aa65",)), ("사회와경제", ("aa66",)), ("글로벌문화와제2외국어", ("aa67",)),
@@ -59,12 +68,67 @@ CLASS_CHANGE_WORDS = re.compile(r"휴강|보강|결강|대체\s*수업|수업\s*
 GRADE_POINTS = {"A+": 4.5, "A0": 4.0, "A": 4.0, "B+": 3.5, "B0": 3.0, "B": 3.0, "C+": 2.5, "C0": 2.0, "C": 2.0,
                 "D+": 1.5, "D0": 1.0, "D": 1.0, "F": 0.0}
 
+def _gpa(pairs: list[tuple[float, float]]) -> float | None:
+    weight = sum(w for w, _ in pairs)
+    return round(sum(w * p for w, p in pairs) / weight, 2) if weight else None
+
+
+# Within a year: 1st semester, summer (3), 2nd semester, winter (4).
+_TERM_RANK = {"1": 0, "3": 1, "2": 2, "4": 3}
+
+
+def _term_order(sem: dict[str, Any]) -> tuple[int, int]:
+    year = str(sem.get("year") or "")
+    return (int(year) if year.isdigit() else 0, _TERM_RANK.get(str(sem.get("term")), 9))
+
+
+def grade_summary(semesters: list[dict[str, Any]]) -> dict[str, Any]:
+    """Averages KLAS doesn't show, from the courses already listed. A retaken course counts once,
+    with its latest grade (matched by name, so a renamed course counts twice)."""
+    latest: dict[str, dict[str, Any]] = {}
+    for sem in sorted(semesters, key=_term_order):
+        for c in sem["courses"]:
+            if c["grade"]:
+                latest[_norm(c["course"])] = {**c, "year": sem["year"], "term": sem["term"]}
+    graded = [c for c in latest.values() if c["grade"] in GRADE_POINTS]
+
+    def avg(rows: list[dict[str, Any]]) -> float | None:
+        return _gpa([(c["credits"] or 0, GRADE_POINTS[c["grade"]]) for c in rows])
+
+    major = [c for c in graded if (c["category"] or "").startswith("전")]
+    return {
+        "major_gpa": avg(major),
+        "non_major_gpa": avg([c for c in graded if c not in major]),
+        "gpa_excluding_f": avg([c for c in graded if c["grade"] != "F"]),
+        "f_not_retaken": [{"course": c["course"], "year": c["year"], "term": c["term"], "category": c["category"]}
+                          for c in graded if c["grade"] == "F"],
+        "note": "이 도구가 과목 목록으로 계산한 값입니다(같은 이름 과목은 마지막 성적만). 공식 평점은 gpa 항목을 보세요.",
+    }
+
+
+def _klas_datetime(day: Any, clock: Any = None) -> datetime | None:
+    """KLAS's "20261201" + "090000" (or with dots/colons) → datetime."""
+    d, t = re.sub(r"\D", "", str(day or "")), re.sub(r"\D", "", str(clock or "")) or "000000"
+    if len(d) != 8:
+        return None
+    t = (t + "000000")[:6]
+    try:
+        return datetime(int(d[:4]), int(d[4:6]), int(d[6:]), int(t[:2]), int(t[2:4]), int(t[4:]), tzinfo=KST)
+    except ValueError:
+        return None
+
+
+def _dotted(day: Any, clock: Any = None) -> str | None:
+    parsed = _klas_datetime(day, clock)
+    return parsed.strftime("%Y-%m-%d %H:%M") if parsed else None
+
+
 # Raw KLAS fields the PC agent may send to the bridge (kwcampus.bridge.shapes reads these).
 SNAPSHOT_FIELDS = {
     "courses": ("subj", "yearhakgi", "subjNm", "profNm", "lctrumSchdulInfo", "subjLabel"),
     "course_posts": ("subjNm", "typeNm", "title", "registDt"),
     "tasks": ("title", "startdate", "expiredate", "reexpiredate", "submityn", "score"),
-    "online": ("evltnSe", "prog", "weekNo", "weeklyseq", "moduletitle", "sbjt", "startDate", "endDate",
+    "online": ("evltnSe", "isonoff", "prog", "weekNo", "weeklyseq", "moduletitle", "sbjt", "startDate", "endDate",
                "rcognTime", "achivTime"),
     "projects": ("title", "purpose", "startdate", "expiredate", "reexpiredate", "submityn", "score", "teamno"),
     "quizzes": ("papernm", "examtypenm", "sdt", "edt", "issubmit", "examtime", "examcnt", "totalscore"),
@@ -96,6 +160,36 @@ def parse_kst(value: str | None) -> datetime | None:
 def fmt_kst(value: str | None) -> str | None:
     parsed = parse_kst(value)
     return parsed.strftime("%Y-%m-%d %H:%M") if parsed else value
+
+
+_NO_SECONDS = re.compile(r"^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$")
+_DATE_ONLY = re.compile(r"^\d{4}[-.]?\d{2}[-.]?\d{2}$")
+
+
+def parse_due(value: Any) -> datetime | None:
+    """A deadline as KLAS shows it: "23:59" without seconds is open through 23:59:59, and a bare
+    date (surveys) through the end of that day."""
+    text = str(value or "").strip()
+    if _DATE_ONLY.match(text):
+        digits = re.sub(r"\D", "", text)
+        try:
+            return datetime(int(digits[:4]), int(digits[4:6]), int(digits[6:8]), 23, 59, 59, tzinfo=KST)
+        except ValueError:  # "0000-00-00" and friends: one odd row must not sink the whole list
+            return None
+    parsed = parse_kst(text)
+    return parsed + timedelta(seconds=59) if parsed and _NO_SECONDS.match(text) else parsed
+
+
+def fmt_due(value: Any) -> str | None:
+    parsed = parse_due(value)
+    return parsed.strftime("%Y-%m-%d %H:%M") if parsed else (str(value) if value else None)
+
+
+def is_lecture(row: dict[str, Any]) -> bool:
+    """A watchable online lecture. The online list also links other coursework (proj, quiz, ...),
+    and KLAS Helper skips rows that aren't lessons or are marked offline the same way."""
+    kind = row.get("evltnSe") or None
+    return kind in (None, "lesson") and row.get("isonoff") != "OFF"
 
 
 def _norm(text: str | None) -> str:
@@ -136,6 +230,27 @@ async def _gather(*aws: Awaitable[Any]) -> list[Any]:
 
 async def _as_coro(aw: Awaitable[Any]) -> Any:
     return await aw
+
+
+async def _gather_some(named: dict[str, Awaitable[Any]], optional: bool = False) -> tuple[dict[str, Any], list[str]]:
+    """Like _gather, but one list failing (a KLAS hiccup on one endpoint) leaves the others.
+    Login problems still raise, and so does a failure of everything unless the parts are optional
+    extras, so the user hears why."""
+    results = await asyncio.gather(*named.values(), return_exceptions=True)
+    done, failed, first = {}, [], None
+    for name, result in zip(named, results, strict=True):
+        if isinstance(result, KlasLoginError):
+            raise result
+        if isinstance(result, BaseException):
+            if not isinstance(result, Exception):
+                raise result
+            failed.append(name)
+            first = first or result
+        else:
+            done[name] = result
+    if not done and first and not optional:
+        raise first
+    return done, failed
 
 
 _SLOT = re.compile(r"^\s*([월화수목금토일])\s*([\d,\s]+)교시\s*(?:/\s*(.*?))?\s*$")
@@ -301,9 +416,9 @@ class KlasService:
         out = []
         for row, items in await self._per_course(ONLINE, semester, course):
             for o in items:
-                # The online-content list also carries project links (evltnSe "proj", no progress);
-                # those already show up in assignments/projects.
-                if o.get("evltnSe") in NOT_LECTURES:
+                # The online-content list also carries project/quiz links; those already show up
+                # in assignments, quizzes and projects.
+                if not is_lecture(o):
                     continue
                 progress = _int(o.get("prog"))
                 if incomplete_only and progress is not None and progress >= 100:
@@ -369,6 +484,50 @@ class KlasService:
                 )
         return sorted(out, key=lambda a: a["due"] or "9999")
 
+    async def online_tests(
+        self, semester: str | None = None, course: str | None = None, pending_only: bool = False
+    ) -> list[dict[str, Any]]:
+        """Online exams (온라인시험). issubmit: Y taken, I in progress; a professor can open a retry
+        window (isretry, rsdt~redt, isresubmit), as the KLAS page shows."""
+        out = []
+        for row, items in await self._per_course(ONLINE_TESTS, semester, course):
+            for t in items:
+                submitted, retry = t.get("issubmit") == "Y", t.get("isretry") == "Y"
+                retry_submitted = retry and t.get("isresubmit") == "Y"
+                if pending_only and (retry_submitted or (submitted and not retry)):
+                    continue
+                out.append({
+                    "course": row.get("subjNm"), "title": t.get("papernm"), "type": t.get("examtypenm"),
+                    "week": t.get("weeklyseq"), "opens": fmt_kst(t.get("sdt")), "due": fmt_kst(t.get("edt")),
+                    "submitted": submitted, "in_progress": t.get("issubmit") == "I",
+                    "retry": {"opens": fmt_kst(t.get("rsdt")), "due": fmt_kst(t.get("redt")),
+                              "submitted": retry_submitted} if retry else None,
+                })
+        return sorted(out, key=lambda a: a["due"] or "9999")
+
+    async def surveys(
+        self, semester: str | None = None, course: str | None = None, pending_only: bool = False
+    ) -> list[dict[str, Any]]:
+        """Course surveys (설문). appcnt counts my answers; the page shows a 참여 button while it is 0."""
+        out = []
+        for row, items in await self._per_course(SURVEYS, semester, course):
+            for q in items:
+                answered = (_int(q.get("appcnt")) or 0) > 0
+                if pending_only and answered:
+                    continue
+                out.append({"course": row.get("subjNm"), "title": (q.get("sulpapernm") or "").strip(),
+                            "opens": q.get("sulstart"), "due": fmt_due(q.get("sulend")), "submitted": answered})
+        return sorted(out, key=lambda a: a["due"] or "9999")
+
+    async def discussions(self, semester: str | None = None, course: str | None = None) -> list[dict[str, Any]]:
+        """Discussion topics (토론). The list has no "did I post" flag, only the topic's post count."""
+        out = []
+        for row, items in await self._per_course(DISCUSSIONS, semester, course):
+            for d in items:
+                out.append({"course": row.get("subjNm"), "title": d.get("title"), "opens": fmt_kst(d.get("started")),
+                            "due": fmt_due(d.get("ended")), "posts": _int(d.get("toroncnt"))})
+        return sorted(out, key=lambda a: a["due"] or "9999")
+
     async def notices(self, semester: str | None = None, course: str | None = None) -> list[dict[str, Any]]:
         home = await self._home(semester)
         return [
@@ -382,52 +541,67 @@ class KlasService:
             if _matches(n.get("subjNm"), course)
         ]
 
-    async def deadlines(self, days: int = 7) -> dict[str, Any]:
-        """Unsubmitted assignments, quizzes and team projects, and unfinished online lectures,
-        due in the next `days` days.
+    async def deadlines(self, days: int | str = 7) -> dict[str, Any]:
+        """Everything with a deadline in the next `days` days that I haven't done: assignments,
+        quizzes, online exams, team projects, surveys and unfinished online lectures, plus
+        discussions that end in that window (KLAS doesn't say whether I took part).
 
-        Assignments already past their due date but still inside the late-submission
-        window are included with `late_submission: true`.
+        Assignments and projects past their due date but inside the late window come with
+        `late_submission: true`. If one list can't be read the rest still come back, and
+        `incomplete` names what's missing.
         """
-        days = max(0, min(days, MAX_DEADLINE_DAYS))
+        days = _int(days)
+        days = max(0, min(7 if days is None else days, MAX_DEADLINE_DAYS))
         now = self._now()
         until = now + timedelta(days=days)
         semester = await self.current_semester()
-        tasks, lectures, quizzes, projects = await _gather(
-            self.assignments(semester, pending_only=True),
-            self.online_lectures(semester, incomplete_only=True),
-            self.quizzes(semester, pending_only=True),
-            self.projects(semester),
-        )
+        lists, missing = await _gather_some({
+            "assignment": self.assignments(semester, pending_only=True),
+            "online_lecture": self.online_lectures(semester, incomplete_only=True),
+            "quiz": self.quizzes(semester, pending_only=True),
+            "team_project": self.projects(semester),
+            "online_test": self.online_tests(semester, pending_only=True),
+            "survey": self.surveys(semester, pending_only=True),
+            "discussion": self.discussions(semester),
+        })
+
+        def in_window(value: str | None) -> bool:
+            due = parse_due(value)
+            return bool(due and now <= due <= until)
 
         items = []
-        for a in tasks:
-            due, late_due = parse_kst(a["due"]), parse_kst(a["late_due"])
-            if due and now <= due <= until:
-                items.append({"kind": "assignment", **a})
-            elif due and late_due and due < now <= late_due:
-                items.append({"kind": "assignment", "late_submission": True, **a})
-        for lec in lectures:
-            due = parse_kst(lec["due"])
-            if due and now <= due <= until:
-                items.append({"kind": "online_lecture", **lec})
-        for kind, rows in (("quiz", quizzes), ("team_project", [p for p in projects if not p["submitted"]])):
-            for row in rows:
-                due, late_due = parse_kst(row["due"]), parse_kst(row.get("late_due"))
+        for kind in ("assignment", "team_project"):
+            for row in lists.get(kind, []):
+                if kind == "team_project" and row["submitted"]:
+                    continue
+                due, late_due = parse_due(row["due"]), parse_due(row.get("late_due"))
                 if due and now <= due <= until:
                     items.append({"kind": kind, **row})
                 elif due and late_due and due < now <= late_due:
                     items.append({"kind": kind, "late_submission": True, **row})
+        for kind in ("online_lecture", "quiz", "survey"):
+            items += [{"kind": kind, **row} for row in lists.get(kind, []) if in_window(row["due"])]
+        for test in lists.get("online_test", []):
+            retry, first_due = test["retry"], parse_due(test["due"])
+            missed = first_due is not None and first_due < now
+            due = retry["due"] if retry and (test["submitted"] or missed) else test["due"]
+            if in_window(due):
+                items.append({"kind": "online_test", **test, "effective_due": due})
+        for topic in lists.get("discussion", []):
+            opens = parse_kst(topic["opens"])
+            if in_window(topic["due"]) and (opens is None or opens <= now):
+                items.append({"kind": "discussion", **topic, "note": "참여 여부는 KLAS 목록에 없어 토론실에서 확인하세요."})
 
         def effective_due(item: dict[str, Any]) -> str:
-            return item["late_due"] if item.get("late_submission") else item["due"]
+            if item.get("late_submission"):
+                return item["late_due"]
+            return item.get("effective_due") or item["due"] or "9999"
 
-        return {
-            "semester": semester,
-            "now": now.strftime("%Y-%m-%d %H:%M"),
-            "days": days,
-            "items": sorted(items, key=effective_due),
-        }
+        out = {"semester": semester, "now": now.strftime("%Y-%m-%d %H:%M"), "days": days,
+               "items": sorted(items, key=effective_due)}
+        if missing:
+            out["incomplete"] = {"missing": missing, "message": "KLAS에서 일부 목록을 읽지 못해 빠진 마감이 있을 수 있습니다."}
+        return out
 
     async def snapshot(self) -> dict[str, Any]:
         """This semester's courses, course posts and per-course lists as whitelisted raw rows.
@@ -770,7 +944,8 @@ class KlasService:
                         posts.append(post)
         posts.sort(key=lambda p: p["posted"] or "", reverse=True)
         return {"days": days, "since": since, "posts": posts,
-                "note": "각 과목 강의 공지사항에서 '휴강'·'보강'을 검색한 결과입니다. 내용은 게시판 글 열기 도구로 확인하세요."}
+                "note": "각 과목 강의 공지사항에서 '휴강'·'보강'을 검색한 결과입니다. 내용은 게시판 글 열기 도구로 확인하세요. "
+                        "휴강은 문자·메일·수업 중에만 알리는 경우도 있어, 여기 없다고 휴강이 아니라는 뜻은 아닙니다."}
 
     async def graduation_progress(self) -> dict[str, Any]:
         """Where I stand on credits and general-education rules (교양 필수·균형 이수현황).
@@ -825,6 +1000,7 @@ class KlasService:
                                                   self._client.post(STUDENT_RECORD))
         totals = totals if isinstance(totals, dict) else {}
         record = record if isinstance(record, dict) else {}
+        extra, _ = await _gather_some({"standing": self.standing(), "period": self.grade_period()}, optional=True)
 
         def credits(kind: str) -> dict[str, Any]:
             prefix = {"applied": "Apply", "deleted": "Del", "earned": "Chiduk"}[kind]
@@ -856,5 +1032,81 @@ class KlasService:
                                           "이 도구가 그 학기 당시 성적으로 계산한 값"},
             "credits": {"applied": credits("applied"), "earned": credits("earned"), "deleted": credits("deleted")},
             "transfer_credits": transfer if any(transfer.values()) else None,
+            "summary": grade_summary(out_semesters),
+            "standing": extra.get("standing"),
+            "grade_viewing_period": extra.get("period"),
             "semesters": out_semesters,
         }
+
+    async def standing(self) -> list[dict[str, Any]]:
+        """석차 by semester (StandStdList.do): my rank among the department's students that term."""
+        rows = await self._client.post(STANDING, {"selectYearhakgi": await self.current_semester(), "selectChangeYn": "Y"})
+        return [{"year": r.get("thisYear"), "term": r.get("hakgi"), "credits": r.get("applyHakjum"),
+                 "gpa": r.get("applyPoint"), "rank": r.get("classOrder"), "of": r.get("manNum"),
+                 "percentile": r.get("pcnt"), "academic_warning": r.get("warningOpt") or None}
+                for r in rows or [] if isinstance(r, dict)]
+
+    async def grade_period(self) -> dict[str, Any]:
+        """When this term's grades can be viewed (AtnlcScreCheckTerm.do). The grade page asks with
+        the calendar year and 1 for Jan-Aug, 2 for Sep-Dec, so this does the same."""
+        now = self._now()
+        data = await self._client.post(GRADE_TERM, {"thisYear": str(now.year), "hakgi": "1" if now.month <= 8 else "2"})
+        term = data.get("termMap") if isinstance(data, dict) else None
+        if not isinstance(term, dict) or not term.get("fromDate"):
+            return {"status": "not_set", "message": "KLAS에 이번 학기 성적 조회 기간이 아직 없습니다."}
+        start = _klas_datetime(term.get("fromDate"), term.get("fromTime"))
+        end = _klas_datetime(term.get("toDate"), term.get("toTime"))
+        status = "before" if start and now < start else "after" if end and now > end else "open"
+        return {"status": status, "from": start.strftime("%Y-%m-%d %H:%M") if start else term.get("fromDate"),
+                "to": end.strftime("%Y-%m-%d %H:%M") if end else term.get("toDate")}
+
+    async def course_evaluation(self) -> dict[str, Any]:
+        """수업평가: whether the window is open and which courses I haven't evaluated.
+
+        Outside the window LctreEvlTermCheck.do answers with an empty body (checked 2026-11-06). In
+        the window the page reads judgeChasu (middle/last) from it and lists courses with
+        judgeOpt 'N' as 수업평가전; those shapes come from the page's template, not a live answer.
+        """
+        term = await self._client.post(EVAL_TERM, None, allow_empty=True)
+        if isinstance(term, list):
+            return {"open": None, "message": "KLAS가 평가 기간을 둘 이상 알려 와 판단하지 못했습니다. KLAS 수업평가 화면을 확인하세요."}
+        if not isinstance(term, dict):
+            return {"open": False, "message": "지금은 수업평가 기간이 아닙니다."}
+        round_ = term.get("judgeChasu")
+        year, _, hakgi = (await self.current_semester()).partition(",")
+        rows = await self._client.post(EVAL_COURSES, {"thisYear": year, "hakgi": hakgi, "judgeChasu": round_, "termYn": "Y"})
+        rows = [r for r in rows or [] if isinstance(r, dict)]
+        return {
+            "open": True, "round": {"middle": "중간", "last": "기말"}.get(round_, round_),
+            "courses": len(rows),
+            "not_evaluated": [r.get("gwamokKname") for r in rows if r.get("judgeOpt") == "N"],
+            "note": "평가하지 않은 과목은 성적 열람이 제한될 수 있습니다. 평가는 KLAS에서 직접 하세요.",
+        }
+
+    async def application_windows(self) -> dict[str, Any]:
+        """KLAS's own "is it open now" answers for scholarship applications and dropping earned
+        credits (취득학점포기), plus the grade viewing period and the course evaluation window."""
+        found, missing = await _gather_some({
+            "scholarship": self._client.post(SCHOLARSHIP_TERM), "drop_credits": self._client.post(DROP_CREDITS_TERM),
+            "grade_viewing": self.grade_period(), "course_evaluation": self.course_evaluation()})
+        out: dict[str, Any] = {}
+        scholarship = found.get("scholarship")
+        if isinstance(scholarship, dict):
+            window = scholarship.get("janghakApplyTerm") or {}
+            # KLAS's returnMsg is free text; fixed wording keeps anything personal it might carry out.
+            out["scholarship_application"] = {
+                "open": scholarship.get("stats") is True,
+                "from": _dotted(window.get("fromDate"), window.get("fromTime")),
+                "to": _dotted(window.get("toDate"), window.get("toTime")),
+            }
+        drop = found.get("drop_credits")
+        if isinstance(drop, dict):
+            out["drop_earned_credits"] = {"open": drop.get("stats") in (True, "Y")}
+        if "grade_viewing" in found:
+            out["grade_viewing"] = found["grade_viewing"]
+        if "course_evaluation" in found:
+            ev = found["course_evaluation"]
+            out["course_evaluation"] = {k: ev.get(k) for k in ("open", "round", "not_evaluated", "message") if k in ev}
+        if missing:
+            out["incomplete"] = missing
+        return out
