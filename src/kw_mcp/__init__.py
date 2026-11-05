@@ -87,11 +87,15 @@ def _link(invite: str, autostart: bool, server: str | None = None, relink: bool 
             # Re-running the installer is how people update: keep the device (and the Claude/ChatGPT
             # connections bound to it), just restart the agent on the new version.
             print("이미 연결된 PC입니다. 에이전트만 새 버전으로 다시 시작합니다.")
-            mcp_url = f"{invite_server}/mcp"
+            mcp_url = None
         else:
             _, mcp_url = agent.register(invite, server)
         if autostart:
             print(f"자동 실행 등록: {agent.install_autostart()}")
+        if mcp_url is None:
+            print("업데이트를 마쳤습니다. 이미 연결한 Claude/ChatGPT 커넥터는 그대로 쓰면 됩니다.")
+            print("앱을 하나 더 연결하려면 `kw-mcp code`로 연결 코드를 받으세요.")
+            return 0
         code = agent.pair_code()
     except (ValueError, agent.NotLinked, NotImplementedError) as e:
         print(e)
