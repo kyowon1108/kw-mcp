@@ -1,0 +1,56 @@
+{
+  "$schema": "https://raw.githubusercontent.com/modelcontextprotocol/mcpb/main/schemas/mcpb-manifest-v0.4.schema.json",
+  "manifest_version": "0.4",
+  "name": "kw-klas",
+  "display_name": "광운대 KLAS (읽기 전용)",
+  "version": "0.2.0",
+  "description": "내 KLAS 과제·퀴즈·온라인강의·시간표·과목 공지와 학교 공지·학식·학사일정을 Claude에서 조회합니다. 비공식 도구입니다.",
+  "long_description": "이 PC에서 내 계정으로 KLAS에 로그인해 읽기만 합니다(제출·수정 없음). 학번과 비밀번호는 Claude가 OS 키체인에 보관하고 이 PC 밖으로 보내지 않습니다. 학교 공지·학식·학사일정은 kw-campus 공개 API에서 가져오며, 이때 개인 정보는 보내지 않습니다. 로그인 실패가 2회를 넘거나 보안문자·2차 인증이 나오면 자동으로 멈춥니다. 광운대학교가 만들거나 승인한 도구가 아닙니다.",
+  "author": {
+    "name": "kyowon1108"
+  },
+  "server": {
+    "type": "uv",
+    "entry_point": "src/kw_mcp/server.py",
+    "mcp_config": {
+      "command": "uv",
+      "args": ["run", "--directory", "${__dirname}", "kw-mcp"],
+      "env": {
+        "KLAS_ID": "${user_config.klas_id}",
+        "KLAS_PASSWORD": "${user_config.klas_password}",
+        "KW_CAMPUS_API_URL": "${user_config.campus_api_url}"
+      }
+    }
+  },
+  "user_config": {
+    "klas_id": {
+      "type": "string",
+      "title": "KLAS 아이디(학번)",
+      "description": "KLAS 로그인 아이디",
+      "required": true
+    },
+    "klas_password": {
+      "type": "string",
+      "title": "KLAS 비밀번호",
+      "description": "OS 키체인에 저장되고 이 PC 밖으로 나가지 않습니다.",
+      "sensitive": true,
+      "required": true
+    },
+    "campus_api_url": {
+      "type": "string",
+      "title": "kw-campus 공개 API 주소 (선택)",
+      "description": "https://…/c/<토큰> 형식. 비워 두면 학교 공지·학식·학사일정 없이 KLAS 기능만 씁니다.",
+      "sensitive": true,
+      "required": false,
+      "default": ""
+    }
+  },
+  "compatibility": {
+    "platforms": ["darwin", "win32", "linux"],
+    "runtimes": {
+      "python": ">=3.12"
+    }
+  },
+  "keywords": ["kwangwoon", "klas", "광운대", "university"],
+  "license": "MIT"
+}

@@ -1,0 +1,11 @@
+.venv/
+.git/
+.omc/
+.playwright-mcp/
+.pytest_cache/
+__pycache__/
+*.pyc
+tests/
+docs/
+dist/
+*.mcpb
