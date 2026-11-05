@@ -2,6 +2,12 @@
 
 광운대학교 KLAS(klas.kw.ac.kr)의 내 데이터를 Claude 같은 MCP 클라이언트에서 조회하는 읽기 전용 MCP 서버.
 
+쓰는 방법은 두 가지다.
+- **Claude 데스크톱 확장 / Claude Code**: 이 PC에서 MCP 서버로 직접 돈다(아래 도구 표).
+- **PC 에이전트**: kw-campus 연결 서버(bridge)에 붙어서, Claude 웹·모바일과 ChatGPT의 커넥터 요청에 이 PC가 답한다. 비밀번호는 PC 밖으로 나가지 않는다.
+
+전체 그림은 [`docs/plan.md`](docs/plan.md).
+
 KLAS에는 공개 API가 없다. 웹 화면이 내부적으로 호출하는 `*.do` JSON 엔드포인트를, 로그인 페이지와 같은 방식(RSA 암호화 로그인)으로 로그인한 세션으로 호출한다. 학교 공식 기능이 아니므로 KLAS가 바뀌면 깨질 수 있다. 본인 계정으로 개인적으로만 쓸 것.
 
 ## 도구
@@ -27,7 +33,7 @@ KLAS에는 공개 API가 없다. 웹 화면이 내부적으로 호출하는 `*.d
 | `my_notices` | 최근 N일 내 과목 게시판 글 + 학교 학사·장학 공지 |
 | `school_notices`, `cafeteria_menu`, `academic_calendar` | 공개 정보만 (kw-campus 공개 API) |
 
-공개 정보는 `KW_CAMPUS_API_URL`(또는 `~/.config/kw-campus/api-url` 첫 줄)에 적힌 kw-campus 공개 API에서 가져온다. 이 API로는 날짜 범위와 분류 같은 일반 조건만 보내고 개인 정보는 보내지 않는다. 설정이 없으면 KLAS 기능만 동작한다.
+공개 정보는 kw-campus 공개 API에서 가져온다. 주소는 `KW_CAMPUS_INVITE`(초대 코드, `.mcpb`가 넘김), `KW_CAMPUS_API_URL`, `~/.config/kw-campus/api-url` 첫 줄 순서로 찾는다. 이 API로는 날짜 범위와 분류 같은 일반 조건만 보내고 개인 정보는 보내지 않는다. 설정이 없으면 KLAS 기능만 동작한다.
 
 `course`는 과목명 일부("데이터")로 거르고, `semester`는 `"2026,2"` 형식이며 생략하면 현재 학기다. 과제 제출, 출석 처리 같은 쓰기 기능은 일부러 넣지 않았다.
 
@@ -51,7 +57,22 @@ uv run kw-mcp check   # 로그인해서 과목·과제·강의 개수만 출력
 npx -y @anthropic-ai/mcpb pack . dist/kw-klas.mcpb   # 또는 로컬에 설치한 mcpb
 ```
 
-`dist/kw-klas.mcpb`를 더블클릭하면 Claude 데스크톱이 설치 화면을 띄운다. 학번, 비밀번호, kw-campus 공개 API 주소(선택)를 넣으면 끝이다. 비밀번호와 API 주소는 Claude가 OS 키체인에 보관하고, 실행할 때 환경변수로 넘긴다. Python과 의존성은 Claude가 `uv`로 관리한다(`server.type = "uv"`).
+`dist/kw-klas.mcpb`를 더블클릭하면 Claude 데스크톱이 설치 화면을 띄운다. 학번, 비밀번호, 초대 코드(선택)를 넣으면 끝이다. 비밀번호와 초대 코드는 Claude가 OS 키체인에 보관하고, 실행할 때 환경변수로 넘긴다. Python과 의존성은 Claude가 `uv`로 관리한다(`server.type = "uv"`, MCPB 0.4의 실험 기능이라 실제 설치 확인이 필요하다). 연결 서버도 같은 파일을 `/dist/kw-klas.mcpb`로 내려 준다.
+
+## PC 에이전트 (Claude 웹·모바일, ChatGPT용)
+
+친구에게는 연결 서버의 안내 페이지 `https://<bridge>/setup#<초대코드>`를 보내면 된다. 거기 나오는 명령 한 줄이 uv 설치 → 이 패키지 설치 → `kw-mcp link`를 차례로 한다.
+
+| 명령 | 하는 일 |
+|---|---|
+| `kw-mcp link <초대코드>` | 처음 한 번. 학번·비밀번호를 키체인에 저장(없으면 물어봄) → KLAS 로그인 확인 → 기기 키 생성(개인키는 키체인, 공개키만 서버로) → 로그인 시 자동 실행 등록 → 커넥터 URL과 연결 코드 출력 |
+| `kw-mcp code` | 커넥터 승인 페이지에 넣을 새 연결 코드 (15분, 1회용). 앱을 하나 더 연결할 때 |
+| `kw-mcp status` | 연결·자동 실행·실행 중 여부, 로그 위치 |
+| `kw-mcp setup` | 비밀번호를 바꿨을 때. 에이전트는 다음 요청부터 새 값을 쓴다 |
+| `kw-mcp unlink` | 이 PC 연결 해제 (커넥터도 더는 동작하지 않음) |
+| `kw-mcp agent` | 에이전트 본체. 자동 실행이 띄운다 (Mac: `~/Library/LaunchAgents/kr.kwcampus.agent.plist`, Windows: `HKCU\...\Run`) |
+
+에이전트는 연결 서버와 WebSocket을 유지하다가(5분마다 핑, 끊기면 최대 60초 간격으로 다시 접속) 요청이 오면 KLAS에서 정해 둔 필드만 읽고(`SNAPSHOT_FIELDS`), 서버가 요청마다 보낸 AES-256 키로 암호화해 올린다. 결과를 올릴 주소가 연결한 서버가 아니면 무시한다. 한 PC에 에이전트는 하나만 돈다(localhost 47811 포트로 확인).
 
 ## Claude Code에 등록
 
@@ -94,9 +115,3 @@ uv run pytest -q
 ```
 
 테스트는 KLAS를 흉내 낸 응답(respx)으로 돌고 실제 서버에 접속하지 않는다.
-
-## 다음 단계: AWS 서버리스
-
-같은 코드를 Lambda(서울 리전)에 올리려면 `mcp.run("streamable-http")`을 stateless 모드로 쓰고, 로그인 정보는 Secrets Manager, 세션 쿠키는 DynamoDB(TTL)에 두면 된다. 먼저 확인할 것:
-1. AWS IP에서 KLAS 접속이 막히지 않는지
-2. 서버가 로그인하면 폰·PC의 KLAS 세션이 끊기는지

@@ -46,6 +46,14 @@ class KlasLoginError(KlasError):
     """Login was rejected or needs a step this client cannot do (captcha, 2FA)."""
 
 
+class KlasLoginBlocked(KlasLoginError):
+    """KLAS wants a person at the keyboard (captcha, 2FA, password change); retrying won't help."""
+
+
+class KlasBadPassword(KlasLoginError):
+    """KLAS rejected the id/password. Retrying with the same password only adds failures."""
+
+
 class SessionExpired(KlasError):
     """KLAS answered with the login page instead of JSON."""
 
@@ -150,7 +158,7 @@ class KlasClient:
         except (TypeError, ValueError):
             raise KlasLoginError("KLAS 로그인 응답 형식이 바뀌어 로그인을 중단했습니다.") from None
         if failures > CAPTCHA_THRESHOLD:
-            raise KlasLoginError(
+            raise KlasLoginBlocked(
                 "로그인 실패가 누적되어 KLAS가 캡차를 요구합니다. "
                 "브라우저에서 한 번 직접 로그인한 뒤 MCP 서버를 다시 시작하세요."
             )
@@ -163,18 +171,23 @@ class KlasClient:
             raise KlasLoginError("Unexpected login response from KLAS")
         if result.get("errorCount", 1) != 0:
             message = _error_message(result) or "KLAS 로그인 실패 (아이디/비밀번호 확인)"
-            raise KlasLoginError(
+            raise KlasBadPassword(
                 f"{message} — 잘못된 비밀번호로 반복 시도하면 캡차가 걸리므로 "
                 f"{int(LOGIN_COOLDOWN // 60)}분 동안 재시도하지 않습니다. `kw-mcp setup`으로 다시 저장하세요."
             )
 
         info = result.get("response") or {}
         if info.get("twoFactorAt") == "Y":
-            raise KlasLoginError("이 계정은 KLAS 2차 인증이 켜져 있어 자동 로그인을 할 수 없습니다.")
+            # Since 2026-10-26 KLAS asks for 2FA on logins from IPs it treats as foreign
+            # (notice DUID 53483); cloud servers and VPNs count. Never try to get around it.
+            raise KlasLoginBlocked(
+                "KLAS가 이 로그인에 2차 인증을 요구합니다(해외로 보이는 IP에서 로그인하면 요구함). "
+                "국내 인터넷에 연결된 PC에서, VPN을 끄고 실행하세요."
+            )
         if info.get("certOpt") == "Y":
-            raise KlasLoginError("KLAS 임시 비밀번호 상태입니다. 브라우저에서 비밀번호를 먼저 변경하세요.")
+            raise KlasLoginBlocked("KLAS 임시 비밀번호 상태입니다. 브라우저에서 비밀번호를 먼저 변경하세요.")
         if info.get("gradAt") == "Y":
-            raise KlasLoginError("졸업생 계정은 KLAS를 이용할 수 없습니다.")
+            raise KlasLoginBlocked("졸업생 계정은 KLAS를 이용할 수 없습니다.")
 
     async def _raw_post(self, path: str, body: dict[str, Any]) -> Any:
         async with self._slots:

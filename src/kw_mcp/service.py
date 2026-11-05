@@ -28,6 +28,17 @@ QUIZZES = "/std/lis/evltn/AnytmQuizStdList.do"
 GRADES = "/std/cps/inqire/AtnlcScreSungjukInfo.do"
 GRADE_TOTALS = "/std/cps/inqire/AtnlcScreSungjukTot.do"
 
+# Raw KLAS fields the PC agent may send to the bridge (kwcampus.bridge.shapes reads these).
+SNAPSHOT_FIELDS = {
+    "courses": ("subj", "yearhakgi", "subjNm", "profNm", "lctrumSchdulInfo", "subjLabel"),
+    "course_posts": ("subjNm", "typeNm", "title", "registDt"),
+    "tasks": ("title", "startdate", "expiredate", "reexpiredate", "submityn", "score"),
+    "online": ("evltnSe", "prog", "weekNo", "weeklyseq", "moduletitle", "sbjt", "startDate", "endDate",
+               "rcognTime", "achivTime"),
+    "projects": ("title", "purpose", "startdate", "expiredate", "reexpiredate", "submityn", "score", "teamno"),
+    "quizzes": ("papernm", "examtypenm", "sdt", "edt", "issubmit", "examtime", "examcnt", "totalscore"),
+}
+
 HOME_TTL = 120.0
 COURSE_TTL = 60.0
 MAX_DEADLINE_DAYS = 180
@@ -344,6 +355,32 @@ class KlasService:
             "now": now.strftime("%Y-%m-%d %H:%M"),
             "days": days,
             "items": sorted(items, key=effective_due),
+        }
+
+    async def snapshot(self) -> dict[str, Any]:
+        """This semester's courses, course posts and per-course lists as whitelisted raw rows.
+
+        The PC agent sends this (encrypted) to the bridge, which shapes it the same way as
+        the methods above. Grades are not included.
+        """
+        semester = await self.current_semester()
+        home = await self._home(semester)
+        lists = dict(zip(("tasks", "online", "projects", "quizzes"), await _gather(
+            *(self._per_course(path, semester, None) for path in (TASKS, ONLINE, PROJECTS, QUIZZES))), strict=True))
+
+        def pick(kind: str, row: dict[str, Any]) -> dict[str, Any]:
+            return {k: row.get(k) for k in SNAPSHOT_FIELDS[kind]}
+
+        sections: dict[str, dict[str, list[dict[str, Any]]]] = {}
+        for kind, per_course in lists.items():
+            for course, items in per_course:
+                sections.setdefault(str(course.get("subj")), {})[kind] = [pick(kind, i) for i in items]
+        return {
+            "semester": semester,
+            "fetched_at": self._now().isoformat(timespec="seconds"),
+            "courses": [pick("courses", r) for r in home.get("atnlcSbjectList") or []],
+            "course_posts": [pick("course_posts", n) for n in home.get("subjNotiList") or []],
+            "sections": sections,
         }
 
     # -- grades ----------------------------------------------------------------

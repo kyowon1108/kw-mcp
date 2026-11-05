@@ -12,6 +12,7 @@ dependencies = [
     "httpx>=0.28.1",
     "keyring>=25.7.0",
     "mcp[cli]>=2.3",
+    "websockets>=15",
 ]
 
 [project.scripts]

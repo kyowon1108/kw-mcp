@@ -1,7 +1,8 @@
 """Client for the kw-campus public JSON API (notices, cafeteria menu, academic calendar).
 
-Configured by KW_CAMPUS_API_URL (e.g. https://<api>.execute-api.ap-northeast-2.amazonaws.com/c/<token>)
-or the first line of ~/.config/kw-campus/api-url. Without it, the combined tools still
+Configured by KW_CAMPUS_INVITE (the kwc_... invite code; the Claude Desktop extension passes
+it), KW_CAMPUS_API_URL (e.g. https://<api>.execute-api.ap-northeast-2.amazonaws.com/c/<token>),
+or the first line of ~/.config/kw-campus/api-url. Without any, the combined tools still
 work and just leave the public parts empty. Nothing personal is sent: requests carry only
 the access token in the path and generic filters (category, date range).
 """
@@ -17,8 +18,19 @@ import httpx
 CONFIG_FILE = Path.home() / ".config" / "kw-campus" / "api-url"
 
 
+def _from_invite(invite: str) -> str | None:
+    from .agent import parse_invite
+
+    try:
+        server, token = parse_invite(invite)
+    except ValueError:
+        return None
+    return f"{server}/c/{token}"
+
+
 def base_url() -> str | None:
-    url = os.environ.get("KW_CAMPUS_API_URL")
+    invite = os.environ.get("KW_CAMPUS_INVITE", "").strip()
+    url = (_from_invite(invite) if invite else None) or os.environ.get("KW_CAMPUS_API_URL")
     if not url and CONFIG_FILE.exists():
         lines = CONFIG_FILE.read_text().split()
         url = lines[0] if lines else None
