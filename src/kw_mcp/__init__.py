@@ -9,6 +9,10 @@ import sys
 
 
 def main() -> None:
+    # Windows consoles behind a pipe may not be UTF-8; print Korean as "?" rather than crash.
+    for stream in (sys.stdout, sys.stderr):
+        if stream is not None and hasattr(stream, "reconfigure"):
+            stream.reconfigure(errors="replace")
     parser = argparse.ArgumentParser(prog="kw-mcp", description="KLAS MCP server")
     sub = parser.add_subparsers(dest="command")
     sub.add_parser("serve", help="MCP 서버 실행 (stdio, 기본값)")

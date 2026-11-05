@@ -1,0 +1,39 @@
+# Runs the live Windows installer and the agent's Windows-only code (Run key, pythonw spawn,
+# single-instance lock). A fake invite stops `kw-mcp link` before it would touch KLAS.
+name: Windows agent install
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "src/kw_mcp/agent.py"
+      - "src/kw_mcp/__init__.py"
+      - ".github/workflows/windows-agent.yml"
+
+jobs:
+  install:
+    runs-on: windows-latest
+    timeout-minutes: 20
+    env:
+      BRIDGE: https://l9doaodgw6.execute-api.ap-northeast-2.amazonaws.com
+      PYTHONUTF8: "1"
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Live installer (stops at link with a fake invite)
+        shell: powershell
+        run: |
+          $env:KWC = 'kwc_not-a-real-invite'
+          irm "$env:BRIDGE/install.ps1" | iex
+          $env:Path = "$env:USERPROFILE\.local\bin;$env:Path"
+          kw-mcp --help
+          if ($LASTEXITCODE -ne 0) { throw 'kw-mcp did not run after install' }
+          kw-mcp status
+
+      - name: Autostart round trip and single-instance lock
+        shell: powershell
+        run: |
+          $env:Path = "$env:USERPROFILE\.local\bin;$env:Path"
+          $py = Join-Path (uv tool dir) 'kw-mcp\Scripts\python.exe'
+          & $py .github/workflows/windows_agent_check.py
+          if ($LASTEXITCODE -ne 0) { throw 'Windows agent check failed' }
