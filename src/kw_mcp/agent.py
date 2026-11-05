@@ -421,6 +421,15 @@ async def fetch_update(http: httpx.AsyncClient, server: str) -> tuple[dict[str, 
     return manifest, path
 
 
+def windows_update_command(shell: str, uv: str, spec: str, log_file: Path, restart: list[str]) -> str:
+    """One command line for CreateProcess, as is. A list would be re-quoted with \\" escapes that
+    cmd.exe doesn't understand; /s /c "..." runs the inner line verbatim. `timeout` needs a console
+    and fails at once in a windowless process, so ping does the waiting."""
+    steps = (f'ping -n 8 127.0.0.1 >nul & "{uv}" tool install --force --quiet --python 3.13 "{spec}" '
+             f'>> "{log_file}" 2>&1 & {subprocess.list2cmdline(restart)}')
+    return f'"{shell}" /s /c "{steps}"'
+
+
 def install_update(wheel: Path) -> bool:
     """Install the verified wheel. True means: exit now so the new version starts."""
     uv = find_uv()
@@ -431,12 +440,11 @@ def install_update(wheel: Path) -> bool:
     if os.name == "nt":
         # Windows can't replace the interpreter that is running us: a detached shell waits for us to
         # exit, installs, then starts the agent again.
-        # `timeout` needs a console and fails at once in a windowless process; ping waits without one.
-        log_file = default_log_file().with_name("update.log")
-        command = (f'ping -n 8 127.0.0.1 >nul & "{uv}" tool install --force --quiet --python 3.13 "{spec}" '
-                   f'>> "{log_file}" 2>&1 & {subprocess.list2cmdline([*agent_command(), "--replace"])}')
+        command = windows_update_command(os.environ.get("ComSpec", "cmd.exe"), uv, spec,
+                                         default_log_file().with_name("update.log"),
+                                         [*agent_command(), "--replace"])
         flags = subprocess.DETACHED_PROCESS | subprocess.CREATE_NEW_PROCESS_GROUP | subprocess.CREATE_NO_WINDOW
-        subprocess.Popen(["cmd", "/c", command], creationflags=flags, close_fds=True)
+        subprocess.Popen(command, creationflags=flags, close_fds=True)
         return True
     done = subprocess.run([uv, "tool", "install", "--force", "--quiet", "--python", "3.13", spec],
                           capture_output=True, text=True, timeout=900)
@@ -453,9 +461,10 @@ async def update_loop(server: str) -> None:
     async with httpx.AsyncClient(timeout=120) as http:
         while True:
             try:
+                before = installed_version()
                 found = await fetch_update(http, server)
                 if found and await asyncio.to_thread(install_update, found[1]):
-                    log.info("updated %s -> %s; restarting", installed_version(), found[0]["version"])
+                    log.info("updated %s -> %s; restarting", before, found[0]["version"])
                     return
             except Exception:  # never let the updater take the agent down
                 log.exception("update check failed")

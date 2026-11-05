@@ -1,6 +1,7 @@
 import base64
 import hashlib
 import json
+from pathlib import Path
 
 import httpx
 import pytest
@@ -83,3 +84,16 @@ def test_install_update_runs_uv_with_the_local_wheel(tmp_path, monkeypatch):
 def test_versions_compare_numerically():
     assert release.version_tuple("0.10.0") > release.version_tuple("0.9.9")
     assert json.dumps(release.version_tuple("0.2.0")) == "[0, 2, 0]"
+
+
+def test_windows_update_command_is_one_verbatim_cmd_line():
+    line = agent.windows_update_command(
+        r"C:\Windows\system32\cmd.exe", r"C:\Users\Kim Lee\.local\bin\uv.exe",
+        "kw-mcp @ file:///C:/Users/Kim%20Lee/AppData/Local/Temp/x/kw_mcp-0.9.0-py3-none-any.whl",
+        Path(r"C:\Users\Kim Lee\AppData\Local\kw-campus\update.log"),
+        [r"C:\Users\Kim Lee\AppData\Roaming\uv\tools\kw-mcp\Scripts\pythonw.exe", "-m", "kw_mcp", "agent", "--replace"])
+    assert line.startswith(r'"C:\Windows\system32\cmd.exe" /s /c "ping -n 8 127.0.0.1 >nul & ')
+    assert '\\"' not in line  # no backslash-escaped quotes: cmd.exe would choke on them
+    assert r'"C:\Users\Kim Lee\.local\bin\uv.exe" tool install --force' in line
+    assert r'>> "C:\Users\Kim Lee\AppData\Local\kw-campus\update.log" 2>&1' in line
+    assert line.endswith(r'& "C:\Users\Kim Lee\AppData\Roaming\uv\tools\kw-mcp\Scripts\pythonw.exe" -m kw_mcp agent --replace"')
