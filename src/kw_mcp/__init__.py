@@ -169,7 +169,7 @@ async def _login_ok() -> int:
     from . import credentials
 
     creds = credentials.load()
-    async with KlasClient(creds.login_id, creds.password) as client:
+    async with KlasClient(creds.login_id, creds.password, login_hint=credentials.login_hint(creds)) as client:
         try:
             await client.login()
         except KlasError as e:
@@ -206,7 +206,7 @@ async def _check() -> int:
     except (credentials.MissingCredentials, KeyringError) as e:
         print(e)
         return 1
-    async with KlasClient(creds.login_id, creds.password) as client:
+    async with KlasClient(creds.login_id, creds.password, login_hint=credentials.login_hint(creds)) as client:
         svc = KlasService(client)
         try:
             await client.login()

@@ -9,3 +9,5 @@ tests/
 docs/
 dist/
 *.mcpb
+.ruff_cache/
+.github/

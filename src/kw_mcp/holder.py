@@ -27,7 +27,7 @@ class KlasHolder:
         async with self._lock:  # parallel first calls share one client (and one login)
             if creds != self._creds or self._service is None:
                 await self._close()
-                self._client = KlasClient(creds.login_id, creds.password)
+                self._client = KlasClient(creds.login_id, creds.password, login_hint=credentials.login_hint(creds))
                 self._service = KlasService(self._client)
                 self._creds = creds
             return self._service

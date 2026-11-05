@@ -84,9 +84,11 @@ class KlasClient:
         *,
         base_url: str = BASE_URL,
         transport: httpx.AsyncBaseTransport | None = None,
+        login_hint: str = "",
     ) -> None:
         self._login_id = login_id
         self._password = password
+        self._login_hint = login_hint  # where this login came from and how to fix it
         self._http = httpx.AsyncClient(
             base_url=base_url,
             transport=transport,
@@ -204,9 +206,10 @@ class KlasClient:
             raise KlasLoginError("Unexpected login response from KLAS")
         if result.get("errorCount", 1) != 0:
             message = _error_message(result) or "KLAS 로그인 실패 (아이디/비밀번호 확인)"
+            hint = self._login_hint or "학번과 비밀번호를 다시 저장하세요."
             raise KlasBadPassword(
-                f"{message} — 잘못된 비밀번호로 반복 시도하면 캡차가 걸리므로 "
-                f"{int(LOGIN_COOLDOWN // 60)}분 동안 재시도하지 않습니다. `kw-mcp setup`으로 다시 저장하세요."
+                f"{message} — {hint} 고치면 다음 요청에서 바로 다시 로그인합니다. 그대로 두면 "
+                f"캡차가 걸리지 않도록 {int(LOGIN_COOLDOWN // 60)}분 동안 재시도하지 않습니다."
             )
 
         info = result.get("response") or {}
