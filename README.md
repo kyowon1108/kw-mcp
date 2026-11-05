@@ -78,6 +78,10 @@ npx -y @anthropic-ai/mcpb pack . dist/kw-klas.mcpb   # 또는 로컬에 설치�
 
 에이전트는 연결 서버와 WebSocket을 유지하다가(5분마다 핑, 끊기면 최대 60초 간격으로 다시 접속) 요청이 오면 KLAS에서 정해 둔 필드만 읽고(`SNAPSHOT_FIELDS`), 서버가 요청마다 보낸 AES-256 키로 암호화해 올린다. 결과를 올릴 주소가 연결한 서버가 아니면 무시한다. 한 PC에 에이전트는 하나만 돈다(localhost 47811 포트로 확인).
 
+**자동 업데이트**: 에이전트는 시작 10분 뒤와 6시간마다 연결 서버의 `/dist/latest.json`을 본다. 버전이 더 높고, Ed25519 서명이 `kw_mcp/release.py`의 공개키와 맞고, 받은 파일이 서명된 SHA-256과 같을 때만 설치하고 다시 시작한다(macOS는 launchd가, Windows는 에이전트가 끝난 뒤 별도 프로세스가 설치하고 띄움). 서명 키는 릴리스하는 PC의 키체인에만 있어서, 서버만으로는 PC에 코드를 밀어 넣을 수 없다. 처음 설치한 명령을 다시 실행해도 업데이트되고, 이때 기기 등록과 커넥터 연결은 그대로다.
+
+**릴리스**: `pyproject.toml`의 version을 올리고 kw-campus의 `scripts/build_lambda.sh` → `cdk deploy`. 빌드가 키체인의 키로 서명한다(`python -m kw_mcp.release keygen`은 처음 한 번만). Claude 데스크톱 `.mcpb`는 자동 업데이트가 없으니 새 파일을 받아 다시 설치한다.
+
 ## Claude Code에 등록
 
 ```bash

@@ -56,10 +56,13 @@ jobs:
           $whl = (Get-ChildItem dist-update\kw_mcp-0.99.0-py3-none-any.whl).FullName
           & $py -c "import sys; from pathlib import Path; from kw_mcp import agent; sys.exit(0 if agent.install_update(Path(sys.argv[1])) else 1)" $whl
           if ($LASTEXITCODE -ne 0) { throw 'install_update refused' }
+          # Poll with uv, not the tool's own python: running it would lock the files being replaced.
           for ($i = 0; $i -lt 60; $i++) {
-            $v = & $py -c "from importlib.metadata import version; print(version('kw-mcp'))" 2>$null
+            $v = (uv tool list 2>$null | Select-String '^kw-mcp v(\S+)').Matches.Groups[1].Value
             if ($v -eq '0.99.0') { break }
-            Start-Sleep -Seconds 2
+            Start-Sleep -Seconds 3
           }
           Write-Host "installed version after update: $v"
+          $log = "$env:LOCALAPPDATA\kw-campus\update.log"
+          if (Test-Path $log) { Get-Content $log }
           if ($v -ne '0.99.0') { throw 'the detached update did not install the new version' }

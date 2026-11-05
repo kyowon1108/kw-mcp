@@ -431,8 +431,10 @@ def install_update(wheel: Path) -> bool:
     if os.name == "nt":
         # Windows can't replace the interpreter that is running us: a detached shell waits for us to
         # exit, installs, then starts the agent again.
-        command = (f'timeout /t 5 /nobreak >nul & "{uv}" tool install --force --quiet --python 3.13 "{spec}" '
-                   f'& {subprocess.list2cmdline([*agent_command(), "--replace"])}')
+        # `timeout` needs a console and fails at once in a windowless process; ping waits without one.
+        log_file = default_log_file().with_name("update.log")
+        command = (f'ping -n 8 127.0.0.1 >nul & "{uv}" tool install --force --quiet --python 3.13 "{spec}" '
+                   f'>> "{log_file}" 2>&1 & {subprocess.list2cmdline([*agent_command(), "--replace"])}')
         flags = subprocess.DETACHED_PROCESS | subprocess.CREATE_NEW_PROCESS_GROUP | subprocess.CREATE_NO_WINDOW
         subprocess.Popen(["cmd", "/c", command], creationflags=flags, close_fds=True)
         return True
