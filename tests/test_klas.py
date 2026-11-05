@@ -14,6 +14,7 @@ from kw_mcp.klas import (
     LOGIN_FORM,
     LOGIN_SECURITY,
     KlasClient,
+    KlasError,
     KlasLoginError,
     encrypt_login,
 )
@@ -130,3 +131,32 @@ async def test_captcha_required_stops_before_confirm(keypair):
             with pytest.raises(KlasLoginError, match="캡차"):
                 await client.login()
         assert confirm.call_count == 0
+
+
+LOGIN_REQUIRED = {"redirect": True, "redirectUrl": "/usr/cmn/login/LoginForm.do?redirectUrl=/std/cmn/frame/StdHome.do",
+                  "fieldErrors": [], "responseText": "", "response": None, "loginRequired": True, "errorCount": 0}
+
+
+async def test_a_json_login_required_answer_logs_in_again(keypair):
+    # What KLAS really sends an AJAX call once the session is gone (2026-11-06): 200 + JSON, no redirect.
+    _, public_b64 = keypair
+    with respx.mock(base_url=BASE_URL) as router:
+        confirm = mock_login(router, public_b64)
+        router.post(HOME).mock(side_effect=[httpx.Response(200, json={"n": 1}),
+                                            httpx.Response(200, json=LOGIN_REQUIRED),
+                                            httpx.Response(200, json={"n": 2})])
+        async with KlasClient("id", "pw") as client:
+            assert await client.post(HOME) == {"n": 1}
+            assert await client.post(HOME) == {"n": 2}  # not the login-required dict
+        assert confirm.call_count == 2
+
+
+async def test_login_required_right_after_logging_in_is_an_error(keypair):
+    _, public_b64 = keypair
+    with respx.mock(base_url=BASE_URL) as router:
+        confirm = mock_login(router, public_b64)
+        router.post(HOME).respond(200, json=LOGIN_REQUIRED)
+        async with KlasClient("id", "pw") as client:
+            with pytest.raises(KlasError, match="log in again"):
+                await client.post(HOME)
+        assert confirm.call_count == 2  # one fresh login, one retry; no loop

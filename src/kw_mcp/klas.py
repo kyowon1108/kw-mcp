@@ -244,11 +244,17 @@ class KlasClient:
         if allow_empty and not resp.content.strip():
             return None  # LctreEvlTermCheck says "not the evaluation period" with an empty body
         try:
-            return resp.json()
+            data = resp.json()
         except ValueError:
             if "text/html" in resp.headers.get("content-type", ""):
                 raise SessionExpired(f"{path}: got an HTML page instead of JSON") from None
             raise KlasError(f"{path}: response is not JSON") from None
+        # To the site's own AJAX calls (our headers) a dead session isn't a 302 but 200 with
+        # {"loginRequired": true, "redirect": true, "redirectUrl": "/usr/cmn/login/LoginForm.do?..."}
+        # (checked 2026-11-06). Read as data it looks like "no courses, nothing due".
+        if isinstance(data, dict) and data.get("loginRequired") is True:
+            raise SessionExpired(f"{path}: KLAS asked to log in again")
+        return data
 
 
 def _error_message(result: dict[str, Any]) -> str | None:
