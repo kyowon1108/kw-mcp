@@ -83,6 +83,7 @@ CALLS: dict[str, tuple[str, ...]] = {
     "course_evaluation": (),
     "application_windows": (),
     "course_overview": ("course",),
+    "department": (),  # my_notices on the bridge: only the department name, to pick department boards
 }
 # The bridge says "id"; the service names it after what it identifies. The service only accepts
 # ids its own lists handed out.
