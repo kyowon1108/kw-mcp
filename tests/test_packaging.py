@@ -120,3 +120,16 @@ def test_staging_copies_only_the_allow_list(tmp_path):
     on_disk = sorted(str(p.relative_to(tmp_path / "stage")).replace(os.sep, "/")
                      for p in (tmp_path / "stage").rglob("*") if p.is_file())
     assert on_disk == sorted(copied) and not release.bundle_extras(on_disk)
+
+
+def test_the_extension_has_its_name_and_icon():
+    import json
+    from pathlib import Path
+
+    from kw_mcp import release
+
+    root = Path(__file__).resolve().parents[1]
+    manifest = json.loads((root / "manifest.json").read_text(encoding="utf-8"))
+    assert manifest["name"] == "kw-campus" and manifest["display_name"] == "KW CAMPUS (광운 캠퍼스)"
+    assert manifest["icon"] in release.BUNDLE_FILES and (root / manifest["icon"]).read_bytes()[:8] == b"\x89PNG\r\n\x1a\n"
+    assert release.MCPB_NAME == "kw-campus.mcpb"

@@ -616,7 +616,7 @@ def test_the_python_pack_refuses_a_bad_manifest_or_stray_files(tmp_path):
         release_script.pack_mcpb(stage, tmp_path / "x.mcpb", datetime.now(UTC))
     (stage / ".env").unlink()
     for broken in ({"manifest_version": "9.9"}, {"server": {"type": "uv", "entry_point": "missing.py", "mcp_config": {"command": "uv"}}},
-                   {"author": "nobody"}, {"description": ""}):
+                   {"author": "nobody"}, {"description": ""}, {"icon": "icon.png"}):  # names an icon it lacks
         (stage / "manifest.json").write_text(json.dumps({**manifest(), **broken}))
         with pytest.raises(release_script.ReleaseError, match="not a valid extension manifest"):
             release_script.pack_mcpb(stage, tmp_path / "x.mcpb", datetime.now(UTC))

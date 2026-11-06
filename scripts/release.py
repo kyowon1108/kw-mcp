@@ -146,7 +146,7 @@ def stage_bundle(src: Path, dest: Path) -> list[str]:
         if path.is_file() and not release.bundle_extras([name]):
             shutil.copy2(path, dest / name)
             copied.append(name)
-    missing = {"manifest.json", "icon.png", "pyproject.toml", "uv.lock", "LICENSE", "src/kw_mcp/server.py"} - set(copied)
+    missing = {"manifest.json", "pyproject.toml", "uv.lock", "LICENSE", "src/kw_mcp/server.py"} - set(copied)
     if missing:
         raise ReleaseError(f"the extension would lack {', '.join(sorted(missing))}")
     return copied
@@ -179,6 +179,9 @@ def check_bundle_manifest(stage: Path) -> dict:
         problems.append("server.entry_point (a file in the bundle)")
     if not isinstance(config.get("command"), str) or not config["command"]:
         problems.append("server.mcp_config.command")
+    icon = manifest.get("icon")
+    if icon is not None and (not isinstance(icon, str) or not (stage / icon).is_file()):
+        problems.append("icon (a file in the bundle)")
     if not all(isinstance(a, str) for a in config.get("args", [])):
         problems.append("server.mcp_config.args")
     env = config.get("env", {})
