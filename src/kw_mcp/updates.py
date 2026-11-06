@@ -64,7 +64,7 @@ def unavailable_reason() -> str | None:
     invite = _invite()
     if not invite:
         return ("초대 코드가 없어 새 버전을 확인할 수 없습니다(보안 수정 포함). Claude 데스크톱 설정 → 확장 프로그램 → "
-                "광운대 KLAS → 구성에 초대 코드를 넣거나, 초대해 준 사람에게 최신 파일을 받으세요.")
+                "KW CAMPUS (광운 캠퍼스) → 구성에 초대 코드를 넣거나, 초대해 준 사람에게 최신 파일을 받으세요.")
     try:
         parse_invite(invite)
     except ValueError as e:
@@ -137,7 +137,7 @@ def notice(newer: dict[str, Any]) -> dict[str, str]:
     """What the combined tools add to their answer when a newer version exists."""
     # No link here: a file fetched by hand skips the signature check that download_update does.
     return {"installed": newer["installed"], "latest": newer["version"],
-            "message": "광운대 KLAS 확장의 새 버전이 있습니다. 사용자가 원하면 download_update 도구로 받으세요"
+            "message": "KW CAMPUS 확장의 새 버전이 있습니다. 사용자가 원하면 download_update 도구로 받으세요"
                        "(서명을 확인한 파일만 다운로드 폴더에 저장합니다)."}
 
 
@@ -170,7 +170,7 @@ async def download(http: httpx.AsyncClient | None = None, dest_dir: Path | None 
     if hashlib.sha256(data).hexdigest() != newer["sha256"]:
         raise LookupError("받은 파일이 서명된 해시와 달라 저장하지 않았습니다.")
     folder = dest_dir or downloads_dir()
-    path = folder / f"kw-klas-{newer['version']}.mcpb"
+    path = folder / f"kw-campus-{newer['version']}.mcpb"
     partial = path.with_suffix(".part")
     try:
         partial.write_bytes(data)

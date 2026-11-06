@@ -26,7 +26,7 @@ class MissingCredentials(RuntimeError):
 
 ENV = "env"  # the Claude Desktop extension's settings, passed in as KLAS_ID / KLAS_PASSWORD
 KEYCHAIN = "keychain"  # saved by `kw-mcp setup`
-FIX_IN_EXTENSION = "Claude 데스크톱 설정 → 확장 프로그램 → '광운대 KLAS (읽기 전용)' → 구성에서 학번과 비밀번호를 다시 입력하세요"
+FIX_IN_EXTENSION = "Claude 데스크톱 설정 → 확장 프로그램 → 'KW CAMPUS (광운 캠퍼스)' → 구성에서 학번과 비밀번호를 다시 입력하세요"
 FIX_IN_KEYCHAIN = "터미널에서 `kw-mcp setup`을 실행해 학번과 비밀번호를 다시 저장하세요"
 _HANGUL = re.compile(r"[\u3131-\u318e\uac00-\ud7a3]")
 _PLACEHOLDER = re.compile(r"\$\{user_config\.\w+\}")

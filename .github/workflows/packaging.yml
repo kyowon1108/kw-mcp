@@ -45,21 +45,21 @@ jobs:
         run: uv run --frozen pytest -q tests/test_packaging.py
 
       - name: Pack the allow-listed bundle the way a release does
-        run: uv run --frozen python scripts/release.py pack "$RUNNER_TEMP/kw-klas.mcpb"
+        run: uv run --frozen python scripts/release.py pack "$RUNNER_TEMP/kw-campus.mcpb"
 
       - name: mcpb accepts the manifest and reads the packed file
         run: |
           npx --yes @anthropic-ai/mcpb@2.1.2 validate manifest.json
-          npx --yes @anthropic-ai/mcpb@2.1.2 info "$RUNNER_TEMP/kw-klas.mcpb"
+          npx --yes @anthropic-ai/mcpb@2.1.2 info "$RUNNER_TEMP/kw-campus.mcpb"
 
       - name: Unpack with mcpb into a path with Korean letters and spaces
-        run: npx --yes @anthropic-ai/mcpb@2.1.2 unpack "$RUNNER_TEMP/kw-klas.mcpb" "$RUNNER_TEMP/한글 경로/kw klas"
+        run: npx --yes @anthropic-ai/mcpb@2.1.2 unpack "$RUNNER_TEMP/kw-campus.mcpb" "$RUNNER_TEMP/한글 경로/kw campus"
 
       - name: Start it with the manifest's command and list its tools
-        run: uv run --frozen python scripts/smoke_mcpb.py "$RUNNER_TEMP/한글 경로/kw klas"
+        run: uv run --frozen python scripts/smoke_mcpb.py "$RUNNER_TEMP/한글 경로/kw campus"
 
       - name: Start it from the manifest's entry_point
-        run: uv run --frozen python scripts/smoke_mcpb.py "$RUNNER_TEMP/한글 경로/kw klas" --entry-point
+        run: uv run --frozen python scripts/smoke_mcpb.py "$RUNNER_TEMP/한글 경로/kw campus" --entry-point
 
       - name: The agent wheel installs with its pins and passes its self-test
         run: uv run --frozen python scripts/release.py check-install

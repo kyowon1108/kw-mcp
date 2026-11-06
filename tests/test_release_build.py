@@ -96,13 +96,13 @@ def test_constraints_are_signed_for_their_version_only(tmp_path, key):
 ])
 def test_a_bundle_with_anything_off_the_allow_list_is_not_signed(tmp_path, key, extra):
     with pytest.raises(ValueError, match="don't belong"):
-        release.sign_mcpb(bundle(tmp_path / "kw-klas.mcpb", extra={extra: b"x"}), key)
+        release.sign_mcpb(bundle(tmp_path / "kw-campus.mcpb", extra={extra: b"x"}), key)
 
 
 def test_a_full_release_signs_and_checks(tmp_path, key):
     out = tmp_path / "release"
     w, p = wheel(out), pins(out)
-    mcpb = bundle(out / "kw-klas.mcpb", project=tmp_path / "project")
+    mcpb = bundle(out / "kw-campus.mcpb", project=tmp_path / "project")
     manifest = release.sign_release(w, p, mcpb, key, project_dir=tmp_path / "project")
     (out / "latest.json").write_text(json.dumps(manifest))
     assert release.check_release(out)["version"] == "0.9.1"

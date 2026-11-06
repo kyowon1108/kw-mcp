@@ -5,7 +5,7 @@ The bridge serves /dist/latest.json, written by scripts/release.sh on the releas
   {"version": "0.9.1",
    "wheel": "kw_mcp-0.9.1-py3-none-any.whl", "sha256": "<hex>", "signature": "<b64>",
    "constraints": {"file": "kw_mcp-0.9.1-constraints.txt", "sha256": "<hex>", "signature": "<b64>"},
-   "mcpb": {"version": "0.9.1", "file": "kw-klas.mcpb", "sha256": "<hex>", "signature": "<b64>"}}
+   "mcpb": {"version": "0.9.1", "file": "kw-campus.mcpb", "sha256": "<hex>", "signature": "<b64>"}}
 
 Each signature is Ed25519, made with a key that lives only in the release machine's keychain:
   wheel        `kw-mcp-release:<version>:<wheel>:<sha256>` (unchanged since 0.6, so released agents still verify)
@@ -44,7 +44,7 @@ PUBLIC_KEY = "QwRJgXfphlR4iZ1gKTfeAZlC5occZx7bgxaVHeAztw0="  # base64 raw Ed2551
 KEYRING_SERVICE = "kw-campus-release"
 KEYRING_USER = "signing-key"
 MANIFEST_NAME = "latest.json"
-MCPB_NAME = "kw-klas.mcpb"
+MCPB_NAME = "kw-campus.mcpb"
 _WHEEL = re.compile(r"^kw_mcp-(?P<version>[0-9][\w.]*)-py3-none-any\.whl$")
 _CONSTRAINTS = re.compile(r"^kw_mcp-(?P<version>[0-9][\w.]*)-constraints\.txt$")
 _EXCLUDE_NEWER = re.compile(r"^# exclude-newer: (\d{4}-\d\d-\d\dT\d\d:\d\d:\d\dZ)$", re.MULTILINE)
@@ -52,7 +52,8 @@ _SHA256 = re.compile(r"[0-9a-f]{64}")
 _RELEASE_VERSION = re.compile(r"\d+(\.\d+){1,3}")  # plain numbers only: no rc/dev tags to compare
 # What a .mcpb may contain. Anything else (a stale worktree under .claude/, local settings, caches)
 # makes signing refuse the bundle.
-BUNDLE_FILES = frozenset({"manifest.json", "pyproject.toml", "uv.lock", ".python-version", "README.md", "LICENSE"})
+BUNDLE_FILES = frozenset({"manifest.json", "icon.png", "pyproject.toml", "uv.lock", ".python-version", "README.md",
+                          "LICENSE"})
 _BUNDLE_SOURCE = re.compile(r"^src/kw_mcp/(\w+\.py|py\.typed)$")
 
 

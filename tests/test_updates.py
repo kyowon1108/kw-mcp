@@ -36,7 +36,7 @@ def extension(monkeypatch):
 def entry(private, version="0.6.0", data=NEW_MCPB):
     sha256 = hashlib.sha256(data).hexdigest()
     signature = private.sign(release.mcpb_message(version, sha256))
-    return {"version": version, "file": "kw-klas.mcpb", "sha256": sha256,
+    return {"version": version, "file": "kw-campus.mcpb", "sha256": sha256,
             "signature": base64.b64encode(signature).decode()}
 
 
@@ -56,7 +56,7 @@ def wheel_with(tmp_path, version="0.6.0", code=b"print('v1')"):
 
 
 def test_sign_mcpb_reads_the_packed_version(tmp_path, key):
-    signed = release.sign_mcpb(pack(tmp_path / "kw-klas.mcpb"), key)
+    signed = release.sign_mcpb(pack(tmp_path / "kw-campus.mcpb"), key)
     assert signed["version"] == "0.6.0" and release.verify_mcpb(signed)
     assert not release.verify_mcpb({**signed, "version": "9.9.9"})
     assert not release.verify_mcpb({**signed, "file": "../evil.mcpb"})
@@ -64,7 +64,7 @@ def test_sign_mcpb_reads_the_packed_version(tmp_path, key):
 
 
 def test_only_a_bundle_of_the_released_code_gets_signed(tmp_path, key):
-    bundle = pack(tmp_path / "kw-klas.mcpb")
+    bundle = pack(tmp_path / "kw-campus.mcpb")
     assert release.sign_mcpb(bundle, key, wheel_path=wheel_with(tmp_path))["version"] == "0.6.0"
     with pytest.raises(ValueError, match="repack"):  # stale bundle left in dist/
         (tmp_path / "v2").mkdir()
@@ -93,7 +93,7 @@ async def test_newer_signed_version_is_offered_once_per_check_window(extension, 
     route = respx.get(f"{SERVER}/dist/latest.json").mock(
         return_value=httpx.Response(200, json={"version": "0.6.0", "mcpb": entry(key)}))
     newer = await updates.latest()
-    assert newer["version"] == "0.6.0" and newer["url"] == f"{SERVER}/dist/kw-klas.mcpb"
+    assert newer["version"] == "0.6.0" and newer["url"] == f"{SERVER}/dist/kw-campus.mcpb"
     assert await updates.latest() == newer and route.call_count == 1  # cached
     assert "download_update" in updates.notice(newer)["message"]
 
@@ -132,10 +132,10 @@ async def test_outside_the_extension_nothing_is_checked(monkeypatch):
 @respx.mock
 async def test_download_saves_only_the_signed_file(extension, key, tmp_path):
     respx.get(f"{SERVER}/dist/latest.json").mock(return_value=httpx.Response(200, json={"mcpb": entry(key)}))
-    file = respx.get(f"{SERVER}/dist/kw-klas.mcpb")
+    file = respx.get(f"{SERVER}/dist/kw-campus.mcpb")
     file.mock(return_value=httpx.Response(200, content=NEW_MCPB))
     saved = await updates.download(dest_dir=tmp_path)
-    assert saved.name == "kw-klas-0.6.0.mcpb" and saved.read_bytes() == NEW_MCPB
+    assert saved.name == "kw-campus-0.6.0.mcpb" and saved.read_bytes() == NEW_MCPB
 
     file.mock(return_value=httpx.Response(200, content=b"tampered"))
     with pytest.raises(LookupError, match="해시"):
@@ -196,7 +196,7 @@ async def test_answer_waits_at_most_briefly_for_a_slow_check(monkeypatch):
 @respx.mock
 async def test_download_reports_an_unwritable_folder(extension, key, tmp_path):
     respx.get(f"{SERVER}/dist/latest.json").mock(return_value=httpx.Response(200, json={"mcpb": entry(key)}))
-    respx.get(f"{SERVER}/dist/kw-klas.mcpb").mock(return_value=httpx.Response(200, content=NEW_MCPB))
+    respx.get(f"{SERVER}/dist/kw-campus.mcpb").mock(return_value=httpx.Response(200, content=NEW_MCPB))
     with pytest.raises(LookupError, match="저장하지 못했습니다"):
         await updates.download(dest_dir=tmp_path / "missing")
 

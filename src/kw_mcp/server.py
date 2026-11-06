@@ -70,7 +70,7 @@ class _Server(MCPServer):
         super().add_tool(scrubbed, *args, **kwargs)
 
 
-mcp = _Server("kw-klas", instructions=INSTRUCTIONS, version=klas.package_version())
+mcp = _Server("kw-campus", instructions=INSTRUCTIONS, version=klas.package_version())
 
 _service: KlasService | None = None
 _public: PublicApi | None = None
@@ -482,7 +482,7 @@ async def klas_status() -> dict[str, Any]:
 
 
 async def check_update() -> dict[str, Any]:
-    """이 확장(광운대 KLAS)의 새 버전이 있는지 확인합니다. 우리 릴리스 키로 서명된 버전만 알려 줍니다.
+    """이 확장(KW CAMPUS)의 새 버전이 있는지 확인합니다. 우리 릴리스 키로 서명된 버전만 알려 줍니다.
     확인하지 못했으면(초대 코드 없음, 서버 연결 실패) checked가 false이고 reason에 이유와 할 일이 있습니다."""
     return await updates.check()
 

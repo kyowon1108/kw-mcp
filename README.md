@@ -66,14 +66,14 @@ uv run kw-mcp check   # 로그인해서 과목·과제·강의 개수만 출력
 로그인 정보는 `KLAS_ID` / `KLAS_PASSWORD` 환경변수가 있으면 그것을, 없으면 키체인(서비스 이름 `kw-mcp`)을 쓴다. 지우려면 `uv run kw-mcp forget`.
 
 로그인이 안 되는 경우:
-- "개인번호 또는 비밀번호가 일치하지 않습니다"가 나오면 오류 문구에 실제로 로그인한 아이디가 가려진 채로(`2022******(10자리)`, 입학 연도와 길이만) 나온다. 학번이 아닌 값이 들어갔는지, 비밀번호에 한글이 섞였는지(한/영 전환)도 알려 주고, 고칠 곳을 설치 방식에 맞게 안내한다. `.mcpb`로 설치했다면 Claude 데스크톱 설정 → 확장 프로그램 → 광운대 KLAS → 구성, 그 밖에는 `kw-mcp setup`. 앞뒤 공백은 자동으로 지운다.
+- "개인번호 또는 비밀번호가 일치하지 않습니다"가 나오면 오류 문구에 실제로 로그인한 아이디가 가려진 채로(`2022******(10자리)`, 입학 연도와 길이만) 나온다. 학번이 아닌 값이 들어갔는지, 비밀번호에 한글이 섞였는지(한/영 전환)도 알려 주고, 고칠 곳을 설치 방식에 맞게 안내한다. `.mcpb`로 설치했다면 Claude 데스크톱 설정 → 확장 프로그램 → KW CAMPUS (광운 캠퍼스) → 구성, 그 밖에는 `kw-mcp setup`. 앞뒤 공백은 자동으로 지운다.
 - KLAS가 비밀번호를 거부하면, 저장된 학번·비밀번호가 바뀔 때까지 같은 비밀번호를 다시 보내지 않는다. 다시 시작해도 마찬가지다(`~/.config/kw-mcp/login-state.json`에 학번·비밀번호의 솔트 PBKDF2 지문과 시각만 남기고, 원문은 남기지 않는다). 설정에서 비밀번호를 고치면 바로 다시 시도한다.
 - 비밀번호를 3번 넘게 틀리면 KLAS가 캡차를 요구한다. 그래서 실패가 2번 쌓이면 비밀번호를 확인하는 단계(`LoginConfirm.do`) 전에 멈춘다. 브라우저에서 한 번 직접 로그인하면 풀린다. 실패 횟수는 10분마다 다시 확인하는데, 이때 KLAS 로그인 페이지와 같은 방식으로 학번·비밀번호를 암호화한 로그인 토큰을 `LoginCaptcha.do`에 보내 횟수만 묻고, `LoginConfirm.do`로는 넘어가지 않는다.
 - 2차 인증이 켜진 계정은 자동 로그인을 할 수 없다. 2차 인증 요청이 학생에게 가므로 1시간에 한 번만 다시 시도한다. 임시 비밀번호 상태인 계정은 비밀번호를 바꿀 때까지 멈춘다.
 
 ## Claude 데스크톱에 클릭 한 번으로 설치 (.mcpb)
 
-배포용 파일은 아래 "릴리스"의 `scripts/release.sh`가 허용 목록에 있는 파일만 넣어 만들고 서명한다(`dist/release/kw-klas.mcpb`). 이 파일을 더블클릭하면 Claude 데스크톱이 설치 화면을 띄운다. 학번, 비밀번호, 초대 코드(선택)를 넣으면 끝이다. 비밀번호와 초대 코드는 Claude가 OS 키체인에 보관하고, 실행할 때 환경변수로 넘긴다. Python과 의존성은 Claude가 `uv`로 관리한다(`server.type = "uv"`, MCPB 0.4의 실험 기능이라 실제 설치 확인이 필요하다). 연결 서버도 같은 파일을 `/dist/kw-klas.mcpb`로 내려 준다.
+배포용 파일은 아래 "릴리스"의 `scripts/release.sh`가 허용 목록에 있는 파일만 넣어 만들고 서명한다(`dist/release/kw-campus.mcpb`). 이 파일을 더블클릭하면 Claude 데스크톱이 설치 화면을 띄운다. 확장 목록에는 "KW CAMPUS (광운 캠퍼스)"로 보인다. 1.0.0에서 확장 ID가 `kw-klas`에서 `kw-campus`로 바뀌어서, 0.x("광운대 KLAS (읽기 전용)")를 설치한 PC에서는 새 확장이 따로 설치된다. 새 확장에 학번·비밀번호를 넣은 뒤 예전 확장을 제거한다(둘 다 켜 두면 같은 도구가 두 번 보인다). 학번, 비밀번호, 초대 코드(선택)를 넣으면 끝이다. 비밀번호와 초대 코드는 Claude가 OS 키체인에 보관하고, 실행할 때 환경변수로 넘긴다. Python과 의존성은 Claude가 `uv`로 관리한다(`server.type = "uv"`, MCPB 0.4의 실험 기능이라 실제 설치 확인이 필요하다). 연결 서버도 같은 파일을 `/dist/kw-campus.mcpb`로 내려 준다.
 
 ## PC 에이전트 (Claude 웹·모바일, ChatGPT용)
 
@@ -108,7 +108,7 @@ uv run kw-mcp check   # 로그인해서 과목·과제·강의 개수만 출력
 ## Claude Code에 등록
 
 ```bash
-claude mcp add kw-klas --scope user -- uv run --directory <kw-mcp 경로> kw-mcp
+claude mcp add kw-campus --scope user -- uv run --directory <kw-mcp 경로> kw-mcp
 ```
 
 Claude Desktop은 `claude_desktop_config.json`의 `mcpServers`에 같은 명령을 넣는다:
@@ -116,7 +116,7 @@ Claude Desktop은 `claude_desktop_config.json`의 `mcpServers`에 같은 명령�
 ```json
 {
   "mcpServers": {
-    "kw-klas": {
+    "kw-campus": {
       "command": "uv",
       "args": ["run", "--directory", "<kw-mcp 경로>", "kw-mcp"]
     }

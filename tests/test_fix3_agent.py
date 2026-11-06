@@ -578,7 +578,7 @@ def test_the_release_smoke_install_checks_hashes_like_an_agent(monkeypatch, tmp_
 # --- B3: the extension is packed in Python, before any third-party code runs -----------------
 
 def manifest(version="0.9.1") -> dict:
-    return {"manifest_version": "0.4", "name": "kw-klas", "version": version, "description": "d",
+    return {"manifest_version": "0.4", "name": "kw-campus", "version": version, "description": "d",
             "author": {"name": "a"}, "server": {"type": "uv", "entry_point": "src/kw_mcp/__main__.py",
                                                 "mcp_config": {"command": "uv", "args": ["run"], "env": {"A": "b"}}}}
 

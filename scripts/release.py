@@ -146,7 +146,7 @@ def stage_bundle(src: Path, dest: Path) -> list[str]:
         if path.is_file() and not release.bundle_extras([name]):
             shutil.copy2(path, dest / name)
             copied.append(name)
-    missing = {"manifest.json", "pyproject.toml", "uv.lock", "LICENSE", "src/kw_mcp/server.py"} - set(copied)
+    missing = {"manifest.json", "icon.png", "pyproject.toml", "uv.lock", "LICENSE", "src/kw_mcp/server.py"} - set(copied)
     if missing:
         raise ReleaseError(f"the extension would lack {', '.join(sorted(missing))}")
     return copied
