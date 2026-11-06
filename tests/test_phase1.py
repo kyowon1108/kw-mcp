@@ -11,6 +11,7 @@ import respx
 from kw_mcp import agent, combined
 from kw_mcp.klas import BASE_URL, KlasClient, KlasError, KlasLoginError
 from kw_mcp.service import (
+    COURSE_HOME,
     DISCUSSIONS,
     DROP_CREDITS_TERM,
     EVAL_COURSES,
@@ -34,6 +35,7 @@ NOW = datetime(2026, 11, 5, 12, 0, tzinfo=KST)
 class Phase1Client(FakeClient):
     term: Any = None
     fail: frozenset[str] = frozenset()
+    joined = 0  # discussions I joined in 데이터마이닝 (course home count)
 
     async def post(self, path: str, body: dict[str, Any] | None = None, **_: Any) -> Any:
         if path in self.fail:
@@ -76,6 +78,18 @@ class Phase1Client(FakeClient):
                 "fromDate": "2026.11.01", "toDate": "2026.11.15", "fromTime": "09:00:00", "toTime": "18:00:00"}}
         if path == DROP_CREDITS_TERM:
             return {"stats": "N", "returnMsg": "취득학점포기 신청 기간이 아닙니다"}
+        if path == COURSE_HOME:
+            self.calls.append((path, body or {}))
+            # Field names from a live LctrumHomeStdInfo answer (values made up); notices carry staff data.
+            joined = self.joined if subj == "U2026A" else 0
+            return {"taskCnt": 3, "taskPrsntCnt": 2, "taskNewCnt": 1, "quizCnt": 1, "quizPrsntCnt": 1, "quizNewCnt": 0,
+                    "examCnt": 0, "examPrsntCnt": 0, "examNewCnt": 0, "prjctCnt": 1, "prjctPrsntCnt": 0,
+                    "prjctNewCnt": 0, "surveyCnt": 2, "surveyPrsntCnt": 1, "surveyNewCnt": 1, "dscsnCnt": 2,
+                    "dscsnJoinCnt": joined, "dscsnNewCnt": 0, "pdsCnt": 5, "pdsNewCnt": 2, "cntntCmpltCnt": 7,
+                    "cntntList": [{}] * 9, "curEmail": "a@kw.ac.kr", "curMobile": "010-0000-0000",
+                    "noticeList": [{"userNm": "김교수", "registerId": "2000000000AB", "title": "공지"}],
+                    "atendList": [{"attendancediv": "AT"}, {"attendancediv": "AT"}, {"attendancediv": "LT"},
+                                  {"attendancediv": "AB"}, {"attendancediv": None}]}
         return await super().post(path, body)
 
 
@@ -259,6 +273,9 @@ async def test_briefing_uses_the_retry_due_and_passes_incomplete_on():
         async def menu(self, day):
             return None
 
+        async def calendar(self, start, end):
+            return []
+
     out = await combined.today_briefing(svc, NoPublic())
     titles = [i["title"] for i in out["due_today_or_tomorrow"]]
     assert "2주차 시험" in titles  # retry due 11-08 23:59 is tomorrow
@@ -276,3 +293,28 @@ async def test_bridge_can_ask_the_agent_for_the_new_reads():
     assert out["result"]["days"] == 7 and any(i["kind"] == "online_test" for i in out["result"]["items"])
     for op in ("online_tests", "surveys", "discussions", "course_evaluation", "application_windows"):
         assert "result" in await agent.build_result(Holder(), op, {})
+
+
+async def test_course_overview_counts_and_nothing_personal():
+    import json
+
+    svc, _ = service()
+    out = await svc.course_overview("데이터")
+    assert out == [{"course": "데이터마이닝", "online_lectures": {"done": 7, "total": 9},
+                    "assignments": {"done": 2, "total": 3, "new": 1}, "quizzes": {"done": 1, "total": 1, "new": 0},
+                    "online_tests": {"done": 0, "total": 0, "new": 0}, "team_projects": {"done": 0, "total": 1, "new": 0},
+                    "surveys": {"done": 1, "total": 2, "new": 1}, "discussions": {"done": 0, "total": 2, "new": 0},
+                    "materials": {"total": 5, "new": 2},
+                    "attendance": {"출석": 2, "결석": 1, "지각": 1, "조퇴": 0, "공결": 0}}]
+    text = json.dumps(out, ensure_ascii=False)
+    assert "a@kw.ac.kr" not in text and "김교수" not in text and "2000000000" not in text
+
+
+async def test_discussions_done_in_a_course_drop_out_of_deadlines():
+    svc, client = service()
+    due = await svc.deadlines(days=7)
+    topic = next(d for d in due["items"] if d["kind"] == "discussion")
+    assert "0/2" in topic["note"]
+    client.joined = 2  # joined both topics of that course
+    svc2, _ = service(client)
+    assert not [d for d in (await svc2.deadlines(days=7))["items"] if d["kind"] == "discussion"]

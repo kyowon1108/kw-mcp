@@ -77,6 +77,7 @@ CALLS: dict[str, tuple[str, ...]] = {
     "discussions": ("course",),
     "course_evaluation": (),
     "application_windows": (),
+    "course_overview": ("course",),
 }
 MAX_ARG_CHARS = 100
 MAX_RESULT_CHARS = 300_000  # same cap as the bridge's /device/result

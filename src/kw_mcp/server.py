@@ -160,6 +160,14 @@ async def get_discussions(course: str | None = None) -> list[dict[str, Any]]:
 
 
 @mcp.tool(annotations=READ_ONLY)
+async def get_course_overview(course: str | None = None) -> list[dict[str, Any]]:
+    """과목별 한눈에 보기(KLAS 과목 홈과 같은 숫자): 온라인강의 완료/전체, 과제·퀴즈·온라인시험·팀플·설문 제출/전체,
+    토론 참여/전체, 새 글 수, 자료실 글 수, 출석·결석·지각·조퇴·공결 횟수. "이 과목 뭐 남았어?"에 먼저 쓰세요."""
+    with expected_errors():
+        return await (await service()).course_overview(course)
+
+
+@mcp.tool(annotations=READ_ONLY)
 async def get_course_evaluation() -> dict[str, Any]:
     """수업평가: 지금 평가 기간인지(중간/기말)와 아직 평가하지 않은 과목. 평가는 KLAS에서 직접 해야 합니다."""
     with expected_errors():
@@ -230,7 +238,8 @@ async def get_attachment_text(course: str, title: str, file_name: str = "", part
 @mcp.tool(annotations=READ_ONLY)
 async def get_graduation_progress() -> dict[str, Any]:
     """졸업 이수 현황: 취득 학점(전공·교양·기타), 필수교양(광운인되기)과 균형교양 8개 영역별 이수 학점,
-    입학 연도에 맞는 교양 규칙 충족 여부. "균형교양 더 들어야 해?", "졸업까지 교양 몇 학점?"에 쓰세요."""
+    입학 연도에 맞는 교양 규칙 충족 여부, 학교 졸업 사정 결과(official_check: 명단에 오른 경우 졸업 가능 여부와 불가 사유).
+    "균형교양 더 들어야 해?", "졸업 가능해?"에 쓰세요."""
     with expected_errors():
         return await (await service()).graduation_progress()
 

@@ -48,8 +48,10 @@ async def test_today_briefing_joins_on_device(svc):
     api = PublicApi("https://api.example/c/token", transport=fake.transport())
     out = await combined.today_briefing(svc, api)
     assert out["weekday"] == "목"
-    assert out["classes"] == [{"course": "데이터마이닝", "periods": [3], "room": "새빛101", "professor": "김교수"}]
+    assert out["classes"] == [{"course": "데이터마이닝", "periods": [3], "time": "12:00~13:15", "room": "새빛101",
+                               "professor": "김교수"}]
     assert [d["title"] for d in out["due_today_or_tomorrow"]] == ["3주차 퀴즈"]
+    assert "campus_alerts" not in out  # nothing about closures or days off
     assert out["cafeteria"]["meals"][0]["name"] == "함지마루 자율중식"
     assert out["new_school_notices"][0]["title"] == "국가장학금 안내"
     # Only generic filters left this machine: no course names, titles, or student data.
@@ -69,3 +71,28 @@ async def test_my_notices(svc):
     out = await combined.my_notices(svc, PublicApi("https://api.example/c/token", transport=FakePublic().transport()), days=7)
     assert out["course_posts"][0]["title"] == "10주차 자료"
     assert out["school_scholarship"][0]["title"] == "국가장학금 안내"
+
+
+async def test_campus_alerts_pick_closures_and_days_off(svc):
+    class Alerts(FakePublic):
+        def transport(self):
+            def handler(request: httpx.Request) -> httpx.Response:
+                if request.url.path.endswith("/api/calendar"):
+                    return httpx.Response(200, json={"events": [{"start": "2026-11-05", "end": "2026-11-05",
+                                                                 "title": "개교기념일(휴업)"}]})
+                if request.url.path.endswith("/api/menu"):
+                    return httpx.Response(200, json={"meals": []})
+                return httpx.Response(200, json={"notices": [{"title": "한울관 출입 통제 안내"},
+                                                             {"title": "국가장학금 안내"}]})
+            return httpx.MockTransport(handler)
+
+    out = await combined.today_briefing(svc, PublicApi("https://api.example/c/token", transport=Alerts().transport()))
+    assert [n["title"] for n in out["campus_alerts"]["notices"]] == ["한울관 출입 통제 안내"]
+    assert out["campus_alerts"]["today"][0]["title"] == "개교기념일(휴업)"
+
+
+def test_period_times_follow_klas_timetable():
+    from kw_mcp.service import period_time
+
+    assert period_time([1, 2]) == "09:00~11:45" and period_time([0]) == "08:00~08:50"
+    assert period_time([11]) == "21:20~22:05" and period_time([12]) is None and period_time([]) is None

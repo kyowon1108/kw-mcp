@@ -12,7 +12,7 @@ from datetime import datetime, timedelta
 from typing import Any
 
 from .public_api import PublicApi
-from .service import CLASS_CHANGE_WORDS, KST, KlasService, parse_kst, parse_schedule, term_in_session
+from .service import CLASS_CHANGE_WORDS, KST, KlasService, parse_kst, parse_schedule, period_time, term_in_session
 
 WEEKDAYS = "월화수목금토일"
 
@@ -43,8 +43,8 @@ async def today_briefing(svc: KlasService, public: PublicApi) -> dict[str, Any]:
     for c in courses:
         for slot in parse_schedule(c.get("schedule")):
             if slot["weekday"] == weekday:
-                classes.append({"course": c["course"], "periods": slot["periods"], "room": slot["room"],
-                                "professor": c.get("professor")})
+                classes.append({"course": c["course"], "periods": slot["periods"], "time": period_time(slot["periods"]),
+                                "room": slot["room"], "professor": c.get("professor")})
     classes.sort(key=lambda x: x["periods"][0] if x["periods"] else 99)
 
     end_of_tomorrow = (now + timedelta(days=1)).replace(hour=23, minute=59, second=59, microsecond=0)
@@ -58,6 +58,7 @@ async def today_briefing(svc: KlasService, public: PublicApi) -> dict[str, Any]:
     since = (now - timedelta(days=3)).strftime("%Y-%m-%d %H:%M")
     course_posts = [n for n in await svc.notices() if (n.get("posted") or "") >= since]
     school = await public.notices(limit=10, since=(now.date() - timedelta(days=1)).isoformat(), pinned=False)
+    alerts = await campus_alerts(public, now)
     return {
         "date": now.strftime("%Y-%m-%d"),
         "weekday": weekday,
@@ -70,7 +71,8 @@ async def today_briefing(svc: KlasService, public: PublicApi) -> dict[str, Any]:
         # Recent posts that look like a class being cancelled, made up or moved online.
         "possible_class_changes": [n for n in course_posts if CLASS_CHANGE_WORDS.search(n.get("title") or "")],
         "new_school_notices": school,
-        "note": "교시 번호는 KLAS 표기 그대로입니다. 강의실 변경·휴강은 과목 게시판을 확인하세요.",
+        **({"campus_alerts": alerts} if alerts["notices"] or alerts["today"] else {}),
+        "note": "시간은 KLAS 시간표의 교시표 기준입니다. 강의실 변경·휴강은 과목 게시판을 확인하세요.",
     }
 
 
@@ -111,3 +113,20 @@ async def academic_deadlines(svc: KlasService, public: PublicApi, days: int = 30
         "public_data": "ok" if public.configured else "공개 API(kw-campus)가 설정되지 않아 학사일정은 비어 있습니다.",
         "note": "klas는 KLAS가 지금 열려 있는지 직접 알려 준 값, calendar는 학교 학사일정입니다. 학과별 일정은 학과 공지를 확인하세요.",
     }
+
+
+# School-wide notices that can change today's classes or getting around campus.
+CAMPUS_ALERT_WORDS = re.compile(r"휴강|휴업|공휴일|대체\s*공휴일|임시\s*공휴일|개교기념일|출입\s*(?:통제|제한)|통제|정전|단수|폐쇄|"
+                                r"점검|이전|임시\s*휴관|재난|기상|태풍|폭설|한파|폭염")
+HOLIDAY_WORDS = re.compile(r"휴일|공휴일|개교기념일|휴업|방학")
+
+
+async def campus_alerts(public: PublicApi, now: datetime) -> dict[str, Any]:
+    """Recent school notices (3 days) that look like closures, outages or holidays, and today's
+    calendar entries that are days off. KLAS course boards don't carry these."""
+    today = now.date()
+    notices, events = await asyncio.gather(
+        public.notices(limit=30, since=(today - timedelta(days=3)).isoformat(), pinned=True),
+        public.calendar(today.isoformat(), today.isoformat()))
+    return {"notices": [n for n in notices or [] if CAMPUS_ALERT_WORDS.search(n.get("title") or "")],
+            "today": [e for e in events or [] if HOLIDAY_WORDS.search(e.get("title") or "")]}

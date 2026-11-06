@@ -91,9 +91,13 @@ def test_schedule_note_for_unassigned_rooms():
 
 class GradClient(NeedsClient):
     admitted = "2025"
+    check: Any = None  # not on the graduation review list: KLAS answers with an empty body
 
-    async def post(self, path: str, body: dict[str, Any] | None = None) -> Any:
-        from kw_mcp.service import GEN_ED, STUDENT_RECORD
+    async def post(self, path: str, body: dict[str, Any] | None = None, **_: Any) -> Any:
+        from kw_mcp.service import GEN_ED, GRADUATION_CHECK, STUDENT_RECORD
+
+        if path == GRADUATION_CHECK:
+            return self.check
 
         if path == GEN_ED:
             # Field names from a live GyoyangIsuInfo response; values made up.
@@ -119,6 +123,21 @@ async def test_graduation_progress_applies_the_2025_rule_without_leaking_identit
     client.admitted = "2022"
     older = await KlasService(client, now=lambda: datetime(2026, 11, 5, tzinfo=KST)).graduation_progress()
     assert older["check"]["kwangwoonin_done"] is True and older["check"]["met"] is None
+    assert out["official_check"]["on_list"] is False
+
+
+async def test_official_graduation_check_keeps_the_verdict_not_the_identity():
+    client = GradClient()
+    # Field names from the page's template (GrdtnYnImprtyResnStdPage.do); values made up.
+    client.check = {"hakbun": "2022000000", "kname": "홍길동", "organName": "인공지능융합대학", "className": "정보융합학부",
+                    "entryDate": "2027-01-10", "graduateOpt": "2", "reason": "전공 3학점 부족"}
+    svc = KlasService(client, now=lambda: datetime(2027, 1, 12, tzinfo=KST))
+    out = await svc.graduation_check()
+    assert out["on_list"] is True and out["eligible"] is False and out["reason"] == "전공 3학점 부족"
+    text = json.dumps(out, ensure_ascii=False)
+    assert "홍길동" not in text and "2022000000" not in text
+    client.check = {**client.check, "graduateOpt": "1", "reason": ""}
+    assert (await svc.graduation_check())["eligible"] is True
 
 
 async def test_online_list_skips_links_to_other_coursework():

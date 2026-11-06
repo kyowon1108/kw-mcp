@@ -54,6 +54,12 @@ GRADE_TERM = "/std/cps/inqire/AtnlcScreCheckTerm.do"
 STANDING = "/std/cps/inqire/StandStdList.do"
 SCHOLARSHIP_TERM = "/std/cps/inqire/JanghakApplyStdTerm.do"
 DROP_CREDITS_TERM = "/std/cps/inqire/DelHakjumApplyStdTerm.do"
+GRADUATION_CHECK = "/std/ext/grdtn/SelectGraduateCheck.do"
+COURSE_HOME = "/std/lis/evltn/LctrumHomeStdInfo.do"
+# Class periods as KLAS's own timetable page prints them (TimetableStdPage.do, 2026-11-06).
+PERIOD_TIMES = {0: ("08:00", "08:50"), 1: ("09:00", "10:15"), 2: ("10:30", "11:45"), 3: ("12:00", "13:15"),
+                4: ("13:30", "14:45"), 5: ("15:00", "16:15"), 6: ("16:30", "17:45"), 7: ("18:00", "18:45"),
+                8: ("18:50", "19:35"), 9: ("19:40", "20:25"), 10: ("20:30", "21:15"), 11: ("21:20", "22:05")}
 # GyoyangIsuStdPage.do's table: 필수교양 aa8128, then the 8 balanced areas (과학과기술 = aa63 + aa76).
 BALANCED_AREAS = (("대학실용영어", ("aa62",)), ("언어와표현", ("aa64",)), ("과학과기술", ("aa63", "aa76")),
                   ("인간과철학", ("aa65",)), ("사회와경제", ("aa66",)), ("글로벌문화와제2외국어", ("aa67",)),
@@ -265,6 +271,14 @@ def parse_schedule(text: str | None) -> list[dict[str, Any]]:
             periods = [int(x) for x in re.findall(r"\d+", m.group(2))]
             slots.append({"weekday": m.group(1), "periods": periods, "room": (m.group(3) or "").strip()})
     return slots
+
+
+def period_time(periods: list[int]) -> str | None:
+    """'09:00~11:45' for periods [1, 2]; None if KLAS used a period we don't know."""
+    known = [PERIOD_TIMES[p] for p in periods if p in PERIOD_TIMES]
+    if not known or len(known) != len(periods):
+        return None
+    return f"{min(t[0] for t in known)}~{max(t[1] for t in known)}"
 
 
 def schedule_note(text: str | None) -> str | None:
@@ -587,10 +601,20 @@ class KlasService:
             due = retry["due"] if retry and (test["submitted"] or missed) else test["due"]
             if in_window(due):
                 items.append({"kind": "online_test", **test, "effective_due": due})
-        for topic in lists.get("discussion", []):
-            opens = parse_kst(topic["opens"])
-            if in_window(topic["due"]) and (opens is None or opens <= now):
-                items.append({"kind": "discussion", **topic, "note": "참여 여부는 KLAS 목록에 없어 토론실에서 확인하세요."})
+        topics = [t for t in lists.get("discussion", [])
+                  if in_window(t["due"]) and (parse_kst(t["opens"]) is None or parse_kst(t["opens"]) <= now)]
+        if topics:
+            # The topic list has no "did I post", but each course home counts 참여/전체 (dscsnJoinCnt/dscsnCnt):
+            # a course where I joined every topic has nothing left.
+            joined, _ = await _gather_some({"overview": self.course_overview()}, optional=True)
+            counts = {o["course"]: o["discussions"] for o in joined.get("overview") or []}
+            for topic in topics:
+                done = counts.get(topic["course"])
+                if done and done["total"] and (done["done"] or 0) >= done["total"]:
+                    continue
+                note = (f"이 과목 토론 {done['done']}/{done['total']} 참여(주제별 참여 여부는 토론실에서 확인)" if done
+                        else "참여 여부는 KLAS 목록에 없어 토론실에서 확인하세요.")
+                items.append({"kind": "discussion", **topic, "note": note})
 
         def effective_due(item: dict[str, Any]) -> str:
             if item.get("late_submission"):
@@ -984,9 +1008,61 @@ class KlasService:
                                   "balanced_areas_taken": areas_taken, "total": general_total},
             "rule": rule,
             "check": check,
+            "official_check": (await _gather_some({"check": self.graduation_check()}, optional=True))[0].get("check"),
             "notes": ["성적 처리가 끝난 과목만 합산(F·NP·삭제 학점 제외)", "균형교양은 3·4학점 과목만 인정, e러닝·K-MOOC 등 일부 계열 제외",
                       "전공 졸업 학점·공학인증 등 학과별 요건은 학과 사무실에 확인하세요"],
         }
+
+    async def graduation_check(self) -> dict[str, Any]:
+        """The school's own 졸업가부 / 불가사유 (GrdtnYnImprtyResnStdPage.do). It answers only for students
+        on the graduation review list; anyone else gets an empty body, which the page shows as
+        "졸업자 명단에 없습니다" (checked 2026-11-06). graduateOpt 1 = 졸업가능, 2 = 졸업불가 with a
+        reason, as the page's template reads it. Name and student id in the answer are left out."""
+        data = await self._client.post(GRADUATION_CHECK, {"info": ""}, allow_empty=True)
+        if not isinstance(data, dict) or not data:
+            return {"on_list": False, "message": "학교 졸업 사정 명단에 없습니다(졸업 예정 학기가 아니거나 아직 사정 전). "
+                                                  "명단에 오르면 졸업 가능 여부와 불가 사유가 여기 나옵니다."}
+        option = str(data.get("graduateOpt") or "")
+        return {"on_list": True, "eligible": option == "1" if option in ("1", "2") else None,
+                "reason": (data.get("reason") or "").strip() or None if option == "2" else None,
+                "as_of": data.get("entryDate"), "college": data.get("organName"), "department": data.get("className"),
+                "note": "졸업불가면 대표 홈페이지 공지사항의 졸업불가자 행정사항을 확인하세요."}
+
+    async def course_overview(self, course: str | None = None) -> list[dict[str, Any]]:
+        """Each course's home-page summary (LctrumHomeStdInfo.do): done/total for lectures and every
+        kind of coursework, new items, and attendance counts. The same numbers KLAS shows on the
+        course home, e.g. 과제 2/3 = submitted 2 of 3. Notices, staff ids and contact fields are left out."""
+        rows = await self._course_rows(None, course)
+
+        async def one(row: dict[str, Any]) -> dict[str, Any]:
+            body = {"selectYearhakgi": row.get("yearhakgi"), "selectSubj": row.get("subj"), "selectChangeYn": "Y"}
+            info = await self._cached((COURSE_HOME, body["selectSubj"], body["selectYearhakgi"]), COURSE_TTL,
+                                      lambda: self._client.post(COURSE_HOME, body))
+            info = info if isinstance(info, dict) else {}
+
+            def pair(done: str, total: str, new: str | None = None) -> dict[str, Any]:
+                out = {"done": _int(info.get(done)), "total": _int(info.get(total))}
+                if new:
+                    out["new"] = _int(info.get(new))
+                return out
+
+            attendance = Counter(ATTEND_STATUS.get(a.get("attendancediv")) for a in info.get("atendList") or []
+                                 if isinstance(a, dict) and a.get("attendancediv") in ATTEND_STATUS)
+            lectures = info.get("cntntList") if isinstance(info.get("cntntList"), list) else []
+            return {
+                "course": row.get("subjNm"),
+                "online_lectures": {"done": _int(info.get("cntntCmpltCnt")), "total": len(lectures)},
+                "assignments": pair("taskPrsntCnt", "taskCnt", "taskNewCnt"),
+                "quizzes": pair("quizPrsntCnt", "quizCnt", "quizNewCnt"),
+                "online_tests": pair("examPrsntCnt", "examCnt", "examNewCnt"),
+                "team_projects": pair("prjctPrsntCnt", "prjctCnt", "prjctNewCnt"),
+                "surveys": pair("surveyPrsntCnt", "surveyCnt", "surveyNewCnt"),
+                "discussions": pair("dscsnJoinCnt", "dscsnCnt", "dscsnNewCnt"),
+                "materials": {"total": _int(info.get("pdsCnt")), "new": _int(info.get("pdsNewCnt"))},
+                "attendance": {status: attendance.get(status, 0) for status in ATTEND_STATUS.values()},
+            }
+
+        return list(await _gather(*(one(r) for r in rows)))
 
     # -- grades ----------------------------------------------------------------
 

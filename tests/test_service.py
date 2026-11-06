@@ -235,6 +235,7 @@ async def test_mcp_tools_are_registered_and_callable(svc):
         "get_attendance", "get_exam_info", "get_class_changes", "get_graduation_progress",
         "this_week", "today_briefing", "my_notices", "school_notices", "cafeteria_menu", "academic_calendar",
         "get_online_tests", "get_surveys", "get_discussions", "get_course_evaluation", "academic_deadlines",
+        "get_course_overview",
     }
     assert all(t.annotations.read_only_hint for t in tools.values())
 
