@@ -25,8 +25,9 @@ import shutil
 import signal
 import subprocess
 import sys
+import threading
 import time
-from dataclasses import asdict, dataclass
+from dataclasses import asdict, dataclass, fields
 from email.utils import parsedate_to_datetime
 from pathlib import Path
 from typing import TYPE_CHECKING, Any, BinaryIO
@@ -61,8 +62,9 @@ LEGACY_LOCK_PORT = 47811  # agents up to 0.9.0 held this localhost port instead 
 LAUNCHD_LABEL = "kr.kwcampus.agent"
 WINDOWS_RUN_VALUE = "KWCampusAgent"
 # Sent on connect so the bridge knows which requests this agent understands.
-# 1: "snapshot" only. 2: also "call" with an op from CALLS.
-PROTOCOL_VERSION = 2
+# 1: "snapshot" only. 2: also "call" with an op from CALLS. 3 (1.0 and later): calls take the list
+# tools' "id" and "file_index", and `kw-mcp update` exists, so the bridge stops suggesting an update.
+PROTOCOL_VERSION = 3
 # Single-item reads the bridge may ask for: op -> argument names. Each op is a read-only
 # KlasService method taking those arguments as strings ("id" and "file_index" may be left out).
 CALLS: dict[str, tuple[str, ...]] = {
@@ -107,7 +109,19 @@ HEALTHY_AFTER_S = 120  # a new version that connected and ran this long is kept
 MAX_FAILED_STARTS = 2  # a new version that crashed this many times is rolled back
 SKIP_FAILED_UPDATE_S = 24 * 3600
 RESTART_EXIT_CODE = 75  # non-zero, so launchd (KeepAlive SuccessfulExit=false) starts the new version
+KEYCHAIN_RETRY_S = 600  # the keychain refused the device key: ask again this often, not on every launchd restart
+SELF_TEST_FAILED = "update-self-test-failed"  # in CONFIG_DIR: Windows' detached installer saw the self-test fail
+INSTALL_WAIT_S = 1.0  # how often a version that stayed up looks again whether an update has finished installing
+# Held while an update installs: the version on disk and the saved releases are changing then, so
+# _keep_if_healthy waits instead of ending a trial or deleting a rollback target.
+_INSTALLING = threading.Lock()
 _GRANT_ID = re.compile(r"[A-Za-z0-9_-]{1,100}")
+_SHOWN_GRANT_ID = re.compile(r"g_[A-Za-z0-9_-]{12}")  # the bridge's grant ids: "g_" + 9 random bytes, base64url
+_HOST_NAME = re.compile(r"(?=.{1,253}$)[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?(?:\.[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?)*")
+# The names the bridge's approval page gives redirect hosts (its _app_label); any other host is shown as is.
+_APP_LABELS = {"claude.ai": "Claude", "claude.com": "Claude", "chatgpt.com": "ChatGPT",
+               "localhost": "이 PC의 앱(Claude Code, MCP Inspector 등)", "127.0.0.1": "이 PC의 앱(Claude Code, MCP Inspector 등)"}
+_SAFE_VERSION = re.compile(r"[0-9][0-9A-Za-z._]*")  # a version that may appear in a cmd.exe line as is
 
 
 class NotLinked(RuntimeError):
@@ -186,9 +200,15 @@ def save_link(link: Link) -> None:
 
 
 def load_link() -> Link:
+    """The saved link. Keys this version doesn't know are ignored: a later version may add some, and
+    a rollback starts this one again on that version's file."""
     try:
-        return Link(**json.loads(LINK_FILE.read_text()))
-    except (OSError, ValueError, TypeError):
+        data = json.loads(LINK_FILE.read_text())
+        values = {f.name: data[f.name] for f in fields(Link)}
+        if not all(isinstance(v, str) and v for v in values.values()):
+            raise ValueError
+        return Link(**values)
+    except (OSError, ValueError, TypeError, KeyError):
         raise NotLinked("이 PC가 아직 연결되지 않았습니다. `kw-mcp link <초대코드>`를 먼저 실행하세요.") from None
 
 
@@ -389,6 +409,24 @@ def _text(value: Any, limit: int = 100) -> str:
     return "".join(c for c in str(value if value is not None else "") if c.isprintable())[:limit]
 
 
+def _grant_id(value: Any) -> str:
+    """A bridge-supplied grant id fit to show inside a `kw-mcp revoke <ID>` command people copy, or ""
+    when it isn't in the bridge's own format (a compromised bridge must not hand out a shell command)."""
+    return value if isinstance(value, str) and _SHOWN_GRANT_ID.fullmatch(value) else ""
+
+
+def _host(value: Any) -> str:
+    """A bridge-supplied redirect host when it is a plain host name, else ""."""
+    host = value.strip().lower() if isinstance(value, str) else ""
+    return host if _HOST_NAME.fullmatch(host) else ""
+
+
+def _app_label(host: str) -> str:
+    """Who an approval went to, judged by its redirect host like the bridge's approval page: a known
+    label or the host itself. The client's self-chosen name is never shown."""
+    return _APP_LABELS.get(host) or host or "알 수 없는 앱"
+
+
 def grants() -> list[dict[str, Any]]:
     """The apps (Claude, ChatGPT, ...) connected to this PC with its codes."""
     r = _device_call("grants", "grants")
@@ -398,7 +436,7 @@ def grants() -> list[dict[str, Any]]:
     rows = r.json().get("grants")
     if not isinstance(rows, list):
         raise LookupError("중계 서버의 연결 목록 형식이 예상과 다릅니다.")  # noqa: TRY004 -- callers treat it as "no list"
-    return [{"id": _text(g.get("id")), "client": _text(g.get("client")), "redirect_host": _text(g.get("redirect_host")),
+    return [{"id": _grant_id(g.get("id")), "client": _text(g.get("client")), "redirect_host": _host(g.get("redirect_host")),
              "created": g.get("created"), "last_used": g.get("last_used"), "expires": g.get("expires")}
             for g in rows if isinstance(g, dict)]
 
@@ -611,12 +649,14 @@ def notify(title: str, text: str) -> None:
 
 
 def _paired(message: dict[str, Any]) -> None:
-    """A code from this PC was just used: say so on screen, so a leaked code doesn't go unnoticed."""
-    app = _text(message.get("app") or message.get("client_name"), 60) or "이름 없는 앱"
-    host, grant = _text(message.get("redirect_host")), _text(message.get("grant_id"))
-    log.info("a new app was connected with this PC's code: %s (%s, %s)", app, host, grant)
-    notify("KW Campus", f"새 연결: {app}" + (f" ({host})" if host and host not in app else "")
-           + f". 내가 연결한 게 아니면 `kw-mcp revoke {grant or '<ID>'}`로 끊으세요.")
+    """A code from this PC was just used: say so on screen, so a leaked code doesn't go unnoticed.
+    Only checked values reach the text: a label for the redirect host and a well-formed grant id."""
+    host, grant = _host(message.get("redirect_host")), _grant_id(message.get("grant_id"))
+    app = _app_label(host)
+    log.info("a new app was connected with this PC's code: %s (%s, %s)", app, host or "-", grant or "-")
+    notify("KW Campus", f"새 연결: {app}" + (f" ({host})" if host and host != app else "")
+           + f". 내가 연결한 게 아니면 `kw-mcp revoke {grant or '<ID>'}`로 끊으세요"
+           + ("." if grant else "(ID는 `kw-mcp connections`에서 확인)."))
 
 
 # --- the long-running agent -------------------------------------------------------------
@@ -678,10 +718,24 @@ async def _refused(http: httpx.AsyncClient, link: Link, headers: Any) -> None:
         log.error("the bridge refused this PC. If it was unlinked, run `kw-mcp link` again")
 
 
+async def _device_key() -> DeviceKey:
+    """The device key. A keychain that refuses it (locked, access denied) is asked again every
+    KEYCHAIN_RETRY_S: exiting would make launchd restart us every 30 s, each run hitting the
+    keychain again, with nothing in the log. The updater keeps running meanwhile."""
+    while True:
+        try:
+            return await asyncio.to_thread(DeviceKey.load)  # a keychain prompt must not stall the updater
+        except KeyringError as e:
+            log.error("the OS keychain refused the device key (%s); asking again in %d minutes. Allow access "
+                      "when the keychain asks, or run `kw-mcp link` again", e.__class__.__name__, KEYCHAIN_RETRY_S // 60)
+            await asyncio.sleep(KEYCHAIN_RETRY_S * random.uniform(0.9, 1.1))
+
+
 async def run_forever(connected: asyncio.Event | None = None) -> None:
     from .holder import KlasHolder
 
-    link, key = load_link(), DeviceKey.load()
+    link = load_link()
+    key = await _device_key()
     klas = KlasHolder()
     backoff = 1.0
     async with httpx.AsyncClient(timeout=20) as http:
@@ -721,10 +775,15 @@ async def run_forever(connected: asyncio.Event | None = None) -> None:
 # --- self-update -----------------------------------------------------------------------
 #
 # The agent installs only releases signed by the release key (release.py): the wheel, and the
-# dependency pins (constraints exported from uv.lock), so nothing untested comes from PyPI.
+# dependency pins (constraints exported from uv.lock, with hashes), so nothing untested comes from
+# PyPI. `uv tool install` applies the pinned versions but ignores the hashes, so every dependency
+# is then reinstalled with `uv pip install --require-hashes`, before any of its code runs.
 # Before restarting it checks that the new version imports and reports its version, and keeps
-# the version it replaced in CONFIG_DIR/releases. A new version that then fails to start twice
-# is replaced by that one again. Versions that failed are skipped, so it never loops.
+# the version it replaced in CONFIG_DIR/releases. A new version that then starts MAX_FAILED_STARTS
+# times without staying up is replaced by that one again (or, if the version it replaced was itself
+# still on trial, by the last one that stayed up). An update that fails to install or to pass its
+# self-test puts the running version back, so what is on disk is what runs, and that version's own
+# trial goes on. Versions that failed are skipped, so it never loops.
 
 def installed_version() -> str:
     from importlib.metadata import PackageNotFoundError, version
@@ -797,6 +856,19 @@ def install_argv(uv: str, wheel: Path, constraints: Path) -> list[str]:
     if cutoff := release.exclude_newer(constraints.read_text(encoding="utf-8")):
         argv += ["--exclude-newer", cutoff]
     return [*argv, f"kw-mcp @ {wheel.resolve().as_uri()}"]  # a file:// URI needs an absolute path
+
+
+def hash_check_argv(uv: str, python: Path | str, constraints: Path) -> list[str]:
+    """Reinstall every pinned dependency into the tool environment (`python`) with its hash checked.
+    `uv tool install --constraints` applies the pinned versions but ignores the --hash lines; uv pip
+    refuses any download that doesn't match its hash, and any pin without one."""
+    return [uv, "pip", "install", "--python", str(python), "--require-hashes", "--no-deps", "--reinstall",
+            "--no-build", "--quiet", "-r", str(constraints.resolve())]
+
+
+def install_steps(uv: str, wheel: Path, constraints: Path, python: Path | str) -> list[list[str]]:
+    """What installing a release takes, in order; each must succeed before the next runs."""
+    return [install_argv(uv, wheel, constraints), hash_check_argv(uv, python, constraints)]
 
 
 def self_test_argv(python: Path | str, version: str) -> list[str]:
@@ -896,19 +968,31 @@ def _quote(argv: list[str]) -> str:
     return " ".join(f'"{a}"' for a in argv)
 
 
-def windows_update_command(shell: str, *, pid: int, install: list[str], check: list[str],
-                           rollback: list[str] | None, log_file: Path, restart: list[str]) -> str:
+def windows_update_command(shell: str, *, pid: int, install: list[list[str]], check: list[str],
+                           rollback: list[list[str]] | None, log_file: Path, restart: list[str],
+                           marker: Path, version: str) -> str:
     """One command line for CreateProcess, as is. A list would be re-quoted with \\" escapes that
     cmd.exe doesn't understand; /s /c "..." runs the inner line verbatim.
 
-    Waits until the agent (pid) has exited, installs, runs the self-test, puts the previous version
-    back if either fails, and starts the agent again. `timeout` needs a console and fails at once in
-    a windowless process, so PowerShell's Wait-Process does the waiting."""
+    Waits until the agent (pid) has exited, runs the install steps, runs the self-test, puts the
+    previous version back if any of them fails, and starts the agent again. `timeout` needs a
+    console and fails at once in a windowless process, so PowerShell's Wait-Process does the waiting.
+    `version` goes into `marker` once the install went through and the marker is deleted when the
+    self-test passes: a marker left behind tells the next start that the self-test failed (skip that
+    version for good), not the install (try again in a day)."""
+    if not _SAFE_VERSION.fullmatch(version):
+        raise ValueError(f"not a release version: {version!r}")
     out = f'>> "{log_file}" 2>&1'
+
+    def chain(steps: list[list[str]]) -> str:
+        return " && ".join(f"{_quote(step)} {out}" for step in steps)
+
     wait = (f'"{_powershell()}" -NoProfile -NonInteractive -Command "Wait-Process -Id {int(pid)} -Timeout 120 '
             f'-ErrorAction SilentlyContinue" & ping -n 3 127.0.0.1 >nul')
-    undo = f"{_quote(rollback)} {out}" if rollback else f"echo update failed; no saved previous version {out}"
-    steps = f"{wait} & ({_quote(install)} {out} && {_quote(check)} {out} || {undo}) & {_quote(restart)}"
+    undo = chain(rollback) if rollback else f"echo update failed; no saved previous version {out}"
+    # "echo 1.0.0 > f", with the space: "0>" would redirect handle 0 instead.
+    tested = f'echo {version} > "{marker}" && {_quote(check)} {out} && del "{marker}" {out}'
+    steps = f"{wait} & ({chain(install)} && {tested} || {undo}) & {_quote(restart)}"
     return f'"{shell}" /s /c "{steps}"'
 
 
@@ -936,14 +1020,18 @@ def _spawn_windows(command: str) -> None:
 def _windows_swap(uv: str, files: tuple[Path, Path], version: str, back: tuple[Path, Path] | None) -> None:
     """Windows can't replace the interpreter that is running us: a detached shell waits for us to
     exit, installs, then starts the agent again."""
+    python = _tool_python()
+    _config(SELF_TEST_FAILED).unlink(missing_ok=True)
     _spawn_windows(windows_update_command(
-        os.environ.get("ComSpec", "cmd.exe"), pid=os.getpid(), install=install_argv(uv, *files),
-        check=self_test_argv(_tool_python(), version), rollback=install_argv(uv, *back) if back else None,
-        log_file=default_log_file().with_name("update.log"), restart=[*agent_command(), "--replace"]))
+        os.environ.get("ComSpec", "cmd.exe"), pid=os.getpid(), install=install_steps(uv, *files, python),
+        check=self_test_argv(python, version), rollback=install_steps(uv, *back, python) if back else None,
+        log_file=default_log_file().with_name("update.log"), restart=[*agent_command(), "--replace"],
+        marker=_config(SELF_TEST_FAILED), version=version))
 
 
 def install_update(wheel: Path, constraints: Path, version: str) -> bool:
-    """Install a verified release. True means: exit now so the new version starts."""
+    """Install a verified release. True means: exit now so the version on disk starts. That is
+    `version`, unless it failed and the running version could not be put back (see _put_back)."""
     uv = find_uv()
     if not uv:
         log.warning("uv not found; skipping the update (run `kw-mcp link` again from a terminal to record it)")
@@ -951,28 +1039,87 @@ def install_update(wheel: Path, constraints: Path, version: str) -> bool:
     if not in_uv_tool():
         log.warning("not running from a uv tool install (%s); skipping the update", sys.prefix)
         return False
-    previous = installed_version()
-    back = release_files(previous)
+    with _INSTALLING:
+        return _install_update(uv, wheel, constraints, version)
+
+
+def _install_update(uv: str, wheel: Path, constraints: Path, version: str) -> bool:
     state = load_state()
-    state["pending"] = {"version": version, "previous": previous, "failures": 0, "at": int(time.time())}
+    running = installed_version()
+    trial = state.get("pending")
+    on_trial = isinstance(trial, dict) and str(trial.get("version")) == running
+    # Where the new version goes back to if it starts but doesn't stay up: the last version that
+    # stayed up, so the one before the running version while that is still on trial. A new version
+    # that fails here puts the running one back instead (_put_back), whose trial then goes on.
+    last_good = running
+    if on_trial and release_files(str(trial.get("previous"))):
+        last_good = str(trial.get("previous"))
+    state["pending"] = {"version": version, "previous": last_good, "starts": 0, "failures": 0, "at": int(time.time())}
     if os.name == "nt":
+        if on_trial:  # for note_start, should the detached shell put the running version back
+            state["pending"]["resume"] = {k: v for k, v in trial.items() if k != "resume"}
         save_state(state)  # the next start checks whether the install took
-        _windows_swap(uv, (wheel, constraints), version, back)
+        _windows_swap(uv, (wheel, constraints), version, release_files(running) or release_files(last_good))
         return True
-    done = _run_uv(install_argv(uv, wheel, constraints))
+    install, check_hashes = install_steps(uv, wheel, constraints, _tool_python())
+    done = _run_uv(install)
     if done.returncode != 0:
         log.warning("installing %s failed: %s", version, done.stderr.strip()[-300:])
         skip_version(version, SKIP_FAILED_UPDATE_S)
         return False
+    done = _run_uv(check_hashes)
+    if done.returncode != 0:  # none of its code has run yet: put the running version back first
+        log.error("the dependencies of %s did not install with their pinned hashes: %s; going back to %s",
+                  version, done.stderr.strip()[-300:], running)
+        skip_version(version, SKIP_FAILED_UPDATE_S)
+        return _put_back(uv, running, last_good)
     if not self_test(_tool_python(), version):
-        log.error("%s does not start; going back to %s", version, previous)
+        log.error("%s does not start; going back to %s", version, running)
         skip_version(version, None)
-        if back is None:
-            log.error("no saved copy of %s to go back to; run the install command from the setup page", previous)
-        elif _run_uv(install_argv(uv, *back)).returncode != 0:
-            log.error("reinstalling %s failed as well; run the install command from the setup page", previous)
-        return False
+        return _put_back(uv, running, last_good)
     save_state(state)
+    return True
+
+
+def _put_back(uv: str, running: str, last_good: str) -> bool:
+    """After a failed install (not Windows), put the running version back, so what is on disk is what
+    runs, and return False: the agent carries on, and the trial of the running version (still in the
+    state, which a failed install doesn't save) goes on unchanged.
+
+    If that version has no saved copy or won't go back, put back the last version that stayed up
+    and return True: the agent exits and starts into it, not on trial."""
+    back = release_files(running)
+    if back is not None and _reinstall(uv, back, running):
+        return False
+    good = release_files(last_good) if last_good != running else None
+    if good is None:
+        if back is None:
+            log.error("no saved copy of %s to go back to; run the install command from the setup page", running)
+        return False
+    log.error("%s can't be put back (%s); going back to %s, the last version that stayed up", running,
+              "no saved copy" if back is None else "it did not reinstall", last_good)
+    if not _reinstall(uv, good, last_good):
+        return False
+    state = load_state()
+    state.pop("pending", None)  # the running version's trial: that version is no longer on disk
+    save_state(state)
+    return True
+
+
+def _reinstall(uv: str, back: tuple[Path, Path] | None, version: str) -> bool:
+    """Put a saved release back in place (not Windows), dependencies hash-checked, and self-test it."""
+    if back is None:
+        log.error("no saved copy of %s to go back to; run the install command from the setup page", version)
+        return False
+    for step in install_steps(uv, *back, _tool_python()):
+        done = _run_uv(step)
+        if done.returncode != 0:
+            log.error("reinstalling %s failed: %s; run the install command from the setup page", version,
+                      done.stderr.strip()[-300:])
+            return False
+    if not self_test(_tool_python(), version):
+        log.error("%s does not pass its self-test either; run the install command from the setup page", version)
+        return False
     return True
 
 
@@ -985,62 +1132,112 @@ def roll_back(pending: dict[str, Any]) -> bool:
         log.error("%s keeps failing, but %s can't be reinstalled (%s)", bad, previous,
                   "no saved copy" if back is None else "uv not found")
         return False
-    log.error("%s failed to start %d times; going back to %s", bad, MAX_FAILED_STARTS, previous)
+    log.error("%s started %d times without staying up; going back to %s", bad, MAX_FAILED_STARTS, previous)
     if os.name == "nt":
         _windows_swap(uv, back, previous, None)
         return True
-    done = _run_uv(install_argv(uv, *back))
-    if done.returncode != 0 or not self_test(_tool_python(), previous):
-        log.error("going back to %s failed: %s", previous, done.stderr.strip()[-300:])
+    return _reinstall(uv, back, previous)
+
+
+def _count(value: Any) -> int:
+    try:
+        return max(0, int(value))
+    except (TypeError, ValueError):
+        return 0
+
+
+def _self_test_failed(version: str) -> bool:
+    """True if Windows' detached installer recorded that `version` failed its self-test (and was undone)."""
+    try:
+        return _config(SELF_TEST_FAILED).read_text(encoding="utf-8", errors="replace").strip() == version
+    except OSError:
         return False
-    return True
 
 
 def note_start(replaced: bool = False) -> tuple[bool, dict[str, Any] | None]:
     """Record that the agent started. Returns (the previous run ended abnormally, the pending update
-    to roll back now). A start after a crash counts against a version that is still on trial."""
+    to roll back now).
+
+    Every start of a version on trial counts, however the run before it ended: only
+    _keep_if_healthy ends a trial. So a release that raises at start, exits, or is killed before it
+    stays up (Windows terminates the agent for `kw-mcp update` and at logoff, and nothing records
+    that) is rolled back after MAX_FAILED_STARTS starts, and a good one is not blamed for how
+    Windows stopped it. The one start that doesn't count is the one after Windows undid an update
+    that the version on trial itself started: that version's trial resumes where it was."""
     state = load_state()
     crashed = bool(state.get("running")) and not replaced
     state.update(running=True, pid=os.getpid(), started=int(time.time()))
     pending, rollback = state.get("pending"), None
     if isinstance(pending, dict):
-        if release.version_tuple(installed_version()) != release.version_tuple(str(pending.get("version"))):
-            log.warning("the update to %s did not install; trying again in a day at the earliest", pending.get("version"))
-            state.setdefault("skip", {})[str(pending.get("version"))] = int(time.time() + SKIP_FAILED_UPDATE_S)
+        version = str(pending.get("version"))
+        if release.version_tuple(installed_version()) != release.version_tuple(version):
+            if _self_test_failed(version):  # installed, failed its self-test, undone: it won't start here
+                log.error("the update to %s did not pass its self-test; it won't be installed again", version)
+                state.setdefault("skip", {})[version] = 0
+            else:
+                log.warning("the update to %s did not install; trying again in a day at the earliest", version)
+                state.setdefault("skip", {})[version] = int(time.time() + SKIP_FAILED_UPDATE_S)
             state.pop("pending")
-        elif crashed:
-            pending["failures"] = int(pending.get("failures", 0)) + 1
+            resume = pending.get("resume")
+            if (isinstance(resume, dict)
+                    and release.version_tuple(str(resume.get("version"))) == release.version_tuple(installed_version())):
+                # Windows put back the version that ran the update, itself still on trial: its trial
+                # goes on. This start doesn't count against it, the update attempt stopped it.
+                log.info("version %s is back and still on trial", resume.get("version"))
+                state["pending"] = resume
+        else:
+            # Pending records written by agents up to 0.9 have no "starts", only a crash count.
+            starts = _count(pending.get("starts", pending.get("failures"))) + 1
+            pending.update(starts=starts, failures=starts - 1)  # failures: earlier starts that never stayed up
             if pending["failures"] >= MAX_FAILED_STARTS:
                 rollback = state.pop("pending")
+    elif pending is not None:
+        state.pop("pending")
+    _config(SELF_TEST_FAILED).unlink(missing_ok=True)
     save_state(state)
     return crashed, rollback
 
 
 def note_stop() -> None:
+    """Record a clean stop, so the next start doesn't treat the last run as a crash."""
     state = load_state()
     state["running"] = False
     save_state(state)
 
 
 async def _keep_if_healthy(connected: asyncio.Event, started: float) -> None:
-    """A version that reached the bridge and stayed up is kept; older saved releases go."""
+    """A version that reached the bridge and stayed up is kept; older saved releases go.
+
+    Not while an update installs (the files on disk and the rollback targets are changing), and not
+    once another version is on disk: the agent is about to exit into it, which keeps its own trial."""
+    running = installed_version()
     await connected.wait()
     await asyncio.sleep(max(0.0, HEALTHY_AFTER_S - (time.monotonic() - started)))
-    state = load_state()
-    if pending := state.pop("pending", None):
-        log.info("version %s is running fine", pending.get("version"))
-        save_state(state)
-    prune_releases({installed_version()})  # the rollback target for the next update
+    while not _INSTALLING.acquire(blocking=False):
+        await asyncio.sleep(INSTALL_WAIT_S)
+    try:
+        if installed_version() != running:
+            return
+        state = load_state()
+        if pending := state.pop("pending", None):
+            log.info("version %s is running fine", pending.get("version"))
+            save_state(state)
+        prune_releases({running})  # the rollback target for the next update
+    finally:
+        _INSTALLING.release()
 
 
 async def update_once(http: httpx.AsyncClient, server: str) -> str | None:
-    """Install a newer signed release if there is one. Returns its version when the caller should exit."""
+    """Install a newer signed release if there is one. Returns the version to restart into when the
+    caller should exit: the new one, or the last one that stayed up when the new one failed and the
+    running one couldn't be put back."""
     found = await fetch_update(http, server)
     if not found:
         return None
     manifest, wheel, constraints = found
     if await asyncio.to_thread(install_update, wheel, constraints, manifest["version"]):
-        return str(manifest["version"])
+        # On Windows a detached shell installs it once we have exited.
+        return str(manifest["version"]) if os.name == "nt" else installed_version()
     return None
 
 
@@ -1055,7 +1252,7 @@ async def update_loop(server: str, first_delay: float = UPDATE_FIRST_CHECK_S) ->
             try:
                 before = installed_version()
                 if version := await update_once(http, server):
-                    log.info("updated %s -> %s; restarting", before, version)
+                    log.info("restarting into %s (was %s)", version, before)
                     return
             except Exception:  # never let the updater take the agent down
                 log.exception("update check failed")
@@ -1162,6 +1359,21 @@ def stop_running_agent() -> bool:
     return True
 
 
+def stop_agent_cleanly(timeout: float = 10.0) -> bool:
+    """For the CLI: stop this user's agent, wait until it has exited (its lock is free), then record a
+    clean stop. On Windows the agent is terminated and can't record that itself, so its next start
+    would otherwise look like a crash. True if an agent was running."""
+    if not stop_running_agent():
+        return False
+    deadline = time.monotonic() + timeout
+    while agent_running():
+        if time.monotonic() > deadline:
+            return True  # still exiting: leave its state to it
+        time.sleep(0.2)
+    note_stop()
+    return True
+
+
 def single_instance(replace: bool = False) -> InstanceLock:
     """Take the per-user lock; with replace=True, stop a running agent first."""
     handle = _open_lock()
@@ -1195,42 +1407,62 @@ def agent_running() -> bool:
 
 
 async def main(replace: bool = False) -> int:
-    """Run until stopped or replaced (0), updated (RESTART_EXIT_CODE), or broken (1)."""
+    """Run until stopped or replaced (0), updated (RESTART_EXIT_CODE), or broken (1).
+
+    A broken run (1, or an exception) records no clean stop, so the next start knows the last run
+    ended abnormally and looks for a fixed version within a minute."""
     lock = single_instance(replace)
+    code: int | None = None
+    try:
+        code = await _main(lock)
+        return code
+    finally:
+        if code is not None and code != 1:
+            note_stop()
+        lock.close()
+
+
+async def _main(lock: InstanceLock) -> int:
+    crashed, failing = note_start(replaced=lock.replaced)  # counted before anything that can fail
+    if failing and roll_back(failing):
+        return RESTART_EXIT_CODE
     try:
         server = load_link().server
-        crashed, failing = note_start(replaced=lock.replaced)
-        if failing and roll_back(failing):
-            return RESTART_EXIT_CODE
-        started, connected, stop = time.monotonic(), asyncio.Event(), asyncio.Event()
-        if os.name != "nt":
-            asyncio.get_running_loop().add_signal_handler(signal.SIGTERM, stop.set)
-        on_trial = "pending" in load_state()
-        first = random.uniform(*UPDATE_AFTER_CRASH_S) if crashed or on_trial else UPDATE_FIRST_CHECK_S
-        runner = asyncio.create_task(run_forever(connected))
-        updater = asyncio.create_task(update_loop(server, first))
-        stopper = asyncio.create_task(stop.wait())
-        keeper = asyncio.create_task(_keep_if_healthy(connected, started))
-        done, pending = await asyncio.wait({runner, updater, stopper}, return_when=asyncio.FIRST_COMPLETED)
-        for task in (*pending, keeper):
-            task.cancel()
-        error = runner.exception() if runner in done else None
-        if error is not None and not isinstance(error, (NotLinked, KeyringError)):
-            # Don't just crash into a restart loop: a fixed version may already be out.
-            log.error("the agent stopped unexpectedly; checking for a fixed version", exc_info=error)
-            try:
-                async with httpx.AsyncClient(timeout=120) as http:
-                    if in_uv_tool() and await update_once(http, server):
-                        return RESTART_EXIT_CODE
-            except Exception:
-                log.exception("update check failed")
-            return 1
-        for task in done:
-            task.result()
-        return RESTART_EXIT_CODE if updater in done else 0
-    finally:
-        note_stop()
-        lock.close()
+    except NotLinked:
+        if "pending" not in load_state():
+            raise  # unlinked: stay down (exit 0)
+        # A version on trial that can't read this PC's link (a changed file format, say): exit
+        # non-zero, so launchd starts it again and the starts add up to a rollback.
+        log.exception("the new version can't read this PC's link; it will be rolled back if this repeats")
+        return 1
+    started, connected, stop = time.monotonic(), asyncio.Event(), asyncio.Event()
+    if os.name != "nt":
+        asyncio.get_running_loop().add_signal_handler(signal.SIGTERM, stop.set)
+    on_trial = "pending" in load_state()
+    first = random.uniform(*UPDATE_AFTER_CRASH_S) if crashed or on_trial else UPDATE_FIRST_CHECK_S
+    runner = asyncio.create_task(run_forever(connected))
+    updater = asyncio.create_task(update_loop(server, first))
+    stopper = asyncio.create_task(stop.wait())
+    keeper = asyncio.create_task(_keep_if_healthy(connected, started))
+    done, pending = await asyncio.wait({runner, updater, stopper}, return_when=asyncio.FIRST_COMPLETED)
+    for task in (*pending, keeper):
+        task.cancel()
+    error = runner.exception() if runner in done else None
+    if error is not None:
+        if isinstance(error, (NotLinked, KeyringError)) and "pending" not in load_state():
+            raise error  # unlinked, or no device key: nothing a restart would fix
+        # Don't just crash into a restart loop: a fixed version may already be out.
+        log.error("the agent stopped unexpectedly; checking for a fixed version", exc_info=error)
+        try:
+            async with httpx.AsyncClient(timeout=120) as http:
+                if in_uv_tool() and await update_once(http, server):
+                    return RESTART_EXIT_CODE
+        except Exception:
+            log.exception("update check failed")
+        return 1
+    for task in done:
+        task.result()
+    return RESTART_EXIT_CODE if updater in done else 0
 
 
 def configure_logging(log_file: str | None) -> None:

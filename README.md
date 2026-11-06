@@ -68,7 +68,7 @@ uv run kw-mcp check   # 로그인해서 과목·과제·강의 개수만 출력
 로그인이 안 되는 경우:
 - "개인번호 또는 비밀번호가 일치하지 않습니다"가 나오면 오류 문구에 실제로 로그인한 아이디가 가려진 채로(`2022******(10자리)`, 입학 연도와 길이만) 나온다. 학번이 아닌 값이 들어갔는지, 비밀번호에 한글이 섞였는지(한/영 전환)도 알려 주고, 고칠 곳을 설치 방식에 맞게 안내한다. `.mcpb`로 설치했다면 Claude 데스크톱 설정 → 확장 프로그램 → 광운대 KLAS → 구성, 그 밖에는 `kw-mcp setup`. 앞뒤 공백은 자동으로 지운다.
 - KLAS가 비밀번호를 거부하면, 저장된 학번·비밀번호가 바뀔 때까지 같은 비밀번호를 다시 보내지 않는다. 다시 시작해도 마찬가지다(`~/.config/kw-mcp/login-state.json`에 학번·비밀번호의 솔트 PBKDF2 지문과 시각만 남기고, 원문은 남기지 않는다). 설정에서 비밀번호를 고치면 바로 다시 시도한다.
-- 비밀번호를 3번 넘게 틀리면 KLAS가 캡차를 요구한다. 그래서 실패가 2번 쌓이면 비밀번호를 보내기 전에 멈춘다. 브라우저에서 한 번 직접 로그인하면 풀린다(캡차 상태는 10분마다 비밀번호 없이 다시 확인한다).
+- 비밀번호를 3번 넘게 틀리면 KLAS가 캡차를 요구한다. 그래서 실패가 2번 쌓이면 비밀번호를 확인하는 단계(`LoginConfirm.do`) 전에 멈춘다. 브라우저에서 한 번 직접 로그인하면 풀린다. 실패 횟수는 10분마다 다시 확인하는데, 이때 KLAS 로그인 페이지와 같은 방식으로 학번·비밀번호를 암호화한 로그인 토큰을 `LoginCaptcha.do`에 보내 횟수만 묻고, `LoginConfirm.do`로는 넘어가지 않는다.
 - 2차 인증이 켜진 계정은 자동 로그인을 할 수 없다. 2차 인증 요청이 학생에게 가므로 1시간에 한 번만 다시 시도한다. 임시 비밀번호 상태인 계정은 비밀번호를 바꿀 때까지 멈춘다.
 
 ## Claude 데스크톱에 클릭 한 번으로 설치 (.mcpb)
@@ -93,17 +93,17 @@ uv run kw-mcp check   # 로그인해서 과목·과제·강의 개수만 출력
 
 에이전트는 연결 서버와 WebSocket을 유지하다가(5분마다 핑, 끊기면 최대 60초 간격으로 다시 접속) 요청이 오면 KLAS에서 정해 둔 필드만 읽고(`SNAPSHOT_FIELDS`), 서버가 요청마다 보낸 AES-256 키로 암호화해 올린다. 결과를 올릴 주소가 연결한 서버가 아니면 무시한다. 한 사용자 계정에 에이전트는 하나만 돈다(사용자별 잠금 파일로 확인).
 
-**자동 업데이트**: 에이전트는 시작 10분 뒤와 6시간마다(비정상 종료 뒤에는 30~60초 뒤) 연결 서버의 `/dist/latest.json`을 본다. 버전이 더 높고, Ed25519 서명이 `kw_mcp/release.py`의 공개키와 맞고, 받은 wheel과 의존성 고정 파일(constraints)이 서명된 SHA-256과 같을 때만 설치한다. 설치는 고정된 의존성 버전과 릴리스 시각 이전에 올라온 패키지만 쓰고(`--constraints`, `--exclude-newer`, `--no-build`), 새 버전이 스스로 실행되는지(`--version` 자체 점검) 확인한 뒤에야 다시 시작한다(macOS는 launchd가, Windows는 에이전트가 끝난 뒤 별도 프로세스가 설치하고 띄움). 바로 전 버전은 `~/.config/kw-campus/releases`에 남겨 두고, 새 버전이 두 번 연달아 시작하다 죽으면 되돌린 뒤 그 버전은 건너뛴다. `kw-mcp update`로 지금 바로 업데이트할 수도 있다. 서명 키는 릴리스하는 PC의 키체인에만 있어서, 서버만으로는 백그라운드 업데이트로 PC에 코드를 밀어 넣을 수 없다. 다만 서명은 백그라운드 업데이트만 보호한다. 첫 설치·재설치 명령과 `/setup`에서 받는 `.mcpb`는 연결 서버를 TLS로 믿는다. 처음 설치한 명령을 다시 실행해도 업데이트되고, 이때 기기 등록과 커넥터 연결은 그대로다.
+**자동 업데이트**: 에이전트는 시작 10분 뒤와 6시간마다(비정상 종료 뒤에는 30~60초 뒤) 연결 서버의 `/dist/latest.json`을 본다. 버전이 더 높고, Ed25519 서명이 `kw_mcp/release.py`의 공개키와 맞고, 받은 wheel과 의존성 고정 파일(constraints)이 서명된 SHA-256과 같을 때만 설치한다. 설치는 고정된 의존성 버전과 릴리스 시각 이전에 올라온 패키지만 쓰고(`--constraints`, `--exclude-newer`, `--no-build`), `uv tool install`은 고정 파일의 해시를 보지 않으므로 바로 이어서 모든 의존성을 `uv pip install --require-hashes`로 해시를 확인하며 다시 설치한다(그 전에는 새 의존성의 코드가 실행되지 않는다). 새 버전이 스스로 실행되는지(`--version` 자체 점검) 확인한 뒤에야 다시 시작한다(macOS는 launchd가, Windows는 에이전트가 끝난 뒤 별도 프로세스가 설치하고 띄움). 해시 확인이나 자체 점검에 실패하면 돌던 버전을 다시 설치해 그대로 쓴다. 바로 전 버전은 `~/.config/kw-campus/releases`에 남겨 두고, 새 버전이 연결 후 2분을 채우기 전에 두 번 멈추면(시작하다 예외가 나든, 강제로 꺼지든) 다음 시작 때 되돌리고 그 버전은 건너뛴다. 자체 점검에 실패한 버전도 다시 받지 않는다(Windows 포함). `kw-mcp update`로 지금 바로 업데이트할 수도 있다. 서명 키는 릴리스하는 PC의 키체인에만 있어서, 서버만으로는 백그라운드 업데이트로 PC에 코드를 밀어 넣을 수 없다. 다만 서명은 백그라운드 업데이트만 보호한다. 첫 설치·재설치 명령과 `/setup`에서 받는 `.mcpb`는 연결 서버를 TLS로 믿는다. 처음 설치한 명령을 다시 실행해도 업데이트되고, 이때 기기 등록과 커넥터 연결은 그대로다.
 
 **릴리스**:
-1. `pyproject.toml`과 `manifest.json`의 version을 같은 값으로 올리고 kw-mcp와 kw-campus 양쪽에서 `uv lock`.
+1. `pyproject.toml`과 `manifest.json`의 version을 같은 값으로, 지난 릴리스보다 높게 올리고 kw-mcp와 kw-campus 양쪽에서 `uv lock`. 에이전트와 확장은 더 높은 버전만 받는다.
 2. 커밋하고 `git tag v<버전>`.
 3. (연습) `scripts/release.sh --dry-run`: 버리는 키로 서명해 `dist/release-dry-run/`에 만든다. 배포에는 못 쓴다.
-4. `scripts/release.sh`: 작업 트리가 깨끗한지, 태그와 세 곳의 버전이 맞는지 확인 → HEAD를 꺼내 `uv lock --check`와 테스트 → wheel·constraints를 만들고 에이전트 업데이트와 같은 방식으로 시험 설치(자체 점검 포함) → 허용 목록으로 `mcpb pack` → 키체인의 키로 서명하고 검증한 뒤 `dist/release/`로 바꿔 넣는다(`python -m kw_mcp.release keygen`은 처음 한 번만).
+4. `scripts/release.sh`: 작업 트리가 깨끗한지, 태그와 세 곳의 버전이 맞는지, 버전이 지난 릴리스(다른 커밋의 `v*` 태그, 지난 `dist/release/latest.json`, `--last-latest-json`으로 넘긴 연결 서버의 `latest.json`)보다 높은지 확인 → HEAD를 꺼내 허용 목록의 파일만 `.mcpb`(zip, `mcpb pack`과 같은 형식)로 묶고 해시를 적어 둠 → `uv lock --check`와 테스트 → wheel·constraints를 만들고 해시를 적어 둔 뒤 에이전트 업데이트와 같은 방식으로 시험 설치(해시 확인, 자체 점검 포함) → 세 파일이 적어 둔 해시 그대로인지 확인한 뒤에야 키체인의 키로 서명하고 검증해 `dist/release/`로 바꿔 넣는다(`python -m kw_mcp.release keygen`은 처음 한 번만). 서명하는 실행에서는 npm 코드를 돌리지 않는다(같은 사용자 권한이면 서명 키를 읽을 수 있다). `mcpb`의 매니페스트 검사와 풀기는 packaging 워크플로(CI)가 같은 방식으로 묶은 파일에 돌린다. 연결 서버 버전과 비교하려면 `curl -fsS https://<bridge>/dist/latest.json -o /tmp/latest.json` 뒤 `scripts/release.sh --last-latest-json /tmp/latest.json`.
 5. 커밋과 태그를 push.
 6. kw-campus에서 `scripts/build_lambda.sh`(검증된 `dist/release`만 복사, 없거나 검증에 실패하면 멈춤) → `cdk deploy`.
 
-**확장 업데이트**: Claude 데스크톱은 파일로 설치한 확장을 스스로 업데이트하지 않는다. 그래서 확장이 초대 코드의 서버에서 `latest.json`의 `mcpb` 항목을 6시간마다 확인하고, 서명이 맞는 더 높은 버전이 있으면 `this_week`·`today_briefing`·`my_notices` 답에 `update_available`을 붙인다. `download_update` 도구(읽기 전용이 아니라 Claude가 사용자에게 먼저 묻는다)는 새 파일을 받아 서명된 SHA-256과 맞을 때만 다운로드 폴더에 저장한다. 확장은 `uv run --frozen --no-dev`로 uv.lock에 고정된 버전·해시만, 개발용 패키지 없이 설치한다. 서명 단계는 `.mcpb` 안의 코드가 같은 버전 wheel과 다르면 거부한다(오래된 파일이 서명되는 것 방지).
+**확장 업데이트**: Claude 데스크톱은 파일로 설치한 확장을 스스로 업데이트하지 않는다. 그래서 확장이 초대 코드의 서버에서 `latest.json`의 `mcpb` 항목을 6시간마다 확인하고, 서명이 맞는 더 높은 버전이 있으면 `this_week`·`today_briefing`·`my_notices` 답에 `update_available`을 붙인다. `download_update` 도구(읽기 전용이 아니라 Claude가 사용자에게 먼저 묻는다)는 새 파일을 받아 서명된 SHA-256과 맞을 때만 다운로드 폴더에 저장한다. 확장은 `uv run --frozen --no-dev`로 의존성을 uv.lock에 고정된 버전·해시로만, 개발용 패키지 없이 설치한다. 다만 이 프로젝트 자체를 빌드하는 `uv_build`(빌드 백엔드)는 uv.lock에 들어가지 않는다. `pyproject.toml`에서 버전을 정확히 고정해 두었고, 같은 버전의 uv는 내장 백엔드를 쓰지만, 다른 버전의 uv는 그 버전을 PyPI에서 해시 확인 없이 받아 학번·비밀번호 환경변수가 있는 상태로 실행한다. 서명 단계는 `.mcpb` 안의 코드가 같은 버전 wheel과 다르면 거부한다(오래된 파일이 서명되는 것 방지).
 
 ## Claude Code에 등록
 

@@ -1,6 +1,8 @@
-# The Claude Desktop extension on every platform students use: lockfile, allow-listed `mcpb pack`,
-# unpacked into a folder with Korean letters and spaces, started with the manifest's own command
-# (and its entry_point), and tools/list compared with the manifest's tool list.
+# The Claude Desktop extension on every platform students use: lockfile, the allow-listed bundle packed
+# exactly as a release packs it (scripts/release.py, Python, no npm), checked by mcpb itself (manifest
+# schema, unpack) into a folder with Korean letters and spaces, started with the manifest's own command
+# (and its entry_point), and tools/list compared with the manifest's tool list. mcpb runs here, never
+# in the signing run.
 name: Packaging
 
 on:
@@ -51,15 +53,16 @@ jobs:
       - name: Versions agree, manifest tools equal the registered tools
         run: uv run --frozen pytest -q tests/test_packaging.py
 
-      - name: Pack the allow-listed bundle
-        run: |
-          uv run --frozen python scripts/release.py stage "$RUNNER_TEMP/stage"
-          npx --yes @anthropic-ai/mcpb@2.1.2 pack "$RUNNER_TEMP/stage" "$RUNNER_TEMP/kw-klas.mcpb"
+      - name: Pack the allow-listed bundle the way a release does
+        run: uv run --frozen python scripts/release.py pack "$RUNNER_TEMP/kw-klas.mcpb"
 
-      - name: Unpack into a path with Korean letters and spaces
-        run: >
-          uv run --frozen python -c "import sys, zipfile; zipfile.ZipFile(sys.argv[1]).extractall(sys.argv[2])"
-          "$RUNNER_TEMP/kw-klas.mcpb" "$RUNNER_TEMP/한글 경로/kw klas"
+      - name: mcpb accepts the manifest and reads the packed file
+        run: |
+          npx --yes @anthropic-ai/mcpb@2.1.2 validate manifest.json
+          npx --yes @anthropic-ai/mcpb@2.1.2 info "$RUNNER_TEMP/kw-klas.mcpb"
+
+      - name: Unpack with mcpb into a path with Korean letters and spaces
+        run: npx --yes @anthropic-ai/mcpb@2.1.2 unpack "$RUNNER_TEMP/kw-klas.mcpb" "$RUNNER_TEMP/한글 경로/kw klas"
 
       - name: Start it with the manifest's command and list its tools
         run: uv run --frozen python scripts/smoke_mcpb.py "$RUNNER_TEMP/한글 경로/kw klas"

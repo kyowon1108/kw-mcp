@@ -6,7 +6,9 @@ in the same way the login page does and re-logs in once when the session expires
 
 It identifies itself honestly (USER_AGENT) and paces itself: a token bucket, a cap per
 10 minutes, at most MAX_PARALLEL requests in flight, and one shared back-off when KLAS is down.
-A rejected password is never sent again until the saved login changes, across restarts too.
+A password KLAS says doesn't match is never sent again until it is saved again or changed, across
+restarts too. Data requests wait while a login runs, so nothing changes the session cookie that the
+login handshake is tied to.
 """
 
 from __future__ import annotations
@@ -35,8 +37,10 @@ from cryptography.hazmat.primitives.asymmetric.rsa import RSAPublicKey
 from cryptography.hazmat.primitives.serialization import load_der_public_key
 
 BASE_URL = "https://klas.kw.ac.kr"
-CONTACT_URL = "https://github.com/kyowon1108/kw-mcp"
+# The maintainer's address. The repositories are private, so no project URL goes in the
+# User-Agent or in messages: a link a school admin or a student can't open is no contact.
 CONTACT_EMAIL = "kyowon1108@gmail.com"
+REPORT_TO = f"개발자 메일({CONTACT_EMAIL})로 알려 주세요"
 
 
 def package_version() -> str:
@@ -49,7 +53,7 @@ def package_version() -> str:
 # Honest product token, so KLAS operators can tell this tool apart and reach its maintainer.
 # Accepted by KLAS (tested 2026-11-06). If KLAS ever refuses it, the client stops
 # (KlasClientRejected); it never falls back to a browser User-Agent.
-USER_AGENT = f"kw-mcp/{package_version()} (+{CONTACT_URL}; contact {CONTACT_EMAIL})"
+USER_AGENT = f"kw-mcp/{package_version()} (contact {CONTACT_EMAIL})"
 
 LOGIN_FORM = "/usr/cmn/login/LoginForm.do"
 LOGIN_SECURITY = "/usr/cmn/login/LoginSecurity.do"
@@ -83,13 +87,32 @@ MAX_ERROR_BODY = 64 * 1024
 # A rejected login is remembered here (salted PBKDF2 fingerprint of id + password and the time;
 # never the password), so a restart or another kw-mcp process on this PC doesn't try it again.
 LOGIN_STATE_FILE = Path.home() / ".config" / "kw-mcp" / "login-state.json"
+# How klas_status names the file: the real path holds the OS user name, often the person's name.
+STATE_FILE_SHOWN = "~/.config/kw-mcp/login-state.json"
 FINGERPRINT_ROUNDS = 100_000
+MAX_REJECTED = 5  # rejected logins remembered (one entry each; saving one again removes only that one)
+# The only LoginConfirm answer known to mean "wrong id or password" ("개인번호 또는 비밀번호가 일치하지
+# 않습니다."). Only this one stops a login for good; any other error answer may be a session or key
+# mismatch of a correct password and is retried after LOGIN_BLOCK_COOLDOWN.
+PASSWORD_MISMATCH = "일치하지않"
+# KLAS refusing this client (e.g. its User-Agent): during the login handshake that stops it at once; on
+# data requests, once this many different endpoints refused it with no normal answer in between.
+_REFUSED_STATUS = frozenset({401, 403, 406})
+REFUSED_ENDPOINTS_TO_STOP = 3
 
 _KST = ZoneInfo("Asia/Seoul")
 # Markers of KLAS's login page. Other HTML (maintenance, error pages) is not an expired session.
 _LOGIN_PAGE = re.compile(r"LoginForm\.do|LoginConfirm\.do|LoginSecurity\.do|loginPwd|name=[\"']?loginId", re.IGNORECASE)
-_BAD_DOWNLOAD = re.compile(r"[\\?#]|%(?:2e|2f|5c)|(?:^|/)\.\.?(?:/|$)|//", re.IGNORECASE)
+# Anything a servlet container could resolve outside the attachment folder: backslashes, query or
+# fragment, ';' path parameters ('..;/'), encoded dots, slashes, backslashes, semicolons, '%' and NUL
+# (double encoding), a '%' that isn't an escape (IIS-style '%u002e'), dot segments, '//', and any
+# character outside printable ASCII.
+_BAD_DOWNLOAD = re.compile(
+    r"[\\?#;]|%(?:2e|2f|5c|3b|25|00)|%(?![0-9a-f]{2})|[^\x20-\x7e]|(?:^|/)\.\.?(?:/|$)|//", re.IGNORECASE)
 _TRANSIENT_STATUS = frozenset({429, 502, 503, 504})
+# Transport errors that mean KLAS is down or hanging: they start the shared back-off.
+_DOWN_ERRORS = (httpx.ConnectError, httpx.ConnectTimeout, httpx.ReadTimeout, httpx.ReadError,
+                httpx.WriteTimeout, httpx.PoolTimeout, httpx.RemoteProtocolError)
 
 
 class KlasError(Exception):
@@ -116,7 +139,7 @@ class KlasClientRejected(KlasLoginBlocked):
 
 
 class KlasBadPassword(KlasLoginError):
-    """KLAS rejected the id/password. Retrying with the same password only adds failures."""
+    """KLAS said the id/password don't match. Retrying with the same password only adds failures."""
 
 
 class SessionExpired(KlasError):
@@ -129,6 +152,11 @@ class KlasUnavailable(KlasError):
 
 class KlasRequestLimit(KlasError):
     """This client's own request cap (WINDOW_CAP per WINDOW_S) is used up."""
+
+
+class KlasFileTooLarge(KlasError):
+    """An attachment turned out bigger than the download limit (KLAS's fileSize was missing or wrong).
+    Downloading it again gives the same answer."""
 
 
 def encrypt_login(public_key_b64: str, login_id: str, password: str) -> str:
@@ -158,8 +186,8 @@ def _read_state() -> dict[str, Any]:
     return data if isinstance(data, dict) else {}
 
 
-def _write_state(data: dict[str, Any]) -> None:
-    """Best effort: a read-only home (e.g. a server) just means no memory across restarts."""
+def _write_state(data: dict[str, Any]) -> bool:
+    """Best effort: a read-only home (e.g. a server) just means no memory across restarts (False)."""
     try:
         LOGIN_STATE_FILE.parent.mkdir(parents=True, exist_ok=True)
         partial = LOGIN_STATE_FILE.with_name(f"{LOGIN_STATE_FILE.name}.{os.getpid()}.part")
@@ -168,7 +196,8 @@ def _write_state(data: dict[str, Any]) -> None:
             json.dump(data, f)
         partial.replace(LOGIN_STATE_FILE)
     except OSError:
-        pass
+        return False
+    return True
 
 
 def _fingerprint(login_id: str, password: str, salt: str) -> str:
@@ -176,17 +205,65 @@ def _fingerprint(login_id: str, password: str, salt: str) -> str:
                                FINGERPRINT_ROUNDS).hex()
 
 
-def rejected_login() -> dict[str, Any] | None:
-    """When KLAS last rejected a saved login on this PC ({"at": ...}), or None. No KLAS request."""
-    entry = _read_state().get("rejected")
-    return {"at": entry.get("at"), "state_file": str(LOGIN_STATE_FILE)} if isinstance(entry, dict) else None
+def _salt(state: dict[str, Any]) -> str | None:
+    salt = state.get("salt")
+    if not isinstance(salt, str):
+        return None
+    try:
+        bytes.fromhex(salt)
+    except ValueError:
+        return None
+    return salt
 
 
-def forget_rejected_login() -> None:
-    """Called when the login is saved again (`kw-mcp setup`): the next request may try once more."""
+def _rejections(state: dict[str, Any]) -> list[dict[str, Any]]:
+    """The rejected logins in the state file, oldest first (before 1.0 there was one dict, not a list)."""
+    entries = state.get("rejected")
+    if isinstance(entries, dict):
+        entries = [entries]
+    return [e for e in entries if isinstance(e, dict)] if isinstance(entries, list) else []
+
+
+def _entry_for(state: dict[str, Any], login_id: str, password: str) -> dict[str, Any] | None:
+    entries, salt = _rejections(state), _salt(state)
+    if not entries or salt is None:
+        return None
+    fingerprint = _fingerprint(login_id, password, salt)
+    return next((e for e in reversed(entries) if e.get("fingerprint") == fingerprint), None)
+
+
+def rejected_login(login_id: str | None = None, password: str | None = None) -> dict[str, Any] | None:
+    """When KLAS last rejected this login on this PC ({"at": ..., "state_file": ...}), or None.
+    Without a login: the latest rejection of any login. No KLAS request, but with a login it runs
+    PBKDF2: call it off the event loop."""
     state = _read_state()
-    if state.pop("rejected", None) is not None:
-        _write_state(state)
+    if login_id is None or password is None:
+        entries = _rejections(state)
+        entry = entries[-1] if entries else None
+    else:
+        entry = _entry_for(state, login_id, password)
+    return {"at": entry.get("at"), "state_file": STATE_FILE_SHOWN} if entry else None
+
+
+def forget_rejected_login(login_id: str | None = None, password: str | None = None) -> None:
+    """Called when a login is saved again (`kw-mcp setup`): the next request with it may try once more.
+    Removes only that login's entry; without a login (the saved login is deleted) every entry."""
+    state = _read_state()
+    if "rejected" not in state:
+        return
+    entries, salt = _rejections(state), _salt(state)
+    if login_id is None or password is None or salt is None:
+        keep: list[dict[str, Any]] = []  # without a salt no entry can ever match
+    else:
+        fingerprint = _fingerprint(login_id, password, salt)
+        keep = [e for e in entries if e.get("fingerprint") != fingerprint]
+    if keep == entries and isinstance(state.get("rejected"), list):
+        return
+    if keep:
+        state["rejected"] = keep
+    else:
+        state.pop("rejected")
+    _write_state(state)
 
 
 def _now_text() -> str:
@@ -219,11 +296,24 @@ class KlasClient:
         # under, so concurrent requests that all hit an expired session trigger one login.
         self._generation = 0
         # (until monotonic time, error): login attempts are refused until then. inf = until the
-        # saved login changes (KlasHolder then builds a new client).
+        # saved login changes (KlasHolder then builds a new client) or, for a rejected password,
+        # until its marker is gone from the state file (saved again).
         self._login_failure: tuple[float, KlasLoginError] | None = None
         self._unavailable: tuple[float, KlasError] | None = None
-        self._marker_checked = False
+        # True while this login's rejection is known to be in the state file. Only then does the
+        # file losing it lift the block: a marker that could not be written keeps the block on.
+        self._rejection_on_disk = False
         self._fp: tuple[str, str] | None = None  # (salt, fingerprint)
+        # The cookie jar is shared: KLAS may answer a request on an expired session with a new
+        # session cookie, which would replace the one a login handshake is tied to. So a login waits
+        # for the data requests already sent (_on_wire) and holds new ones (_jar_free) until it's done.
+        self._jar_free = asyncio.Event()
+        self._jar_free.set()
+        self._wire_idle = asyncio.Event()
+        self._wire_idle.set()
+        self._on_wire = 0
+        # Endpoints that answered 401/403/406 since the last normal answer to a data request.
+        self._refused: set[str] = set()
         self._rate_lock = asyncio.Lock()
         self._tokens = float(RATE_BURST)
         self._refilled = time.monotonic()
@@ -259,10 +349,10 @@ class KlasClient:
         return data
 
     async def download(self, path: str, max_bytes: int) -> bytes:
-        """GET a file (attachment download), logging in again if the session expired."""
+        """GET a file (attachment download), logging in again if the session expired.
+        KlasFileTooLarge when it is bigger than max_bytes."""
         self._download_request(path)  # refuse before logging in
-        # A fresh request per attempt: httpx puts the cookies in when the request is built.
-        return await self._with_session(lambda: self._raw_download(self._download_request(path), max_bytes))
+        return await self._with_session(lambda: self._raw_download(path, max_bytes))
 
     def _download_request(self, path: str) -> httpx.Request:
         """Only plain attachment paths: httpx resolves "..", so check before and after building the URL."""
@@ -276,6 +366,7 @@ class KlasClient:
         return request
 
     async def _with_session(self, send: Any) -> Any:
+        await self._recheck_rejection()
         self._raise_if_paused()
         generation = self._generation
         fresh = generation == 0
@@ -300,10 +391,10 @@ class KlasClient:
             "브라우저에서 KLAS에 한 번 로그인해 안내 화면을 확인하세요. "
             f"{int(SESSION_REFUSED_COOLDOWN // 60)}분 동안은 다시 로그인하지 않습니다.",
             retry_after=SESSION_REFUSED_COOLDOWN)
-        self._login_failure = (time.monotonic() + SESSION_REFUSED_COOLDOWN, error)
         self._generation = 0
-        self.last_login = {"at": _now_text(), "ok": False, "error": str(error)}
-        raise error
+        # Through _fail_login: a stop for good that other answers set meanwhile (a third screen
+        # refusing the tool) stays, and this call reports that stop instead.
+        raise self._fail_login(error, SESSION_REFUSED_COOLDOWN)
 
     def _raise_if_paused(self) -> None:
         now = time.monotonic()
@@ -326,39 +417,58 @@ class KlasClient:
 
     async def _relogin(self, seen_generation: int) -> None:
         async with self._login_lock:
+            await self._recheck_rejection()
             self._raise_if_paused()
             if self._generation != seen_generation:
                 return  # another request already logged in while we waited
-            if not self._marker_checked:
-                await self._check_marker()
+            # Before every login, not once per client: another kw-mcp process on this PC (the MCP
+            # server and the PC agent) may have had this same login rejected in the meantime.
+            await self._check_marker()
             try:
                 await self._login()
-            except KlasBadPassword as e:
-                self._fail_login(e, math.inf)
-                await self._remember_rejection()
-                raise
-            except KlasLoginBlocked as e:
-                self._fail_login(e, e.retry_after)
-                raise
-            except KlasLoginError as e:
-                self._fail_login(e, LOGIN_BLOCK_COOLDOWN)
-                raise
-            except KlasRequestLimit:
-                raise
             except (KlasError, httpx.HTTPError) as e:
-                # Maintenance pages, 5xx, no connection: one shared back-off, so the requests
-                # queued on this lock don't each run the whole handshake again.
-                error = self._pause(e if isinstance(e, KlasUnavailable) else
-                                    KlasUnavailable(f"KLAS에 로그인하지 못했습니다({_describe(e)})."))
-                self.last_login = {"at": _now_text(), "ok": False, "error": str(error)}
-                raise error from e
+                if self._in_force(e):
+                    # A back-off or a stop that an answer started while this login waited for the
+                    # wire: already recorded, so it is neither extended nor written over.
+                    raise
+                await self._login_failed(e)
             self._generation += 1
             self.last_login = {"at": _now_text(), "ok": True, "error": None}
             await self._forget_rejection()
 
-    def _fail_login(self, error: KlasLoginError, retry_after: float) -> None:
+    def _in_force(self, error: BaseException) -> bool:
+        """error is the login block or the back-off this client already holds (_raise_if_paused raised it)."""
+        return any(held is not None and held[1] is error for held in (self._login_failure, self._unavailable))
+
+    async def _login_failed(self, e: KlasError | httpx.HTTPError) -> NoReturn:
+        """Record why the login failed and raise what the caller should see."""
+        if isinstance(e, KlasBadPassword):
+            error = self._fail_login(e, math.inf)
+            await self._remember_rejection()
+            raise error
+        if isinstance(e, KlasLoginBlocked):
+            raise self._fail_login(e, e.retry_after)
+        if isinstance(e, KlasLoginError):
+            raise self._fail_login(e, LOGIN_BLOCK_COOLDOWN)
+        if isinstance(e, KlasRequestLimit):
+            raise e
+        # Maintenance pages, 5xx, no connection: one shared back-off, so the requests
+        # queued on this lock don't each run the whole handshake again.
+        error = self._pause(e if isinstance(e, KlasUnavailable) else
+                            KlasUnavailable(f"KLAS에 로그인하지 못했습니다({_describe(e)})."))
+        self.last_login = {"at": _now_text(), "ok": False, "error": str(error)}
+        raise error from e
+
+    def _fail_login(self, error: KlasLoginError, retry_after: float) -> KlasLoginError:
+        """Refuse logins for retry_after seconds; returns the error now in force. A stop for good
+        (KLAS refused the tool, the password was rejected, a graduate account) is never replaced: a
+        shorter block written over it would send the client back to KLAS when that one ran out."""
+        held = self._login_failure
+        if held is not None and held[0] == math.inf:
+            return held[1]
         self._login_failure = (time.monotonic() + retry_after, error)
         self.last_login = {"at": _now_text(), "ok": False, "error": str(error)}
+        return error
 
     # -- the on-disk marker (blocking file and PBKDF2 work runs in a thread) ----------------------
 
@@ -370,40 +480,63 @@ class KlasClient:
     async def _fingerprint(self, salt: str) -> str:
         return await asyncio.to_thread(self._fingerprint_sync, salt)
 
-    async def _check_marker(self) -> None:
+    async def _marked(self) -> dict[str, Any] | None:
+        """This login's entry in the rejected-login marker, or None."""
         state = await asyncio.to_thread(_read_state)
-        entry, salt = state.get("rejected"), state.get("salt")
-        self._marker_checked = True
-        if not isinstance(entry, dict) or not isinstance(salt, str):
+        entries, salt = _rejections(state), _salt(state)
+        if not entries or salt is None:
+            return None
+        fingerprint = await self._fingerprint(salt)
+        return next((e for e in reversed(entries) if e.get("fingerprint") == fingerprint), None)
+
+    async def _check_marker(self) -> None:
+        entry = await self._marked()
+        if entry is None:
             return
-        if await self._fingerprint(salt) != entry.get("fingerprint"):
-            return
+        self._rejection_on_disk = True
         hint = self._login_hint or "학번과 비밀번호를 다시 저장하세요."
         error = KlasBadPassword(
             f"KLAS가 이 학번·비밀번호를 거부했습니다({entry.get('at') or '이전'}). — {hint} "
-            "같은 비밀번호는 다시 보내지 않습니다(보안문자 방지). 고치면 다음 요청에서 바로 로그인합니다.")
+            "같은 비밀번호는 다시 보내지 않습니다(보안문자 방지). 고치면 다음 요청에서 바로 로그인합니다. "
+            f"KLAS 웹에서 이 비밀번호로 로그인이 되는데도 이 오류가 계속되면 {STATE_FILE_SHOWN} 파일을 지우고 "
+            "Claude(또는 PC 에이전트)를 다시 시작하세요.")
         self._fail_login(error, math.inf)
         raise error
 
+    async def _recheck_rejection(self) -> None:
+        """A rejected password blocks this client for good, but only while its marker is on disk:
+        `kw-mcp setup` saving the same pair again removes it, and the next request tries once more
+        without restarting the MCP server or the PC agent."""
+        failure = self._login_failure
+        if (failure is None or failure[0] != math.inf or not isinstance(failure[1], KlasBadPassword)
+                or not self._rejection_on_disk):
+            return
+        if await self._marked() is None and self._login_failure is failure:
+            self._login_failure = None
+            self._rejection_on_disk = False
+
     async def _remember_rejection(self) -> None:
-        def write() -> None:
+        def write() -> bool:
             state = _read_state()
-            salt = state.get("salt") if isinstance(state.get("salt"), str) else secrets.token_hex(16)
-            rejected = {"fingerprint": self._fingerprint_sync(salt), "at": _now_text()}
-            _write_state({**state, "salt": salt, "rejected": rejected})
+            salt = _salt(state)
+            entries = _rejections(state) if salt else []  # a new salt: old fingerprints can't match
+            salt = salt or secrets.token_hex(16)
+            fingerprint = self._fingerprint_sync(salt)
+            entries = [e for e in entries if e.get("fingerprint") != fingerprint]
+            entries.append({"fingerprint": fingerprint, "at": _now_text()})
+            return _write_state({**state, "salt": salt, "rejected": entries[-MAX_REJECTED:]})
 
         with contextlib.suppress(OSError, ValueError):
-            await asyncio.to_thread(write)
+            self._rejection_on_disk = await asyncio.to_thread(write)
 
     async def _forget_rejection(self) -> None:
-        state = await asyncio.to_thread(_read_state)
-        entry, salt = state.get("rejected"), state.get("salt")
-        if isinstance(entry, dict) and isinstance(salt, str) and await self._fingerprint(salt) == entry.get("fingerprint"):
-            await asyncio.to_thread(forget_rejected_login)
+        if await self._marked() is not None:
+            await asyncio.to_thread(forget_rejected_login, self._login_id, self._password)
 
     # -- requests --------------------------------------------------------------------------------
 
-    async def _throttle(self) -> None:
+    async def _throttle(self) -> float:
+        """Wait for this request's turn; returns its time stamp in the 10-minute window."""
         async with self._rate_lock:
             now = time.monotonic()
             while self._sent and now - self._sent[0] >= WINDOW_S:
@@ -422,34 +555,109 @@ class KlasClient:
                 self._refilled = now
             self._tokens -= 1
             self._sent.append(now)
+            return now
 
-    def _status_error(self, path: str, status: int) -> KlasError:
+    def _not_sent(self, stamp: float) -> None:
+        """A request that got its turn but was stopped before sending: it doesn't count as sent."""
+        with contextlib.suppress(ValueError):
+            self._sent.remove(stamp)
+        self._tokens = min(float(RATE_BURST), self._tokens + 1)
+
+    def _raise_if_paused_before_sending(self, stamp: float) -> None:
+        # Again right before sending: a back-off or a failed login that started while this request
+        # was queued stops it here instead of sending it anyway.
+        try:
+            self._raise_if_paused()
+        except KlasError:
+            self._not_sent(stamp)
+            raise
+
+    def _status_error(self, path: str, status: int, *, login: bool = False) -> KlasError:
         if status in _TRANSIENT_STATUS:
             return self._pause(KlasUnavailable(f"{path}: HTTP {status}"))
+        if status in _REFUSED_STATUS:
+            if login:  # a login step refused: KLAS doesn't want this client (e.g. its User-Agent)
+                return KlasClientRejected(self._refusal_text(f"HTTP {status}"))
+            self._refused.add(DOWNLOAD_PREFIX if path.startswith(DOWNLOAD_PREFIX) else path)
+            if len(self._refused) >= REFUSED_ENDPOINTS_TO_STOP:
+                # Different screens all refused with nothing working in between: a block of this
+                # tool rolled out mid-session, not one screen this student may not open.
+                error = KlasClientRejected(self._refusal_text(f"HTTP {status}, 서로 다른 요청 {len(self._refused)}곳"))
+                self._fail_login(error, math.inf)
+                return error
         return KlasError(f"{path}: HTTP {status}")
 
-    async def _send(self, method: str, path: str, **kwargs: Any) -> httpx.Response:
-        await self._throttle()
-        async with self._slots:
-            try:
-                return await self._http.request(method, path, **kwargs)
-            except (httpx.ConnectError, httpx.ConnectTimeout) as e:
-                self._pause(KlasUnavailable(f"KLAS에 연결하지 못했습니다({e.__class__.__name__})."))
-                raise
+    @staticmethod
+    def _refusal_text(detail: str) -> str:
+        return (f"KLAS가 이 도구(kw-mcp)의 접속을 거부했습니다({detail}). 위장해서 다시 시도하지 않고 멈춥니다. "
+                f"브라우저에서 KLAS를 이용하고, {REPORT_TO}.")
+
+    def _transport_down(self, error: httpx.HTTPError) -> None:
+        """KLAS can't be reached or stopped answering: one shared back-off instead of every request
+        waiting out its own timeout."""
+        name = error.__class__.__name__
+        reason = (f"KLAS에 연결하지 못했습니다({name})." if isinstance(error, (httpx.ConnectError, httpx.ConnectTimeout))
+                  else f"KLAS가 제때 응답하지 않았습니다({name}).")
+        self._pause(KlasUnavailable(reason))
+
+    async def _wait_for_login(self) -> None:
+        """A data request waits while a login runs, then counts as on the wire until answered."""
+        while not self._jar_free.is_set():
+            await self._jar_free.wait()
+        self._on_wire += 1
+        self._wire_idle.clear()
+
+    def _answered(self) -> None:
+        """A data request's answer (and any cookie it set) is in: a waiting login may start."""
+        self._on_wire -= 1
+        if self._on_wire <= 0:
+            self._on_wire = 0
+            self._wire_idle.set()
+
+    async def _send(self, method: str, path: str, *, login: bool = False, **kwargs: Any) -> httpx.Response:
+        stamp = await self._throttle()
+        if login:  # a login step: _login already holds the data requests back
+            async with self._slots:
+                try:
+                    return await self._http.request(method, path, **kwargs)
+                except _DOWN_ERRORS as e:
+                    self._transport_down(e)
+                    raise
+        await self._wait_for_login()
+        try:
+            async with self._slots:
+                self._raise_if_paused_before_sending(stamp)
+                try:
+                    resp = await self._http.request(method, path, **kwargs)
+                except _DOWN_ERRORS as e:
+                    self._transport_down(e)
+                    raise
+        finally:
+            self._answered()
+        if resp.status_code < 400 and not resp.is_redirect:
+            self._refused.clear()
+        return resp
 
     async def _login(self) -> None:
-        self._http.cookies.clear()
+        self._jar_free.clear()  # data requests sent from now on wait for this login
+        try:
+            await self._wire_idle.wait()  # and the ones already sent are answered (and set their cookies) first
+            # Those answers may have paused or stopped this client (a 503 or a hanging KLAS: the
+            # back-off; a third screen refusing the tool: the stop). Then no login and no password go out.
+            self._raise_if_paused()
+            self._http.cookies.clear()
+            await self._handshake()
+        finally:
+            self._jar_free.set()
+
+    async def _handshake(self) -> None:
         # Loading the form first gives us the session cookie the login calls are tied to.
-        form = await self._send("GET", LOGIN_FORM)
-        if form.status_code in (401, 403, 406):
-            raise KlasClientRejected(
-                f"KLAS가 이 도구(kw-mcp)의 접속을 거부했습니다(HTTP {form.status_code}). 위장해서 다시 시도하지 않고 "
-                f"멈춥니다. 브라우저에서 KLAS를 이용하고, {CONTACT_URL} 에 알려 주세요.")
+        form = await self._send("GET", LOGIN_FORM, login=True)
         if form.status_code >= 400:
-            raise self._status_error(LOGIN_FORM, form.status_code)
+            raise self._status_error(LOGIN_FORM, form.status_code, login=True)
 
         try:
-            security = await self._raw_post(LOGIN_SECURITY, {})
+            security = await self._raw_post(LOGIN_SECURITY, {}, login=True)
         except SessionExpired as e:
             raise KlasUnavailable("KLAS 로그인 페이지가 응답하지 않습니다(점검 중일 수 있음).") from e
         public_key = security.get("publicKey") if isinstance(security, dict) else None
@@ -457,7 +665,7 @@ class KlasClient:
             raise KlasLoginError("KLAS did not return a login public key")
         token = encrypt_login(public_key, self._login_id, self._password)
 
-        failures = await self._raw_post(LOGIN_CAPTCHA, {"loginToken": token, "captcha": ""})
+        failures = await self._raw_post(LOGIN_CAPTCHA, {"loginToken": token, "captcha": ""}, login=True)
         try:
             failures = int(failures)
         except (TypeError, ValueError):
@@ -472,18 +680,28 @@ class KlasClient:
         result = await self._raw_post(
             LOGIN_CONFIRM,
             {"loginToken": token, "captcha": "", "redirectUrl": "", "redirectTabUrl": ""},
+            login=True,
         )
         if not isinstance(result, dict):
             raise KlasLoginError("Unexpected login response from KLAS")
-        if result.get("errorCount", 1) != 0:
-            message = _error_message(result) or "KLAS 로그인 실패 (아이디/비밀번호 확인)"
+        if _int(result.get("errorCount")) != 0:
+            message = _error_message(result)
             hint = self._login_hint or "학번과 비밀번호를 다시 저장하세요."
-            raise KlasBadPassword(
-                f"{message} — {hint} 고치면 다음 요청에서 바로 다시 로그인합니다. 그대로 두면 "
-                "보안문자가 걸리지 않도록 같은 비밀번호로는 다시 로그인하지 않습니다."
+            if message and PASSWORD_MISMATCH in re.sub(r"\s+", "", message):
+                raise KlasBadPassword(
+                    f"{message} — {hint} 고치면 다음 요청에서 바로 다시 로그인합니다. 그대로 두면 "
+                    "보안문자가 걸리지 않도록 같은 비밀번호로는 다시 로그인하지 않습니다."
+                )
+            # Any other error answer (a session or key mismatch, a new message): not proof that the
+            # password is wrong, so not a permanent stop. The LoginCaptcha check above still keeps a
+            # retry from tipping the account into the captcha.
+            raise KlasLoginError(
+                f"KLAS가 로그인을 받아 주지 않았습니다({message or '이유 없음'}). — {hint} "
+                f"{int(LOGIN_BLOCK_COOLDOWN // 60)}분 뒤 다시 시도합니다."
             )
 
-        info = result.get("response") or {}
+        info = result.get("response")
+        info = info if isinstance(info, dict) else {}
         if info.get("twoFactorAt") == "Y":
             # Since 2026-10-26 KLAS asks for 2FA on logins from IPs it treats as foreign
             # (notice DUID 53483); cloud servers and VPNs count. Never try to get around it.
@@ -501,10 +719,12 @@ class KlasClient:
         if info.get("gradAt") == "Y":
             raise KlasLoginBlocked("졸업생 계정은 KLAS를 이용할 수 없습니다.")
 
-    async def _raw_post(self, path: str, body: dict[str, Any], allow_empty: bool = False) -> Any:
+    async def _raw_post(self, path: str, body: dict[str, Any], allow_empty: bool = False, *,
+                        login: bool = False) -> Any:
         resp = await self._send(
             "POST",
             path,
+            login=login,
             content=json.dumps(body, ensure_ascii=False).encode(),
             # Same headers as the site's jQuery calls.
             headers={"Content-Type": "application/json; charset=UTF-8", "X-Requested-With": "XMLHttpRequest"},
@@ -515,7 +735,7 @@ class KlasClient:
                 raise SessionExpired(f"{path}: redirected to the login page")
             raise KlasError(f"{path}: unexpected redirect to {location or '?'}")
         if resp.status_code >= 400:
-            raise self._status_error(path, resp.status_code)
+            raise self._status_error(path, resp.status_code, login=login)
         if allow_empty and not resp.content.strip():
             return None  # LctreEvlTermCheck says "not the evaluation period" with an empty body
         try:
@@ -533,37 +753,54 @@ class KlasClient:
             raise SessionExpired(f"{path}: KLAS asked to log in again")
         return data
 
-    async def _raw_download(self, request: httpx.Request, max_bytes: int) -> bytes:
-        path = request.url.path
-        too_large = KlasError(f"파일이 너무 큽니다({max_bytes // (1024 * 1024)}MB 넘음). KLAS에서 직접 내려받아 주세요.")
-        await self._throttle()
-        async with self._slots:
-            try:
-                resp = await self._http.send(request, stream=True)
-            except (httpx.ConnectError, httpx.ConnectTimeout) as e:
-                self._pause(KlasUnavailable(f"KLAS에 연결하지 못했습니다({e.__class__.__name__})."))
-                raise
-            try:
-                if resp.is_redirect:
-                    if LOGIN_FORM in resp.headers.get("location", ""):
-                        raise SessionExpired(f"{path}: redirected to the login page")
-                    raise KlasError(f"{path}: unexpected redirect")
-                if resp.status_code >= 400:
-                    raise self._status_error(path, resp.status_code)
-                if (_int(resp.headers.get("content-length")) or 0) > max_bytes:
-                    raise too_large
-                kind = resp.headers.get("content-type", "")
-                is_file = "attachment" in resp.headers.get("content-disposition", "").lower()
-                if not is_file and ("text/html" in kind or "application/json" in kind):
-                    self._check_download_page(path, await _read_capped(resp, MAX_ERROR_BODY), kind)
-                chunks, total = [], 0
-                async for chunk in resp.aiter_bytes():
-                    total += len(chunk)
-                    if total > max_bytes:
-                        raise too_large
-                    chunks.append(chunk)
-            finally:
-                await resp.aclose()
+    async def _raw_download(self, path: str, max_bytes: int) -> bytes:
+        too_large = f"파일이 너무 큽니다({max_bytes // (1024 * 1024)}MB 넘음). KLAS에서 직접 내려받아 주세요."
+        stamp = await self._throttle()
+        await self._wait_for_login()
+        answered = False
+        try:
+            async with self._slots:
+                self._raise_if_paused_before_sending(stamp)
+                # Built only now: httpx copies the cookies into a request when it is built, and a
+                # request built before a login would carry the old session (its answer could then
+                # replace the new session cookie).
+                request = self._download_request(path)
+                try:
+                    resp = await self._http.send(request, stream=True)
+                except _DOWN_ERRORS as e:
+                    self._transport_down(e)
+                    raise
+                finally:
+                    answered = True
+                    self._answered()  # the headers (and cookies) are in; the body doesn't touch the jar
+                try:
+                    if resp.is_redirect:
+                        if LOGIN_FORM in resp.headers.get("location", ""):
+                            raise SessionExpired(f"{path}: redirected to the login page")
+                        raise KlasError(f"{path}: unexpected redirect")
+                    if resp.status_code >= 400:
+                        raise self._status_error(path, resp.status_code)
+                    self._refused.clear()
+                    if (_int(resp.headers.get("content-length")) or 0) > max_bytes:
+                        raise KlasFileTooLarge(too_large)
+                    kind = resp.headers.get("content-type", "")
+                    is_file = "attachment" in resp.headers.get("content-disposition", "").lower()
+                    if not is_file and ("text/html" in kind or "application/json" in kind):
+                        self._check_download_page(path, await _read_capped(resp, MAX_ERROR_BODY), kind)
+                    chunks, total = [], 0
+                    async for chunk in resp.aiter_bytes():
+                        total += len(chunk)
+                        if total > max_bytes:
+                            raise KlasFileTooLarge(too_large)
+                        chunks.append(chunk)
+                except _DOWN_ERRORS as e:  # KLAS stopped sending the body
+                    self._transport_down(e)
+                    raise
+                finally:
+                    await resp.aclose()
+        finally:
+            if not answered:
+                self._answered()
         return b"".join(chunks)
 
     @staticmethod

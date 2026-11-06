@@ -106,12 +106,15 @@ def test_two_crashed_starts_of_a_new_version_roll_it_back(monkeypatch):
     assert agent.skipped("0.9.1")
 
 
-def test_a_replaced_or_cleanly_stopped_run_is_not_a_crash(monkeypatch):
+def test_a_replaced_or_cleanly_stopped_run_is_not_a_crash_but_still_a_start_on_trial(monkeypatch):
     monkeypatch.setattr(agent, "installed_version", lambda: "0.9.1")
-    agent.save_state({"running": True, "pending": {"version": "0.9.1", "previous": "0.9.0", "failures": 1}})
-    assert agent.note_start(replaced=True) == (False, None)
+    agent.save_state({"running": True, "pending": {"version": "0.9.1", "previous": "0.9.0", "starts": 0}})
+    assert agent.note_start(replaced=True) == (False, None)  # not a crash: no hurried update check
     agent.note_stop()
     assert agent.note_start() == (False, None) and agent.load_state()["pending"]["failures"] == 1
+    agent.note_stop()  # however it stopped, a third start without staying up rolls it back
+    crashed, failing = agent.note_start()
+    assert not crashed and failing["version"] == "0.9.1" and "pending" not in agent.load_state()
 
 
 def test_an_update_that_did_not_take_is_not_retried_at_once(monkeypatch):

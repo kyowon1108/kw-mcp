@@ -1,5 +1,5 @@
 # Runs the live Windows and macOS installers and the agent's OS-specific code (Run key, pythonw spawn,
-# launchd job, per-user lock, self-update with pinned dependencies and its self-test).
+# launchd job, per-user lock, self-update with pinned, hash-checked dependencies and its self-test).
 # A fake invite stops `kw-mcp link` before it would touch KLAS.
 name: Agent install (Windows, macOS)
 
@@ -37,13 +37,21 @@ jobs:
           if ($LASTEXITCODE -ne 0) { throw 'kw-mcp did not run after install' }
           kw-mcp status
 
-      - name: Install this commit over the live release (pinned like a release)
+      - name: Install this commit over the live release (pinned and hash-checked like a release)
         shell: powershell
         run: |
           $env:Path = "$env:USERPROFILE\.local\bin;$env:Path"
           uv export --frozen --no-dev --no-emit-project --no-header --format requirements-txt -o exported.txt
-          uv tool install --force --quiet --python 3.13 --no-build --constraints exported.txt .
+          # A wheel first: --no-build forbids building the checkout itself, as it does for agents.
+          uv build --wheel --out-dir dist-ci --quiet
+          if ($LASTEXITCODE -ne 0) { throw 'building this commit failed' }
+          $whl = (Get-ChildItem dist-ci\kw_mcp-*-py3-none-any.whl).FullName
+          uv tool install --force --quiet --python 3.13 --no-build --constraints exported.txt $whl
           if ($LASTEXITCODE -ne 0) { throw 'installing this commit failed' }
+          # uv tool install ignores the --hash lines: reinstall every dependency with its hash checked.
+          $py = Join-Path (uv tool dir) 'kw-mcp\Scripts\python.exe'
+          uv pip install --python $py --require-hashes --no-deps --reinstall --no-build --quiet -r exported.txt
+          if ($LASTEXITCODE -ne 0) { throw 'the dependencies did not match their pinned hashes' }
           kw-mcp --version
           if ($LASTEXITCODE -ne 0) { throw 'the self-test (kw-mcp --version) failed' }
 
@@ -98,11 +106,16 @@ jobs:
           kw-mcp --help > /dev/null
           kw-mcp status
 
-      - name: Install this commit over the live release (pinned like a release)
+      - name: Install this commit over the live release (pinned and hash-checked like a release)
         run: |
           export PATH="$HOME/.local/bin:$PATH"
           uv export --frozen --no-dev --no-emit-project --no-header --format requirements-txt -o exported.txt
-          uv tool install --force --quiet --python 3.13 --no-build --constraints exported.txt .
+          # A wheel first: --no-build forbids building the checkout itself, as it does for agents.
+          uv build --wheel --out-dir dist-ci --quiet
+          uv tool install --force --quiet --python 3.13 --no-build --constraints exported.txt dist-ci/kw_mcp-*-py3-none-any.whl
+          # uv tool install ignores the --hash lines: reinstall every dependency with its hash checked.
+          uv pip install --python "$(uv tool dir)/kw-mcp/bin/python" --require-hashes --no-deps --reinstall --no-build \
+            --quiet -r exported.txt
           kw-mcp --version
 
       - name: launchd job, per-user lock, uv found under launchd's bare PATH

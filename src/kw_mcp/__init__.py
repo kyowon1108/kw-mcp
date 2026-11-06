@@ -210,7 +210,8 @@ def _connections() -> int:
         return 0
     print(f"이 PC에 연결된 앱 {len(rows)}개 (시각은 한국 시간):")
     for g in rows:
-        print(f"  {g['id']}  {g['client'] or '(이름 없음)'}  {g['redirect_host']}")
+        # grants() keeps only ids in the bridge's format, so what is shown can be pasted into `kw-mcp revoke`.
+        print(f"  {g['id'] or '(ID 형식 오류)'}  {g['client'] or '(이름 없음)'}  {g['redirect_host']}")
         used = _when(g["last_used"]) if g["last_used"] else "아직 없음"
         print(f"      연결 {_when(g['created'])} · 마지막 사용 {used} · 만료 {_when(g['expires'])}")
     print("모르는 앱이 있으면 `kw-mcp revoke <ID>`로 끊으세요. 모두 끊으려면 `kw-mcp unlink`.")
@@ -289,7 +290,9 @@ def _update() -> int:
     manifest, wheel, constraints = found
     version = str(manifest["version"])
     if os.name == "nt":
-        agent.stop_running_agent()  # Windows can't replace files a running agent holds open
+        # Windows can't replace files a running agent holds open. Terminated, it can't record that
+        # it stopped, so this does: the new version's first start must not count as a crash.
+        agent.stop_agent_cleanly()
     if not agent.install_update(wheel, constraints, version):
         if os.name == "nt" and agent.autostart_installed():
             agent.install_autostart()  # start the agent again
@@ -298,6 +301,13 @@ def _update() -> int:
     if os.name == "nt":
         print(f"{version}을(를) 설치하고 에이전트를 다시 시작합니다. 1~2분 걸립니다(기록: {agent.default_log_file().with_name('update.log')}).")
         return 0
+    now = agent.installed_version()
+    if now != version:  # it failed, `before` couldn't be put back, and the last version that stayed up was
+        print(f"{version} 설치에 실패했고 {before}(으)로 되돌리지 못해 마지막으로 잘 돌던 {now}(으)로 되돌렸습니다. "
+              f"로그를 확인하세요: {agent.default_log_file()}")
+        if agent.restart_autostarted_agent():
+            print(f"에이전트를 {now}(으)로 다시 시작했습니다.")
+        return 1
     print(f"{before} → {version} 설치를 마쳤습니다.")
     if agent.restart_autostarted_agent():
         print("에이전트를 새 버전으로 다시 시작했습니다.")
@@ -305,6 +315,8 @@ def _update() -> int:
 
 
 def _agent(log_file: str | None, replace: bool) -> None:
+    from keyring.errors import KeyringError
+
     from . import agent
 
     agent.configure_logging(log_file)
@@ -315,6 +327,10 @@ def _agent(log_file: str | None, replace: bool) -> None:
         agent.log.info("%s", e)
     except agent.NotLinked as e:
         agent.log.error("%s", e)
+    except KeyringError as e:
+        # Exit 0: launchd would otherwise restart the agent every 30 s, each run asking the keychain again.
+        agent.log.error("the OS keychain refused access (%s). Allow access when it asks, then run `kw-mcp link` "
+                        "again; the agent also starts at the next login", e.__class__.__name__)
     except KeyboardInterrupt:
         pass
 

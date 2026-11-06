@@ -141,7 +141,8 @@ class Terms(FakeClient):
 
 @pytest.mark.parametrize(("now", "expected"), [
     (at(2026, 10, 1), "2026,2"), (at(2026, 12, 23), "2026,2"), (at(2026, 12, 28), "2026,2"),
-    (at(2027, 2, 10), "2026,2"), (at(2026, 7, 15), "2026,3"),
+    # 2026,2 is listed (its registration is done), so it wins over the summer term still running
+    (at(2027, 2, 10), "2026,2"), (at(2026, 7, 15), "2026,2"),
 ])
 async def test_current_semester_uses_calendar_order(now, expected):
     assert await KlasService(Terms(), now=lambda: now).current_semester() == expected
@@ -527,8 +528,8 @@ async def test_public_holidays_mark_todays_classes():
     out = await combined.today_briefing(svc, PublicApi(""))
     assert out["classes"] and all(c["holiday"] == "추석 연휴" for c in out["classes"])
     assert "공휴일" in out["classes_note"] and out["campus_alerts"]["today"][0]["title"] == "추석 연휴"
-    later = await combined.today_briefing(KlasService(FakeClient(), now=lambda: at(2027, 3, 4, 9)), PublicApi(""))
-    assert later["holiday_check"] == "2027년 공휴일 정보 없음"
+    later = await combined.today_briefing(KlasService(FakeClient(), now=lambda: at(2028, 3, 2, 9)), PublicApi(""))
+    assert later["holiday_check"] == "2028년 공휴일 정보 없음"
 
 
 # -- server ------------------------------------------------------------------------------------
@@ -549,7 +550,9 @@ def test_expected_errors_always_give_a_reason(error, text):
 async def test_klas_status_asks_klas_nothing(monkeypatch):
     monkeypatch.setattr(credentials, "load", lambda: credentials.Credentials("2022123480", "secret", credentials.ENV))
     monkeypatch.delenv("KW_MCP_DISTRIBUTION", raising=False)
-    klas._write_state({"salt": "00", "rejected": {"fingerprint": "ab", "at": "2026-11-06 10:00"}})
+    # a record of this very login (the extension's current id and password)
+    fingerprint = klas._fingerprint("2022123480", "secret", "00")
+    klas._write_state({"salt": "00", "rejected": [{"fingerprint": fingerprint, "at": "2026-11-06 10:00"}]})
     server.set_public(PublicApi(""))
     try:
         out = await server.klas_status()
@@ -560,6 +563,9 @@ async def test_klas_status_asks_klas_nothing(monkeypatch):
                                                                          "login_id": "2022******(10자리)"}
     assert "secret" not in text and "2022123480" not in text
     assert out["rejected_login"]["at"] == "2026-11-06 10:00" and out["public_api"] == "not configured"
+    # the home folder (often the person's name) is not shown, only where it is under it
+    assert out["rejected_login"]["state_file"] == "~/.config/kw-mcp/login-state.json"
+    assert str(klas.LOGIN_STATE_FILE.parent) not in text
 
 
 async def test_public_tools_say_why_they_are_empty():

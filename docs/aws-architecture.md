@@ -4,6 +4,12 @@
 - 리전: ap-northeast-2(서울) 하나
 - 운영: 학생 1명, 파트타임
 
+> **지난 설계 문서입니다.** 실제로 배포한 구성(kw-campus 1.0)은 이 문서와 다릅니다. 지금 기준은 kw-campus의 README와 코드입니다. 이 문서는 결정 과정을 남기려고 둡니다. 특히 다음은 이 문서대로가 아닙니다.
+> - 저장소는 S3의 SQLite가 아니라 DynamoDB(`kw-public`, `kw-delivery`, `kw-bridge`)이고, Discord는 webhook이 아니라 봇 토큰으로 보냅니다(스트림 → SQS `kw-discord` → 전송 Lambda).
+> - Discord 메시지는 120일 뒤 지우지 않습니다. 지우는 건 `scripts/collector_admin.py takedown`뿐입니다. kw-public 항목은 마지막 변경 120일 뒤 TTL로 지워지고, 전달 기록(`kw-delivery`)은 공지가 바뀔 때마다 늘려 공지보다 30일 더 남깁니다.
+> - robots.txt는 실행 중에 받지 않습니다. 수집하는 호스트마다 손으로 확인해 `politeness.ROBOTS`에 날짜와 결과를 적고, 기록이 없는 호스트와 Disallow 경로는 요청하지 않습니다(`robots_skip`, NeedsHuman). 기록이 180일보다 오래되면 평일 아침 campus 실행이 NeedsHuman을 올립니다(`robots_age_check`). 다시 확인하고 날짜를 고칠 때까지 계속 올립니다.
+> - 제목 마스킹은 redaction v3(`kwcampus/kwnotice/redaction.py`, 항목의 `norm_v`=3)이고, 격리(quarantine)와 말뭉치 잠금은 없습니다.
+
 이 설계는 A안을 바탕으로 합니다. 심사에서 나온 치명적 지적은 모두 고쳤고, B안과 C안에서 몇 가지를 가져왔습니다. 그다음 공식 문서와 로컬 실측으로 사실을 한 번 더 확인했습니다. 틀린 전제가 나오면 문장만 고치지 않고 그 전제에 기댄 설계까지 바꿨습니다. 코드에 관한 주장은 저장소와 설치본을 직접 열거나 돌려 보고 확인했습니다. 문서로 확인하지 못한 주장에는 본문에 "(확인 필요)"를 붙였고, 끝의 「검증이 필요한 기술 전제」에도 남겼습니다.
 
 ---
@@ -116,7 +122,7 @@ kw-notice-mcp/
 │  │  ├─ wire.py                 # ← wire.py (허용목록 일반화, 논리 요청마다 새 클라이언트 = 쿠키 없음)
 │  │  ├─ policy.py               # ← collector_wire.py (304 처리 수정, 시도 1회, 리다이렉트 따라가지 않음)
 │  │  ├─ gate.py                 # 토큰버킷·일일 상한·킬 스위치·origin IP 확인 → Permit
-│  │  └─ robots.py               # ← robots.py (새 호스트 주 1회, RFC 9309 의미)
+│  │  └─ robots.py               # ← robots.py (RFC 9309 의미. 배포본은 손으로 확인한 기록 politeness.ROBOTS, 180일마다 다시 확인)
 │  ├─ parsers/                   # jwxe.py(기존 list_parser 래핑), boardmode.py, aicon.py, agency.py, ingenium.py, wix_rss.py
 │  ├─ sanitize.py                # SanitizedNotice를 만드는 유일한 함수: 마스킹 v2 → 정규화 → 길이 상한 → 격리 판정
 │  ├─ politeness.py              # 쿨다운 계단, 종료 코드 반응 표, breaker 판정
@@ -169,7 +175,7 @@ Lambda 3개는 **zip 하나**를 같이 쓰고 핸들러만 다릅니다. 빌드
 | `storage_*`, `NoticeToolService` | 수집 쪽은 `open_storage`, MCP 쪽은 `open_read_only_storage` | 스키마 v2(4-1). 공개 사본 프로필을 스키마 계약에 넣습니다. MCP 응답의 `body`는 응답 모양을 지키려고 항상 `null`로 둡니다 |
 | `cli.py` 종료 코드 0/10/11/12/13 | 상수를 import해서 소스별·실행별 결과에 붙임 | launchd 래퍼가 하던 '종료 코드 반응'을 `politeness.react()`로 옮깁니다(5-6) |
 | `cli_logging.py` | JSON 로그 | 허용 필드 스키마를 두고, 모르는 키는 거부합니다. 로그 레벨은 INFO로 직접 지정합니다. Lambda Text 형식에서 Python 런타임 기본값이 WARN이라, 직접 지정하지 않으면 `egress` 줄이 사라집니다(9-4) |
-| `robots.py` | `contains_challenge_marker` | www는 지금 정책 그대로 robots를 요청하지 않습니다(collector-policy.md). 새 호스트는 주 1회 확인합니다 |
+| `robots.py` | `contains_challenge_marker` | 배포본은 robots.txt를 실행 중에 받지 않습니다. 호스트마다 손으로 확인한 결과를 `politeness.ROBOTS`에 적고, 180일이 지나면 NeedsHuman으로 다시 확인을 알립니다 |
 | `detail_parser.py`, FULL 모드 | Lambda에서 쓰지 않음 | 핸들러는 `METADATA_ONLY`만 만듭니다. `detail_requests == 0` 테스트를 유지합니다 |
 | 로컬 STDIO `serve` | 유지 | P1 뒤에는 `kwctl pull`로 받은 공개 사본을 읽게 해서 운영자 PC에서 계속 씁니다 |
 
@@ -542,12 +548,14 @@ def acquire(db, sw: Switches, src: SourceSpec, org: OriginSpec, url: str, now: d
   - 타임아웃, 연결 실패, 5xx는 다시 시도하지 않고 다음 tick을 기다립니다(soft 실패, 5-4).
   - 기존 `request_with_policy`의 3회 시도는 로컬 CLI 프로필에만 남깁니다.
 - **리다이렉트는 따라가지 않습니다.** URL을 정확히 만들어 보내므로, 3xx(304 제외)가 오면 사이트가 바뀐 것으로 봅니다. `unexpected_redirect` 소스 실패로 처리하고, 사람이 레지스트리를 고칩니다. 지금 www가 리다이렉트를 주는지는 P1 전에 로컬 `crawl_runs` 기록으로 확인합니다(검증 전제 60).
-- **robots.txt**
-  - www: 지금 정책대로 metadata-only 경로에서는 요청하지 않습니다.
-  - 새 호스트: 그 주의 첫 방문 전에 1회 받습니다. 이 요청도 permit을 쓰고 일일 상한에 들어갑니다.
-  - 해석: 2xx는 파싱합니다. 4xx는 허용으로 봅니다. 5xx와 연결 실패는 그날 그 호스트를 금지로 보고 다음 날 다시 받습니다.
-  - 대상 경로가 Disallow이면 소스를 `off`로 바꾸고 NeedsHuman을 올립니다.
-  - 사람이 확인한 결과는 레지스트리 `review` 블록에도 남깁니다(5-7).
+- **robots.txt** (배포본은 아래 설계 대신 손으로 확인한 기록을 씁니다. 맨 위 안내 참고)
+  - 배포본: 수집하는 호스트마다 `/robots.txt`를 손으로 한 번 받아 보고 `politeness.ROBOTS`에 날짜·결과·Disallow 규칙을 적습니다. 실행 중에는 받지 않습니다. 기록이 없는 호스트는 요청하지 않고(fail closed), Disallow 경로는 건너뛰며 실행마다 NeedsHuman을 올립니다(`robots_skip`, 메인·학과·위젯·Wix 피드·www 취업/FAQ·campus 모두).
+  - 배포본: 기록이 180일보다 오래되면 평일 아침 campus 실행이 NeedsHuman을 올립니다(`robots_age_check`, 로그 `robots_stale`). 그 호스트들을 다시 확인하고 날짜를 고칠 때까지 매일 올립니다.
+  - (원래 설계) www: 지금 정책대로 metadata-only 경로에서는 요청하지 않습니다.
+  - (원래 설계) 새 호스트: 그 주의 첫 방문 전에 1회 받습니다. 이 요청도 permit을 쓰고 일일 상한에 들어갑니다.
+  - (원래 설계) 해석: 2xx는 파싱합니다. 4xx는 허용으로 봅니다. 5xx와 연결 실패는 그날 그 호스트를 금지로 보고 다음 날 다시 받습니다.
+  - (원래 설계) 대상 경로가 Disallow이면 소스를 `off`로 바꾸고 NeedsHuman을 올립니다.
+  - (원래 설계) 사람이 확인한 결과는 레지스트리 `review` 블록에도 남깁니다(5-7).
 - **인코딩**: 기본은 엄격한 UTF-8이고, 실패하면 markup 실패로 봅니다. elcomm은 `errors="replace"`(대체 문자가 2%를 넘으면 실패), english는 EUC-KR로 명시합니다.
 - **크기·타임아웃**: 응답 상한 4 MiB(기존), connect 5초, read 15초.
 

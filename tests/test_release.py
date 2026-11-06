@@ -112,7 +112,11 @@ def test_install_update_runs_uv_with_the_local_wheel_and_its_pins(tmp_path, monk
     assert ran[0][-1] == f"kw-mcp @ {wheel.resolve().as_uri()}"
     assert ran[0][ran[0].index("--constraints") + 1] == str(pins.resolve())
     assert ran[0][ran[0].index("--exclude-newer") + 1] == "2026-11-01T00:00:00Z" and "--no-build" in ran[0]
-    assert ran[1][-3:] == ["--version", "--expect", "0.9.0"]  # the self-test of the new install
+    # uv tool install ignores the pins' hashes: every dependency is reinstalled with them checked
+    assert ran[1][1:3] == ["pip", "install"] and ran[1][ran[1].index("--python") + 1] == str(agent._tool_python())
+    assert {"--require-hashes", "--no-deps", "--reinstall", "--no-build"} <= set(ran[1])
+    assert ran[1][-2:] == ["-r", str(pins.resolve())]
+    assert ran[2][-3:] == ["--version", "--expect", "0.9.0"]  # the self-test of the new install
     assert agent.load_state()["pending"]["version"] == "0.9.0"
     monkeypatch.setattr(agent, "find_uv", lambda: None)
     assert agent.install_update(wheel, pins, "0.9.0") is False
@@ -130,11 +134,13 @@ def test_windows_update_command_is_one_verbatim_cmd_line(monkeypatch):
     uv = home + r"\.local\bin\uv.exe"
     line = agent.windows_update_command(
         r"C:\Windows\system32\cmd.exe", pid=4242,
-        install=[uv, "tool", "install", "--force", "kw-mcp @ file:///C:/Users/Tom&Jerry%20(Kim)/x/kw_mcp-0.9.1-py3-none-any.whl"],
+        install=[[uv, "tool", "install", "--force", "kw-mcp @ file:///C:/Users/Tom&Jerry%20(Kim)/x/kw_mcp-0.9.1-py3-none-any.whl"],
+                 [uv, "pip", "install", "--require-hashes", "-r", home + r"\x\kw_mcp-0.9.1-constraints.txt"]],
         check=[home + r"\uv\tools\kw-mcp\Scripts\python.exe", "-I", "-m", "kw_mcp", "--version", "--expect", "0.9.1"],
-        rollback=[uv, "tool", "install", "--force", "kw-mcp @ file:///C:/x/kw_mcp-0.9.0-py3-none-any.whl"],
+        rollback=[[uv, "tool", "install", "--force", "kw-mcp @ file:///C:/x/kw_mcp-0.9.0-py3-none-any.whl"]],
         log_file=Path(home + r"\AppData\Local\kw-campus\update.log"),
-        restart=[home + r"\uv\tools\kw-mcp\Scripts\pythonw.exe", "-m", "kw_mcp", "agent", "--replace"])
+        restart=[home + r"\uv\tools\kw-mcp\Scripts\pythonw.exe", "-m", "kw_mcp", "agent", "--replace"],
+        marker=Path(home + r"\.config\kw-campus\update-self-test-failed"), version="0.9.1")
     assert line.startswith(r'"C:\Windows\system32\cmd.exe" /s /c "')
     assert "Wait-Process -Id 4242" in line  # waits for the agent itself, not a fixed delay
     assert '\\"' not in line  # no backslash-escaped quotes: cmd.exe would choke on them

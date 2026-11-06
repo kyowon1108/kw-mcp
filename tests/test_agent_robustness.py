@@ -168,10 +168,10 @@ def test_unlink_force_skips_the_bridge(linked, config_dir):
 @respx.mock
 def test_grants_and_revoke_are_signed_device_requests(linked):
     grants = respx.post(f"{SERVER}/device/grants").mock(return_value=httpx.Response(200, json={"grants": [
-        {"id": "g_abc", "client": "Claude" + chr(0x202E) + chr(7), "redirect_host": "claude.ai", "created": "2026-11-06T10:00:00+09:00",
+        {"id": "g_AbC123-_xyz9", "client": "Claude" + chr(0x202E) + chr(7), "redirect_host": "claude.ai", "created": "2026-11-06T10:00:00+09:00",
          "last_used": None, "expires": "2027-05-05T10:00:00+09:00"}]}))
     rows = agent.grants()
-    assert rows[0]["id"] == "g_abc" and rows[0]["client"] == "Claude"  # no control or bidi characters
+    assert rows[0]["id"] == "g_AbC123-_xyz9" and rows[0]["client"] == "Claude"  # no control or bidi characters
     body = json.loads(grants.calls[0].request.content)
     verify(linked, f"kw-grants:{LINK.uid}:{body['ts']}", body["sig"])
 
@@ -395,11 +395,13 @@ def test_a_new_connection_shows_a_notification_with_the_text_as_data(monkeypatch
     launched = []
     monkeypatch.setattr(agent.sys, "platform", "darwin")
     monkeypatch.setattr(agent.subprocess, "Popen", lambda argv, **kw: launched.append(argv))
-    agent._paired({"type": "paired", "app": 'Claude" & do shell script "rm', "grant_id": "g_abc", "redirect_host": "claude.ai"})
+    agent._paired({"type": "paired", "app": 'Claude" & do shell script "rm', "grant_id": "g_AbC123-_xyz9",
+                   "redirect_host": "claude.ai"})
     argv = launched[0]
     assert argv[0] == "osascript" and argv[-2] == "KW Campus"
-    assert argv[-1].startswith('새 연결: Claude" & do shell script "rm') and "kw-mcp revoke g_abc" in argv[-1]
-    assert not any("rm" in part for part in argv[:-2])  # the name is an argument, never part of the script
+    assert argv[-1].startswith("새 연결: Claude (claude.ai)") and "kw-mcp revoke g_AbC123-_xyz9" in argv[-1]
+    assert "shell script" not in argv[-1]  # the label comes from the redirect host, not the bridge's free text
+    assert not any("새 연결" in part for part in argv[:-2])  # the text is an argument, never part of the script
     assert "$env:KW_NOTIFY_TEXT" in agent._BALLOON  # on Windows the text travels in the environment
 
 

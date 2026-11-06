@@ -77,6 +77,11 @@ def version_tuple(version: str) -> tuple[int, ...]:
     return tuple(numbers + [0] * (4 - len(numbers)))  # 0.6 == 0.6.0
 
 
+def is_release_version(version: str) -> bool:
+    """A version releases may carry: plain numbers, so version_tuple compares them correctly."""
+    return bool(_RELEASE_VERSION.fullmatch(version))
+
+
 def _check(key: str, signature: Any, signed: bytes) -> None:
     Ed25519PublicKey.from_public_bytes(base64.b64decode(key)).verify(base64.b64decode(str(signature)), signed)
 

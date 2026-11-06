@@ -7,7 +7,8 @@ work and just leave the public parts empty. Nothing personal is sent: requests c
 the access token in the path and generic filters (category, date range).
 
 A configured API that fails (expired invite, server error, timeout) raises PublicUnavailable with
-a reason, so callers can say the school data is missing instead of reporting "no notices".
+a reason, so callers can say the school data is missing instead of reporting "no notices". So does
+an invite that can't be read (a partial copy): the reason then starts with "초대 코드 형식 오류".
 """
 
 from __future__ import annotations
@@ -49,36 +50,52 @@ def _reason(status: int) -> str:
     return f"학교 공개 정보 서버가 요청을 거절했습니다(HTTP {status})."
 
 
-def _from_invite(invite: str) -> str | None:
+def _from_invite(invite: str) -> tuple[str | None, str | None]:
+    """(base URL, None) for a good invite; (None, why not) for one that can't be read."""
     from .agent import parse_invite
 
     try:
         server, token = parse_invite(invite)
-    except ValueError:
-        return None
-    return f"{server}/c/{token}"
+    except ValueError as e:  # a partial copy, a pasted /setup link, ...
+        return None, f"초대 코드 형식 오류: {e} 확장 설정(또는 KW_CAMPUS_INVITE)의 초대 코드를 다시 붙여 넣으세요."
+    return f"{server}/c/{token}", None
 
 
-def base_url() -> str | None:
+def _resolve() -> tuple[str | None, str | None]:
+    """(base URL, None), or (None, why the invite can't be used) when nothing else gives a URL either."""
     invite = os.environ.get("KW_CAMPUS_INVITE", "").strip()
-    url = (_from_invite(invite) if invite else None) or os.environ.get("KW_CAMPUS_API_URL")
+    url, problem = _from_invite(invite) if invite else (None, None)
+    url = url or os.environ.get("KW_CAMPUS_API_URL")
     if not url and CONFIG_FILE.exists():
         lines = CONFIG_FILE.read_text().split()
         url = lines[0] if lines else None
-    return url.rstrip("/") if url else None
+    return (url.rstrip("/"), None) if url else (None, problem)
+
+
+def base_url() -> str | None:
+    return _resolve()[0]
 
 
 class PublicApi:
     def __init__(self, url: str | None = None, transport: httpx.AsyncBaseTransport | None = None) -> None:
-        self._url = url if url is not None else base_url()
+        self._url, self._invalid = (url, None) if url is not None else _resolve()
         self._http = httpx.AsyncClient(timeout=httpx.Timeout(10.0), transport=transport)
 
     @property
     def configured(self) -> bool:
-        return bool(self._url)
+        """An API URL or an invite is set. An invite that can't be read counts: every call then raises
+        PublicUnavailable with invalid_reason, so answers say "초대 코드 형식 오류", not "not set up"."""
+        return bool(self._url or self._invalid)
+
+    @property
+    def invalid_reason(self) -> str | None:
+        """'초대 코드 형식 오류: …' when the invite is the only setting and can't be read; else None."""
+        return self._invalid
 
     async def _get(self, path: str, params: dict[str, Any]) -> Any:
         """The JSON answer; None when no API is configured. PublicUnavailable when it fails."""
+        if self._invalid:
+            raise PublicUnavailable(self._invalid)
         if not self._url:
             return None
         query = {k: v for k, v in params.items() if v is not None}

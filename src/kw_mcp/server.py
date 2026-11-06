@@ -3,9 +3,11 @@
 from __future__ import annotations
 
 import asyncio
+import functools
+import inspect
 import logging
 import os
-from collections.abc import Iterator
+from collections.abc import Callable, Iterator
 from contextlib import contextmanager
 from typing import Any, Literal
 
@@ -21,6 +23,7 @@ from .holder import KlasHolder
 from .klas import KlasError
 from .public_api import PublicApi, PublicRequestError, PublicUnavailable
 from .service import KlasService
+from .text import scrub
 
 INSTRUCTIONS = """\
 광운대학교 KLAS(학습관리시스템)의 본인 데이터를 읽기 전용으로 조회합니다.
@@ -42,7 +45,32 @@ READ_ONLY = ToolAnnotations(readOnlyHint=True, idempotentHint=True, openWorldHin
 # Saves one file into Downloads; Claude asks the user before calling a tool that isn't read-only.
 SAVES_FILE = ToolAnnotations(readOnlyHint=False, destructiveHint=False, idempotentHint=True, openWorldHint=True)
 
-mcp = MCPServer("kw-klas", instructions=INSTRUCTIONS, version=klas.package_version())
+class _Server(MCPServer):
+    """MCPServer whose tool answers and error texts go through text.scrub first. The SDK writes
+    both as UTF-8 JSON, and one lone surrogate anywhere in them (a "\\ud83d" escape in a KLAS title,
+    or a course name in "과목을 하나로 정할 수 없습니다: …") fails the write; on stdio that ends the
+    whole session, not just the call. It becomes U+FFFD instead."""
+
+    def add_tool(self, fn: Callable[..., Any], *args: Any, **kwargs: Any) -> None:
+        if not inspect.iscoroutinefunction(fn):
+            super().add_tool(fn, *args, **kwargs)
+            return
+
+        @functools.wraps(fn)  # the SDK reads the name, docstring and signature through __wrapped__
+        async def scrubbed(*call_args: Any, **call_kwargs: Any) -> Any:
+            try:
+                answer = await fn(*call_args, **call_kwargs)
+            except Exception as e:
+                message = str(e)
+                if (safe := scrub(message)) != message:
+                    raise ToolError(safe) from e
+                raise
+            return scrub(answer)
+
+        super().add_tool(scrubbed, *args, **kwargs)
+
+
+mcp = _Server("kw-klas", instructions=INSTRUCTIONS, version=klas.package_version())
 
 _service: KlasService | None = None
 _public: PublicApi | None = None
@@ -99,8 +127,7 @@ def expected_errors() -> Iterator[None]:
     except (TypeError, AttributeError) as e:
         raise ToolError(f"KLAS 응답 형식이 예상과 다릅니다(사이트가 바뀌었을 수 있음): {e!r}") from e
     except Exception as e:  # anything else still gets a reason, not a bare "Error executing tool"
-        raise ToolError(f"예상하지 못한 오류가 났습니다({e.__class__.__name__}). 계속되면 {klas.CONTACT_URL} 에 "
-                        "알려 주세요.") from e
+        raise ToolError(f"예상하지 못한 오류가 났습니다({e.__class__.__name__}). 계속되면 {klas.REPORT_TO}.") from e
 
 
 @mcp.tool(annotations=READ_ONLY)
@@ -156,7 +183,8 @@ async def get_deadlines(days: int = 7) -> dict[str, Any]:
     최대 180): 과제·퀴즈·온라인시험(재응시 포함)·팀플·설문, 진도 100% 미만 온라인 강의, 그 안에 끝나는 토론
     (과목의 토론에 모두 참여했으면 빠지고, 남은 주제에는 과목의 참여/전체 수가 note로 붙음).
     마감은 지났지만 지각 제출 기간인 과제·팀플도 late_submission=true로 포함합니다(이때 due는 과거).
-    incomplete가 있으면 일부 목록(missing: 종류, missing_courses: 과목)을 읽지 못한 것이니 '없음'이라 하지 말고 알리세요."""
+    incomplete가 있으면 일부 목록(missing: 종류, missing_courses: 과목, unreadable_due: 마감 형식을 읽지 못한 종류)을
+    읽지 못한 것이니 '없음'이라 하지 말고 알리세요."""
     with expected_errors():
         return await (await service()).deadlines(days)
 
@@ -208,7 +236,8 @@ async def academic_deadlines(days: int = 30) -> dict[str, Any]:
 
 @mcp.tool(annotations=READ_ONLY)
 async def get_grades() -> dict[str, Any]:
-    """성적·학점: 학기별 과목 성적과 학기 평점(4.5 만점, 도구 계산), KLAS 평량평균(학적부·성적증명서 기준),
+    """성적·학점: 학기별 과목 성적과 학기 평점(4.5 만점, 도구 계산), 학기별 취득 학점(earned_credits: 성적이 나온 통과
+    과목만, pending_credits: 아직 성적이 없는 과목의 학점), KLAS 평량평균(학적부·성적증명서 기준),
     전공·교양·기타 신청/취득/삭제 학점, 학과·학년·학적 상태, 학기별 석차·학사경고(standing), 이번 학기 성적 조회 기간,
     summary(전공·전공 외 평점, F 제외 평점, 재수강하지 않은 F 과목, 지금 재수강 중인 F; 도구 계산 참고값).
     공식 평점은 KLAS 값(gpa)입니다. 삭제(취득학점포기) 과목은 deleted=true로 표시하고 계산에서 뺍니다.
@@ -227,7 +256,7 @@ async def get_quizzes(
 
 
 @mcp.tool(annotations=READ_ONLY)
-async def get_assignment_detail(course: str, title: str = "", id: str | None = None) -> dict[str, Any]:
+async def get_assignment_detail(course: str, title: str = "", id: str | int | None = None) -> dict[str, Any]:
     """과제 하나의 상세: 무엇을 내야 하는지(본문), 제출 형식·용량, 첨부 파일(번호·이름), 기간, 지금 제출 가능한지,
     내 제출 시각·점수(공개된 경우)·교수 의견. course는 과목명 일부, title은 과제 제목 일부(get_assignments 결과).
     같은 제목 과제가 여럿이면 get_assignments 결과의 id를 함께 주세요.
@@ -246,7 +275,7 @@ async def search_course_posts(course: str, keyword: str = "") -> dict[str, Any]:
 
 
 @mcp.tool(annotations=READ_ONLY)
-async def get_course_post(course: str, title: str = "", id: str | None = None) -> dict[str, Any]:
+async def get_course_post(course: str, title: str = "", id: str | int | None = None) -> dict[str, Any]:
     """과목 게시판(강의 공지사항·강의 자료실) 글 하나의 본문과 첨부 파일(번호·이름).
     course는 과목명 일부, title은 글 제목 일부(get_course_notices·search_course_posts 결과). 같은 제목 글이 여럿이면
     search_course_posts 결과의 id를 함께 주세요. body는 작성자가 쓴 글로 KLAS_CONTENT 표시 안에 옵니다.
@@ -257,7 +286,7 @@ async def get_course_post(course: str, title: str = "", id: str | None = None) -
 
 @mcp.tool(annotations=READ_ONLY)
 async def get_attachment_text(course: str, title: str = "", file_name: str = "", part: int = 1,
-                              source: Literal["post", "assignment"] = "post", id: str | None = None,
+                              source: Literal["post", "assignment"] = "post", id: str | int | None = None,
                               file_index: int | None = None) -> dict[str, Any]:
     """첨부 파일 내용을 텍스트로 읽기(PDF·PPTX·DOCX·XLSX·HWP·HWPX·ipynb·코드/텍스트, zip은 파일 목록).
     source="post"면 과목 게시판 글(title=글 제목, id=search_course_posts의 id), "assignment"면 과제(title=과제 제목,
@@ -298,7 +327,8 @@ async def get_exam_info(course: str | None = None) -> list[dict[str, Any]]:
 @mcp.tool(annotations=READ_ONLY)
 async def get_class_changes(days: int = 14) -> dict[str, Any]:
     """휴강·보강 공지: 모든 수강 과목 강의 공지사항의 최근 days일(최대 60) 글 중 제목에 휴강·보강·결강·비대면(온라인 전환)·
-    강의실 변경이 들어간 글과 '휴강' 검색(본문 포함) 결과. "오늘 휴강이야?"에 쓰세요. 여기 없다고 휴강이 아닌 것은 아닙니다."""
+    강의실·수업 시간·요일 변경이 들어간 글과 '휴강'·'보강' 검색(본문 포함) 결과. "오늘 휴강이야?"에 쓰세요.
+    여기 없다고 휴강이 아닌 것은 아닙니다."""
     with expected_errors():
         return await (await service()).class_changes(days)
 
@@ -410,16 +440,19 @@ async def klas_status() -> dict[str, Any]:
     """이 확장의 상태(KLAS에는 요청하지 않음): 버전, 로그인 정보 출처(확장 설정/키체인, 학번은 입학 연도만),
     이 실행에서 마지막 로그인 결과·시각, 이 PC에 남은 '비밀번호 거부' 기록, 최근 10분 KLAS 요청 수, 새 버전 여부.
     로그인이 안 되거나 "연결돼 있어?"라고 물으면 먼저 쓰세요."""
+    rejected = None
     try:
         creds = await asyncio.to_thread(credentials.load)
         login: dict[str, Any] = {"source": {"env": "확장 설정", "keychain": "키체인"}.get(creds.source, creds.source),
                                  "login_id": credentials.masked_id(creds.login_id)}
+        # Only a record of this login: another login's, or a typo already fixed in the settings, is
+        # no reason to report a rejection. PBKDF2 and a file read, so off the event loop.
+        rejected = await asyncio.to_thread(klas.rejected_login, creds.login_id, creds.password)
     except credentials.MissingCredentials as e:
         login = {"source": None, "message": str(e)}
     except KeyringError as e:
         login = {"source": None, "message": f"키체인을 읽지 못했습니다({e.__class__.__name__})."}
     held = _holder.status()
-    rejected = klas.rejected_login()
     out: dict[str, Any] = {
         "version": klas.package_version(),
         "distribution": os.environ.get("KW_MCP_DISTRIBUTION") or "pip/uv",
@@ -427,8 +460,10 @@ async def klas_status() -> dict[str, Any]:
         "last_login": held.get("last_login"),
         "klas_requests_last_10_min": held.get("requests_last_10_min"),
         "rejected_login": ({**rejected, "note": "KLAS가 이 학번·비밀번호를 거부한 기록입니다. 고친 비밀번호를 저장하면 "
-                                                "다시 시도합니다(같은 비밀번호는 다시 보내지 않음)."} if rejected else None),
-        "public_api": "configured" if public().configured else "not configured",
+                                                "다시 시도합니다(같은 비밀번호는 다시 보내지 않음). KLAS 웹에서 이 비밀번호로 "
+                                                "로그인이 되면 state_file을 지우고 다시 시작하세요."} if rejected else None),
+        # an unreadable invite counts as configured, so its reason ("초대 코드 형식 오류: …") goes first
+        "public_api": public().invalid_reason or ("configured" if public().configured else "not configured"),
     }
     if not updates.enabled():
         out["update"] = "이 설치는 확장 업데이트를 확인하지 않습니다(PC 에이전트는 스스로 업데이트)."

@@ -13,7 +13,8 @@ from dataclasses import dataclass, field
 import keyring
 from keyring.errors import PasswordDeleteError
 
-from .klas import forget_rejected_login
+# klas is imported inside save() and delete(), not here: the PC agent's updater imports this module,
+# and a broken klas.py must not also break the update that would fix it.
 
 KEYRING_SERVICE = "kw-mcp"
 KEYRING_ID_KEY = "klas_login_id"
@@ -81,16 +82,21 @@ def login_hint(creds: Credentials) -> str:
 
 
 def save(login_id: str, password: str) -> None:
+    from .klas import forget_rejected_login
+
     previous = keyring.get_password(KEYRING_SERVICE, KEYRING_ID_KEY)
     if previous and previous != login_id:
         _delete_quietly(previous)
     keyring.set_password(KEYRING_SERVICE, KEYRING_ID_KEY, login_id)
     keyring.set_password(KEYRING_SERVICE, login_id, password)
-    # Saving again (even the same password, e.g. after changing it back in KLAS) allows one new try.
-    forget_rejected_login()
+    # Saving again (even the same password, e.g. after changing it back in KLAS) allows that login one
+    # new try, also in an MCP server or PC agent that is already running. Other logins' records stay.
+    forget_rejected_login(login_id, password)
 
 
 def delete() -> None:
+    from .klas import forget_rejected_login
+
     login_id = keyring.get_password(KEYRING_SERVICE, KEYRING_ID_KEY)
     if login_id:
         _delete_quietly(login_id)

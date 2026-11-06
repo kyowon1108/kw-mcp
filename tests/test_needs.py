@@ -80,8 +80,9 @@ async def test_class_changes_lists_recent_posts_once():
     assert titles == ["11/12(수) 휴강 안내", "11/19 보강 및 휴강 공지"]  # september post too old; no duplicate
     assert out["posts"][0]["course"] == "데이터마이닝"
     searched = {(b["selectSubj"], b["searchKeyword"]) for p, b in client.calls if p.endswith("/BoardStdList.do")}
-    # per course: the newest notices (title filter) and one '휴강' search of titles and bodies
-    assert searched == {("U2026A", ""), ("U2026A", "휴강"), ("U2026B", ""), ("U2026B", "휴강")}
+    # per course: the newest notices (title filter) and a '휴강' and a '보강' search of titles and bodies
+    assert searched == {("U2026A", ""), ("U2026A", "휴강"), ("U2026A", "보강"),
+                        ("U2026B", ""), ("U2026B", "휴강"), ("U2026B", "보강")}
 
 
 def test_schedule_note_for_unassigned_rooms():

@@ -30,7 +30,10 @@ dependencies = [
 kw-mcp = "kw_mcp:main"
 
 [build-system]
-requires = ["uv_build>=0.13.1,<0.14.0"]
+# Exact: the extension's `uv run` builds this project on the student's PC, and uv.lock doesn't cover
+# build tools. A uv of this version uses its bundled backend; any other uv downloads exactly this
+# one (no newer upload can get in, though its hash isn't checked). Bump it together with uv.
+requires = ["uv_build==0.13.1"]
 build-backend = "uv_build"
 
 [dependency-groups]

@@ -6,6 +6,7 @@ import tracemalloc
 import zipfile
 import zlib
 from datetime import datetime
+from types import SimpleNamespace
 from typing import Any, Self
 
 import olefile
@@ -194,6 +195,7 @@ class FakeOle:
 
     def __init__(self, streams: dict[tuple[str, ...], bytes]):
         self.streams = streams
+        self.root = SimpleNamespace(size=0)  # the root entry; its size is the mini stream's
 
     def __enter__(self) -> Self:
         return self
@@ -215,6 +217,11 @@ class FakeOle:
         return tuple(entry.split("/")) if isinstance(entry, str) else tuple(entry)
 
 
+# What extract_text gets as the file with a FakeOle in place: at least as long as any fake stream, as a real
+# file is (a stream declaring more than the file holds is refused).
+HWP_BYTES = bytes(1 << 20)
+
+
 def fake_hwp(monkeypatch, *sections: bytes, compressed: bool = True) -> None:
     header = b"HWP Document File".ljust(36, b"\0") + struct.pack("<I", int(compressed)) + bytes(216)
     streams: dict[tuple[str, ...], bytes] = {("FileHeader",): header}
@@ -224,7 +231,7 @@ def fake_hwp(monkeypatch, *sections: bytes, compressed: bool = True) -> None:
 
 def test_hwp_emoji_and_rare_hanja_come_out_whole_and_serialise(monkeypatch):
     fake_hwp(monkeypatch, hwp_record(67, utf16("📌 완료 😀 𠮷", [13])))
-    kind, text = extract_text("과제.hwp", b"ole")
+    kind, text = extract_text("과제.hwp", HWP_BYTES)
     assert (kind, text) == ("한글(HWP)", "📌 완료 😀 𠮷")
     json.dumps({"text": text}, ensure_ascii=False).encode()  # the PC agent's path
     pydantic_core.to_json({"text": text})  # the MCP server's path
@@ -244,35 +251,35 @@ def test_hwp_streams_are_capped_and_broken_ones_unreadable(monkeypatch):
     text = hwp_record(67, utf16("본문"))
     fake_hwp(monkeypatch, text, bytes(20 << 20))  # second section: 20 MB of zeros, about 1000:1
     with pytest.raises(UnreadableAttachment, match="압축을 풀면 너무 커지는"):
-        extract_text("a.hwp", b"ole")
+        extract_text("a.hwp", HWP_BYTES)
     fake_hwp(monkeypatch, text, text)
-    assert extract_text("a.hwp", b"ole")[1] == "본문\n본문"
+    assert extract_text("a.hwp", HWP_BYTES)[1] == "본문\n본문"
     monkeypatch.setattr(attachments, "MAX_UNPACKED_BYTES", len(raw_deflate(text)) * 2 + len(text) + 1)
     with pytest.raises(UnreadableAttachment, match="압축을 풀면 너무 커지는"):
-        extract_text("a.hwp", b"ole")  # the second section's inflated bytes go past the total
+        extract_text("a.hwp", HWP_BYTES)  # the second section's inflated bytes go past the total
     monkeypatch.undo()
     streams = {("FileHeader",): bytes(36) + struct.pack("<I", 1), ("BodyText", "Section0"): raw_deflate(text)[:-3]}
     monkeypatch.setattr(olefile, "OleFileIO", lambda f: FakeOle(streams))
     with pytest.raises(UnreadableAttachment, match="파일을 읽지 못했습니다"):
-        extract_text("a.hwp", b"ole")  # truncated deflate stream
+        extract_text("a.hwp", HWP_BYTES)  # truncated deflate stream
     fake_hwp(monkeypatch, text + struct.pack("<I", 67 | (0xFFF << 20)) + b"\x01")
     with pytest.raises(UnreadableAttachment, match="파일을 읽지 못했습니다"):
-        extract_text("a.hwp", b"ole")  # a record whose extended size is cut off (struct.error)
+        extract_text("a.hwp", HWP_BYTES)  # a record whose extended size is cut off (struct.error)
     fake_hwp(monkeypatch, hwp_record(66, bytes(8)))
     with pytest.raises(UnreadableAttachment, match="글자가 없는 문서"):
-        extract_text("a.hwp", b"ole")
+        extract_text("a.hwp", HWP_BYTES)
 
 
 def test_xlsx_empty_formatted_cells_and_rows_swallow_nothing():
     strings = "<sst><si><t>이름</t></si><si><t>점수</t></si><si><t>김광운</t></si><si/><si><r><t>비</t></r><r><t>고</t></r></si></sst>"
-    sheet = ('<row r="1"><c r="A1" s="3"/><c r="B1" t="s"><v>0</v></c><c r="C1" s="3"/><c r="D1" s="3"/>'
-             '<c r="E1" t="s"><v>1</v></c><c r="F1" s="3"/></row>'
+    sheet = ('<row r="1"><c r="A1" t="s"><v>0</v></c><c r="B1" s="3"/><c r="C1" t="s"><v>1</v></c><c r="D1" s="3"/></row>'
              '<row r="2" s="1" customFormat="1"/>'
              '<row r="3"><c r="A3" t="s"><v>2</v></c><c r="B3" s="2"/><c r="C3"><v>95</v></c></row>'
-             '<row r="4"><c r="A4" t="s"><v>4</v></c><c r="B4" t="inlineStr"><is><t>메모</t></is></c></row>')
+             '<row r="4"><c r="A4" t="s"><v>4</v></c><c r="C4" t="inlineStr"><is><t>메모</t></is></c></row>')
     _, text = extract_text("s.xlsx", zipped({"xl/sharedStrings.xml": strings,
                                              "xl/worksheets/sheet1.xml": f"<worksheet><sheetData>{sheet}</sheetData></worksheet>"}))
-    assert text == "--- 시트 1 ---\n이름 | 점수\n김광운 | 95\n비고 | 메모"  # <si/> keeps index 4 on "비고"
+    # A styled blank (B1, B3) or a left-out cell (B4) keeps its column; <si/> keeps index 4 on "비고".
+    assert text == "--- 시트 1 ---\n이름 |  | 점수\n김광운 |  | 95\n비고 |  | 메모"
 
 
 def test_hwpx_tabs_highlights_breaks_and_tables():

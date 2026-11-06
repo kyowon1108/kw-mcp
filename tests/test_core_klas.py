@@ -74,8 +74,9 @@ async def test_user_agent_names_the_tool_its_version_and_a_contact(keypair):  # 
     fake = Klas(keypair[1])
     async with client(fake) as c:
         await c.post(DATA)
-    assert klas.USER_AGENT == (f"kw-mcp/{klas.package_version()} "
-                               "(+https://github.com/kyowon1108/kw-mcp; contact kyowon1108@gmail.com)")
+    # The repositories are private, so the contact is the maintainer's e-mail, not a link.
+    assert klas.USER_AGENT == f"kw-mcp/{klas.package_version()} (contact kyowon1108@gmail.com)"
+    assert "github" not in klas.USER_AGENT
     assert fake.agents == {klas.USER_AGENT}  # every request, login included
     assert "Mozilla" not in klas.USER_AGENT and "Chrome" not in klas.USER_AGENT
 
@@ -260,6 +261,16 @@ async def test_requests_are_paced_by_a_token_bucket(keypair, monkeypatch):  # no
     "/common/file/DownloadFile/F1/./1",
     "/common/file/DownloadFile//klas.example/x",
     "/common/file/DownloadFile/F1\\..\\..\\x",
+    # servlet path parameters and encodings a Tomcat-style container may resolve as traversal
+    "/common/file/DownloadFile/..;/..;/usr/cmn/login/Logout.do",
+    "/common/file/DownloadFile/F1;jsessionid=x/1",
+    "/common/file/DownloadFile/..%3b/..%3B/std/cmn/frame/StdHome.do",
+    "/common/file/DownloadFile/%252e%252e/%252e%252e/std/cmn/frame/StdHome.do",
+    "/common/file/DownloadFile/F1/1%00.pdf",
+    "/common/file/DownloadFile/%u002e%u002e/x",
+    "/common/file/DownloadFile/F1/파일",
+    "/common/file/DownloadFile/F1/．．/x",
+    "/common/file/DownloadFile/F1/1\n",
 ])
 async def test_download_refuses_paths_that_leave_the_attachment_folder(path):
     def no_request(request: httpx.Request) -> httpx.Response:
