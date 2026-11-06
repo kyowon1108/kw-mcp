@@ -403,7 +403,15 @@ def _sheet_rows(xml: str, shared: list[str], formats: list[str | None], date1904
             if in_value and (value is None or name == "v"):
                 value = []
     end_row()  # a row cut short by the budget
-    return [" | " * (column - lead) + " | ".join(row) for column, row in rows]
+    # The shared left margin can drop after earlier rows were kept, which pads every earlier row
+    # again; so the budget is applied to the lines as written, not to the estimate above.
+    out, total = [], 0
+    for column, row in rows:
+        out.append(" | " * (column - lead) + " | ".join(row))
+        total += len(out[-1]) + 1
+        if total > budget:
+            break
+    return out
 
 
 def _cell_text(attrs: str, value: list[str] | None, shared: list[str], formats: list[str | None],

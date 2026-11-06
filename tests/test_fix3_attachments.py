@@ -442,3 +442,21 @@ def test_pdf_extraction_gives_up_after_its_deadline(monkeypatch):
     with pytest.raises(UnreadableAttachment, match="시간이 너무 오래 걸려"):
         extract_text("강의.pdf", pdf_pages(3))
     assert "Naive Bayes" in extract_text("강의.pdf", MINI_PDF)[1]  # the first page is always read
+
+
+def test_a_late_narrow_row_cannot_repad_the_whole_sheet_past_the_budget():
+    """2,000 rows with a value only in XFD, then one at column A: the margin drops at the end, and
+    the earlier rows must not all be re-padded to 16k columns (98M characters from 138 KB before)."""
+    import tracemalloc
+
+    from kw_mcp import attachments
+
+    rows = "".join(f'<row r="{i}"><c r="XFD{i}" t="inlineStr"><is><t>x</t></is></c></row>' for i in range(1, 2001))
+    rows += '<row r="2001"><c r="A2001" t="inlineStr"><is><t>a</t></is></c></row>'
+    xml = f"<worksheet><sheetData>{rows}</sheetData></worksheet>"
+    tracemalloc.start()
+    lines = attachments._sheet_rows(xml, [], [], False, attachments.MAX_TEXT_CHARS)
+    peak = tracemalloc.get_traced_memory()[1]
+    tracemalloc.stop()
+    assert sum(len(line) + 1 for line in lines) <= attachments.MAX_TEXT_CHARS + 200_000
+    assert peak < 200 * 1024 * 1024

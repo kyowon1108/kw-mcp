@@ -380,7 +380,7 @@ def main(argv: list[str]) -> int:
             parser.error(f"--last-latest-json: {args.last_latest_json} does not exist")
         build(ROOT, ROOT / "dist" / ("release-dry-run" if args.dry_run else "release"), dry_run=args.dry_run,
               last_manifest=args.last_latest_json)
-    except (ReleaseError, subprocess.CalledProcessError) as e:
+    except (ReleaseError, subprocess.CalledProcessError, ValueError) as e:  # ValueError: a signing refusal
         print(f"release stopped: {e}", file=sys.stderr)
         return 1
     return 0
