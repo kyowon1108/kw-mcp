@@ -5,21 +5,10 @@
 # in the signing run.
 name: Packaging
 
+# Manual runs and release tags only: macOS minutes count 10x on a private repo's free Actions plan.
 on:
   push:
-    paths:
-      - "pyproject.toml"
-      - "uv.lock"
-      - "manifest.json"
-      - ".mcpbignore"
-      - ".python-version"
-      - "LICENSE"
-      - "README.md"
-      - "src/**"
-      - "scripts/**"
-      - "tests/test_packaging.py"
-      - ".github/workflows/packaging.yml"
-  pull_request:
+    tags: ["v*"]
   workflow_dispatch:
 
 permissions:
@@ -30,7 +19,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [macos-15-intel, macos-latest, windows-latest, windows-11-arm]
+        # windows-11-arm is left out: GitHub's arm64 Windows runners aren't on the free plan for private
+        # repos. Windows on ARM (cryptography pinned ==46.0.3 for win_arm64) is checked by hand.
+        os: [macos-15-intel, macos-latest, windows-latest]
     runs-on: ${{ matrix.os }}
     timeout-minutes: 30
     defaults:

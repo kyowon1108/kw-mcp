@@ -3,14 +3,11 @@
 # A fake invite stops `kw-mcp link` before it would touch KLAS.
 name: Agent install (Windows, macOS)
 
+# Manual runs and release tags only: macOS minutes count 10x on a private repo's free Actions plan.
 on:
-  workflow_dispatch:
   push:
-    paths:
-      - "src/kw_mcp/**"
-      - "pyproject.toml"
-      - "uv.lock"
-      - ".github/workflows/**"
+    tags: ["v*"]
+  workflow_dispatch:
 
 permissions:
   contents: read
