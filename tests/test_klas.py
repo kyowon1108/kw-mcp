@@ -14,7 +14,6 @@ from kw_mcp.klas import (
     LOGIN_FORM,
     LOGIN_SECURITY,
     KlasClient,
-    KlasError,
     KlasLoginError,
     encrypt_login,
 )
@@ -86,18 +85,24 @@ async def test_relogs_in_once_when_session_expires(keypair):
         assert confirm.call_count == 2
 
 
+LOGIN_PAGE_HTML = ('<html><form id="loginForm" action="/usr/cmn/login/LoginConfirm.do">'
+                   '<input name="loginId"><input type="password" id="loginPwd"></form></html>')
+
+
 async def test_html_login_page_counts_as_expired(keypair):
     _, public_b64 = keypair
     with respx.mock(base_url=BASE_URL) as router:
         confirm = mock_login(router, public_b64)
         router.post(HOME).mock(
             side_effect=[
-                httpx.Response(200, text="<html>login</html>", headers={"content-type": "text/html"}),
+                httpx.Response(200, json={"n": 1}),
+                httpx.Response(200, text=LOGIN_PAGE_HTML, headers={"content-type": "text/html"}),
                 httpx.Response(200, json=[]),
             ]
         )
         async with KlasClient("id", "pw") as client:
-            # first post logs in, gets HTML, logs in again, retries
+            assert await client.post(HOME) == {"n": 1}
+            # the login page instead of JSON: log in again and retry
             assert await client.post(HOME) == []
         assert confirm.call_count == 2
 
@@ -155,8 +160,11 @@ async def test_login_required_right_after_logging_in_is_an_error(keypair):
     _, public_b64 = keypair
     with respx.mock(base_url=BASE_URL) as router:
         confirm = mock_login(router, public_b64)
-        router.post(HOME).respond(200, json=LOGIN_REQUIRED)
+        home = router.post(HOME).respond(200, json=LOGIN_REQUIRED)
         async with KlasClient("id", "pw") as client:
-            with pytest.raises(KlasError, match="log in again"):
+            with pytest.raises(KlasLoginError, match="로그인 직후"):
                 await client.post(HOME)
-        assert confirm.call_count == 2  # one fresh login, one retry; no loop
+            with pytest.raises(KlasLoginError, match="로그인 직후"):  # the next call fails fast
+                await client.post(HOME)
+        assert confirm.call_count == 1  # the fresh login is not repeated
+        assert home.call_count == 1

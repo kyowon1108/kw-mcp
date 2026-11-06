@@ -19,6 +19,14 @@ SERVER = "https://bridge.example"
 LINK = agent.Link(server=SERVER, ws_url="wss://ws.example/prod", uid="u_test")
 
 
+@pytest.fixture(autouse=True)
+def config_dir(tmp_path, monkeypatch):
+    """Never touch the real ~/.config/kw-campus."""
+    monkeypatch.setattr(agent, "CONFIG_DIR", tmp_path / "config")
+    monkeypatch.setattr(agent, "LINK_FILE", tmp_path / "config" / "agent.json")
+    return tmp_path / "config"
+
+
 class FixedHolder:
     def __init__(self, service=None, error=None):
         self._service, self._error = service, error
@@ -98,16 +106,16 @@ def test_launchd_job_runs_the_agent_module():
     assert job["KeepAlive"] == {"SuccessfulExit": False}
 
 
-def test_only_one_agent_holds_the_lock(monkeypatch):
-    monkeypatch.setattr(agent, "LOCK_PORT", 47899)
+def test_only_one_agent_holds_the_lock(config_dir):
     lock = agent.single_instance()
     try:
         assert agent.agent_running()
         with pytest.raises(agent.AlreadyRunning):
             agent.single_instance()
+        assert (config_dir / "agent.pid").read_text() == str(__import__("os").getpid())
     finally:
         lock.close()
-    assert not agent.agent_running()
+    assert not agent.agent_running() and not (config_dir / "agent.pid").exists()
 
 
 def test_public_api_url_comes_from_the_invite(monkeypatch):
@@ -131,10 +139,10 @@ def test_invite_must_point_at_a_plain_https_server():
 
 
 class CallService:
-    async def assignment_detail(self, course, title):
+    async def assignment_detail(self, course, title, task_id=None):
         if title == "missing":
             raise LookupError("'missing'와 일치하는 과제가 없습니다.")
-        return {"course": course, "title": title}
+        return {"course": course, "title": title, **({"task_id": task_id} if task_id else {})}
 
 
 async def test_calls_run_only_allowlisted_ops_with_clean_args():
@@ -149,5 +157,17 @@ async def test_calls_run_only_allowlisted_ops_with_clean_args():
 
 
 def test_connect_url_announces_protocol_version():
-    url = agent._connect_url(LINK, agent.DeviceKey.generate())
+    key = agent.DeviceKey.generate()
+    url = agent._connect_url(LINK, key)
     assert url.startswith(LINK.ws_url + "?") and f"v={agent.PROTOCOL_VERSION}" in url
+    from urllib.parse import parse_qs, urlparse
+
+    q = {k: v[0] for k, v in parse_qs(urlparse(url).query).items()}
+    jwk = key.public_jwk()
+    public = ec.EllipticCurvePublicNumbers(int.from_bytes(agent.b64u_decode(jwk["x"]), "big"),
+                                           int.from_bytes(agent.b64u_decode(jwk["y"]), "big"),
+                                           ec.SECP256R1()).public_key()
+    raw = agent.b64u_decode(q["sig"])
+    der = encode_dss_signature(int.from_bytes(raw[:32], "big"), int.from_bytes(raw[32:], "big"))
+    # The signature covers the protocol version: kw-connect:<uid>:<ts>:<v>
+    public.verify(der, f"kw-connect:{LINK.uid}:{q['ts']}:{agent.PROTOCOL_VERSION}".encode(), ec.ECDSA(hashes.SHA256()))

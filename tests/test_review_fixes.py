@@ -10,7 +10,17 @@ import respx
 from cryptography.hazmat.primitives.ciphers.aead import AESGCM
 
 from kw_mcp import agent
-from kw_mcp.service import FILE_LIST, HOME, KST, PROJECTS, SEMESTERS, TASK_VIEW, TASKS, KlasService, term_in_session
+from kw_mcp.service import (
+    FILE_LIST,
+    HOME,
+    KST,
+    PROJECTS,
+    SEMESTERS,
+    TASK_VIEW,
+    TASKS,
+    KlasService,
+    term_in_session,
+)
 from tests.test_attachments import MINI_PDF
 from tests.test_items import ItemClient
 
@@ -168,13 +178,21 @@ def test_linked_to_raises_on_network_errors_and_is_false_when_unknown(monkeypatc
     def offline():
         raise httpx.ConnectError("offline")
 
-    monkeypatch.setattr(agent, "pair_code", offline)
+    # linked_to checks with /device/grants (it mints nothing); pair_code is the fallback for older bridges.
+    monkeypatch.setattr(agent, "grants", offline)
     with pytest.raises(httpx.ConnectError):
         agent.linked_to(SERVER)
 
     def unknown():
         raise agent.NotLinked("gone")
 
+    monkeypatch.setattr(agent, "grants", unknown)
+    assert agent.linked_to(SERVER) is False
+
+    def old_bridge():
+        raise LookupError("no /device/grants")
+
+    monkeypatch.setattr(agent, "grants", old_bridge)
     monkeypatch.setattr(agent, "pair_code", unknown)
     assert agent.linked_to(SERVER) is False
     assert agent.linked_to("https://other.example") is False

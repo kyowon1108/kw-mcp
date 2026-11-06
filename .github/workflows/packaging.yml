@@ -1,0 +1,71 @@
+# The Claude Desktop extension on every platform students use: lockfile, allow-listed `mcpb pack`,
+# unpacked into a folder with Korean letters and spaces, started with the manifest's own command
+# (and its entry_point), and tools/list compared with the manifest's tool list.
+name: Packaging
+
+on:
+  push:
+    paths:
+      - "pyproject.toml"
+      - "uv.lock"
+      - "manifest.json"
+      - ".mcpbignore"
+      - ".python-version"
+      - "LICENSE"
+      - "README.md"
+      - "src/**"
+      - "scripts/**"
+      - "tests/test_packaging.py"
+      - ".github/workflows/packaging.yml"
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  bundle:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-15-intel, macos-latest, windows-latest, windows-11-arm]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 30
+    defaults:
+      run:
+        shell: bash
+    env:
+      PYTHONUTF8: "1"
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@1c37ad07a6a961277cf70c0d37d6f313000f5884 # v10.3.0
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: "22"
+
+      - name: Lockfile matches pyproject.toml (and has a wheel for every student platform)
+        run: uv lock --check
+
+      - name: Versions agree, manifest tools equal the registered tools
+        run: uv run --frozen pytest -q tests/test_packaging.py
+
+      - name: Pack the allow-listed bundle
+        run: |
+          uv run --frozen python scripts/release.py stage "$RUNNER_TEMP/stage"
+          npx --yes @anthropic-ai/mcpb@2.1.2 pack "$RUNNER_TEMP/stage" "$RUNNER_TEMP/kw-klas.mcpb"
+
+      - name: Unpack into a path with Korean letters and spaces
+        run: >
+          uv run --frozen python -c "import sys, zipfile; zipfile.ZipFile(sys.argv[1]).extractall(sys.argv[2])"
+          "$RUNNER_TEMP/kw-klas.mcpb" "$RUNNER_TEMP/한글 경로/kw klas"
+
+      - name: Start it with the manifest's command and list its tools
+        run: uv run --frozen python scripts/smoke_mcpb.py "$RUNNER_TEMP/한글 경로/kw klas"
+
+      - name: Start it from the manifest's entry_point
+        run: uv run --frozen python scripts/smoke_mcpb.py "$RUNNER_TEMP/한글 경로/kw klas" --entry-point
+
+      - name: The agent wheel installs with its pins and passes its self-test
+        run: uv run --frozen python scripts/release.py check-install

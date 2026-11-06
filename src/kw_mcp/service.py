@@ -8,6 +8,8 @@ English keys and leaves the rest out.
 from __future__ import annotations
 
 import asyncio
+import contextvars
+import math
 import re
 import time
 from collections import Counter
@@ -16,9 +18,14 @@ from datetime import datetime, timedelta
 from typing import Any
 from zoneinfo import ZoneInfo
 
-from .attachments import MAX_DOWNLOAD_BYTES, UnreadableAttachment, extract_text, split_parts
-from .klas import KlasClient, KlasLoginError
-from .text import html_to_text
+from .attachments import (
+    MAX_DOWNLOAD_BYTES,
+    UnreadableAttachment,
+    extract_text,
+    split_parts,
+)
+from .klas import KlasClient, KlasError, KlasLoginError, KlasRequestLimit
+from .text import clean, html_to_text, untrusted
 
 KST = ZoneInfo("Asia/Seoul")
 
@@ -88,28 +95,69 @@ def _term_order(sem: dict[str, Any]) -> tuple[int, int]:
     return (int(year) if year.isdigit() else 0, _TERM_RANK.get(str(sem.get("term")), 9))
 
 
+def _grade_row(g: dict[str, Any]) -> dict[str, Any]:
+    """One AtnlcScreSungjukInfo row. The grade is the first word of getGrade (KLAS can add a note
+    after it, as KLAS Helper reads it); a row whose grade text says 삭제 is a dropped course."""
+    raw = clean(str(g.get("getGrade") or "")).strip()
+    code = clean(str(g.get("hakjungNo") or "")).strip()
+    row = {"course": g.get("gwamokKname"), "category": g.get("codeName1"), "credits": g.get("hakjumNum"),
+           "grade": raw.split()[0] if raw else None, "retake": g.get("retakeOpt") == "Y"}
+    if "삭제" in raw:
+        row["deleted"] = True
+    if code:
+        row["code"] = code
+    return row
+
+
+def _course_key(course: dict[str, Any]) -> str:
+    """Retakes pair by course number (학정번호 without the section, as KW-Graduation does), else by name."""
+    code = str(course.get("code") or "")
+    parts = code.split("-")
+    return f"code:{'-'.join(parts[:3]) if len(parts) >= 4 else code}" if code else f"name:{_norm(course.get('course'))}"
+
+
 def grade_summary(semesters: list[dict[str, Any]]) -> dict[str, Any]:
-    """Averages KLAS doesn't show, from the courses already listed. A retaken course counts once,
-    with its latest grade (matched by name, so a renamed course counts twice)."""
-    latest: dict[str, dict[str, Any]] = {}
+    """Averages KLAS doesn't show, from the courses already listed. A retaken course counts once, with
+    its latest grade. A later row of the same course (same course number, else same name) is a retake
+    when it is marked as one or the earlier grade could be retaken (C+ and below); otherwise both
+    count (repeatable courses such as 독립연구). Deleted rows count nowhere. KLAS's gpa is official."""
+    kept: list[dict[str, Any]] = []
+    ungraded_later: list[dict[str, Any]] = []
     for sem in sorted(semesters, key=_term_order):
         for c in sem["courses"]:
-            if c["grade"]:
-                latest[_norm(c["course"])] = {**c, "year": sem["year"], "term": sem["term"]}
-    graded = [c for c in latest.values() if c["grade"] in GRADE_POINTS]
+            if c.get("deleted"):
+                continue
+            row = {**c, "year": sem["year"], "term": sem["term"]}
+            if not c["grade"]:
+                ungraded_later.append(row)
+                continue
+            key = _course_key(c)
+            earlier = next((k for k in reversed(kept) if _course_key(k) == key), None)
+            if earlier is not None and (c.get("retake") or earlier["grade"] in RETAKE_GRADES):
+                kept.remove(earlier)
+            kept.append(row)
+    graded = [c for c in kept if c["grade"] in GRADE_POINTS]
 
     def avg(rows: list[dict[str, Any]]) -> float | None:
         return _gpa([(c["credits"] or 0, GRADE_POINTS[c["grade"]]) for c in rows])
 
+    def later_ungraded(c: dict[str, Any]) -> bool:
+        return any(_course_key(u) == _course_key(c) and _term_order(u) > _term_order(c) for u in ungraded_later)
+
+    failed = [c for c in graded if c["grade"] == "F"]
     major = [c for c in graded if (c["category"] or "").startswith("전")]
-    return {
+    out = {
         "major_gpa": avg(major),
         "non_major_gpa": avg([c for c in graded if c not in major]),
         "gpa_excluding_f": avg([c for c in graded if c["grade"] != "F"]),
         "f_not_retaken": [{"course": c["course"], "year": c["year"], "term": c["term"], "category": c["category"]}
-                          for c in graded if c["grade"] == "F"],
-        "note": "이 도구가 과목 목록으로 계산한 값입니다(같은 이름 과목은 마지막 성적만). 공식 평점은 gpa 항목을 보세요.",
+                          for c in failed if not later_ungraded(c)],
+        "note": "이 도구가 과목 목록으로 계산한 참고값입니다(재수강은 마지막 성적만, 삭제 과목 제외). 공식 평점은 gpa 항목을 보세요.",
     }
+    retaking = [{"course": c["course"], "year": c["year"], "term": c["term"]} for c in failed if later_ungraded(c)]
+    if retaking:
+        out["retaking_now"] = retaking  # an F with an ungraded later row: being retaken this term
+    return out
 
 
 def _klas_datetime(day: Any, clock: Any = None) -> datetime | None:
@@ -143,8 +191,28 @@ SNAPSHOT_FIELDS = {
 HOME_TTL = 120.0
 ATTACHMENT_TEXT_TTL = 600.0
 ATTACHMENT_TEXT_CACHE = 8
+UNREADABLE_TTL = 300.0  # a file that can't be read stays unread for a while: a retry doesn't download it again
 COURSE_TTL = 60.0
+BOARD_TTL = 180.0  # board lists and searches (exam info, class changes)
+ATTENDANCE_TTL = 180.0
+SYLLABUS_TTL = 600.0  # a syllabus rarely changes within a term
+RECORD_TTL = 3600.0  # 학적 (department, year, transfer credits)
 MAX_DEADLINE_DAYS = 180
+# Per-course lists, by the kind names deadlines() and snapshot() use.
+PATH_KIND = {TASKS: "assignment", ONLINE: "online_lecture", QUIZZES: "quiz", PROJECTS: "team_project",
+             ONLINE_TESTS: "online_test", SURVEYS: "survey", DISCUSSIONS: "discussion"}
+SNAPSHOT_KIND = {TASKS: "tasks", ONLINE: "online", PROJECTS: "projects", QUIZZES: "quizzes"}
+# Errors that must reach the user as they are, never folded into a partial answer.
+STOP_ERRORS = (KlasLoginError, KlasRequestLimit)
+# Course lists that failed for some courses while others worked, collected by deadlines() and
+# snapshot(). Outside them (a direct list tool) any failing course fails the call.
+_COURSE_FAILURES: contextvars.ContextVar[list[dict[str, Any]] | None] = contextvars.ContextVar(
+    "kw_mcp_course_failures", default=None)
+# Korean mobile prefixes: a syllabus 연락처 starting with one is a personal phone.
+MOBILE_PREFIXES = ("010", "011", "016", "017", "018", "019")
+# Grades that can be retaken (C+ and below): a later row of the same course after one of these is
+# a retake. A course passed with B0 or better and taken again (독립연구, 현장실습) counts twice.
+RETAKE_GRADES = {"C+", "C0", "C", "D+", "D0", "D", "F", "NP"}
 
 
 def parse_kst(value: str | None) -> datetime | None:
@@ -245,7 +313,7 @@ async def _gather_some(named: dict[str, Awaitable[Any]], optional: bool = False)
     results = await asyncio.gather(*named.values(), return_exceptions=True)
     done, failed, first = {}, [], None
     for name, result in zip(named, results, strict=True):
-        if isinstance(result, KlasLoginError):
+        if isinstance(result, STOP_ERRORS):
             raise result
         if isinstance(result, BaseException):
             if not isinstance(result, Exception):
@@ -300,37 +368,115 @@ def _int(value: Any) -> int | None:
         return None
 
 
+def _percent(value: Any) -> int | None:
+    """KLAS progress as a whole percent: 100, "100", "100.0" and "99.5" all work; odd values are None."""
+    text = str(value if value is not None else "").strip()
+    if not text:
+        return None
+    try:
+        number = float(text)
+    except ValueError:
+        return None
+    return math.floor(min(number, 100.0)) if math.isfinite(number) and number >= 0 else None
+
+
+def _list(data: Any, path: str) -> list[Any]:
+    """A list answer; null counts as no rows. Anything else (an error object, a wrapper KLAS started
+    sending) is an error, so it never reads as "nothing due"."""
+    if data is None:
+        return []
+    if not isinstance(data, list):
+        raise KlasError(f"{path}: KLAS 응답 형식이 예상과 다릅니다(목록이 아님).")
+    return data
+
+
+def _dict(data: Any, path: str) -> dict[str, Any]:
+    if not isinstance(data, dict):
+        raise KlasError(f"{path}: KLAS 응답 형식이 예상과 다릅니다(객체가 아님).")
+    return data
+
+
+_SEMESTER = re.compile(r"\d{4},[1-4]")
+_SEASON = {"여름": "3", "하계": "3", "겨울": "4", "동계": "4"}
+
+
+def _normalize_semester(value: str) -> str | None:
+    """"2026,2" from "2026-2", "2026/2", "2026, 2", "2026년 2학기", "2026 여름"/"동계"; None otherwise."""
+    text = value.strip()
+    season = re.match(r"^(\d{4})\D*?(여름|하계|겨울|동계)", text)
+    if season:
+        return f"{season.group(1)},{_SEASON[season.group(2)]}"
+    m = re.match(r"^(\d{4})\s*(?:학년도|년)?\s*[,./\-]?\s*([1-4])\s*(?:학기)?$", text)
+    return f"{m.group(1)},{m.group(2)}" if m else None
+
+
+def _semester_order(value: str) -> tuple[int, int]:
+    year, _, term = value.partition(",")
+    return _term_order({"year": year, "term": term})
+
+
+def _is_mobile(phone: str | None) -> bool:
+    return re.sub(r"\D", "", phone or "").startswith(MOBILE_PREFIXES)
+
+
+def _course_misses(failures: list[dict[str, Any]], kinds: dict[str, str], whole: list[str]) -> list[dict[str, Any]]:
+    """{"kind", "course"} once each, for lists that failed for single courses (not whole kinds)."""
+    out: list[dict[str, Any]] = []
+    for f in failures:
+        miss = {"kind": kinds.get(f["path"], f["path"]), "course": f["course"]}
+        if miss["kind"] not in whole and miss not in out:
+            out.append(miss)
+    return out
+
+
 class KlasService:
     def __init__(self, client: KlasClient, *, now: Callable[[], datetime] | None = None) -> None:
         self._client = client
         self._now = now or (lambda: datetime.now(KST))
-        self._cache: dict[tuple[Any, ...], tuple[float, asyncio.Task[Any]]] = {}
-        self._texts: dict[str, tuple[float, str, str]] = {}
+        # key -> [task, finished_at (None while running), ttl]
+        self._cache: dict[tuple[Any, ...], list[Any]] = {}
+        # attachment path -> [task of (kind, text), finished_at]
+        self._texts: dict[str, list[Any]] = {}
 
     async def _cached(self, key: tuple[Any, ...], ttl: float, fetch: Callable[[], Awaitable[Any]]) -> Any:
-        """Share one in-flight or recent request per key, so parallel tools don't repeat calls."""
+        """Share one in-flight or recent request per key, so parallel tools don't repeat calls.
+
+        A request still running is always shared, however long it takes; a finished answer is
+        reused for `ttl` seconds counted from when it arrived. Failures are never reused."""
+        now = time.monotonic()
+        self._prune(now)
         entry = self._cache.get(key)
         if entry:
-            started, task = entry
-            failed = task.done() and (task.cancelled() or task.exception() is not None)
-            if not failed and time.monotonic() - started < ttl:
+            task, finished_at, _ = entry
+            if not task.done():
                 return await asyncio.shield(task)
+            if finished_at is not None and now - finished_at < ttl:
+                return task.result()
         task = asyncio.ensure_future(fetch())
-        # Mark the error as seen even if every waiter was cancelled before it arrived.
-        task.add_done_callback(lambda t: t.cancelled() or t.exception())
-        self._cache[key] = (time.monotonic(), task)
-        try:
-            return await asyncio.shield(task)
-        except Exception:
-            if self._cache.get(key, (0.0, None))[1] is task:
-                del self._cache[key]
-            raise
+        entry = [task, None, ttl]
+        self._cache[key] = entry
+
+        def finished(t: asyncio.Task[Any]) -> None:
+            if t.cancelled() or t.exception() is not None:  # also marks the error as seen
+                if self._cache.get(key) is entry:
+                    del self._cache[key]
+            else:
+                entry[1] = time.monotonic()
+
+        task.add_done_callback(finished)
+        return await asyncio.shield(task)
+
+    def _prune(self, now: float) -> None:
+        """Expired answers hold personal data and keys can carry search words: drop them."""
+        for key in [k for k, (task, finished_at, ttl) in self._cache.items()
+                    if task.done() and finished_at is not None and now - finished_at >= ttl]:
+            del self._cache[key]
 
     # -- semesters and courses -------------------------------------------------
 
     async def _semester_rows(self) -> list[dict[str, Any]]:
         rows = await self._cached(("semesters",), HOME_TTL, lambda: self._client.post(SEMESTERS))
-        return rows if isinstance(rows, list) else []
+        return [r for r in _list(rows, SEMESTERS) if isinstance(r, dict)]
 
     async def semesters(self) -> list[dict[str, Any]]:
         return [
@@ -343,29 +489,48 @@ class KlasService:
         ]
 
     async def current_semester(self) -> str:
-        """The latest semester KLAS lists, except a seasonal one while a regular semester is running.
+        """The semester that matters now: a regular semester in session, else a seasonal one in
+        session, else the latest one.
 
-        After registering for winter/summer classes (e.g. 11/18), KLAS lists that term first; until
-        the regular semester ends, its deadlines are still the ones that matter.
+        KLAS's list order is not trusted (a finished summer term can sort above the 2nd semester),
+        so the terms are put in calendar order here. After registering for winter/summer classes
+        (e.g. 11/18), KLAS lists that term too; until the regular semester ends, its deadlines are
+        still the ones that matter.
         """
-        values = [r["value"] for r in await self._semester_rows() if r.get("value")]
+        values = sorted({str(r.get("value")) for r in await self._semester_rows()
+                         if _SEMESTER.fullmatch(str(r.get("value") or ""))}, key=_semester_order, reverse=True)
         if not values:
             raise LookupError("KLAS에 수강 학기 정보가 없습니다.")
-        if values[0].endswith((",3", ",4")):
-            regular = next((v for v in values if v.endswith((",1", ",2"))), None)
-            if regular and term_in_session(regular, self._now()):
-                return regular
-        return values[0]
+        now = self._now()
+        running = [v for v in values if term_in_session(v, now)]
+        regular = [v for v in running if v.endswith((",1", ",2"))]
+        return (regular or running or values)[0]
+
+    async def _resolve_semester(self, semester: str | None) -> str:
+        """None: the current semester. Otherwise one of the semesters KLAS lists, in "2026,2" form;
+        "2026-2", "2026년 2학기" and the like are accepted. Anything else is an error, never an
+        empty answer."""
+        if semester is None or not str(semester).strip():
+            return await self.current_semester()
+        values = [str(r.get("value")) for r in await self._semester_rows() if r.get("value")]
+        normalized = _normalize_semester(str(semester))
+        if normalized in values:
+            return normalized
+        raise LookupError(f"'{semester}' 학기를 찾지 못했습니다. 학기는 \"2026,2\" 형식(연도,학기: 1·2 정규, 3 여름, "
+                          f"4 겨울)이고, 수강 이력이 있는 학기는 {', '.join(values) or '없음'}입니다.")
 
     async def _home(self, semester: str | None) -> dict[str, Any]:
-        semester = semester or await self.current_semester()
+        semester = await self._resolve_semester(semester)
         home = await self._cached(
             ("home", semester), HOME_TTL, lambda: self._client.post(HOME, {"searchYearhakgi": semester})
         )
-        return home if isinstance(home, dict) else {}
+        home = _dict(home, HOME)
+        if "atnlcSbjectList" not in home or not isinstance(home["atnlcSbjectList"], list | None):
+            raise KlasError(f"{HOME}: KLAS 응답에 과목 목록이 없습니다(사이트가 바뀌었을 수 있음).")
+        return home
 
     async def _course_rows(self, semester: str | None, course: str | None) -> list[dict[str, Any]]:
-        all_rows = (await self._home(semester)).get("atnlcSbjectList") or []
+        all_rows = [r for r in (await self._home(semester)).get("atnlcSbjectList") or [] if isinstance(r, dict)]
         rows = [r for r in all_rows if _matches(r.get("subjNm"), course)]
         if course and not rows:
             names = ", ".join(r.get("subjNm") or "?" for r in all_rows)
@@ -389,16 +554,32 @@ class KlasService:
     async def _per_course(
         self, path: str, semester: str | None, course: str | None
     ) -> list[tuple[dict[str, Any], list[dict[str, Any]]]]:
+        """(course row, items) per course. Inside deadlines()/snapshot() a course whose list fails
+        is left out and recorded (see _COURSE_FAILURES); elsewhere, or when every course fails,
+        the error is raised. Login trouble and the request cap always raise."""
         rows = await self._course_rows(semester, course)
-        results = await _gather(*(self._items(path, r) for r in rows))
-        return list(zip(rows, results, strict=True))
+        results = await asyncio.gather(*(self._items(path, r) for r in rows), return_exceptions=True)
+        done, failed = [], []
+        for row, result in zip(rows, results, strict=True):
+            if isinstance(result, BaseException):
+                if isinstance(result, STOP_ERRORS) or not isinstance(result, Exception):
+                    raise result
+                failed.append((row, result))
+            else:
+                done.append((row, result))
+        if failed:
+            collector = _COURSE_FAILURES.get()
+            if collector is None or not done:
+                raise failed[0][1]
+            collector.extend({"path": path, "course": row.get("subjNm")} for row, _ in failed)
+        return done
 
     async def _items(self, path: str, row: dict[str, Any]) -> list[dict[str, Any]]:
         """One course's list from a per-course endpoint (tasks, online lectures, ...), cached briefly."""
         body = {"selectChangeYn": "Y", "selectSubj": row.get("subj"), "selectYearhakgi": row.get("yearhakgi")}
         items = await self._cached((path, body["selectSubj"], body["selectYearhakgi"]), COURSE_TTL,
                                    lambda: self._client.post(path, body))
-        return items if isinstance(items, list) else []
+        return [i for i in _list(items, path) if isinstance(i, dict)]
 
     # -- coursework ------------------------------------------------------------
 
@@ -414,7 +595,8 @@ class KlasService:
                 out.append(
                     {
                         "course": row.get("subjNm"),
-                        "title": t.get("title"),
+                        "title": clean(t.get("title")),
+                        "id": t.get("ordseq"),  # for get_assignment_detail when two titles are the same
                         "opens": fmt_kst(t.get("startdate")),
                         "due": fmt_kst(t.get("expiredate")),
                         "late_due": fmt_kst(t.get("reexpiredate")),
@@ -434,7 +616,7 @@ class KlasService:
                 # in assignments, quizzes and projects.
                 if not is_lecture(o):
                     continue
-                progress = _int(o.get("prog"))
+                progress = _percent(o.get("prog"))
                 if incomplete_only and progress is not None and progress >= 100:
                     continue
                 out.append(
@@ -552,32 +734,39 @@ class KlasService:
                 "posted": fmt_kst(n.get("registDt")),
             }
             for n in home.get("subjNotiList") or []
-            if _matches(n.get("subjNm"), course)
+            if isinstance(n, dict) and _matches(n.get("subjNm"), course)
         ]
 
     async def deadlines(self, days: int | str = 7) -> dict[str, Any]:
-        """Everything with a deadline in the next `days` days that I haven't done: assignments,
-        quizzes, online exams, team projects, surveys and unfinished online lectures, plus
-        discussions that end in that window (KLAS doesn't say whether I took part).
+        """Everything due from now to the end of the day `days` days from today (0: rest of today,
+        1: through tomorrow) that I haven't done: assignments, quizzes, online exams, team
+        projects, surveys and unfinished online lectures, plus discussions that end in that window.
 
         Assignments and projects past their due date but inside the late window come with
         `late_submission: true`. If one list can't be read the rest still come back, and
-        `incomplete` names what's missing.
+        `incomplete` names what's missing (whole kinds in `missing`, single courses in
+        `missing_courses`).
         """
         days = _int(days)
         days = max(0, min(7 if days is None else days, MAX_DEADLINE_DAYS))
-        now = self._now()
-        until = now + timedelta(days=days)
+        now = self._now().astimezone(KST)
+        # KLAS deadlines cluster at 23:59:59: the window ends at the end of the target day.
+        until = (now + timedelta(days=days)).replace(hour=23, minute=59, second=59, microsecond=0)
         semester = await self.current_semester()
-        lists, missing = await _gather_some({
-            "assignment": self.assignments(semester, pending_only=True),
-            "online_lecture": self.online_lectures(semester, incomplete_only=True),
-            "quiz": self.quizzes(semester, pending_only=True),
-            "team_project": self.projects(semester),
-            "online_test": self.online_tests(semester, pending_only=True),
-            "survey": self.surveys(semester, pending_only=True),
-            "discussion": self.discussions(semester),
-        })
+        failures: list[dict[str, Any]] = []
+        token = _COURSE_FAILURES.set(failures)
+        try:
+            lists, missing = await _gather_some({
+                "assignment": self.assignments(semester, pending_only=True),
+                "online_lecture": self.online_lectures(semester, incomplete_only=True),
+                "quiz": self.quizzes(semester, pending_only=True),
+                "team_project": self.projects(semester),
+                "online_test": self.online_tests(semester, pending_only=True),
+                "survey": self.surveys(semester, pending_only=True),
+                "discussion": self.discussions(semester),
+            })
+        finally:
+            _COURSE_FAILURES.reset(token)
 
         def in_window(value: str | None) -> bool:
             due = parse_due(value)
@@ -621,22 +810,30 @@ class KlasService:
                 return item["late_due"]
             return item.get("effective_due") or item["due"] or "9999"
 
-        out = {"semester": semester, "now": now.strftime("%Y-%m-%d %H:%M"), "days": days,
-               "items": sorted(items, key=effective_due)}
-        if missing:
-            out["incomplete"] = {"missing": missing, "message": "KLAS에서 일부 목록을 읽지 못해 빠진 마감이 있을 수 있습니다."}
+        out = {"semester": semester, "now": now.strftime("%Y-%m-%d %H:%M"), "until": until.strftime("%Y-%m-%d %H:%M"),
+               "days": days, "items": sorted(items, key=effective_due)}
+        courses = _course_misses(failures, PATH_KIND, missing)
+        if missing or courses:
+            out["incomplete"] = {"missing": missing, **({"missing_courses": courses} if courses else {}),
+                                 "message": "KLAS에서 일부 목록을 읽지 못해 빠진 마감이 있을 수 있습니다."}
         return out
 
     async def snapshot(self) -> dict[str, Any]:
         """This semester's courses, course posts and per-course lists as whitelisted raw rows.
 
         The PC agent sends this (encrypted) to the bridge, which shapes it the same way as
-        the methods above. Grades are not included.
+        the methods above. Grades are not included. A list that fails for one course (or one
+        kind) leaves the rest; `missing` then names what is left out.
         """
         semester = await self.current_semester()
         home = await self._home(semester)
-        lists = dict(zip(("tasks", "online", "projects", "quizzes"), await _gather(
-            *(self._per_course(path, semester, None) for path in (TASKS, ONLINE, PROJECTS, QUIZZES))), strict=True))
+        failures: list[dict[str, Any]] = []
+        token = _COURSE_FAILURES.set(failures)
+        try:
+            lists, missing = await _gather_some({kind: self._per_course(path, semester, None)
+                                                 for path, kind in SNAPSHOT_KIND.items()})
+        finally:
+            _COURSE_FAILURES.reset(token)
 
         def pick(kind: str, row: dict[str, Any]) -> dict[str, Any]:
             return {k: row.get(k) for k in SNAPSHOT_FIELDS[kind]}
@@ -645,13 +842,17 @@ class KlasService:
         for kind, per_course in lists.items():
             for course, items in per_course:
                 sections.setdefault(str(course.get("subj")), {})[kind] = [pick(kind, i) for i in items]
-        return {
+        out = {
             "semester": semester,
             "fetched_at": self._now().isoformat(timespec="seconds"),
-            "courses": [pick("courses", r) for r in home.get("atnlcSbjectList") or []],
-            "course_posts": [pick("course_posts", n) for n in home.get("subjNotiList") or []],
+            "courses": [pick("courses", r) for r in home.get("atnlcSbjectList") or [] if isinstance(r, dict)],
+            "course_posts": [pick("course_posts", n) for n in home.get("subjNotiList") or [] if isinstance(n, dict)],
             "sections": sections,
         }
+        courses = _course_misses(failures, SNAPSHOT_KIND, missing)
+        if missing or courses:
+            out["missing"] = {"lists": missing, "courses": courses}
+        return out
 
     # -- single items ----------------------------------------------------------
 
@@ -664,11 +865,16 @@ class KlasService:
         raise LookupError(f"과목을 하나로 정할 수 없습니다. 과목명을 더 구체적으로 주세요: {names}")
 
     async def _board_list(self, row: dict[str, Any], master_id: str, condition: str, keyword: str) -> dict[str, Any]:
-        listed = await self._client.post(f"/std/lis/sport/{master_id}/BoardStdList.do", {
-            "selectYearhakgi": row.get("yearhakgi"), "selectSubj": row.get("subj"), "selectChangeYn": "Y",
-            "cmd": None, "pageInit": True, "searchCondition": condition, "searchKeyword": keyword.strip(),
-            "currentPage": 0})
-        return listed if isinstance(listed, dict) else {}
+        body = {"selectYearhakgi": row.get("yearhakgi"), "selectSubj": row.get("subj"), "selectChangeYn": "Y",
+                "cmd": None, "pageInit": True, "searchCondition": condition, "searchKeyword": keyword.strip(),
+                "currentPage": 0}
+        path = f"/std/lis/sport/{master_id}/BoardStdList.do"
+        listed = await self._cached(("board", master_id, row.get("subj"), row.get("yearhakgi"), condition,
+                                     keyword.strip()), BOARD_TTL, lambda: self._client.post(path, body))
+        listed = _dict(listed, path)
+        if not isinstance(listed.get("list"), list | None):
+            raise KlasError(f"{path}: KLAS 응답 형식이 예상과 다릅니다(글 목록이 아님).")
+        return listed
 
     async def _boards(self, row: dict[str, Any], condition: str, keyword: str,
                       boards: tuple = BOARDS) -> list[tuple[tuple, dict[str, Any]]]:
@@ -677,9 +883,14 @@ class KlasService:
         return list(zip(boards, listed, strict=True))
 
     @staticmethod
-    def _post_row(board: str, item: dict[str, Any]) -> dict[str, Any]:
+    def _post_id(master_no: str, item: dict[str, Any]) -> str:
+        return f"{master_no}-{item.get('boardNo')}"
+
+    @classmethod
+    def _post_row(cls, board: str, item: dict[str, Any], master_no: str = "") -> dict[str, Any]:
         return {"board": board, "title": html_to_text(item.get("title")), "posted": fmt_kst(item.get("registDt")),
-                "pinned": item.get("topAt") == "Y", "attachments": _int(item.get("fileCnt")) or 0}
+                "pinned": item.get("topAt") == "Y", "attachments": _int(item.get("fileCnt")) or 0,
+                **({"id": cls._post_id(master_no, item)} if master_no and item.get("boardNo") is not None else {})}
 
     async def search_course_posts(self, course: str, keyword: str = "") -> dict[str, Any]:
         """Notice and materials posts of one course, newest first; keyword searches titles and bodies.
@@ -689,123 +900,193 @@ class KlasService:
         """
         row = await self._one_course(course)
         posts, total = [], {}
-        for (board, _, _), listed in await self._boards(row, "ALL", keyword):
+        for (board, _, master_no), listed in await self._boards(row, "ALL", keyword):
             total[board] = (listed.get("page") or {}).get("totalElements")
-            posts += [self._post_row(board, item) for item in listed.get("list") or []]
+            posts += [self._post_row(board, item, master_no) for item in listed.get("list") or [] if isinstance(item, dict)]
         posts.sort(key=lambda p: p["posted"] or "", reverse=True)
         return {"course": row.get("subjNm"), "keyword": keyword.strip() or None, "total": total, "posts": posts}
 
-    async def _find_post(self, course: str, title: str) -> tuple[dict[str, Any], dict[str, Any], tuple, dict[str, Any]]:
-        """(course row, list base body, (board, master_id, master_no), list item) for one post by title."""
+    async def _find_post(self, course: str, title: str, post_id: str | None = None
+                         ) -> tuple[dict[str, Any], dict[str, Any], tuple, dict[str, Any]]:
+        """(course row, list base body, (board, master_id, master_no), list item) for one post by title.
+        post_id (the "id" search_course_posts returns) picks one among posts with the same title."""
         row = await self._one_course(course)
         base = {"selectYearhakgi": row.get("yearhakgi"), "selectSubj": row.get("subj"), "selectChangeYn": "Y"}
+        title = (title or "").strip()
         found = []
-        for (board, master_id, master_no), listed in await self._boards(row, "TLE", title):
+        for (board, master_id, master_no), listed in await self._boards(row, "TLE" if title else "ALL", title):
             for item in listed.get("list") or []:
-                if _matches(html_to_text(item.get("title")), title or None):
+                if isinstance(item, dict) and _matches(html_to_text(item.get("title")), title or None):
                     found.append((board, master_id, master_no, item))
-        exact = [f for f in found if html_to_text(f[3].get("title")) == title.strip()]
+        if post_id and str(post_id).strip():
+            # Only a post the list itself returned: an id never reaches KLAS unchecked.
+            chosen = [f for f in found if self._post_id(f[2], f[3]) == str(post_id).strip()]
+            if not chosen:
+                raise LookupError(f"{row.get('subjNm')} 게시판에서 id '{post_id}'인 글을 찾지 못했습니다"
+                                  f"{f'(제목 {title!r})' if title else ''}. search_course_posts 결과의 id와 제목을 함께 주세요.")
+            board, master_id, master_no, item = chosen[0]
+            return row, base, (board, master_id, master_no), item
+        exact = [f for f in found if html_to_text(f[3].get("title")) == title]
         if not found:
             raise LookupError(f"{row.get('subjNm')} 공지사항·자료실에서 '{title}' 제목의 글을 찾지 못했습니다.")
         if len(exact) != 1 and len(found) > 1:
-            names = ", ".join(f"[{b}] {html_to_text(i.get('title'))}" for b, _, _, i in found[:8])
-            raise LookupError(f"'{title}'와 일치하는 글이 여러 개입니다. 제목을 더 구체적으로 주세요: {names}")
+            names = ", ".join(f"[{b}] {html_to_text(i.get('title'))} (id {self._post_id(n, i)}, {fmt_kst(i.get('registDt')) or '?'})"
+                              for b, _, n, i in found[:8])
+            raise LookupError(f"'{title}'와 일치하는 글이 여러 개입니다. 제목을 더 구체적으로 주거나 id를 함께 주세요: {names}")
         board, master_id, master_no, item = (exact or found)[0]
         return row, base, (board, master_id, master_no), item
 
-    async def course_post(self, course: str, title: str) -> dict[str, Any]:
-        """One notice/materials post: body as text and attachment names. Author ids, names and IPs are left out."""
-        row, base, (board, master_id, master_no), item = await self._find_post(course, title)
+    async def _file_list(self, storage: str, attach_id: Any) -> list[dict[str, Any]]:
+        if not attach_id:
+            return []
+        listed = await self._client.post(FILE_LIST, {"storageId": storage, "attachId": attach_id})
+        return [f for f in _list(listed, FILE_LIST) if isinstance(f, dict)]
+
+    @staticmethod
+    def _file_rows(files: list[dict[str, Any]]) -> list[dict[str, Any]]:
+        return [{"index": i, "name": clean(f.get("fileName")), "size_kb": round((_int(f.get("fileSize")) or 0) / 1024)}
+                for i, f in enumerate(files, start=1)]
+
+    async def course_post(self, course: str, title: str, post_id: str | None = None) -> dict[str, Any]:
+        """One notice/materials post: body as text and attachment names. Author ids, names and IPs are left out.
+        The body is someone else's text and comes wrapped in the KLAS_CONTENT marker."""
+        row, base, (board, master_id, master_no), item = await self._find_post(course, title, post_id)
         view = await self._client.post(f"/std/lis/sport/{master_id}/BoardStdView.do", {
             **base, "cmd": "select", "boardNo": str(item.get("boardNo")), "masterNo": master_no})
-        post = (view or {}).get("board") or {}
-        if not post:
+        post = (view if isinstance(view, dict) else {}).get("board") or {}
+        if not isinstance(post, dict) or not post:
             raise LookupError("글을 열지 못했습니다(삭제됐거나 권한이 없을 수 있음).")
-        files: list[dict[str, Any]] = []
-        if post.get("atchFileId"):
-            listed = await self._client.post(FILE_LIST, {"storageId": "CLS_BOARD", "attachId": post["atchFileId"]})
-            files = [{"name": f.get("fileName"), "size_kb": round((f.get("fileSize") or 0) / 1024)}
-                     for f in listed or [] if isinstance(f, dict)]
+        files = self._file_rows(await self._file_list("CLS_BOARD", post.get("atchFileId")))
         return {
             "course": row.get("subjNm"),
             "board": board,
+            "id": self._post_id(master_no, item),
             "title": html_to_text(post.get("title")),
             "posted": fmt_kst(post.get("registDt")),
             "updated": fmt_kst(post.get("updtDt")),
-            "body": html_to_text(post.get("content")),
+            "body": untrusted(html_to_text(post.get("content"))),
             "attachments": files,
         }
 
     async def read_attachment(self, course: str, title: str, file_name: str = "", part: str = "1",
-                              source: str = "post") -> dict[str, Any]:
+                              source: str = "post", item_id: str | None = None,
+                              file_index: str | int | None = None) -> dict[str, Any]:
         """Text of one attachment on a board post (source "post") or an assignment (source "assignment").
 
-        Long text comes in parts of PART_CHARS characters; ask again with part=2, 3, ...
+        item_id is the post's or assignment's id from the list tools; file_index (1, 2, ...) the
+        attachment's index from get_course_post / get_assignment_detail. Long text comes in parts of
+        PART_CHARS characters; ask again with part=2, 3, ... The text is someone else's and comes
+        wrapped in the KLAS_CONTENT marker.
         """
         if source not in ("post", "assignment"):
             raise LookupError("source는 'post'(게시판 글) 또는 'assignment'(과제)여야 합니다.")
         if source == "assignment":
-            row, task = await self._find_task(course, title)
+            row, task = await self._find_task(course, title, item_id)
             view = await self._client.post(TASK_VIEW, {"selectChangeYn": "Y", "selectYearhakgi": row.get("yearhakgi"),
                                                        "selectSubj": row.get("subj"), "ordseq": task.get("ordseq")})
-            rpt = (view or {}).get("rpt") or {}
+            rpt = (view if isinstance(view, dict) else {}).get("rpt") or {}
             if rpt.get("attachopen") == "N":
                 raise LookupError("이 과제의 첨부 파일은 제출 기한 전에는 공개되지 않습니다.")
-            attach_id, storage, where = rpt.get("atchFileId"), "CLS_PROF_TASK", rpt.get("title") or task.get("title")
+            attach_id, storage, where = rpt.get("atchFileId"), "CLS_PROF_TASK", clean(rpt.get("title") or task.get("title"))
         else:
-            row, base, (_, master_id, master_no), item = await self._find_post(course, title)
+            row, base, (_, master_id, master_no), item = await self._find_post(course, title, item_id)
             attach_id, storage, where = item.get("atchFileId"), "CLS_BOARD", html_to_text(item.get("title"))
             if not attach_id:  # list rows normally carry it; open the post if this one doesn't
                 view = await self._client.post(f"/std/lis/sport/{master_id}/BoardStdView.do", {
                     **base, "cmd": "select", "boardNo": str(item.get("boardNo")), "masterNo": master_no})
-                attach_id = ((view or {}).get("board") or {}).get("atchFileId")
-        files = [f for f in (await self._client.post(FILE_LIST, {"storageId": storage, "attachId": attach_id})
-                             if attach_id else []) or [] if isinstance(f, dict)]
+                attach_id = (((view if isinstance(view, dict) else {}).get("board")) or {}).get("atchFileId")
+        files = await self._file_list(storage, attach_id)
         if not files:
             raise LookupError(f"'{where}'에는 첨부 파일이 없습니다.")
-        exact = [f for f in files if file_name and _norm(f.get("fileName")) == _norm(file_name)]
-        chosen = exact or [f for f in files if _matches(f.get("fileName"), file_name or None)]
+        names = ", ".join(f"{i}. {f.get('fileName')}" for i, f in enumerate(files, start=1))
+        index = _int(file_index) if file_index not in (None, "") else None
+        if index is not None:
+            if not 1 <= index <= len(files):
+                raise LookupError(f"file_index는 1~{len(files)} 사이여야 합니다. 첨부 파일: {names}")
+            chosen = [files[index - 1]]
+        else:
+            exact = [f for f in files if file_name and _norm(f.get("fileName")) == _norm(file_name)]
+            chosen = exact or [f for f in files if _matches(f.get("fileName"), file_name or None)]
         if len(chosen) != 1:
-            names = ", ".join(str(f.get("fileName")) for f in files)
-            hint = "파일 이름을 정해 주세요" if len(chosen) > 1 else f"'{file_name}'와 일치하는 파일이 없습니다"
+            hint = ("파일 이름을 정해 주세요(또는 file_index)" if len(chosen) > 1
+                    else f"'{file_name}'와 일치하는 파일이 없습니다")
             raise LookupError(f"{hint}. 첨부 파일: {names}")
         f = chosen[0]
+        size = _int(f.get("fileSize")) or 0
+        if size > MAX_DOWNLOAD_BYTES:  # refuse before downloading, so a retry costs the school nothing
+            raise LookupError(f"{f.get('fileName')}: 파일이 너무 큽니다({size / 1024 / 1024:.0f}MB, 최대 "
+                              f"{MAX_DOWNLOAD_BYTES // (1024 * 1024)}MB). KLAS에서 직접 내려받아 주세요.")
         try:
             kind, text = await self._attachment_text(str(f.get("download") or ""), str(f.get("fileName")))
         except UnreadableAttachment as e:
             raise LookupError(f"{f.get('fileName')}: {e}") from None
         chunk, total = split_parts(text, _int(part) or 1)
-        return {"course": row.get("subjNm"), "from": where, "file": f.get("fileName"),
-                "size_kb": round((f.get("fileSize") or 0) / 1024), "kind": kind,
-                "part": min(max(_int(part) or 1, 1), total), "total_parts": total, "text": chunk}
+        return {"course": row.get("subjNm"), "from": where, "file": clean(f.get("fileName")),
+                "size_kb": round(size / 1024), "kind": kind,
+                "part": min(max(_int(part) or 1, 1), total), "total_parts": total, "text": untrusted(chunk) or ""}
 
     async def _attachment_text(self, path: str, name: str) -> tuple[str, str]:
-        """Download and extract once; part=2, 3, ... reuse the text for a few minutes."""
-        hit = self._texts.get(path)
-        if hit and time.monotonic() - hit[0] < ATTACHMENT_TEXT_TTL:
-            return hit[1], hit[2]
+        """Download and extract once per file: a retry or part=2, 3, ... while the first read is still
+        running waits for it, and finished text is reused for a few minutes. A caller that gives up
+        (a cancelled tool call) doesn't cancel the read for the next one."""
+        now = time.monotonic()
+        entry = self._texts.get(path)
+        if entry:
+            task, finished_at = entry
+            ttl = UNREADABLE_TTL if task.done() and not task.cancelled() and task.exception() else ATTACHMENT_TEXT_TTL
+            if not task.done() or (finished_at is not None and now - finished_at < ttl):
+                return await asyncio.shield(task)
+        task = asyncio.ensure_future(self._read_file(path, name))
+        entry = [task, None]
+        self._texts[path] = entry
+
+        def finished(t: asyncio.Task[tuple[str, str]]) -> None:
+            error = None if t.cancelled() else t.exception()  # also marks the error as seen
+            if t.cancelled() or (error is not None and not isinstance(error, UnreadableAttachment)):
+                # KLAS or network trouble: the next try downloads again
+                if self._texts.get(path) is entry:
+                    del self._texts[path]
+                return
+            entry[1] = time.monotonic()
+            done = [p for p, (other, _) in self._texts.items() if other.done()]
+            for old in done[:max(0, len(self._texts) - ATTACHMENT_TEXT_CACHE)]:
+                del self._texts[old]
+
+        task.add_done_callback(finished)
+        return await asyncio.shield(task)
+
+    async def _read_file(self, path: str, name: str) -> tuple[str, str]:
         data = await self._client.download(path, MAX_DOWNLOAD_BYTES)
-        kind, text = await asyncio.to_thread(extract_text, name, data)  # big PDFs: keep the event loop free
-        self._texts[path] = (time.monotonic(), kind, text)
-        while len(self._texts) > ATTACHMENT_TEXT_CACHE:
-            self._texts.pop(next(iter(self._texts)))
-        return kind, text
+        try:
+            kind, text = await asyncio.to_thread(extract_text, name, data)  # big PDFs: keep the event loop free
+        except UnreadableAttachment:
+            raise
+        except Exception as e:  # a parser failing on a broken file is not "KLAS changed"
+            raise UnreadableAttachment("파일을 읽지 못했습니다(손상됐거나 지원하지 않는 형식일 수 있음).") from e
+        return kind, clean(text)
 
     async def syllabus(self, course: str) -> dict[str, Any]:
-        """The course's syllabus (강의계획서). Professor's mobile number and TA details are left out."""
+        """The course's syllabus (강의계획서). KLAS's mobile-number and TA fields are left out, and so is
+        a 연락처 that is a mobile number. Free text the professor wrote is passed on as written,
+        wrapped in the KLAS_CONTENT marker."""
         return await self._syllabus(await self._one_course(course))
 
     async def _syllabus(self, row: dict[str, Any]) -> dict[str, Any]:
-        data = await self._client.post(SYLLABUS, {"selectSubj": row.get("subj")})
-        plan = data[0] if isinstance(data, list) and data and isinstance(data[0], dict) else {}
+        data = await self._cached((SYLLABUS, row.get("subj")), SYLLABUS_TTL,
+                                  lambda: self._client.post(SYLLABUS, {"selectSubj": row.get("subj")}))
+        data = _list(data, SYLLABUS)
+        plan = data[0] if data and isinstance(data[0], dict) else {}
         if not plan:
             raise LookupError(f"{row.get('subjNm')}의 강의계획서가 아직 없습니다.")
 
         def text(field: str) -> str | None:
-            value = str(plan.get(field) or "").replace("\r\n", "\n").replace("\r", "\n").strip()
+            value = clean(str(plan.get(field) or "")).strip()
             return value[:SYLLABUS_TEXT_CHARS] or None
 
-        weeks = [{"week": i, "topic": text(f"week{i}Lecture"), "note": text(f"week{i}Bigo")}
+        def free(field: str) -> str | None:
+            return untrusted(text(field))
+
+        weeks = [{"week": i, "topic": free(f"week{i}Lecture"), "note": free(f"week{i}Bigo")}
                  for i in range(1, 17) if text(f"week{i}Lecture") or text(f"week{i}Bigo")]
         grading = {name: _int(plan.get(field)) or 0 for name, field in GRADING}
         books = [{"title": text(f"{p}Name"), "author": text(f"{w}Name"), "publisher": text(f"{c}Name"),
@@ -813,6 +1094,7 @@ class KlasService:
                  for p, w, c, y in [("book", "write", "company", "print")]
                  + [(f"book{i}", f"write{i}", f"company{i}", f"print{i}") for i in (1, 2, 3)]
                  if text(f"{p}Name")]
+        phone = text("telNo")
         return {
             "course": row.get("subjNm"),
             "category": text("codeName1"),
@@ -820,57 +1102,69 @@ class KlasService:
             "professor": text("memberName") or row.get("profNm"),
             "professor_title": text("jikgeubName"),
             "professor_email": text("email"),
-            "professor_office_phone": text("telNo"),
-            "overview": text("summary"),
-            "objectives_and_method": text("purpose"),
-            "competencies": text("gwamokAble"),
-            "prerequisites": text("preGwamok"),
+            "professor_office_phone": None if _is_mobile(phone) else phone,
+            "overview": free("summary"),
+            "objectives_and_method": free("purpose"),
+            "competencies": free("gwamokAble"),
+            "prerequisites": free("preGwamok"),
             "weekly_plan": weeks,
             "grading_percent": {k: v for k, v in grading.items() if v},
-            "grading_note": text("gitaDetail"),
+            "grading_note": free("gitaDetail"),
             "textbooks": books,
-            "notes": text("bigo"),
-            "other": text("weekGita"),
+            "notes": free("bigo"),
+            "other": free("weekGita"),
         }
 
-    async def _find_task(self, course: str, title: str) -> tuple[dict[str, Any], dict[str, Any]]:
+    async def _find_task(self, course: str, title: str, task_id: str | None = None
+                         ) -> tuple[dict[str, Any], dict[str, Any]]:
+        """One assignment by title; task_id (the "id" get_assignments returns) picks one among
+        assignments with the same title."""
         if course and course.strip():
             # Settle the course first (exact name wins), so "자료구조" doesn't also search "자료구조실습".
             row = await self._one_course(course)
             per_course = [(row, await self._items(TASKS, row))]
         else:
             per_course = await self._per_course(TASKS, None, None)
-        found = [(row, t) for row, items in per_course for t in items if _matches(t.get("title"), title or None)]
+        title = (title or "").strip()
+        found = [(row, t) for row, items in per_course for t in items if _matches(clean(t.get("title")), title or None)]
+        if task_id is not None and str(task_id).strip():
+            # Only an assignment the list itself returned: an id never reaches KLAS unchecked.
+            chosen = [(row, t) for row, t in found if str(t.get("ordseq")) == str(task_id).strip()]
+            if len(chosen) == 1:
+                return chosen[0]
+            raise LookupError(f"id '{task_id}'인 과제를 찾지 못했습니다. 과제 목록 도구(get_assignments)의 id와 제목을 확인하세요.")
         exact = [(row, t) for row, t in found if _norm(t.get("title")) == _norm(title)]
         if len(exact) == 1 or len(found) == 1:
             return (exact or found)[0]
         if not found:
-            raise LookupError(f"'{title}'와 일치하는 과제가 없습니다. my_assignments로 과제 제목을 확인하세요.")
-        names = ", ".join(f"{row.get('subjNm')}: {t.get('title')}" for row, t in found[:8])
-        raise LookupError(f"'{title}'와 일치하는 과제가 여러 개입니다. 과목명이나 제목을 더 구체적으로 주세요: {names}")
+            raise LookupError(f"'{title}'와 일치하는 과제가 없습니다. 과제 목록 도구로 과제 제목을 확인하세요.")
+        names = ", ".join(f"{row.get('subjNm')}: {clean(t.get('title'))} (id {t.get('ordseq')}, 마감 {fmt_kst(t.get('expiredate')) or '?'})"
+                          for row, t in found[:8])
+        raise LookupError(f"'{title}'와 일치하는 과제가 여러 개입니다. 과목명이나 제목을 더 구체적으로 주거나 id를 함께 주세요: {names}")
 
-    async def assignment_detail(self, course: str, title: str) -> dict[str, Any]:
+    async def assignment_detail(self, course: str, title: str, task_id: str | None = None) -> dict[str, Any]:
         """What one assignment asks for: instructions, format, attachments (names), my submission.
 
         Fields are whitelisted: the view response also carries my student id (projid), name and
-        department, which are left out.
+        department, which are left out. Instructions and feedback are someone else's text and come
+        wrapped in the KLAS_CONTENT marker.
         """
-        row, task = await self._find_task(course, title)
+        row, task = await self._find_task(course, title, task_id)
         view = await self._client.post(TASK_VIEW, {"selectChangeYn": "Y", "selectYearhakgi": row.get("yearhakgi"),
                                                    "selectSubj": row.get("subj"), "ordseq": task.get("ordseq")})
-        rpt = (view or {}).get("rpt") or {}
-        smt = (view or {}).get("smt") or None
+        view = _dict(view, TASK_VIEW)
+        rpt = view.get("rpt") or {}
+        smt = view.get("smt") or None
         files: list[dict[str, Any]] = []
         if rpt.get("atchFileId") and rpt.get("attachopen") != "N":
-            listed = await self._client.post(FILE_LIST, {"storageId": "CLS_PROF_TASK", "attachId": rpt["atchFileId"]})
-            files = [{"name": f.get("fileName"), "size_kb": round((f.get("fileSize") or 0) / 1024)}
-                     for f in listed or [] if isinstance(f, dict)]
+            files = self._file_rows(await self._file_list("CLS_PROF_TASK", rpt["atchFileId"]))
         # Same rule as the KLAS page: a score shows only once graded and the professor made scores public.
         score_visible = bool(smt and smt.get("tutordate") and rpt.get("isopenscore") == "Y")
         return {
             "course": row.get("subjNm"),
-            "title": rpt.get("title") or task.get("title"),
-            "instructions": html_to_text(rpt.get("contents")),
+            "title": clean(rpt.get("title") or task.get("title")),
+            "id": task.get("ordseq"),
+            "instructions": untrusted(html_to_text(rpt.get("contents"))),
             "submit_format": rpt.get("submitfiletype"),
             "file_limit_mb": _int(rpt.get("filelimit")),
             "team_assignment": rpt.get("reptype") not in (None, "P"),
@@ -885,7 +1179,7 @@ class KlasService:
                 "submitted_at": fmt_kst(smt.get("registDt")),
                 "score": smt.get("finalscore") if score_visible else None,
                 "score_status": "공개" if score_visible else ("채점 전" if not smt.get("tutordate") else "비공개"),
-                "feedback": html_to_text(smt.get("tutorcontents")) or None,
+                "feedback": untrusted(html_to_text(smt.get("tutorcontents"))),
             },
         }
 
@@ -901,10 +1195,12 @@ class KlasService:
         rows = await self._course_rows(semester, course or None)
 
         async def one(row: dict[str, Any]) -> dict[str, Any]:
-            data = await self._client.post(ATTENDANCE, {"selectYear": year, "selectHakgi": term, "subj": row.get("subj")})
+            body = {"selectYear": year, "selectHakgi": term, "subj": row.get("subj")}
+            data = await self._cached((ATTENDANCE, row.get("subj"), semester), ATTENDANCE_TTL,
+                                      lambda: self._client.post(ATTENDANCE, body))
             counts: Counter[str] = Counter()
             weeks = []
-            for week in data if isinstance(data, list) else []:
+            for week in _list(data, ATTENDANCE):
                 if not isinstance(week, dict):
                     continue  # weeks not held yet come back as null
                 sessions = []
@@ -925,13 +1221,24 @@ class KlasService:
         return await _gather(*(one(r) for r in rows))
 
     async def exam_info(self, course: str | None = None) -> list[dict[str, Any]]:
-        """Per course: exam weeks and grading from the syllabus, plus board posts that mention exams."""
+        """Per course: exam weeks and grading from the syllabus, plus board posts about exams: '시험'
+        on both boards and '고사' (중간고사·기말고사) on the notice board."""
         rows = await self._course_rows(None, course or None)
 
         async def one(row: dict[str, Any]) -> dict[str, Any]:
-            plan, boards = await _gather(self._syllabus_or_none(row), self._boards(row, "ALL", "시험"))
-            posts = sorted((self._post_row(board, item) for (board, _, _), listed in boards
-                            for item in listed.get("list") or []), key=lambda p: p["posted"] or "", reverse=True)
+            plan, exams, tests = await _gather(self._syllabus_or_none(row), self._boards(row, "ALL", "시험"),
+                                               self._boards(row, "ALL", "고사", BOARDS[:1]))
+            seen, posts = set(), []
+            for (board, _, master_no), listed in [*exams, *tests]:
+                for item in listed.get("list") or []:
+                    if not isinstance(item, dict):
+                        continue
+                    post = self._post_row(board, item, master_no)
+                    key = (post["board"], post["title"], post["posted"])
+                    if key not in seen:
+                        seen.add(key)
+                        posts.append(post)
+            posts.sort(key=lambda p: p["posted"] or "", reverse=True)
             weeks = [w for w in (plan or {}).get("weekly_plan", [])
                      if EXAM_WORDS.search(f"{w.get('topic') or ''} {w.get('note') or ''}")]
             return {"course": row.get("subjNm"),
@@ -939,7 +1246,8 @@ class KlasService:
                     "grading_note": (plan or {}).get("grading_note"),
                     "exam_related_weeks": weeks,
                     "exam_posts": posts[:6],
-                    "hint": "글 본문(시험 범위·장소)은 게시판 글 열기 도구로 확인하세요."}
+                    "hint": "글 본문(시험 범위·장소)은 게시판 글 열기 도구로 확인하세요. exam_posts가 비어도 공지가 없다는 "
+                            "뜻은 아닙니다. 게시판 검색 도구로 '기말'·'중간'을 찾아보세요."}
 
         return await _gather(*(one(r) for r in rows))
 
@@ -950,26 +1258,47 @@ class KlasService:
             return None
 
     async def class_changes(self, days: str | int = 14) -> dict[str, Any]:
-        """휴강·보강 notices on every course's notice board in the last `days` days."""
+        """Class cancellations, make-ups, online switches and room changes (휴강·보강·결강·비대면·강의실
+        변경) on every course's notice board in the last `days` days.
+
+        Two requests per course: the newest posts, kept when the title matches CLASS_CHANGE_WORDS, and
+        a '휴강' search (titles and bodies, older posts too)."""
         days = max(1, min(_int(days) or 14, 60))
         since = (self._now() - timedelta(days=days)).strftime("%Y-%m-%d %H:%M")
         rows = await self._course_rows(None, None)
         notice_board = BOARDS[:1]
-        searches = await _gather(*(self._boards(row, "ALL", word, notice_board)
-                                   for row in rows for word in ("휴강", "보강")))
+        searches = [(row, "", self._boards(row, "ALL", "", notice_board)) for row in rows]
+        searches += [(row, "휴강", self._boards(row, "ALL", "휴강", notice_board)) for row in rows]
+        results = await _gather(*(search for _, _, search in searches))
         seen, posts = set(), []
-        for row, result in zip([r for r in rows for _ in (0, 1)], searches, strict=True):
-            for (board, _, _), listed in result:
+        for (row, keyword, _), result in zip(searches, results, strict=True):
+            for (board, _, master_no), listed in result:
                 for item in listed.get("list") or []:
-                    post = {"course": row.get("subjNm"), **self._post_row(board, item)}
+                    if not isinstance(item, dict):
+                        continue
+                    post = {"course": row.get("subjNm"), **self._post_row(board, item, master_no)}
+                    if not keyword and not CLASS_CHANGE_WORDS.search(post["title"]):
+                        continue  # the newest posts: only titles about class changes
                     key = (post["course"], post["title"], post["posted"])
                     if key not in seen and (post["posted"] or "") >= since:
                         seen.add(key)
                         posts.append(post)
         posts.sort(key=lambda p: p["posted"] or "", reverse=True)
         return {"days": days, "since": since, "posts": posts,
-                "note": "각 과목 강의 공지사항에서 '휴강'·'보강'을 검색한 결과입니다. 내용은 게시판 글 열기 도구로 확인하세요. "
-                        "휴강은 문자·메일·수업 중에만 알리는 경우도 있어, 여기 없다고 휴강이 아니라는 뜻은 아닙니다."}
+                "note": "각 과목 강의 공지사항의 최근 글 중 휴강·보강·결강·비대면(온라인 전환)·강의실 변경 제목과, '휴강' 검색 "
+                        "결과입니다. 내용은 게시판 글 열기 도구로 확인하세요. 휴강은 문자·메일·수업 중에만 알리는 경우도 있어, "
+                        "여기 없다고 휴강이 아니라는 뜻은 아닙니다."}
+
+    async def _student_record(self) -> dict[str, Any]:
+        """학적 (AtnlcScreHakjukInfo.do), shared by grades, graduation progress and department()."""
+        record = await self._cached(("record",), RECORD_TTL, lambda: self._client.post(STUDENT_RECORD))
+        return _dict(record, STUDENT_RECORD)
+
+    async def department(self) -> str | None:
+        """My department (학과/학부) from the 학적, e.g. "정보융합학부"; a track after a space is dropped.
+        Stays on this PC: my_notices filters department notices with it locally."""
+        name = str((await self._student_record()).get("hakgwa") or "").split()
+        return name[0] if name else None
 
     async def graduation_progress(self) -> dict[str, Any]:
         """Where I stand on credits and general-education rules (교양 필수·균형 이수현황).
@@ -979,18 +1308,23 @@ class KlasService:
         pointed to the department office.
         """
         gen, totals, record = await _gather(self._client.post(GEN_ED), self._client.post(GRADE_TOTALS),
-                                            self._client.post(STUDENT_RECORD))
-        gen = gen if isinstance(gen, dict) else {}
-        totals = totals if isinstance(totals, dict) else {}
-        record = record if isinstance(record, dict) else {}
+                                            self._student_record())
+        gen, totals = _dict(gen, GEN_ED), _dict(totals, GRADE_TOTALS)
         areas = {name: sum(_int(gen.get(k)) or 0 for k in keys) for name, keys in BALANCED_AREAS}
         required = _int(gen.get("aa8128")) or 0
         general_total = required + sum(areas.values())
         areas_taken = sum(1 for v in areas.values() if v > 0)
         hakbun = str(record.get("hakbun") or "")
         admitted = int(hakbun[:4]) if hakbun[:4].isdigit() else None
-        if admitted and admitted >= 2025:
-            rule = "균형교양 8개 영역 중 4개 영역 이상을 포함해 교양 30학점"
+        transfer = {"total": record.get("prevHakjumNum"), "general_education": record.get("cultureHakjum"),
+                    "major": record.get("majorHakjum"), "elective": record.get("generalHakjum")}
+        if any((_int(v) or 0) > 0 for v in transfer.values()):
+            # 편입생: the 학번 carries the transfer year and the 교양 rules differ; no firm verdict.
+            rule = "편입생 교양 이수 기준(신입학 기준은 적용하지 않음)"
+            check = {"met": None, "transfer_credits": transfer,
+                     "note": "편입생은 교양 이수 기준이 다릅니다. 편입 인정학점을 포함한 기준은 학과·학사지원팀 졸업기준표를 확인하세요."}
+        elif admitted and admitted >= 2025:
+            rule = "균형교양 8개 영역 중 4개 영역 이상을 포함해 교양 30학점(신입학 기준)"
             check = {"areas_needed": max(0, 4 - areas_taken), "credits_needed": max(0, 30 - general_total),
                      "met": areas_taken >= 4 and general_total >= 30}
         else:
@@ -1070,12 +1404,13 @@ class KlasService:
         """Grades by semester, credits and the two KLAS grade averages.
 
         Whitelisted: the student record endpoint also returns my name, student id, e-mail and
-        advisor, which are left out.
+        advisor, which are left out. The grade is the first word of KLAS's grade text; rows marked
+        삭제 (dropped credits) are listed with deleted=true and left out of every computed number.
+        KLAS's own averages (gpa) are the official ones.
         """
         semesters, totals, record = await _gather(self._client.post(GRADES), self._client.post(GRADE_TOTALS),
-                                                  self._client.post(STUDENT_RECORD))
-        totals = totals if isinstance(totals, dict) else {}
-        record = record if isinstance(record, dict) else {}
+                                                  self._student_record())
+        totals = _dict(totals, GRADE_TOTALS)
         extra, _ = await _gather_some({"standing": self.standing(), "period": self.grade_period()}, optional=True)
 
         def credits(kind: str) -> dict[str, Any]:
@@ -1084,17 +1419,18 @@ class KlasService:
                     "other": totals.get(f"etc{prefix}Hakjum"), "total": totals.get(f"{prefix[0].lower()}{prefix[1:]}Hakjum")}
 
         out_semesters = []
-        for s in semesters or []:
-            courses = [{"course": g.get("gwamokKname"), "category": g.get("codeName1"), "credits": g.get("hakjumNum"),
-                        "grade": (g.get("getGrade") or "").strip() or None, "retake": g.get("retakeOpt") == "Y"}
-                       for g in s.get("sungjukList") or []]
-            graded = [(c["credits"] or 0, GRADE_POINTS[c["grade"]]) for c in courses if c["grade"] in GRADE_POINTS]
+        for s in _list(semesters, GRADES):
+            if not isinstance(s, dict):
+                continue
+            courses = [_grade_row(g) for g in s.get("sungjukList") or [] if isinstance(g, dict)]
+            counted = [c for c in courses if not c.get("deleted")]
+            graded = [(c["credits"] or 0, GRADE_POINTS[c["grade"]]) for c in counted if c["grade"] in GRADE_POINTS]
             weight = sum(w for w, _ in graded)
             out_semesters.append({
                 "year": s.get("thisYear"), "term": s.get("hakgi"),
-                "registered_credits": sum(c["credits"] or 0 for c in courses),
-                "earned_credits": (sum(c["credits"] or 0 for c in courses if c["grade"] not in ("F", "NP"))
-                                   if any(c["grade"] for c in courses) else None),
+                "registered_credits": sum(c["credits"] or 0 for c in counted),
+                "earned_credits": (sum(c["credits"] or 0 for c in counted if c["grade"] not in ("F", "NP"))
+                                   if any(c["grade"] for c in counted) else None),
                 "gpa": round(sum(w * p for w, p in graded) / weight, 2) if weight else None,
                 "courses": courses,
             })
@@ -1104,8 +1440,8 @@ class KlasService:
             "student": {"department": record.get("hakgwa"), "year": record.get("grade"),
                         "status": record.get("hakjukStatu")},
             "gpa": {"transcript_record": totals.get("hwakinScoresum"), "certificate": totals.get("jaechulScoresum"),
-                    "scale": 4.5, "note": "KLAS 계산값(학적부 기준 / 성적증명서 기준, 재수강 반영). 학기별 gpa는 "
-                                          "이 도구가 그 학기 당시 성적으로 계산한 값"},
+                    "scale": 4.5, "note": "KLAS 계산값(학적부 기준 / 성적증명서 기준, 재수강 반영)이 공식 평점입니다. 학기별 gpa와 "
+                                          "summary는 이 도구가 과목 목록으로 계산한 참고값입니다"},
             "credits": {"applied": credits("applied"), "earned": credits("earned"), "deleted": credits("deleted")},
             "transfer_credits": transfer if any(transfer.values()) else None,
             "summary": grade_summary(out_semesters),
@@ -1120,7 +1456,7 @@ class KlasService:
         return [{"year": r.get("thisYear"), "term": r.get("hakgi"), "credits": r.get("applyHakjum"),
                  "gpa": r.get("applyPoint"), "rank": r.get("classOrder"), "of": r.get("manNum"),
                  "percentile": r.get("pcnt"), "academic_warning": r.get("warningOpt") or None}
-                for r in rows or [] if isinstance(r, dict)]
+                for r in _list(rows, STANDING) if isinstance(r, dict)]
 
     async def grade_period(self) -> dict[str, Any]:
         """When this term's grades can be viewed (AtnlcScreCheckTerm.do). The grade page asks with
@@ -1151,7 +1487,7 @@ class KlasService:
         round_ = term.get("judgeChasu")
         year, _, hakgi = (await self.current_semester()).partition(",")
         rows = await self._client.post(EVAL_COURSES, {"thisYear": year, "hakgi": hakgi, "judgeChasu": round_, "termYn": "Y"})
-        rows = [r for r in rows or [] if isinstance(r, dict)]
+        rows = [r for r in _list(rows, EVAL_COURSES) if isinstance(r, dict)]
         return {
             "open": True, "round": {"middle": "중간", "last": "기말"}.get(round_, round_),
             "courses": len(rows),

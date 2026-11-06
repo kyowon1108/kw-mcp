@@ -27,6 +27,12 @@ SYLLABUS_ROW = {
 }
 
 
+
+def wrapped(text: str) -> str:
+    """Author-written text as the tools return it: inside the KLAS_CONTENT marker."""
+    return f"<<<KLAS_CONTENT\n{text}\nKLAS_CONTENT>>>"
+
+
 NOTICE_ID, MATERIALS_ID = BOARDS[0][1], BOARDS[1][1]
 BOARD_LISTS = {
     NOTICE_ID: [{"boardNo": 11, "masterNo": 1, "title": "휴강 안내", "userNm": "김교수", "registerId": "2000000000AB"}],
@@ -75,12 +81,12 @@ async def test_assignment_detail_reads_one_task_and_leaves_out_my_identity():
     out = await svc.assignment_detail("데이터", "HW3")
     text = json.dumps(out, ensure_ascii=False)
     assert "2022000000" not in text and "홍길동" not in text and "컴퓨터정보공학부" not in text
-    assert out["instructions"] == "Naive Bayes 구현\n\n- 코드\n- 보고서"
-    assert out["attachments"] == [{"name": "hw3.pdf", "size_kb": 200}] and "download" not in text
+    assert out["instructions"] == wrapped("Naive Bayes 구현\n\n- 코드\n- 보고서")
+    assert out["attachments"] == [{"index": 1, "name": "hw3.pdf", "size_kb": 200}] and "download" not in text
     assert out["due"] == "2026-11-07 23:59" and out["submit_format"] == "PDF" and out["file_limit_mb"] == 20
     sub = out["my_submission"]
-    assert sub["score"] is None and sub["score_status"] == "비공개" and sub["feedback"] == "잘했음"
-    view = [b for p, b in client.calls if p == TASK_VIEW][0]
+    assert sub["score"] is None and sub["score_status"] == "비공개" and sub["feedback"] == wrapped("잘했음")
+    view = next(b for p, b in client.calls if p == TASK_VIEW)
     assert view["selectSubj"] == "U2026A" and view["selectYearhakgi"] == "2026,2"
 
 
@@ -97,9 +103,10 @@ async def test_syllabus_keeps_course_content_and_work_contact_only():
     out = await svc.syllabus("데이터마이닝")
     text = json.dumps(out, ensure_ascii=False)
     assert "010-0000-0000" not in text and "ta@kw.ac.kr" not in text and "조교" not in text
-    assert out["professor_email"] == "prof@kw.ac.kr" and out["overview"] == "데이터에서 패턴을 찾는다.\n- 실습 포함"
-    assert out["weekly_plan"] == [{"week": 1, "topic": "소개", "note": None},
-                                  {"week": 2, "topic": "결정트리", "note": "실습"}]
+    assert out["professor_email"] == "prof@kw.ac.kr" and out["overview"] == wrapped("데이터에서 패턴을 찾는다.\n- 실습 포함")
+    assert out["professor_office_phone"] == "02-000-0000"
+    assert out["weekly_plan"] == [{"week": 1, "topic": wrapped("소개"), "note": None},
+                                  {"week": 2, "topic": wrapped("결정트리"), "note": wrapped("실습")}]
     assert out["grading_percent"] == {"attendance": 10, "midterm": 30, "final": 40, "assignments": 20}
     assert out["textbooks"] == [{"title": "Data Mining", "author": "Han", "publisher": "MK", "year": "2022"}]
     assert [b for p, b in client.calls if p == SYLLABUS] == [{"selectSubj": "U2026A"}]
@@ -123,8 +130,8 @@ async def test_course_post_opens_one_post_without_author_details():
     out = await svc.course_post("데이터", "휴강")
     text = json.dumps(out, ensure_ascii=False)
     assert "김교수" not in text and "2000000000" not in text and "10.0.0.1" not in text
-    assert out == {"course": "데이터마이닝", "board": "강의 공지사항", "title": "휴강 안내", "posted": "2026-11-05 09:00",
-                   "updated": None, "body": "11/12 휴강", "attachments": []}
+    assert out == {"course": "데이터마이닝", "board": "강의 공지사항", "id": "1-11", "title": "휴강 안내",
+                   "posted": "2026-11-05 09:00", "updated": None, "body": wrapped("11/12 휴강"), "attachments": []}
     lists = [b for p, b in client.calls if p.endswith("/BoardStdList.do")]
     assert len(lists) == 2 and lists[0]["searchCondition"] == "TLE" and lists[0]["searchKeyword"] == "휴강"
 
@@ -132,8 +139,8 @@ async def test_course_post_opens_one_post_without_author_details():
 async def test_course_post_prefers_the_exact_title_and_lists_attachments():
     svc, _ = service()
     out = await svc.course_post("데이터", "10주차 자료")
-    assert out["board"] == "강의 자료실" and out["body"] == "슬라이드"
-    assert out["attachments"] == [{"name": "hw3.pdf", "size_kb": 200}]
+    assert out["board"] == "강의 자료실" and out["body"] == wrapped("슬라이드")
+    assert out["attachments"] == [{"index": 1, "name": "hw3.pdf", "size_kb": 200}]
     with pytest.raises(LookupError, match="여러 개"):
         await svc.course_post("데이터", "10주차")
     with pytest.raises(LookupError, match="찾지 못했습니다"):

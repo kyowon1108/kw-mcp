@@ -57,7 +57,7 @@ async def test_attendance_counts_statuses_and_drops_staff_ids():
     assert out["summary"] == {"출석": 1, "결석": 1, "지각": 1, "조퇴": 0, "공결": 1} and out["recorded_sessions"] == 4
     assert out["weeks"][0] == {"week": 1, "sessions": [{"session": 1, "status": "출석", "date": "2026-09-02"},
                                                        {"session": 2, "status": "지각", "date": "2026-09-04"}]}
-    body = [b for p, b in client.calls if p == ATTENDANCE][0]
+    body = next(b for p, b in client.calls if p == ATTENDANCE)
     assert body == {"selectYear": "2026", "selectHakgi": "2", "subj": "U2026A"}
     everyone = await svc.attendance()
     assert [c["course"] for c in everyone] == ["데이터마이닝", "확장현실"] and everyone[1]["recorded_sessions"] == 0
@@ -80,7 +80,8 @@ async def test_class_changes_lists_recent_posts_once():
     assert titles == ["11/12(수) 휴강 안내", "11/19 보강 및 휴강 공지"]  # september post too old; no duplicate
     assert out["posts"][0]["course"] == "데이터마이닝"
     searched = {(b["selectSubj"], b["searchKeyword"]) for p, b in client.calls if p.endswith("/BoardStdList.do")}
-    assert searched == {("U2026A", "휴강"), ("U2026A", "보강"), ("U2026B", "휴강"), ("U2026B", "보강")}
+    # per course: the newest notices (title filter) and one '휴강' search of titles and bodies
+    assert searched == {("U2026A", ""), ("U2026A", "휴강"), ("U2026B", ""), ("U2026B", "휴강")}
 
 
 def test_schedule_note_for_unassigned_rooms():

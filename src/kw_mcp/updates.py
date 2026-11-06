@@ -6,6 +6,7 @@ mentions a newer version in the combined tools' answers, and on request saves th
 checking the signature and the hash. A compromised server can't make it offer a file we didn't sign.
 
 Only inside the extension (KW_MCP_DISTRIBUTION=mcpb) and only with an invite, which names the server.
+Without one, check() says so instead of quietly reporting "no new version".
 """
 
 from __future__ import annotations
@@ -24,7 +25,7 @@ import httpx
 from . import release
 from .agent import installed_version, parse_invite
 
-__all__ = ["download", "enabled", "installed_version", "latest", "notice", "server"]
+__all__ = ["check", "download", "enabled", "installed_version", "latest", "notice", "server", "unavailable_reason"]
 
 CHECK_EVERY_S = 6 * 3600
 RETRY_AFTER_FAILURE_S = 600
@@ -35,6 +36,7 @@ MAX_MCPB_BYTES = 20 * 1024 * 1024
 RAW = {"Accept-Encoding": "identity"}  # caps count bytes received, so no decompression
 
 _cache: tuple[float, float, dict[str, Any] | None] | None = None  # (checked_at, valid_for, newer)
+_last_ok = True  # whether the latest check reached the server and read its manifest
 _lock: asyncio.Lock | None = None
 
 
@@ -42,17 +44,37 @@ def enabled() -> bool:
     return os.environ.get("KW_MCP_DISTRIBUTION") == "mcpb"
 
 
-def server() -> str | None:
+def _invite() -> str:
     invite = os.environ.get("KW_CAMPUS_INVITE", "").strip()
+    return "" if invite.startswith("${") else invite  # Claude Desktop passes an empty field through as "${user_config.…}"
+
+
+def server() -> str | None:
+    invite = _invite()
     try:
         return parse_invite(invite)[0] if invite else None
     except ValueError:
         return None
 
 
+def unavailable_reason() -> str | None:
+    """Why this copy can't look for new versions, or None if it can."""
+    if not enabled():
+        return "새 버전 확인은 Claude 데스크톱 확장에서만 합니다. PC 에이전트는 스스로 업데이트합니다(`kw-mcp update`)."
+    invite = _invite()
+    if not invite:
+        return ("초대 코드가 없어 새 버전을 확인할 수 없습니다(보안 수정 포함). Claude 데스크톱 설정 → 확장 프로그램 → "
+                "광운대 KLAS → 구성에 초대 코드를 넣거나, 초대해 준 사람에게 최신 파일을 받으세요.")
+    try:
+        parse_invite(invite)
+    except ValueError as e:
+        return f"초대 코드를 읽지 못해 새 버전을 확인할 수 없습니다: {e} 확장 설정에서 초대 코드를 다시 붙여 넣으세요."
+    return None
+
+
 async def latest(http: httpx.AsyncClient | None = None, *, force: bool = False) -> dict[str, Any] | None:
     """The newer signed extension release, or None (up to date, can't check, or the check failed)."""
-    global _cache, _lock
+    global _cache, _lock, _last_ok
     base = server() if enabled() else None
     if not base:
         return None
@@ -60,9 +82,21 @@ async def latest(http: httpx.AsyncClient | None = None, *, force: bool = False) 
     async with _lock:
         if _cache and not force and time.monotonic() - _cache[0] < _cache[1]:
             return _cache[2]
-        newer, ok = await _fetch(base, http)
-        _cache = (time.monotonic(), CHECK_EVERY_S if ok else RETRY_AFTER_FAILURE_S, newer)
+        newer, _last_ok = await _fetch(base, http)
+        _cache = (time.monotonic(), CHECK_EVERY_S if _last_ok else RETRY_AFTER_FAILURE_S, newer)
         return newer
+
+
+async def check(http: httpx.AsyncClient | None = None) -> dict[str, Any]:
+    """What check_update answers: the installed version, a newer signed one if any, and when the
+    check could not run, the reason (no invite, a malformed one, the server unreachable)."""
+    out: dict[str, Any] = {"installed": installed_version(), "checked": False, "update_available": None}
+    if reason := unavailable_reason():
+        return {**out, "reason": reason}
+    newer = await latest(http, force=True)
+    if not _last_ok:
+        return {**out, "reason": "업데이트 서버에 연결하지 못했습니다. 잠시 뒤 다시 확인하세요."}
+    return {**out, "checked": True, "update_available": notice(newer) if newer else None}
 
 
 async def _read_capped(response: httpx.Response, cap: int) -> bytes:
@@ -114,9 +148,13 @@ def downloads_dir() -> Path:
 
 async def download(http: httpx.AsyncClient | None = None, dest_dir: Path | None = None) -> Path:
     """Save the newer extension after checking it against the signed hash. Returns the file."""
+    if reason := unavailable_reason():
+        raise LookupError(reason)
     newer = await latest(http, force=True)
     if not newer:
-        raise LookupError("받을 새 버전이 없습니다(이미 최신이거나 서버를 확인할 수 없습니다).")
+        if not _last_ok:
+            raise LookupError("업데이트 서버에 연결하지 못했습니다. 잠시 뒤 다시 시도하세요.")
+        raise LookupError("받을 새 버전이 없습니다. 이미 최신 버전입니다.")
     client = http or httpx.AsyncClient(timeout=httpx.Timeout(30.0))
     try:
         async with asyncio.timeout(DOWNLOAD_DEADLINE_S):

@@ -6,16 +6,24 @@ readme = "README.md"
 authors = [
     { name = "kyowon1108", email = "kyowon1108@gmail.com" }
 ]
+license = "MIT"
+license-files = ["LICENSE"]
 requires-python = ">=3.12"
+# Upper bounds on every major version: PC agents install with the release's constraints file
+# (exported from uv.lock), but anything resolving the wheel on its own must not pick an untested major.
 dependencies = [
-    "cryptography>=50.0.2",
-    "httpx>=0.28.1",
-    "keyring>=25.7.0",
-    "mcp[cli]>=2.3",
-    "olefile>=0.47",
-    "pypdf>=5",
+    # cryptography 49+ ships no Intel-Mac (x86_64/universal2) or Windows-ARM wheel. Those two
+    # platforms stay on the last release that has one, so nobody has to compile it (Rust, OpenSSL).
+    "cryptography>=50.0.2,<51 ; (sys_platform != 'darwin' and sys_platform != 'win32') or (sys_platform == 'darwin' and platform_machine != 'x86_64') or (sys_platform == 'win32' and platform_machine != 'ARM64')",
+    "cryptography>=48.0.1,<49 ; sys_platform == 'darwin' and platform_machine == 'x86_64'",
+    "cryptography==46.0.3 ; sys_platform == 'win32' and platform_machine == 'ARM64'",
+    "httpx>=0.28.1,<1",
+    "keyring>=25.7.0,<26",
+    "mcp>=2.3,<3",
+    "olefile>=0.47,<1",
+    "pypdf>=5,<7",
     "tzdata>=2024.1 ; sys_platform == 'win32'",
-    "websockets>=15",
+    "websockets>=15,<18",
 ]
 
 [project.scripts]
@@ -30,6 +38,16 @@ dev = [
     "pytest>=9.2.0",
     "pytest-asyncio>=1.4.1.post1",
     "respx>=0.23.1",
+]
+
+[tool.uv]
+# Students' PCs. `uv lock` fails if any locked package lacks a wheel for one of these, so a
+# dependency bump can't silently leave a platform compiling from source.
+required-environments = [
+    "sys_platform == 'darwin' and platform_machine == 'arm64'",
+    "sys_platform == 'darwin' and platform_machine == 'x86_64'",
+    "sys_platform == 'win32' and platform_machine == 'AMD64'",
+    "sys_platform == 'win32' and platform_machine == 'ARM64'",
 ]
 
 [tool.pytest.ini_options]

@@ -153,11 +153,14 @@ async def test_unknown_course_lists_choices(svc):
 async def test_deadlines_window(svc):
     due = await svc.deadlines(days=7)
     assert due["semester"] == "2026,2"
+    # through the end of 11/12: the team project due 11/12 23:59:59 is in, as KLAS shows it
     assert [(d["kind"], d["title"]) for d in due["items"]] == [
         ("quiz", "3주차 퀴즈"),
         ("assignment", "HW3"),
         ("online_lecture", "결정트리"),
+        ("team_project", "팀 프로젝트 1"),
     ]
+    assert due["until"] == "2026-11-12 23:59"
 
 
 async def test_deadlines_include_team_projects_in_range(svc):
@@ -235,7 +238,7 @@ async def test_mcp_tools_are_registered_and_callable(svc):
         "get_attendance", "get_exam_info", "get_class_changes", "get_graduation_progress",
         "this_week", "today_briefing", "my_notices", "school_notices", "cafeteria_menu", "academic_calendar",
         "get_online_tests", "get_surveys", "get_discussions", "get_course_evaluation", "academic_deadlines",
-        "get_course_overview",
+        "get_course_overview", "klas_status",
     }
     assert all(t.annotations.read_only_hint for t in tools.values())
 

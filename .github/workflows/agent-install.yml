@@ -1,14 +1,19 @@
-# Runs the live Windows installer and the agent's Windows-only code (Run key, pythonw spawn,
-# single-instance lock). A fake invite stops `kw-mcp link` before it would touch KLAS.
+# Runs the live Windows and macOS installers and the agent's OS-specific code (Run key, pythonw spawn,
+# launchd job, per-user lock, self-update with pinned dependencies and its self-test).
+# A fake invite stops `kw-mcp link` before it would touch KLAS.
 name: Agent install (Windows, macOS)
 
 on:
   workflow_dispatch:
   push:
     paths:
-      - "src/kw_mcp/agent.py"
-      - "src/kw_mcp/__init__.py"
+      - "src/kw_mcp/**"
+      - "pyproject.toml"
+      - "uv.lock"
       - ".github/workflows/**"
+
+permissions:
+  contents: read
 
 jobs:
   install:
@@ -18,7 +23,9 @@ jobs:
       BRIDGE: https://l9doaodgw6.execute-api.ap-northeast-2.amazonaws.com
       PYTHONUTF8: "1"
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
 
       - name: Live installer (stops at link with a fake invite)
         shell: powershell
@@ -30,14 +37,17 @@ jobs:
           if ($LASTEXITCODE -ne 0) { throw 'kw-mcp did not run after install' }
           kw-mcp status
 
-      - name: Install this commit over the live release
+      - name: Install this commit over the live release (pinned like a release)
         shell: powershell
         run: |
           $env:Path = "$env:USERPROFILE\.local\bin;$env:Path"
-          uv tool install --force --quiet --python 3.13 .
+          uv export --frozen --no-dev --no-emit-project --no-header --format requirements-txt -o exported.txt
+          uv tool install --force --quiet --python 3.13 --no-build --constraints exported.txt .
           if ($LASTEXITCODE -ne 0) { throw 'installing this commit failed' }
+          kw-mcp --version
+          if ($LASTEXITCODE -ne 0) { throw 'the self-test (kw-mcp --version) failed' }
 
-      - name: Autostart round trip and single-instance lock
+      - name: Autostart round trip and per-user lock
         shell: powershell
         run: |
           $env:Path = "$env:USERPROFILE\.local\bin;$env:Path"
@@ -45,7 +55,7 @@ jobs:
           & $py .github/workflows/windows_agent_check.py
           if ($LASTEXITCODE -ne 0) { throw 'Windows agent check failed' }
 
-      - name: Self-update installs a new wheel after the agent exits
+      - name: Self-update installs a new wheel with its pins after the agent exits
         shell: powershell
         run: |
           $env:Path = "$env:USERPROFILE\.local\bin;$env:Path"
@@ -54,7 +64,7 @@ jobs:
           if ($LASTEXITCODE -ne 0) { throw 'building the test wheel failed' }
           $py = Join-Path (uv tool dir) 'kw-mcp\Scripts\python.exe'
           $whl = (Get-ChildItem dist-update\kw_mcp-0.99.0-py3-none-any.whl).FullName
-          & $py -c "import sys; from pathlib import Path; from kw_mcp import agent; sys.exit(0 if agent.install_update(Path(sys.argv[1])) else 1)" $whl
+          & $py .github/workflows/update_check.py $whl exported.txt
           if ($LASTEXITCODE -ne 0) { throw 'install_update refused' }
           # Poll with uv, not the tool's own python: running it would lock the files being replaced.
           for ($i = 0; $i -lt 60; $i++) {
@@ -74,7 +84,9 @@ jobs:
     env:
       BRIDGE: https://l9doaodgw6.execute-api.ap-northeast-2.amazonaws.com
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
 
       - name: Live installer (stops at link with a fake invite)
         run: |
@@ -86,21 +98,25 @@ jobs:
           kw-mcp --help > /dev/null
           kw-mcp status
 
-      - name: Install this commit over the live release
+      - name: Install this commit over the live release (pinned like a release)
         run: |
           export PATH="$HOME/.local/bin:$PATH"
-          uv tool install --force --quiet --python 3.13 .
+          uv export --frozen --no-dev --no-emit-project --no-header --format requirements-txt -o exported.txt
+          uv tool install --force --quiet --python 3.13 --no-build --constraints exported.txt .
+          kw-mcp --version
 
-      - name: launchd job, single-instance lock
+      - name: launchd job, per-user lock, uv found under launchd's bare PATH
         run: |
           export PATH="$HOME/.local/bin:$PATH"
-          "$(uv tool dir)/kw-mcp/bin/python" .github/workflows/macos_agent_check.py
+          py="$(uv tool dir)/kw-mcp/bin/python"
+          env -i HOME="$HOME" PATH=/usr/bin:/bin:/usr/sbin:/sbin "$py" .github/workflows/macos_agent_check.py
 
-      - name: Self-update installs a newer wheel
+      - name: Self-update installs a newer wheel with its pins and self-tests it
         run: |
           export PATH="$HOME/.local/bin:$PATH"
           sed -i '' 's/^version = ".*"/version = "0.99.0"/' pyproject.toml
           uv build --wheel --out-dir dist-update --quiet
           py="$(uv tool dir)/kw-mcp/bin/python"
-          "$py" -c "import sys; from pathlib import Path; from kw_mcp import agent; sys.exit(0 if agent.install_update(Path(sys.argv[1])) else 1)" dist-update/kw_mcp-0.99.0-py3-none-any.whl
+          env -i HOME="$HOME" PATH=/usr/bin:/bin:/usr/sbin:/sbin \
+            "$py" .github/workflows/update_check.py dist-update/kw_mcp-0.99.0-py3-none-any.whl exported.txt
           uv tool list | grep -E '^kw-mcp v0\.99\.0'

@@ -199,3 +199,51 @@ async def test_download_reports_an_unwritable_folder(extension, key, tmp_path):
     respx.get(f"{SERVER}/dist/kw-klas.mcpb").mock(return_value=httpx.Response(200, content=NEW_MCPB))
     with pytest.raises(LookupError, match="저장하지 못했습니다"):
         await updates.download(dest_dir=tmp_path / "missing")
+
+
+async def test_check_says_why_it_cannot_look_for_updates(monkeypatch):
+    monkeypatch.setattr(updates, "_cache", None)
+    monkeypatch.setenv("KW_MCP_DISTRIBUTION", "mcpb")
+    monkeypatch.setenv("KW_CAMPUS_INVITE", "${user_config.campus_invite}")  # left empty in the settings
+    out = await updates.check()
+    assert out["checked"] is False and "초대 코드가 없어" in out["reason"] and "보안 수정" in out["reason"]
+    monkeypatch.setenv("KW_CAMPUS_INVITE", "kwc_garbage")
+    assert "초대 코드를 읽지 못해" in (await updates.check())["reason"]
+    with pytest.raises(LookupError, match="초대 코드를 읽지 못해"):
+        await updates.download()
+    monkeypatch.delenv("KW_MCP_DISTRIBUTION")
+    assert "확장에서만" in (await updates.check())["reason"]
+
+
+@respx.mock
+async def test_check_tells_an_unreachable_server_from_no_new_version(extension, key):
+    route = respx.get(f"{SERVER}/dist/latest.json")
+    route.mock(side_effect=httpx.ConnectError("offline"))
+    out = await updates.check()
+    assert out["checked"] is False and "연결하지 못했습니다" in out["reason"]
+    with pytest.raises(LookupError, match="연결하지 못했습니다"):
+        await updates.download()
+    route.mock(return_value=httpx.Response(200, json={"mcpb": entry(key, version="0.5.4")}))
+    assert await updates.check() == {"installed": "0.5.4", "checked": True, "update_available": None}
+    with pytest.raises(LookupError, match="이미 최신"):
+        await updates.download()
+    route.mock(return_value=httpx.Response(200, json={"mcpb": entry(key)}))
+    assert (await updates.check())["update_available"]["latest"] == "0.6.0"
+
+
+async def test_check_update_says_why_it_could_not_check(monkeypatch):
+    monkeypatch.setenv("KW_MCP_DISTRIBUTION", "mcpb")
+    monkeypatch.setenv("KW_CAMPUS_INVITE", "${user_config.campus_invite}")  # field left empty
+    monkeypatch.setattr(updates, "_cache", None)
+    out = await server.check_update()
+    assert out["checked"] is False and out["update_available"] is None and "초대 코드" in out["reason"]
+
+
+@respx.mock
+async def test_check_update_reports_an_unreachable_server(extension, key):
+    respx.get(f"{SERVER}/dist/latest.json").mock(side_effect=httpx.ConnectError("offline"))
+    out = await server.check_update()
+    assert out["checked"] is False and "연결하지 못했습니다" in out["reason"]
+    respx.get(f"{SERVER}/dist/latest.json").mock(return_value=httpx.Response(200, json={"mcpb": entry(key)}))
+    out = await server.check_update()
+    assert out["checked"] is True and out["update_available"]["latest"] == "0.6.0"

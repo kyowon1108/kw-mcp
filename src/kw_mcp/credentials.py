@@ -13,6 +13,8 @@ from dataclasses import dataclass, field
 import keyring
 from keyring.errors import PasswordDeleteError
 
+from .klas import forget_rejected_login
+
 KEYRING_SERVICE = "kw-mcp"
 KEYRING_ID_KEY = "klas_login_id"
 
@@ -56,18 +58,20 @@ def load() -> Credentials:
     return Credentials(login_id, password)
 
 
+def masked_id(login_id: str) -> str:
+    """A 학번 shows only its admission year (first four digits) and its length, e.g. 2022******(10자리).
+    Anything else may be a password typed into the ID field, so only its length shows."""
+    if login_id.isdigit() and len(login_id) >= 8:
+        shown = login_id[:4] + "*" * (len(login_id) - 4)
+    else:
+        shown = "*" * len(login_id)
+    return f"{shown}({len(login_id)}자리)"
+
+
 def login_hint(creds: Credentials) -> str:
     """What to check after KLAS rejects the login. Shows the ID masked; never the password."""
     login_id = creds.login_id
-    # A 학번 (10 digits) shows its admission year and last two digits. Anything else may be a
-    # password typed into the ID field, so it shows at most the first character.
-    if len(login_id) == 10 and login_id.isdigit():
-        shown = login_id[:4] + "****" + login_id[-2:]
-    elif len(login_id) >= 3:
-        shown = login_id[:1] + "*" * (len(login_id) - 1)
-    else:
-        shown = "*" * len(login_id)
-    notes = [f"로그인한 아이디는 {shown}({len(login_id)}자리)입니다"]
+    notes = [f"로그인한 아이디는 {masked_id(login_id)}입니다"]
     if not login_id.isdigit():
         notes.append("아이디에 숫자가 아닌 글자가 있습니다(학생은 학번 숫자만 입력)")
     if _HANGUL.search(creds.password):
@@ -82,6 +86,8 @@ def save(login_id: str, password: str) -> None:
         _delete_quietly(previous)
     keyring.set_password(KEYRING_SERVICE, KEYRING_ID_KEY, login_id)
     keyring.set_password(KEYRING_SERVICE, login_id, password)
+    # Saving again (even the same password, e.g. after changing it back in KLAS) allows one new try.
+    forget_rejected_login()
 
 
 def delete() -> None:
@@ -89,6 +95,7 @@ def delete() -> None:
     if login_id:
         _delete_quietly(login_id)
     _delete_quietly(KEYRING_ID_KEY)
+    forget_rejected_login()
 
 
 def _delete_quietly(username: str) -> None:

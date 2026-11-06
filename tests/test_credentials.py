@@ -63,12 +63,14 @@ async def test_holder_starts_a_fresh_client_when_the_login_changes(monkeypatch):
 
 def test_hint_masks_the_id_and_flags_input_slips():
     hint = credentials.login_hint(credentials.Credentials("2022123480", "ㅔㅈ1234", credentials.ENV))
-    assert "2022****80(10자리)" in hint and "123" not in hint.split("10자리")[0]
+    # only the admission year and the length: the rest of the 학번 is not shown
+    assert "2022******(10자리)" in hint and "80" not in hint.split("10자리")[0][4:]
     assert "한글" in hint and "확장 프로그램" in hint and "ㅔㅈ" not in hint
     other = credentials.login_hint(credentials.Credentials("kw2022", "pw", credentials.KEYCHAIN))
-    assert "k*****(6자리)" in other and "숫자가 아닌" in other and "kw-mcp setup" in other and "한글" not in other
-    # a password typed into the ID field shows only its first character
-    assert "M****************(17자리)" in credentials.login_hint(credentials.Credentials("MyS3cretPassw0rd!", "x"))
+    assert "******(6자리)" in other and "숫자가 아닌" in other and "kw-mcp setup" in other and "한글" not in other
+    assert "k" not in other.split("(6자리)")[0]
+    # a password typed into the ID field shows nothing but its length
+    assert "*****************(17자리)" in credentials.login_hint(credentials.Credentials("MyS3cretPassw0rd!", "x"))
     assert "*(1자리)" in credentials.login_hint(credentials.Credentials("1", "x"))
 
 
@@ -81,5 +83,5 @@ async def test_rejected_login_says_where_to_fix_it(keypair):  # noqa: F811
             with pytest.raises(KlasBadPassword) as caught:
                 await client.post(HOME)
     message = str(caught.value)
-    assert "일치하지 않습니다" in message and "2022****80" in message and "확장 프로그램" in message
+    assert "일치하지 않습니다" in message and "2022******" in message and "확장 프로그램" in message
     assert "kw-mcp setup" not in message and "wrong" not in message
