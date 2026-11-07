@@ -10,6 +10,9 @@ and read-only: no network, and search is a small in-memory index over Korean cha
     curriculum(department, admission_year)  -> that department's course list for the year
 
 Every entry and curriculum returned carries `version` {built_at, sources} and `report` (how to flag an error).
+
+Files are read through datasync.read(): a newer signed copy from the bridge when there is one, else the package's
+own. Loads are cached per data snapshot, and every file of one load comes from the same snapshot.
 """
 
 from __future__ import annotations
@@ -20,10 +23,13 @@ import math
 import re
 import unicodedata
 from collections import Counter, defaultdict
+from datetime import date
 from pathlib import Path
 from typing import Any
 
-DATA = Path(__file__).with_name("knowledge")
+from . import datasync
+
+DATA = Path(__file__).with_name("knowledge")  # the package's own copy (loaders go through datasync.read)
 REPORT_HINT = "틀린 정보는 디스코드 #알림-설정의 제보하기(또는 /제보)로 알려 주세요"
 
 # Everytime shorthand -> the words the entries use. Applied to the query only.
@@ -73,29 +79,35 @@ def _expand(query: str) -> str:
     return " ".join(v for k, v in SYNONYMS.items() if k.replace(" ", "") in squeezed)
 
 
-def _read(path: Path) -> Any:
-    return json.loads(path.read_text(encoding="utf-8"))
+def _read(name: str, snap: datasync.Active | None) -> Any:
+    return json.loads(datasync.read(name, snap))
 
 
-@functools.cache
 def load() -> dict[str, Any]:
     """The knowledge base: {"version", "entries", "by_id", "curricula_index", "rules_tables"}."""
-    faq = _read(DATA / "faq.json")
-    index_path = DATA / "curricula" / "index.json"
-    tables_path = DATA / "rules_tables.json"
+    return _load(datasync.snapshot())
+
+
+@functools.lru_cache(maxsize=2)  # the data in use and, while calls still run on it, the one before
+def _load(snap: datasync.Active | None) -> dict[str, Any]:
+    faq = _read("knowledge/faq.json", snap)
+    index_path, tables_path = "knowledge/curricula/index.json", "knowledge/rules_tables.json"
     return {
         "version": faq.get("version", {}),
         "entries": faq["entries"],
         "by_id": {e["id"]: e for e in faq["entries"]},
         "gaps": faq.get("gaps", {}),
-        "curricula_index": _read(index_path) if index_path.exists() else {"departments": [], "unavailable": []},
-        "rules_tables": _read(tables_path) if tables_path.exists() else None,
+        "curricula_index": (_read(index_path, snap) if datasync.path(index_path, snap).exists()
+                            else {"departments": [], "unavailable": []}),
+        "rules_tables": _read(tables_path, snap) if datasync.path(tables_path, snap).exists() else None,
     }
 
 
-@functools.cache
-def _index() -> tuple[dict[str, list[tuple[int, float]]], dict[str, float]]:
-    entries = load()["entries"]
+@functools.lru_cache(maxsize=2)
+def _index(snap: datasync.Active | None) -> tuple[list[dict[str, Any]], dict[str, list[tuple[int, float]]],
+                                                  dict[str, float]]:
+    """(entries, postings, idf) for one data snapshot."""
+    entries = _load(snap)["entries"]
     postings: dict[str, list[tuple[int, float]]] = defaultdict(list)
     for i, e in enumerate(entries):
         fields = {
@@ -113,7 +125,7 @@ def _index() -> tuple[dict[str, list[tuple[int, float]]], dict[str, float]]:
             postings[gram].append((i, w))
     total = len(entries) or 1
     idf = {g: math.log(1 + total / len(p)) for g, p in postings.items()}
-    return dict(postings), idf
+    return entries, dict(postings), idf
 
 
 def _with_meta(e: dict[str, Any]) -> dict[str, Any]:
@@ -126,8 +138,7 @@ def search(query: str, category: str | None = None, limit: int = 5) -> list[dict
     """Entries that best match a (casual) question, best first. `category` keeps one category only."""
     if not query or not query.strip() or limit <= 0:
         return []
-    entries = load()["entries"]
-    postings, idf = _index()
+    entries, postings, idf = _index(datasync.snapshot())
     scores: Counter = Counter()
     wanted: Counter = Counter({g: min(n, 2) for g, n in _grams(query).items()})
     for gram, n in _grams(_expand(query)).items():
@@ -149,8 +160,8 @@ def categories() -> list[str]:
     return list(dict.fromkeys(e["category"] for e in load()["entries"]))
 
 
-def _department(name: str) -> dict[str, Any] | None:
-    depts = load()["curricula_index"].get("departments", [])
+def _department(name: str, kb: dict[str, Any] | None = None) -> dict[str, Any] | None:
+    depts = (kb or load())["curricula_index"].get("departments", [])
     key = _norm(name).replace(" ", "")
     if not key:
         return None
@@ -200,6 +211,58 @@ def guide(question: str, category: str | None = None, limit: int = 3) -> dict[st
     return out
 
 
+NOTICE_LINKS = "knowledge/notice_links.json"
+NOTICE_DAYS = 90  # without an open deadline, notices posted this many days back at most
+NOTICE_LIMIT = 3
+NOTICE_TEXT_CHARS = 300
+NOTICES_NOTE = "최근 공지가 있으면 규정 안내보다 공지가 먼저예요. 링크를 함께 알려 주세요."
+
+
+def notice_queries(category: str | None) -> list[dict[str, str]]:
+    """The public-notice searches for a knowledge category (knowledge/notice_links.json): each a public-API
+    "category" and/or "q". Empty for a category with no useful notices."""
+    if not category:
+        return []
+    snap = datasync.snapshot()
+    if not datasync.path(NOTICE_LINKS, snap).exists():
+        return []
+    links = _read(NOTICE_LINKS, snap).get("links") or {}
+    return [{k: str(q[k]) for k in ("category", "q") if q.get(k)}
+            for q in links.get(category) or [] if isinstance(q, dict) and (q.get("category") or q.get("q"))]
+
+
+def _deadline_at(row: dict[str, Any]) -> str:
+    deadline = row.get("deadline")
+    return str(deadline.get("at") or "") if isinstance(deadline, dict) else ""
+
+
+def _notice_view(row: dict[str, Any]) -> dict[str, Any]:
+    facts = row.get("extracted") if isinstance(row.get("extracted"), dict) else {}
+    out = {"title": row.get("title"), "posted": row.get("posted_date"), "url": row.get("url"),
+           "deadline": _deadline_at(row)[:16] or None,
+           "target": str(facts.get("target") or "")[:NOTICE_TEXT_CHARS] or None,
+           "how_to_apply": str(facts.get("how_to_apply") or "")[:NOTICE_TEXT_CHARS] or None}
+    return {k: v for k, v in out.items() if v}
+
+
+def pick_notices(rows: list[dict[str, Any]], today: date, *, open_only: bool = False,
+                 limit: int = NOTICE_LIMIT) -> list[dict[str, Any]]:
+    """Up to `limit` public-notice rows for a guide answer, each as {title, posted, url, deadline, target,
+    how_to_apply} (empty fields left out): those whose deadline is today or later first, soonest first;
+    with open_only only those, else the newest after them. The same notice found by two searches counts once."""
+    seen: set[str] = set()
+    unique = []
+    for r in rows:
+        key = str(r.get("post_id") or r.get("url") or r.get("title") or "")
+        if key and key not in seen:
+            seen.add(key)
+            unique.append(r)
+    ahead = sorted((r for r in unique if _deadline_at(r)[:10] >= today.isoformat()), key=_deadline_at)
+    rest = [] if open_only else sorted((r for r in unique if r not in ahead),
+                                       key=lambda r: str(r.get("posted_date") or ""), reverse=True)
+    return [_notice_view(r) for r in (ahead + rest)[:limit]]
+
+
 def curriculum_lookup(department: str, admission_year: int) -> dict[str, Any]:
     """What the department_curriculum tool returns: the curriculum, or what the knowledge base does have."""
     found = curriculum(department, admission_year)
@@ -233,11 +296,13 @@ def curriculum(department: str, admission_year: int) -> dict[str, Any] | None:
     school's 필수과목표 gives for that admission year. When a year has both, the full table is returned and the
     required-only list is under "also".
     """
-    d = _department(department)
+    snap = datasync.snapshot()  # the index and the file from one data version
+    kb = _load(snap)
+    d = _department(department, kb)
     if d is None or admission_year not in d.get("admission_years", []):
         return None
-    data = _read(DATA / "curricula" / f"{d['slug']}-{admission_year}.json")
+    data = _read(f"knowledge/curricula/{d['slug']}-{admission_year}.json", snap)
     urls = [s["url"] for s in data.get("sources", [])]
-    return {**data, "version": {"built_at": load()["curricula_index"].get("version", {}).get("built_at"),
+    return {**data, "version": {"built_at": kb["curricula_index"].get("version", {}).get("built_at"),
                                 "sources": urls},
             "report": REPORT_HINT}

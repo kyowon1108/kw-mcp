@@ -12,6 +12,7 @@ the two documents; anything else is dropped and counted in `validation`.
 from __future__ import annotations
 
 import argparse
+import base64
 import concurrent.futures as cf
 import datetime
 import json
@@ -47,6 +48,7 @@ SLUGS = {
     "기업법무전공": "corporate-law-major", "과학기술법무전공": "science-technology-law-major",
     "국제법무전공": "international-law-major", "빅데이터경영전공": "big-data-business-major",
     "국제금융전공": "international-finance-major", "글로벌비즈니스전공": "global-business-major",
+    "글로벌코리아전공": "global-korea-major",
 }
 
 # majors with their own www course table; their 필수과목표 is the parent 학부's, used for codes only
@@ -55,6 +57,36 @@ PARENTS = {
     "전략커뮤니케이션전공": "미디어커뮤니케이션학부", "문화콘텐츠개발전공": "동북아문화산업학부",
     "기업법무전공": "법학부", "과학기술법무전공": "법학부", "국제법무전공": "법학부", "빅데이터경영전공": "경영학부",
     "국제금융전공": "국제통상학부", "글로벌비즈니스전공": "국제통상학부",
+}
+
+# Departments whose course table is not on a www 교육과정 tab the discovery step links (round 5): the (A) source
+# to use, further documents shown to Claude and searched by the local name check, images shown to Claude only,
+# and what to ask for instead of the usual items 1-2.
+EXTRA_A = {"글로벌코리아전공": "web-law06-4", "지능형로봇학과": "robot-courses-2026"}
+EXTRA_DOCS = {"지능형로봇학과": ["robot-courses-2025", "robot-admission"]}
+IMAGES = {"지능형로봇학과": [("robot-edu-image", "robot-edu-system")]}  # (raw image id, source id cited)
+EXTRA_ASK = {
+    "글로벌코리아전공": """(A) is the 국제학부 글로벌코리아전공 page's 교육과정 tab. Its table has rows for two majors;
+use only the 글로벌코리아 전공 rows. The table gives 학년 and 1학기/2학기 course names only: no 학정번호, credits or
+이수구분, and no year. Return one curriculum, admission_year 2026, scope "full", every course in those rows
+(a cell with two names separated by "/" is two courses; keep each name as written). code "", credits "",
+type "", year_level from 학년, term from the column. In basis say the page has no year, so it is taken as the
+current curriculum, and that credits and 이수구분 are not given. Note in notes that the page's 국제지역학전공 rows
+differ from the 국제학부 교육과정 page, so the page may not be up to date.""",
+    "지능형로봇학과": """(A) is the 2026학년도 지능형로봇학과 교과목 표 and (A2) the 2025학년도 one, from the
+department's site (share.kw.ac.kr). The department has no freshman intake: students enter by 전공선택/전과 or
+take its courses for 마이크로전공 modules. The tables list 과정 (초급/중급/고급), 모듈, 표준교과목명,
+개설교과목명 and 개설 학기, by 학년도 (the year the table applies to), not by admission year. The image is the
+department's 교육과정체계 diagram (no year on it): credits per course and the semesters each 과정 is meant for.
+Return two curricula, both scope "full": admission_year 2026 from (A) and admission_year 2025 from (A2).
+List each 개설교과목명 once (it repeats across modules). code "" (no 학정번호 anywhere). credits: from the table
+when it says (n학점), else from the image when the same course name is there, else "". type "".
+year_level "". term "1" or "2" when the table gives one semester, "" when it says 1,2학기 or adds a winter
+term. note: 과정, the modules it counts for, and the 개설 학기 as written (e.g. "중급 · 로봇기구/로봇전장 ·
+1,2학기"). In basis say: the 학년도 table is used for that admission year because the department publishes
+tables by 학년도 only; credits not in the table were read from the 교육과정체계 image (undated). In notes,
+record the 전과 rule from the 진학안내 page (60 credits: 초급·중급·고급 12 each plus two more 중급/고급 modules),
+the 마이크로전공 completion rule printed under (A2), and that the image shows course names not in the tables.""",
 }
 
 SCHEMA = {"type": "object", "properties": {
@@ -117,14 +149,19 @@ def _xls_map() -> dict[str, str]:
 def departments() -> list[dict]:
     xls = _xls_map()
     curr = {s["department"]: s["id"] for s in load_sources() if s["id"].startswith("curr-")}
-    names = list(dict.fromkeys(list(curr) + list(xls)))
+    names = list(dict.fromkeys(list(curr) + list(xls) + list(EXTRA_A)))
     out = []
     for name in names:
         base = re.sub(r"\(.*", "", name).strip()
         parent = PARENTS.get(base)
-        out.append({"department": base, "curr": curr.get(name), "must": xls.get(parent or base), "parent": parent,
+        out.append({"department": base, "curr": curr.get(name) or EXTRA_A.get(base), "must": xls.get(parent or base),
+                    "parent": parent,
                     "slug": SLUGS.get(base, re.sub(r"[^a-z0-9]+", "-", base.encode("ascii", "ignore").decode()))})
     return out
+
+
+def load_meta(sid: str) -> dict:
+    return next(s for s in load_sources() if s["id"] == sid)
 
 
 def _text(sid: str | None) -> str:
@@ -144,6 +181,20 @@ def run_dept(d: dict, budget: float) -> dict:
         content.append(doc_block(f"(A) {d['department']} 교육과정 (www)", a))
     if b:
         content.append(doc_block(f"(B) {d.get('parent') or d['department']} 필수과목표", b[:60000]))
+    for i, sid in enumerate(EXTRA_DOCS.get(d["department"], [])):
+        label = "(A2)" if i == 0 else f"({sid})"
+        content.append(doc_block(f"{label} {load_meta(sid)['title']}", _text(sid)))
+    for raw_id, _cited in IMAGES.get(d["department"], []):
+        path = next(p for p in RAW.glob(f"{raw_id}.*") if p.suffix in (".png", ".jpg"))
+        media = "image/png" if path.suffix == ".png" else "image/jpeg"
+        content.append({"type": "image", "source": {"type": "base64", "media_type": media,
+                                                    "data": base64.b64encode(path.read_bytes()).decode()}})
+    if d["department"] in EXTRA_ASK:
+        content.append({"type": "text", "text": f"Department: {d['department']}.\n\n{EXTRA_ASK[d['department']]}\n\n"
+                        "Each course is an array of 7 strings: [code, name, credits, type, year_level, term, note]."})
+        r = call(note=f"curr-{d['slug']}", system=SYSTEM, content=content, schema=SCHEMA, budget=budget,
+                 effort="low", max_tokens=32000)
+        return r["data"]
     ask = ASK.format(dept=d["department"], college="", cur=CURRENT_YEAR, first=FIRST_ADMISSION, last=CURRENT_YEAR,
                      a_status="" if a else "(A) is not available for this department.",
                      b_status="" if b else "(B) is not available for this department.")
@@ -163,7 +214,7 @@ def _norm(s: str) -> str:
 
 def validate(d: dict, data: dict) -> tuple[list[dict], dict]:
     a, b = _text(d["curr"]), _text(d["must"])
-    hay = _norm(a + b)
+    hay = _norm(a + b + "".join(_text(sid) for sid in EXTRA_DOCS.get(d["department"], [])))
     codes_in_b = set(re.findall(r"[A-Z0-9]{3,5}-\d-\d{4}|\d{3}\(\d\)\d{2}|\d{4,5}", b))
     stats = {"dropped_unknown_name": 0, "cleared_unknown_code": 0, "courses": 0}
     curricula = []
@@ -208,6 +259,12 @@ KO_SCHEMA = {"type": "object", "properties": {"items": {"type": "array", "items"
     "required": ["key", "ko"], "additionalProperties": False}}}, "required": ["items"], "additionalProperties": False}
 
 
+def _english(text: str) -> bool:
+    """Mostly English prose (Korean course names inside it are fine), not a Korean note with a code or two."""
+    words = [w for w in re.findall(r"[A-Za-z]{3,}", text) if w not in ("required_only", "full", "scope", "ECTS")]
+    return len(words) >= 4
+
+
 def korean(budget: float) -> None:
     """One call that turns every basis/notes string the per-department calls wrote in English into Korean."""
     from claude_client import call
@@ -223,17 +280,46 @@ def korean(budget: float) -> None:
             texts[f"{d['slug']}|note|{i}"] = n
     map_path = OUT / "curr-ko-map.json"
     done = json.loads(map_path.read_text(encoding="utf-8")) if map_path.exists() else {}
-    todo = {k: v for k, v in texts.items() if k not in done and re.search(r"[A-Za-z]{4,}", v)
-            and not re.search(r"[가-힣]{6,}.*[가-힣]{6,}", v)}
+    todo = {k: v for k, v in texts.items() if k not in done and _english(v)}
     if not todo:
         return
     ask = ("Translate each text into natural Korean (합니다체 not needed; short declarative notes). Keep course "
-           "names, codes and numbers exactly. (A) = www 교육과정 페이지, (B) = 필수과목표. Return every key.\n\n"
+           "names, codes and numbers exactly. Write (A) as '교육과정 표' and (B) as '필수과목표'. Return every key.\n\n"
            + json.dumps(todo, ensure_ascii=False))
     r = call(note="curr-korean", system="You translate curriculum notes into Korean precisely.",
              content=[{"type": "text", "text": ask}], schema=KO_SCHEMA, budget=budget, effort="low",
              max_tokens=32000)
     dump_json(map_path, {**done, **{i["key"]: i["ko"] for i in r["data"]["items"]}})
+
+
+# The per-department calls wrote basis/notes in the prompt's own terms ((A)/(B), required_only, "지시에 따라 …
+# 생략함"). Shipped text uses plain words instead.
+PLAIN = [
+    (re.compile(r"(요청|지시)에 따라\s*"), ""),
+    (re.compile(r"\s*\(항목 ?2\)"), ""),
+    (re.compile(r"(\d{4})학번 required_only는 ?(.*?)생략함"), r"\1학번은 \2필수과목 목록을 따로 두지 않음"),
+    (re.compile(r"\(A\)의 (scope-)?full 교육과정만 반환함\.?"), "2026 현행 전체 표만 둠."),
+    (re.compile(r"\(A\)의 (scope-)?full 교육과정만 반환하고,?"), "2026 현행 전체 표만 두고,"),
+    (re.compile(r"\(A\) 기반 2026 full 교육과정만 작성하고"), "2026 현행 전체 표만 두고"),
+    (re.compile(r"\(B\)의 required_only 교육과정은"), "입학연도별 필수과목 목록은"),
+    (re.compile(r"required_only (교육과정|항목)"), "입학연도별 필수과목 목록"),
+    (re.compile(r"required_only는"), "필수과목 목록은"),
+    (re.compile(r"required_only를"), "필수과목 목록을"),
+    (re.compile(r"required_only"), "필수과목 목록"),
+    (re.compile(r"필수과목 목록(은|을) (모두 )?(생략함|작성하지 않음)"), "필수과목 목록은 따로 두지 않음"),
+    (re.compile(r"(학번|입학생)은 생략함"), r"\1은 필수과목 목록을 따로 두지 않음"),
+    (re.compile(r"(\d{4}) full 교육과정"), r"\1 현행 전체 표"),
+    (re.compile(r"\(B\) 필수과목표"), "필수과목표"),
+    (re.compile(r"\(A2\)"), "2025학년도 표"),
+    (re.compile(r"\(A\)"), "교육과정 표"),
+    (re.compile(r"\(B\)"), "필수과목표"),
+]
+
+
+def plain(text: str) -> str:
+    for pat, rep in PLAIN:
+        text = pat.sub(rep, text)
+    return re.sub(r"\s{2,}", " ", text).strip()
 
 
 def assemble() -> None:
@@ -253,11 +339,13 @@ def assemble() -> None:
             index["unavailable"].append({"department": d["department"], "reason": "구조화 실패"})
             continue
         for c in data["curricula"]:
-            c["basis"] = ko.get(f"{d['slug']}|basis|{c['admission_year']}|{c['scope']}", c["basis"])
-        data["notes"] = [ko.get(f"{d['slug']}|note|{i}", n) for i, n in enumerate(data.get("notes", []))]
+            c["basis"] = plain(ko.get(f"{d['slug']}|basis|{c['admission_year']}|{c['scope']}", c["basis"]))
+        data["notes"] = [plain(ko.get(f"{d['slug']}|note|{i}", n)) for i, n in enumerate(data.get("notes", []))]
         curricula, stats = validate(d, data)
         sources = []
-        for sid in (d["curr"], d["must"]):
+        cited = [d["curr"], d["must"], *EXTRA_DOCS.get(d["department"], []),
+                 *(c for _, c in IMAGES.get(d["department"], []))]
+        for sid in cited:
             if sid and sid in meta:
                 sources.append({"title": meta[sid]["title"], "url": meta[sid]["url"], "checked_at": CHECKED_AT})
         by_year: dict[int, list[dict]] = {}

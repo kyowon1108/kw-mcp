@@ -92,6 +92,17 @@ DEPT_BOARDS: dict[str, tuple[str, str, str, str]] = {
     "ingenium": ("인제니움학부대학", "ingenium.kw.ac.kr", "/inform/notice.php", "A"),
     "chemng": ("화학공학과", "chemng.kw.ac.kr", "/community/notice.php", "B"),
     "sports": ("스포츠융합과학과", "sports.kw.ac.kr", "/community/notice.php", "B"),
+    "electricjob": ("전기공학과", "electric.kw.ac.kr", "/autonomy_active/employment_field.php", "A"),
+    "career": ("경력개발팀", "job.kw.ac.kr", "/community/notice.php", "A"),
+    "startup": ("창업지원단", "startup.kw.ac.kr", "/communication/notice.php", "A"),
+    "kwiie": ("한국어교육센터", "kwiie.kw.ac.kr", "/community/notice.php", "A"),
+    "humanrights": ("인권센터", "humanrights.kw.ac.kr", "/community/notice.php", "A"),
+    "oia": ("국제처 유학생", "oia.kw.ac.kr", "/campus/notice.php", "A"),
+    "grad": ("일반대학원", "grad.kw.ac.kr", "/notice/news.php", "A"),
+    "liberal": ("자율전공학부", "liberal.kw.ac.kr", "/bulletin/notice.php", "A"),
+    "semi": ("반도체특성화대학사업단", "semi.kw.ac.kr", "/communication/notice.php", "A"),
+    "huss": ("HUSS 사업단", "huss.kw.ac.kr", "/bulletin/notice.php", "A"),
+    "inno": ("대학혁신사업단", "inno.kw.ac.kr", "/bulletin/notice.php", "A"),
 }
 # kwcampus.wixfeeds.FEEDS: key -> (name, host). Their post ids are Wix ids, not part of a URL.
 WIX_SITES: dict[str, tuple[str, str]] = {
@@ -108,6 +119,12 @@ DEPARTMENT_OF_HOST = {
 }
 PAGE_HOSTS = frozenset({WWW, *DEPARTMENT_OF_HOST})
 ASSET_HOSTS = PAGE_HOSTS | {WIX_FILES}
+# Hosts whose robots.txt asks for more than the rest. job.kw.ac.kr (경력개발팀, robots.txt checked
+# 2026-11-07): Crawl-delay 10, Disallow /recommend/ and /job/. Its pages are read only from the notice
+# board; files and images the page links to may be on other paths of the host, but not the disallowed ones.
+HOST_INTERVAL_S = {"job.kw.ac.kr": 10.0}
+HOST_PAGE_PATHS = {"job.kw.ac.kr": ("/community/notice.php",)}
+HOST_DISALLOWED = {"job.kw.ac.kr": ("/recommend/", "/job/")}
 
 _VOID = frozenset({"area", "base", "br", "col", "embed", "hr", "img", "input", "link", "meta", "param",
                    "source", "track", "wbr"})
@@ -144,18 +161,21 @@ class Gate(Protocol):
 
 
 class Pacer:
-    """At most one request per host every `interval` seconds in this process. Each caller books the next
-    free slot before it waits, so requests to one host go out in turn, `interval` apart."""
+    """At most one request per host every `interval` seconds in this process (longer for a host in
+    `host_intervals`, the robots.txt Crawl-delay). Each caller books the next free slot before it
+    waits, so requests to one host go out in turn, that interval apart."""
 
-    def __init__(self, interval: float = MIN_INTERVAL_S, clock=time.monotonic, sleep=asyncio.sleep) -> None:
+    def __init__(self, interval: float = MIN_INTERVAL_S, clock=time.monotonic, sleep=asyncio.sleep,
+                 host_intervals: dict[str, float] | None = None) -> None:
         self.interval, self._clock, self._sleep = interval, clock, sleep
+        self.host_intervals = HOST_INTERVAL_S if host_intervals is None else host_intervals
         self._next: dict[str, float] = {}
 
     async def before(self, url: str) -> None:
-        host = urlsplit(url).hostname or ""
+        host = (urlsplit(url).hostname or "").lower()
         now = self._clock()
         slot = max(now, self._next.get(host, 0.0))
-        self._next[host] = slot + self.interval
+        self._next[host] = slot + max(self.interval, self.host_intervals.get(host, 0.0))
         if slot > now:
             await self._sleep(slot - now)
 
@@ -223,7 +243,14 @@ def check_url(url: str, *, asset: bool = False) -> str:
     if (parts.scheme.lower() not in ("http", "https") or parts.username is not None or parts.password is not None
             or port not in (None, 80, 443) or host not in (ASSET_HOSTS if asset else PAGE_HOSTS)):
         raise _off_list(host)
-    return urlunsplit(("https", host, parts.path or "/", parts.query, ""))
+    path = parts.path or "/"
+    # Compare the path as the server will read it: %-escapes decoded, case folded, '..' not allowed.
+    plain = unquote(path).lower()
+    if host in HOST_DISALLOWED and (".." in plain or any(plain.startswith(p) for p in HOST_DISALLOWED[host])):
+        raise NoticeError(f"{host}의 이 경로는 사이트가 읽지 말라고 해서 읽지 않아요.")
+    if not asset and host in HOST_PAGE_PATHS and plain not in HOST_PAGE_PATHS[host]:
+        raise NoticeError(f"{host}에서는 공지 게시판({', '.join(HOST_PAGE_PATHS[host])}) 글만 읽어요.")
+    return urlunsplit(("https", host, path, parts.query, ""))
 
 
 def url_for_post_id(post_id: str) -> str:

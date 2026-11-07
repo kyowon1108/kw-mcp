@@ -1,0 +1,268 @@
+{
+ "department": "글로벌코리아전공",
+ "admission_year": 2026,
+ "scope": "full",
+ "basis": "교육과정 표 국제학부 글로벌코리아전공 홈페이지 교육과정 탭의 표 중 글로벌코리아 전공 행만 사용함. 페이지에 연도 표시가 없어 현재 교육과정으로 간주함. 표에는 학년과 1학기/2학기 과목명만 있으며 학정번호, 학점, 이수구분은 제시되지 않음.",
+ "courses": [
+  {
+   "code": null,
+   "name": "한국어(소설한국어)",
+   "credits": null,
+   "type": "",
+   "year_level": 1,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "한국어2(한국어작문)",
+   "credits": null,
+   "type": "",
+   "year_level": 1,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "시사한국어",
+   "credits": null,
+   "type": "",
+   "year_level": 1,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "한국어 발표와 토론",
+   "credits": null,
+   "type": "",
+   "year_level": 1,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "한국의 신화와 역사",
+   "credits": null,
+   "type": "",
+   "year_level": 1,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "한국의 도시와 자연환경",
+   "credits": null,
+   "type": "",
+   "year_level": 1,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "한국의 문화유적고찰",
+   "credits": null,
+   "type": "",
+   "year_level": 1,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "한국의 전통문화체험",
+   "credits": null,
+   "type": "",
+   "year_level": 1,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "한국의 대중문화",
+   "credits": null,
+   "type": "",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "한국의 전통문학",
+   "credits": null,
+   "type": "",
+   "year_level": 2,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "한국의 경제발전",
+   "credits": null,
+   "type": "",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "한국정치의 이해",
+   "credits": null,
+   "type": "",
+   "year_level": 2,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "한국의 외교, 통일, 안보정책",
+   "credits": null,
+   "type": "",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "한국 산업과 제조업",
+   "credits": null,
+   "type": "",
+   "year_level": 2,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "한국사회의 이해",
+   "credits": null,
+   "type": "",
+   "year_level": 3,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "한국기업의 경영전략",
+   "credits": null,
+   "type": "",
+   "year_level": 3,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "한국의 법률제도",
+   "credits": null,
+   "type": "",
+   "year_level": 3,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "한국 3차 산업과 경쟁력",
+   "credits": null,
+   "type": "",
+   "year_level": 3,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "한국의 첨단기술",
+   "credits": null,
+   "type": "",
+   "year_level": 3,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "미국과 동북아국제관계",
+   "credits": null,
+   "type": "",
+   "year_level": 3,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "한중일 국제관계",
+   "credits": null,
+   "type": "",
+   "year_level": 3,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "글로벌 거버넌스",
+   "credits": null,
+   "type": "",
+   "year_level": 4,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "한국의 자원과 환경",
+   "credits": null,
+   "type": "",
+   "year_level": 4,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "국제정치경제론",
+   "credits": null,
+   "type": "",
+   "year_level": 4,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "한국 무역과 물류체계",
+   "credits": null,
+   "type": "",
+   "year_level": 4,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "한국의 금융시스템",
+   "credits": null,
+   "type": "",
+   "year_level": 4,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "한국학 현지실습2",
+   "credits": null,
+   "type": "",
+   "year_level": 4,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "한국학 현지실습1",
+   "credits": null,
+   "type": "",
+   "year_level": 4,
+   "term": 1,
+   "note": null
+  }
+ ],
+ "sources": [
+  {
+   "title": "국제학부 글로벌코리아전공 교육과정",
+   "url": "https://www.kw.ac.kr/ko/univ/law06_4.jsp",
+   "checked_at": "2026-11-07"
+  }
+ ],
+ "checked_at": "2026-11-07"
+}

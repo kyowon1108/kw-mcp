@@ -2878,5 +2878,313 @@
    "faq"
   ],
   "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "web-sitemap",
+  "url": "https://www.kw.ac.kr/ko/info/sitemap.jsp",
+  "title": "홈페이지 사이트맵",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "web-data-1",
+  "url": "https://www.kw.ac.kr/ko/life/data.jsp?mode=list&tpage=1",
+  "title": "KW-LIFE 자료실 목록 1쪽",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "web-data-2",
+  "url": "https://www.kw.ac.kr/ko/life/data.jsp?mode=list&tpage=2",
+  "title": "KW-LIFE 자료실 목록 2쪽",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "web-ai06-5",
+  "url": "https://www.kw.ac.kr/ko/univ/ai06_5.jsp",
+  "title": "지능형로봇학과 교과목안내",
+  "feeds": [
+   "faq",
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "web-law06-1",
+  "url": "https://www.kw.ac.kr/ko/univ/law06_1.jsp",
+  "title": "국제학부 글로벌코리아전공 소개",
+  "feeds": [
+   "faq",
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "web-calendar",
+  "url": "https://www.kw.ac.kr/ko/life/bachelor_calendar.jsp",
+  "title": "학사일정",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "share-home",
+  "url": "https://share.kw.ac.kr/",
+  "title": "지능형로봇학과(지능형로봇혁신융합대학사업단) 홈",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "share.kw.ac.kr"
+ },
+ {
+  "id": "sangdam-notice",
+  "url": "https://sangdam.kw.ac.kr/board/notice.php",
+  "title": "학생상담실 공지사항 목록",
+  "feeds": [
+   "faq"
+  ],
+  "host": "sangdam.kw.ac.kr"
+ },
+ {
+  "id": "council-home",
+  "url": "https://www.kwu-studentcouncil.co.kr/",
+  "title": "총학생회 이음 홈",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kwu-studentcouncil.co.kr"
+ },
+ {
+  "id": "council-notices",
+  "url": "https://www.kwu-studentcouncil.co.kr/notices",
+  "title": "총학생회 이음 공지사항",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kwu-studentcouncil.co.kr"
+ },
+ {
+  "id": "regview-272",
+  "url": "https://rule.kw.ac.kr/lmxsrv/law/lawFullView.do?SEQ=272",
+  "title": "4-3-40 공학프로그램 운영 규정 (개정 정보)",
+  "feeds": [
+   "faq"
+  ],
+  "host": "rule.kw.ac.kr"
+ },
+ {
+  "id": "web-law06-4",
+  "url": "https://www.kw.ac.kr/ko/univ/law06_4.jsp",
+  "title": "국제학부 글로벌코리아전공 교육과정",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "web-law06-5",
+  "url": "https://www.kw.ac.kr/ko/univ/law06_5.jsp",
+  "title": "국제학부 글로벌코리아전공 교과목안내",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "share-main",
+  "url": "https://share.kw.ac.kr/main/main.php",
+  "title": "지능형로봇학과(사업단) 메인",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "share.kw.ac.kr"
+ },
+ {
+  "id": "council-lost-found",
+  "url": "https://www.kwu-studentcouncil.co.kr/notices/cl1778405153738tgq2y2n",
+  "title": "총학생회 공지 분실물 게시/습득 페이지 (2026.05.10)",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kwu-studentcouncil.co.kr"
+ },
+ {
+  "id": "council-student-fee",
+  "url": "https://www.kwu-studentcouncil.co.kr/notices/cl1789744608455mdfnh2u",
+  "title": "총학생회 공지 1학기 자율적학생경비 추가 납부 안내 (2026.04.30)",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kwu-studentcouncil.co.kr"
+ },
+ {
+  "id": "reg-272",
+  "url": "https://rule.kw.ac.kr/lmxsrv/law/lawFullContent.do?SEQ=272&SEQ_HISTORY=629",
+  "title": "4-3-40 공학프로그램 운영 규정",
+  "feeds": [
+   "faq"
+  ],
+  "host": "rule.kw.ac.kr"
+ },
+ {
+  "id": "robot-edu-system",
+  "url": "https://share.kw.ac.kr/edu_pro/edu_pro01.php?tmenu=3&smenu=1",
+  "title": "지능형로봇학과 교육과정체계",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "share.kw.ac.kr"
+ },
+ {
+  "id": "robot-rules",
+  "url": "https://share.kw.ac.kr/edu_pro/edu_pro02.php?tmenu=3&smenu=2",
+  "title": "지능형로봇학과 학과내규",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "share.kw.ac.kr"
+ },
+ {
+  "id": "robot-admission",
+  "url": "https://share.kw.ac.kr/department/department03.php?tmenu=2&smenu=3",
+  "title": "지능형로봇학과 진학안내",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "share.kw.ac.kr"
+ },
+ {
+  "id": "robot-intro",
+  "url": "https://share.kw.ac.kr/department/department02.php?tmenu=2&smenu=2",
+  "title": "지능형로봇학과 학과소개",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "share.kw.ac.kr"
+ },
+ {
+  "id": "robot-modules",
+  "url": "https://share.kw.ac.kr/department/department0403new.php?tmenu=2&smenu=4",
+  "title": "지능형로봇학과 마이크로모듈교과목안내",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "share.kw.ac.kr"
+ },
+ {
+  "id": "robot-rules-1159",
+  "url": "https://share.kw.ac.kr/edu_pro/edu_pro02.php?admin_mode=read&no=1159&make=&search=&type=&tmenu=3&smenu=2&page=1&sub=",
+  "title": "지능형로봇학과 학과내규 (2022-06-06 게시)",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "share.kw.ac.kr"
+ },
+ {
+  "id": "robot-edu-image",
+  "url": "https://share.kw.ac.kr/asset/images/edu_pro_img01.png",
+  "title": "지능형로봇학과 교육과정체계 그림",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "share.kw.ac.kr"
+ },
+ {
+  "id": "robot-rules-image",
+  "url": "https://share.kw.ac.kr/board/free/photo/a_202206061718380.jpg",
+  "title": "지능형로봇학과 학과내규 (게시 이미지)",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "share.kw.ac.kr"
+ },
+ {
+  "id": "robot-courses-2026",
+  "url": "https://share.kw.ac.kr/department/department0403new.php?admin_mode=read&no=1593&make=&search=&tmenu=2&smenu=4",
+  "title": "2026학년도 지능형로봇학과 교과목 표",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "share.kw.ac.kr"
+ },
+ {
+  "id": "robot-modules-2026",
+  "url": "https://share.kw.ac.kr/department/department0403new.php?admin_mode=read&no=1592&make=&search=&tmenu=2&smenu=4",
+  "title": "2026학년도 마이크로모듈 교과목(예정)",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "share.kw.ac.kr"
+ },
+ {
+  "id": "robot-courses-2025",
+  "url": "https://share.kw.ac.kr/department/department0403new.php?admin_mode=read&no=1508&make=&search=&tmenu=2&smenu=4",
+  "title": "2025학년도 지능형로봇학과 교과목 표",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "share.kw.ac.kr"
+ },
+ {
+  "id": "council-fee-check",
+  "url": "https://www.kwu-studentcouncil.co.kr/notices/cl1774108950706mdbkjig",
+  "title": "총학생회 공지 자율적학생경비 확인 시스템 (2026.03.22)",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kwu-studentcouncil.co.kr"
+ },
+ {
+  "id": "council-bylaws",
+  "url": "https://www.kwu-studentcouncil.co.kr/resources/bylaws",
+  "title": "총학생회 자료실 학생회칙",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kwu-studentcouncil.co.kr"
+ },
+ {
+  "id": "council-budgets",
+  "url": "https://www.kwu-studentcouncil.co.kr/resources/budgets",
+  "title": "총학생회 자료실 예·결산 자료",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kwu-studentcouncil.co.kr"
+ },
+ {
+  "id": "office365-home",
+  "url": "https://office365.kw.ac.kr/",
+  "title": "Office 365 신청 포털 (직접 접속 시 응답)",
+  "feeds": [
+   "faq"
+  ],
+  "host": "office365.kw.ac.kr"
+ },
+ {
+  "id": "notice-53200-image",
+  "url": "https://www.kw.ac.kr/KWData/webeditor/2026/2026_08_27_150842.jpg",
+  "title": "[학생] 2026학년도 2학기 복지관 3층 학생식당(함지마루) 운영 안내 (본문 이미지)",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "job-notice-12624",
+  "url": "https://job.kw.ac.kr/community/notice.php?BoardMode=view&UID=12624",
+  "title": "경력개발팀 공지 2026 광운대학교 취업박람회 개최 안내",
+  "feeds": [
+   "faq"
+  ],
+  "host": "job.kw.ac.kr"
  }
 ]

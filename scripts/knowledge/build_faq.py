@@ -12,13 +12,14 @@ documents and fixes or drops what they don't support.
 from __future__ import annotations
 
 import argparse
+import base64
 import concurrent.futures as cf
 import datetime
 import json
 import os
 import re
 
-from kbcommon import KNOWLEDGE, OUT, TEXT, dump_json, load_sources
+from kbcommon import KNOWLEDGE, OUT, RAW, TEXT, dump_json, load_sources
 
 CHECKED_AT = "2026-11-07"
 CORE_DOCS = ["reg-hakchik", "reg-sihaeng"]
@@ -231,6 +232,63 @@ ROUND4 = [
                    "폐강 기준", "수강신청자료집·강의시간표 어디서"]},
 ]
 
+# Fifth round: the language requirement, the items earlier rounds could not source, and thin topics. Update mode:
+# an entry that keeps an existing id replaces it; `related` lists entries in other categories that touch it.
+ROUND5 = [
+    {"category": "졸업", "n": 2,
+     "docs": ["web-info07", "web-info08", "reg-272", "web-team-intl", "reg-79", "annex-hakchik-6"],
+     "related": ["grad-foreign-topik"],
+     "questions": ["졸업하려면 토익 필요해? 영어 점수 졸업요건 있어?",
+                   "KLAS 졸업사정 화면에 어학이 '대상'이라고 뜨는데 뭐야, 뭘 확인해야 돼?",
+                   "공학인증(공학프로그램)이면 영어 성적 따로 내야 해?", "외국인 유학생은 TOPIK 몇 급 있어야 졸업?"]},
+    # second pass on the same category (own output file): the first one listed the KLAS question as a gap
+    {"category": "졸업", "n": 1, "suffix": "-extra5b",
+     "docs": ["web-info07", "web-info08", "reg-272", "web-team-intl", "reg-79", "annex-hakchik-6"],
+     "questions": [("KLAS 졸업사정 화면에 어학 항목이 '대상'이라고 떠. 토익 내야 돼? Answer with what the documents settle "
+                   "(no school-wide English requirement since 2015-02 graduates; TOPIK 4급 for foreign students "
+                   "admitted from 2020-2; programme rules in each 학과 내규) and tell the student what to check and "
+                   "where: their own student type, their 학과 사무실 for 학과/공학프로그램 내규, and 교육지원팀 for what "
+                   "the KLAS item means. Do not guess what the KLAS screen means. Prefer updating "
+                   "grad-english-certification (add these questions) over a new entry.")]},
+    {"category": "IT·계정", "n": 2,
+     "docs": ["web-facility07", "web-facility12", "notice-53458", "office365-home", "faq-755", "web-team-it",
+              "web-team-network"],
+     "related": ["campus-wifi-access"],
+     "questions": ["Office 365 어디서 신청해? 주소 직접 치면 막히던데", "eduroam 되나"]},
+    {"category": "학식·편의시설", "n": 4,
+     "docs": ["web-facility11", "notice-53200", "notice-53200-image", "web-facility09", "web-facility01",
+              "council-lost-found", "council-notices", "web-team-student", "web-tour01", "notices-student-1"],
+     "questions": ["함지마루 몇 시까지 해? 저녁도 팔아?", "학교에 다른 식당·카페·편의점 있어? 몇 시까지?",
+                   "분실물 어디서 찾아?", "학생회관(복지관)에 뭐 있어?"]},
+    {"category": "동아리·학생자치", "n": 3,
+     "docs": ["web-activity01", "web-activity02", "web-activity03", "council-home", "council-notices",
+              "council-student-fee", "council-fee-check", "web-team-student"],
+     "questions": ["학생회비(자율적학생경비) 얼마고 어떻게 내? 냈는지 어디서 확인해?", "동아리 새로 등록하려면 어떻게 해?",
+                   "중앙동아리 가입은 언제 어떻게?"]},
+    {"category": "수강신청", "n": 3,
+     "docs": ["notice-52920", "notice-52981", "web-info13", "notices-haksa-2", "reg-221", "notice-52987"],
+     "questions": ["다음 학기 수강신청 언제야? 어디 올라와?", "수강신청 장바구니(희망과목 담기) 있어?",
+                   "수강신청 공고 제목 뭐로 검색하면 돼?"]},
+    {"category": "상담·학생지원", "n": 2,
+     "docs": ["sangdam-notice", "web-counsel", "web-humanrights"],
+     "related": ["campus-student-counseling"],
+     "questions": ["학생상담실 상담 예약 어떻게 해? 온라인 신청 돼?", "학생상담실 운영시간이랑 비용"]},
+    {"category": "계절학기", "n": 1, "docs": ["reg-188", "notice-53174", "web-info03", "notice-53561"],
+     "related": ["status-leave-cancel"],
+     "questions": ["휴학 중에 계절학기 들을 수 있어?", "휴학생이 계절 들으면 꼭 복학해야 돼?"]},
+    {"category": "다전공", "n": 4,
+     "docs": ["reg-damajor-isu", "reg-damajor-unyeong", "web-info11", "annex-damajor-1"],
+     "questions": ["부전공 포기(취소)하면 들은 과목 어떻게 돼?", "졸업 때까지 부전공 학점 못 채우면?",
+                   "다전공 상호인정 유형별로 몇 학점까지? 마이크로전공도 돼?", "다전공 신청 전에 들은 과목도 인정돼?",
+                   "복전 포기하고 부전공으로 바꿀 수 있어?"]},
+]
+
+# Low-confidence entries are re-checked against the documents they cite plus these pages fetched since.
+REVERIFY_DOCS = {"진로·취업": ["job-notice-12624"], "IT·계정": ["office365-home"]}
+
+# The Daple snapshot is not a document Claude sees, so a re-check would otherwise drop it as an unknown source.
+KEEP_DAPLE = " Keep a daple-snapshot source (and the Daple link) wherever an entry already has one."
+
 PERSON_PATTERNS = [
     re.compile(r"[가-힣]{2,4}\s?(교수님?|선생님|팀장님?|과장|계장|주임|조교|대리)(?![가-힣])"),
     re.compile(r"(담당자|담당)\s?[:：]?\s?[가-힣]{2,4}\s?(\(|0\d)"),
@@ -347,11 +405,24 @@ def doc_text(sid: str) -> str | None:
     return t
 
 
+def _image(sid: str) -> dict | None:
+    path = next((p for p in RAW.glob(f"{sid}.*") if p.suffix in (".png", ".jpg")), None)
+    if path is None:
+        return None
+    media = "image/png" if path.suffix == ".png" else "image/jpeg"
+    return {"type": "image", "source": {"type": "base64", "media_type": media,
+                                        "data": base64.b64encode(path.read_bytes()).decode()}}
+
+
 def _docs(ids: list[str], titles: dict[str, str], cache_last: bool) -> tuple[list[dict], list[str]]:
     from claude_client import doc_block
     blocks, used = [], []
     for sid in ids:
         t = doc_text(sid)
+        if t is None and (img := _image(sid)):  # a notice whose body is a poster image
+            blocks += [{"type": "text", "text": f"[{sid}] {titles.get(sid, sid)} (이미지)"}, img]
+            used.append(sid)
+            continue
         if not t or t.startswith("(읽지 못함"):
             continue
         blocks.append(doc_block(f"[{sid}] {titles.get(sid, sid)}", t))
@@ -470,7 +541,7 @@ def audit(cat: str, titles: dict[str, str], budget: float) -> list[str]:
     from claude_client import call
     prefix = PREFIX[cat]
     data = {p: json.loads(p.read_text(encoding="utf-8")) for p in entry_files(prefix)}
-    docs = [d for t in TOPICS + SUPPLEMENTS + ROUND3 + ROUND4 if t["category"] == cat for d in t["docs"]]
+    docs = [d for t in TOPICS + SUPPLEMENTS + ROUND3 + ROUND4 + ROUND5 if t["category"] == cat for d in t["docs"]]
     content, ids = _prefix({"docs": list(dict.fromkeys(docs))}, titles)
     entries = [e for d in data.values() for e in d["entries"]]
     ask = ("You are an independent auditor; someone else wrote and reviewed these entries. Check every number, "
@@ -479,7 +550,7 @@ def audit(cat: str, titles: dict[str, str], budget: float) -> list[str]:
            "fix applied (same id). Where documents conflict and the entry does not say so, add it to "
            "disagreement and lower confidence. Do not rewrite style. Describe each fix in `changes` as "
            "'<id>: what was wrong -> what it is now'. Leave gaps and dropped empty. Source ids you may cite: "
-           f"{', '.join(ids)}.\n\n" + json.dumps(entries, ensure_ascii=False))
+           f"{', '.join(ids)}.{KEEP_DAPLE}\n\n" + json.dumps(entries, ensure_ascii=False))
     r = call(note=f"faq-{prefix}-audit", system=SYSTEM, content=content + [{"type": "text", "text": ask}],
              schema=_schema(), budget=budget, effort="medium", max_tokens=32000)
     fixed = {e["id"]: e for e in r["data"]["entries"]}
@@ -490,6 +561,45 @@ def audit(cat: str, titles: dict[str, str], budget: float) -> list[str]:
                 d["entries"][i] = fixed[e["id"]]
                 applied.append(e["id"])
         d.setdefault("audit_changes", []).extend(r["data"]["changes"])
+        dump_json(p, d)
+    return applied
+
+
+def reverify(cat: str, titles: dict[str, str], budget: float) -> list[str]:
+    """Round 5: every low-confidence entry of a category is re-checked against the documents it cites and the
+    newer pages fetched since. Confirmed -> raised; contradicted -> fixed; still unsettled -> kept low with a
+    note that says what is unsettled and whom to ask. Returns the ids changed."""
+    from claude_client import call
+    prefix = PREFIX[cat]
+    data = {p: json.loads(p.read_text(encoding="utf-8")) for p in entry_files(prefix)}
+    low = [e for d in data.values() for e in d["entries"] if e["confidence"] == "low"]
+    if not low:
+        return []
+    cited = [s["source_id"] for e in low for s in e["sources"]]
+    content, ids = _prefix({"docs": list(dict.fromkeys(cited + REVERIFY_DOCS.get(cat, [])))}, titles)
+    ask = ("These entries were marked low confidence. Re-check each one against the documents above (all "
+           "checked today). For each entry decide:\n"
+           "- confirmed: the documents now settle it (e.g. a current regulation clearly governs and the page that "
+           "disagreed is older, or the conflict is about different admission years or a rule that only takes "
+           "effect later) -> raise confidence to medium, and say in disagreement why the older/other statement "
+           "does not apply (keep it short); high only if no disagreement is left to note;\n"
+           "- contradicted: the answer is wrong -> fix it and set confidence honestly;\n"
+           "- still unsettled: keep low, and make sure disagreement says what is unsettled and the answer says "
+           "which office to ask.\n"
+           "Return EVERY entry below in full (same id), with the decision applied. In `changes`, one line per "
+           "entry: '<id>: confirmed|fixed|kept - reason'. Leave gaps and dropped empty. Source ids you may cite: "
+           f"{', '.join(ids)}.{KEEP_DAPLE}\n\n" + json.dumps(low, ensure_ascii=False))
+    r = call(note=f"faq-{prefix}-reverify", system=SYSTEM, content=content + [{"type": "text", "text": ask}],
+             schema=_schema(), budget=budget, effort="medium", max_tokens=32000)
+    fixed = {e["id"]: e for e in r["data"]["entries"] if e["id"] in {x["id"] for x in low}}
+    applied = []
+    for p, d in data.items():
+        for i, e in enumerate(d["entries"]):
+            if e["id"] in fixed:
+                d["entries"][i] = fixed[e["id"]]
+                applied.append(e["id"])
+        d.setdefault("reverify_changes", []).extend(c for c in r["data"]["changes"]
+                                                    if any(c.startswith(x) for x in fixed))
         dump_json(p, d)
     return applied
 
@@ -610,11 +720,14 @@ def assemble() -> dict:
             for q in additions.get(eid, []):  # missed phrasings from eval_search.py --augment
                 if len(questions) < 6 and q not in questions:
                     questions.append(q)
+            confidence = e["confidence"]
+            if e["disagreement"] and confidence == "high":  # a noted disagreement always caps confidence
+                confidence = "medium"
             entries.append({
                 "id": eid, "category": cat, "questions": questions, "answer": e["answer"],
                 "conditions_exceptions": e["conditions_exceptions"], "how_to": e["how_to"],
                 "contact_office": e["contact_office"], "sources": sources, "applies_to": e["applies_to"],
-                "confidence": e["confidence"], "disagreement": e["disagreement"] or None,
+                "confidence": confidence, "disagreement": e["disagreement"] or None,
                 "last_verified": CHECKED_AT,
             })
     for line in skipped:
@@ -635,13 +748,29 @@ def main() -> None:
     ap.add_argument("--audit", action="store_true", help="independent re-check of AUDIT_CATEGORIES")
     ap.add_argument("--round3", action="store_true", help="third round: ROUND3 -> faq-<prefix>-extra3.json")
     ap.add_argument("--round4", action="store_true", help="fourth round: ROUND4 -> faq-<prefix>-extra4.json")
+    ap.add_argument("--round5", action="store_true", help="fifth round: ROUND5 -> faq-<prefix>-extra5.json")
+    ap.add_argument("--reverify", action="store_true", help="re-check every low-confidence entry (per category)")
     args = ap.parse_args()
-    if args.round3 or args.round4:
+    if args.reverify:
         titles = _titles()
-        rounds, sfx = (ROUND3, "-extra3") if args.round3 else (ROUND4, "-extra4")
+        cats = [c for c, _ in CATEGORIES if not args.only or c in args.only]
+        with cf.ThreadPoolExecutor(max_workers=args.workers) as pool:
+            futs = {pool.submit(reverify, c, titles, args.budget): c for c in cats}
+            for f in cf.as_completed(futs):
+                try:
+                    changed = f.result()
+                    if changed:
+                        print(futs[f], "reverified", len(changed), flush=True)
+                except Exception as e:  # noqa: BLE001 - one failed category doesn't stop the others
+                    print(futs[f], "reverify FAILED", type(e).__name__, str(e)[:200], flush=True)
+        return
+    if args.round3 or args.round4 or args.round5:
+        titles = _titles()
+        rounds, sfx = ((ROUND3, "-extra3") if args.round3 else (ROUND4, "-extra4") if args.round4
+                       else (ROUND5, "-extra5"))
         todo = [t for t in rounds if not args.only or t["category"] in args.only]
         with cf.ThreadPoolExecutor(max_workers=args.workers) as pool:
-            futs = {pool.submit(run_topic, t, titles, args.budget, True, sfx, True): t for t in todo}
+            futs = {pool.submit(run_topic, t, titles, args.budget, True, t.get("suffix", sfx), True): t for t in todo}
             for f in cf.as_completed(futs):
                 try:
                     print(futs[f]["category"], sfx, len(f.result()["entries"]), "new entries", flush=True)

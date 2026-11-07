@@ -17,8 +17,20 @@ Agents and the extension carry the public key below and install nothing that fai
 background updates only: a first install, a manual reinstall with the setup page's command, and the
 .mcpb downloaded from /setup trust the server they come from (over TLS).
 
+Data releases (`scripts/release.sh data`, read by kw_mcp.datasync) put the knowledge base and rules files in
+/dist/data/ under their package paths, with /dist/data/data.json:
+
+  {"data_version": 20261110093000, "app": "1.2", "min_app": "1.2.0",
+   "files": {"knowledge/faq.json": {"sha256": "<hex>", "size": 891234}, ...}, "signature": "<b64>"}
+
+  app is the major.minor of the release the data was cut from: only that series reads it, so data signed
+  from an older tree can't roll a newer series back to its shape. min_app: no version below it reads it either.
+
+  data         `kw-mcp-data:` + data.json without "signature" as canonical JSON (data_message), same key
+
   python -m kw_mcp.release keygen        # once: create the key in the keychain, print the public key
   python -m kw_mcp.release check <dir>   # verify a release folder (latest.json + the files it names)
+  python -m kw_mcp.release check-data <dir>   # verify a data release folder (data.json + exactly its files)
 """
 
 from __future__ import annotations
@@ -64,9 +76,21 @@ _RELEASE_VERSION = re.compile(r"\d+(\.\d+){1,3}")  # plain numbers only: no rc/d
 # makes signing refuse the bundle.
 BUNDLE_FILES = frozenset({"manifest.json", "icon.png", "pyproject.toml", "uv.lock", ".python-version", "README.md",
                           "LICENSE"})
-# The package's code, and its data: the graduation/다전공 rules (rules/*.json) and the knowledge base
-# (knowledge/**/*.json). Folder names without dots, so no entry can climb out of src/kw_mcp.
-_BUNDLE_SOURCE = re.compile(r"^src/kw_mcp/(\w+\.py|py\.typed|rules/[\w-]+\.json|knowledge/(?:[\w-]+/)*[\w-]+\.json)$")
+# The package's code, and its data: the graduation/다전공 rules (rules/*.json), the knowledge base
+# (knowledge/**/*.json) and the data's version (data_version, written at release). Folder names without
+# dots, so no entry can climb out of src/kw_mcp.
+_BUNDLE_SOURCE = re.compile(
+    r"^src/kw_mcp/(\w+\.py|py\.typed|data_version|rules/[\w-]+\.json|knowledge/(?:[\w-]+/)*[\w-]+\.json)$")
+DATA_MANIFEST_NAME = "data.json"
+DATA_VERSION_FILE = "data_version"  # in the package: the version of the data files it carries (datasync)
+# A data release's files, by path in the package: JSON only, ASCII names, at most two folders deep, so a
+# path from data.json can't climb out of the data folder on the bridge or on a PC.
+DATA_FILE = re.compile(r"(?:knowledge|rules)/(?:[A-Za-z0-9_-]+/){0,2}[A-Za-z0-9_-]+\.json", re.ASCII)
+MAX_DATA_FILES = 2000
+MAX_DATA_FILE_BYTES = 5 * 1024 * 1024  # the bridge's Lambda answers at most 6 MB in one response
+MAX_DATA_BYTES = 64 * 1024 * 1024
+_DATA_VERSION_LIMIT = 10 ** 14  # YYYYMMDDHHMMSS
+_APP_SERIES = re.compile(r"\d+\.\d+")
 # Files the wheel and the extension must carry byte for byte alike (the package's code and data).
 _PACKAGE_FILES = (".py", ".json")
 
@@ -156,6 +180,50 @@ def verify_mcpb(entry: dict[str, Any], public_key: str | None = None) -> bool:
         _check(key, entry["signature"], mcpb_message(version, sha256))
         return True
     except (KeyError, ValueError, TypeError, InvalidSignature):
+        return False
+
+
+def app_series(version: str) -> str:
+    """'1.2.3' -> '1.2': the releases that read the same data shape (data.json's app)."""
+    major, minor = version_tuple(version)[:2]
+    return f"{major}.{minor}"
+
+
+def data_version_at(when: datetime) -> int:
+    """A data version: the UTC time as YYYYMMDDHHMMSS, so later data has a higher number."""
+    return int(when.astimezone(UTC).strftime("%Y%m%d%H%M%S"))
+
+
+def data_message(manifest: dict[str, Any]) -> bytes:
+    """What a data release signs: data.json without its signature, as canonical JSON."""
+    body = {k: v for k, v in manifest.items() if k != "signature"}
+    return b"kw-mcp-data:" + json.dumps(body, sort_keys=True, separators=(",", ":"), ensure_ascii=True).encode()
+
+
+def verify_data(manifest: Any, public_key: str | None = None) -> bool:
+    """True if data.json is well formed (versions, file paths, hashes, sizes within the caps) and signed
+    by the release key."""
+    key = public_key if public_key is not None else PUBLIC_KEY
+    try:
+        version, min_app, files = manifest["data_version"], manifest["min_app"], manifest["files"]
+        app = manifest["app"]
+        if (not key or type(version) is not int or not 0 < version < _DATA_VERSION_LIMIT
+                or not isinstance(app, str) or not _APP_SERIES.fullmatch(app)
+                or not isinstance(min_app, str) or not is_release_version(min_app)
+                or not isinstance(files, dict) or not 0 < len(files) <= MAX_DATA_FILES):
+            return False
+        total = 0
+        for name, entry in files.items():
+            if not (isinstance(name, str) and DATA_FILE.fullmatch(name) and isinstance(entry, dict)
+                    and isinstance(entry.get("sha256"), str) and _SHA256.fullmatch(entry["sha256"])
+                    and type(entry.get("size")) is int and 0 < entry["size"] <= MAX_DATA_FILE_BYTES):
+                return False
+            total += entry["size"]
+        if total > MAX_DATA_BYTES:
+            return False
+        _check(key, manifest["signature"], data_message(manifest))
+        return True
+    except (KeyError, ValueError, TypeError, AttributeError, InvalidSignature):
         return False
 
 
@@ -283,6 +351,42 @@ def check_release(folder: Path, public_key: str | None = None) -> dict[str, Any]
     return manifest
 
 
+def sign_data(package: Path, names: list[str], data_version: int, app: str, min_app: str,
+              private_key: Ed25519PrivateKey) -> dict[str, Any]:
+    """data.json for the data files `names` (paths in the package folder), for the release series `app`
+    ('1.2'), from min_app on. Refuses a path off DATA_FILE, a file over the cap and anything that isn't JSON."""
+    if not _APP_SERIES.fullmatch(app) or not is_release_version(min_app):
+        raise ValueError(f"app must look like 1.2 and min_app like 1.2.0: {app!r}, {min_app!r}")
+    files: dict[str, dict[str, Any]] = {}
+    for name in sorted(names):
+        if not DATA_FILE.fullmatch(name):
+            raise ValueError(f"not a data file path: {name}")
+        data = (package / name).read_bytes()
+        if not 0 < len(data) <= MAX_DATA_FILE_BYTES:
+            raise ValueError(f"{name} is empty or larger than {MAX_DATA_FILE_BYTES} bytes")
+        json.loads(data)  # JSON only: a ValueError stops the release
+        files[name] = {"sha256": hashlib.sha256(data).hexdigest(), "size": len(data)}
+    manifest: dict[str, Any] = {"data_version": data_version, "app": app, "min_app": min_app, "files": files}
+    manifest["signature"] = base64.b64encode(private_key.sign(data_message(manifest))).decode()
+    return manifest
+
+
+def check_data(folder: Path, public_key: str | None = None) -> dict[str, Any]:
+    """Verify a data release folder: data.json signed by the release key, every file it lists present with
+    its signed size and hash, and nothing else in the folder. Returns the manifest."""
+    manifest = json.loads((folder / DATA_MANIFEST_NAME).read_text(encoding="utf-8"))
+    if not verify_data(manifest, public_key):
+        raise ValueError("data.json is not well formed or not signed by the release key")
+    for name, entry in manifest["files"].items():
+        path = folder / name
+        if not path.is_file() or path.stat().st_size != entry["size"] or _sha256(path) != entry["sha256"]:
+            raise ValueError(f"{name} is missing or does not match its signed hash")
+    present = {p.relative_to(folder).as_posix() for p in folder.rglob("*") if p.is_file()}
+    if extra := sorted(present - set(manifest["files"]) - {DATA_MANIFEST_NAME}):
+        raise ValueError(f"files data.json does not list: {', '.join(extra[:5])}")
+    return manifest
+
+
 def load_private_key() -> Ed25519PrivateKey:
     import keyring
 
@@ -312,6 +416,13 @@ def _main(argv: list[str]) -> None:
             raise SystemExit(f"release check failed: {e}") from None
         print(f"release {manifest['version']} verified: {manifest['wheel']}, {manifest['constraints']['file']}, "
               f"{manifest['mcpb']['file']}")
+    elif argv[:1] == ["check-data"] and len(argv) == 2:
+        try:
+            data = check_data(Path(argv[1]))
+        except (OSError, ValueError, KeyError, TypeError) as e:
+            raise SystemExit(f"data check failed: {e}") from None
+        print(f"data {data['data_version']} verified: {len(data['files'])} files for kw-mcp {data['app']} "
+              f"(from {data['min_app']})")
     else:
         raise SystemExit(__doc__)
 

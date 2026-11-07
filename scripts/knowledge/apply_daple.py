@@ -7,6 +7,7 @@ Where the public sources say something else, the entry follows Daple and says so
 
     python apply_daple.py --snapshot /path/snapshot-2026-11-07.json --dry-run
     python apply_daple.py --snapshot /path/snapshot-2026-11-07.json --budget 45
+    python apply_daple.py --restore <faq.json before the later pass>   # after a later pass dropped or moved it
 """
 
 from __future__ import annotations
@@ -84,12 +85,60 @@ List each change briefly in `changes` ("<id>: before -> after"). Leave gaps and 
 {entries}"""
 
 
+# Answers a later audit moved off Daple's values (round 5: it led with the public 학사정보 table instead). The
+# Daple-aligned answer from `previous` comes back; the audit's disagreement, which now names both, is kept.
+KEEP_DAPLE_ANSWER = {"multi-minor-credits", "multi-double-credits"}
+# the audit was right about one phrase in the restored answer: 수학과 is not an 인문사회 department
+PHRASE_FIXES = {"multi-double-credits": ("수학과 등 인문사회계열 중심 학과는", "수학과 등은")}
+
+
+def restore(previous: Path) -> list[str]:
+    """No Claude. A later pass (round 5's re-check) may drop the Daple source, since it is not a document the
+    model sees. Every entry that cited Daple in `previous` (the shipped faq.json before a rebuild) gets the
+    source back, and the Daple pointer back in how_to if it had one."""
+    from build_faq import entry_files
+    old = {e["id"]: e for e in json.loads(previous.read_text(encoding="utf-8"))["entries"]}
+    restored = []
+    for _, prefix in CATEGORIES:
+        for p in entry_files(prefix):
+            d = json.loads(p.read_text(encoding="utf-8"))
+            changed = []
+            for e in d["entries"]:
+                was = old.get(e["id"]) or old.get(f"{prefix}-{e['id']}")
+                src = next((x for x in (was or {}).get("sources", []) if x.get("source_id") == DAPLE_ID), None)
+                if not src:
+                    continue
+                if not any(x["source_id"] == DAPLE_ID for x in e["sources"]):
+                    e["sources"].append({"source_id": DAPLE_ID, "article": src.get("article") or "다전공 플래너",
+                                         "quote": ""})
+                    changed.append(e["id"])
+                if e["id"] in KEEP_DAPLE_ANSWER:
+                    target = was["answer"].replace(*PHRASE_FIXES.get(e["id"], ("", "")))
+                    if e["answer"] != target:
+                        e["answer"], e["confidence"] = target, "medium"
+                        changed.append(e["id"])
+                if "daple.kwuniv.com" in was["how_to"] + was["answer"] and \
+                        "daple.kwuniv.com" not in e["how_to"] + e["answer"]:
+                    e["how_to"] = f"{e['how_to'].rstrip()} {POINTER}".strip()
+                    changed.append(e["id"])
+            if changed:
+                restored += changed
+                dump_json(p, d)
+    return sorted(set(restored))
+
+
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--snapshot", type=Path, required=True)
+    ap.add_argument("--snapshot", type=Path)
     ap.add_argument("--budget", type=float, default=45.0)
     ap.add_argument("--dry-run", action="store_true")
+    ap.add_argument("--restore", type=Path, help="re-add the Daple source/pointer lost since this faq.json")
     args = ap.parse_args()
+    if args.restore:
+        print("Daple source restored on", restore(args.restore))
+        return
+    if not args.snapshot:
+        ap.error("--snapshot is required")
     data = _files()
     targets = affected(data)
     fx = facts(args.snapshot)

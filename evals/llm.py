@@ -16,7 +16,7 @@ from typing import Any
 
 MODEL = "claude-opus-5-5"
 PIPELINE = "eval"
-BUDGET_USD = 60.0  # raised from 35 for rounds 2-3 (owner: spend the expiring credits on quality)
+BUDGET_USD = 80.0  # raised for round 4 (owner: total credit cap $250)
 MIN_LEFT_USD = 0.5
 SSM_KEY = "/kw/collector/anthropic-api-key"
 SSM_REGION = "ap-northeast-2"

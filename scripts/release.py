@@ -12,6 +12,12 @@
                                  (CI validates and unpacks that with mcpb)
   scripts/release.sh check-install   build this checkout's wheel and pins and install them like an
                                  agent update does, then run the self-test (CI runs this on every OS)
+  scripts/release.sh data        a data release into dist/data/: HEAD's knowledge base and rules files
+                                 (src/kw_mcp/knowledge, src/kw_mcp/rules), tested and signed with the same
+                                 key, for installed copies to fetch from the bridge (kw_mcp.datasync).
+                                 Clean tree whose version is the latest release (its major.minor goes
+                                 in as data.json's app); `data --dry-run` signs with a throwaway key
+                                 into dist/data-dry-run/
 
 Steps: refuse a dirty tree, a missing tag or a version that isn't above the last release; check
 pyproject, manifest.json and uv.lock agree on the version; export HEAD (so nothing untracked, like
@@ -21,7 +27,9 @@ pins from uv.lock; install the wheel into a throwaway uv tool environment exactl
 does (dependencies hash-checked) and run its self-test; check that the extension, wheel and pins are
 still the bytes recorded when they were made; only then load the key and sign; verify everything;
 then replace dist/release. No npm code runs in a release: it could read the signing key.
-kw-campus/scripts/build_lambda.sh only copies a finished dist/release into the bridge bundle.
+The package gets a data_version file (the commit's UTC time, YYYYMMDDHHMMSS): a data release made
+later is newer, so installed copies take it; one made before is older, so they keep their own data.
+kw-campus/scripts/build_lambda.sh only copies a finished dist/release (and dist/data) into the bridge bundle.
 """
 
 from __future__ import annotations
@@ -152,6 +160,16 @@ def stage_bundle(src: Path, dest: Path) -> list[str]:
     if missing:
         raise ReleaseError(f"the extension would lack {', '.join(sorted(missing))}")
     return copied
+
+
+def write_data_version(project: Path, when: datetime) -> int:
+    """Write src/kw_mcp/data_version into a project copy: the version of the data files it carries
+    (kw_mcp.datasync.bundled_version), the commit's time so the same commit packs the same bytes."""
+    from kw_mcp import release
+
+    version = release.data_version_at(when)
+    (project / "src" / "kw_mcp" / release.DATA_VERSION_FILE).write_text(f"{version}\n", encoding="ascii")
+    return version
 
 
 def check_bundle_manifest(stage: Path) -> dict:
@@ -317,14 +335,20 @@ def build(root: Path, out: Path, *, dry_run: bool = False, last_manifest: Path |
         # Packed straight from the export, before uv, pytest or any dependency runs: what they could
         # change afterwards no longer matches the hash recorded here.
         stage_bundle(src, stage)
+        data_version = write_data_version(stage, commit_time(root))  # the tests run without it: package data only
         mcpb = files / release.MCPB_NAME
         pack_mcpb(stage, mcpb, commit_time(root))
         recorded = {mcpb: sha256(mcpb)}
 
         run(["uv", "lock", "--check"], cwd=src)
         run(["uv", "run", "--frozen", "pytest", "-q"], cwd=src)
+        write_data_version(src, commit_time(root))
         wheel, constraints = wheel_and_pins(src, files, version)
         recorded |= {wheel: sha256(wheel), constraints: sha256(constraints)}
+        with zipfile.ZipFile(wheel) as built:
+            inside = f"kw_mcp/{release.DATA_VERSION_FILE}"
+            if inside not in built.namelist() or built.read(inside).decode().strip() != str(data_version):
+                raise ReleaseError(f"{wheel.name} lacks the data_version the extension has")
         smoke_install(src, wheel, constraints, version, work)
         unchanged(recorded, "the test install")
 
@@ -361,13 +385,117 @@ def build(root: Path, out: Path, *, dry_run: bool = False, last_manifest: Path |
     return manifest
 
 
+DATA_TESTS = ("tests/test_knowledge.py", "tests/test_simulation.py")
+
+
+def latest_release(root: Path) -> str | None:
+    """The highest version released: the v* tags (HEAD's too) and the last dist/release/latest.json."""
+    from kw_mcp import release
+
+    found = [tag[1:] for tag in git(root, "tag", "--list", "v*").split() if release.is_release_version(tag[1:])]
+    try:
+        found.append(str(json.loads((root / "dist" / "release" / release.MANIFEST_NAME).read_text(encoding="utf-8"))
+                         ["version"]))
+    except (OSError, ValueError, KeyError, TypeError):
+        pass
+    found = [v for v in found if release.is_release_version(v)]
+    return max(found, key=release.version_tuple) if found else None
+
+
+def data_files(package: Path) -> list[str]:
+    """What a data release carries: every file under the package's knowledge/ and rules/, by package path."""
+    from kw_mcp import release
+
+    names = sorted(p.relative_to(package).as_posix() for folder in ("knowledge", "rules")
+                   for p in (package / folder).rglob("*") if p.is_file() and "__pycache__" not in p.parts)
+    if bad := [n for n in names if not release.DATA_FILE.fullmatch(n)]:
+        raise ReleaseError(f"a data release takes .json files with ASCII names only: {', '.join(bad[:5])}")
+    if not names:
+        raise ReleaseError("no data files under knowledge/ or rules/")
+    return names
+
+
+def build_data(root: Path, out: Path, *, dry_run: bool = False) -> dict:
+    """dist/data/: HEAD's data files, the data tests passed on them, and data.json signed with the release key."""
+    from kw_mcp import datasync, release
+
+    def refuse(problem: str) -> None:
+        if not dry_run:
+            raise ReleaseError(problem)
+        print(f"warning: {problem}", file=sys.stderr)
+
+    if changes := dirty(root):
+        refuse("the working tree has uncommitted changes; commit or stash them:\n  " + "\n  ".join(changes[:10]))
+    app = release_version(root)
+    # Only the series of the latest release reads the data (data.json's app), so data cut from an older tree
+    # can't hand a newer series an older data shape.
+    released = latest_release(root)
+    if released is None or release.version_tuple(released) != release.version_tuple(app):
+        refuse(f"this tree is kw-mcp {app}, the latest release is {released or 'none'}: cut data from the "
+               "released version (release this one first, or work on the latest release's branch)")
+    if release.version_tuple(datasync.MIN_APP) > release.version_tuple(app):
+        refuse(f"datasync.MIN_APP {datasync.MIN_APP} is above this tree's version {app}: no released copy reads it")
+    data_version = release.data_version_at(datetime.now(UTC))
+    last = root / "dist" / "data" / release.DATA_MANIFEST_NAME
+    if last.is_file():
+        try:
+            previous = json.loads(last.read_text(encoding="utf-8"))["data_version"]
+        except (OSError, ValueError, KeyError, TypeError) as e:
+            raise ReleaseError(f"can't read the last data_version in {last} ({e.__class__.__name__})") from None
+        if not isinstance(previous, int) or data_version <= previous:
+            raise ReleaseError(f"data_version {data_version} is not above the last data release {previous} ({last})")
+    with tempfile.TemporaryDirectory(prefix="kw-mcp-data-") as tmp:
+        work = Path(tmp)
+        src, files = work / "src", work / "out"
+        src.mkdir()
+        files.mkdir()
+        export_head(root, src)  # HEAD's tracked files only, as a release
+        package = src / "src" / "kw_mcp"
+        names = data_files(package)
+        recorded = {name: sha256(package / name) for name in names}
+        run(["uv", "run", "--frozen", "pytest", "-q", *DATA_TESTS], cwd=src)
+        if {name: sha256(package / name) for name in names} != recorded:
+            raise ReleaseError("a data file changed during the tests; nothing was signed")
+        for name in names:
+            (files / name).parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(package / name, files / name)
+        if dry_run:
+            from cryptography.hazmat.primitives import serialization
+            from cryptography.hazmat.primitives.asymmetric.ed25519 import (
+                Ed25519PrivateKey,
+            )
+
+            key = Ed25519PrivateKey.generate()
+            public = base64.b64encode(key.public_key().public_bytes(
+                serialization.Encoding.Raw, serialization.PublicFormat.Raw)).decode()
+        else:
+            key, public = release.load_private_key(), None  # verify against the shipped PUBLIC_KEY
+        manifest = release.sign_data(files, names, data_version, release.app_series(app), datasync.MIN_APP, key)
+        if {n: e["sha256"] for n, e in manifest["files"].items()} != recorded:
+            raise ReleaseError("a data file changed while it was being signed; nothing was written")
+        (files / release.DATA_MANIFEST_NAME).write_text(json.dumps(manifest, indent=1) + "\n", encoding="utf-8")
+        release.check_data(files, public)
+        if dry_run:
+            (files / "DRY-RUN-NOT-DEPLOYABLE").write_text(f"signed with a throwaway key {public}\n")
+        partial = out.with_name(out.name + ".partial")
+        shutil.rmtree(partial, ignore_errors=True)
+        shutil.copytree(files, partial)
+        shutil.rmtree(out, ignore_errors=True)
+        partial.replace(out)
+    print(f"data {data_version} for kw-mcp {release.app_series(app)} (from {datasync.MIN_APP}, {len(names)} files) "
+          f"ready in {out}"
+          + (" (dry run, not deployable)" if dry_run else ""))
+    return manifest
+
+
 def main(argv: list[str]) -> int:
     parser = argparse.ArgumentParser(prog="scripts/release.sh", description=__doc__,
                                      formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--dry-run", action="store_true", help="sign with a throwaway key into dist/release-dry-run")
     parser.add_argument("--last-latest-json", type=Path, metavar="FILE",
                         help="the bridge's /dist/latest.json: refuse unless the new version is above it")
-    parser.add_argument("command", nargs="?", choices=["build", "stage", "pack", "check-install"], default="build")
+    parser.add_argument("command", nargs="?", choices=["build", "stage", "pack", "check-install", "data"],
+                        default="build")
     parser.add_argument("dest", nargs="?", help="stage: the folder to fill; pack: the .mcpb to write")
     args = parser.parse_args(argv)
     try:
@@ -380,6 +508,9 @@ def main(argv: list[str]) -> int:
             return 0
         if args.command == "check-install":
             check_install(ROOT)
+            return 0
+        if args.command == "data":
+            build_data(ROOT, ROOT / "dist" / ("data-dry-run" if args.dry_run else "data"), dry_run=args.dry_run)
             return 0
         if args.last_latest_json is not None and not args.last_latest_json.is_file():
             parser.error(f"--last-latest-json: {args.last_latest_json} does not exist")

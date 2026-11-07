@@ -27,7 +27,7 @@ FETCH_LOG = WORK / "fetch_log.tsv"
 
 UA = "kw-campus-research (contact kyowon1108@gmail.com)"
 GAP_SECONDS = 3.5           # between two requests to the same server
-MAX_FETCHES = 350           # per build, robots.txt included (rounds 1-2: 250, round 3: +120)
+MAX_FETCHES = 400           # per build, robots.txt included (rounds 1-2: 250, round 3: +120, round 5: +50)
 
 MODEL = "claude-opus-5-5"
 PIPELINE = "knowledge"      # name in the shared spend ledger

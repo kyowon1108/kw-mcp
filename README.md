@@ -106,6 +106,8 @@ Claude 데스크톱에서 "웹이랑 폰에서도 쓰게 연결해 줘"라고 �
 5. 커밋과 태그를 push.
 6. kw-campus에서 `scripts/build_lambda.sh`(검증된 `dist/release`만 복사, 없거나 검증에 실패하면 멈춤) → `cdk deploy`.
 
+**데이터만 바꿀 때** (`knowledge/`, `rules/`): `scripts/release.sh data` → kw-campus `scripts/build_lambda.sh` → `cdk deploy`. 릴리스도 재설치도 필요 없다. `data`는 트리 버전이 마지막 릴리스(태그·`dist/release`)와 같고 깨끗할 때만, HEAD에서 데이터 파일을 꺼내 `test_knowledge`·`test_simulation`을 돌리고, 릴리스 키로 서명한 `data.json`(`data_version`, `app`(그 릴리스의 major.minor), `min_app`, 파일별 sha256·크기)과 함께 `dist/data/`에 둔다(`data --dry-run`은 버리는 키로 `dist/data-dry-run/`). 확장(초대 코드가 있을 때)과 PC 에이전트는 하루 한 번 서명, 같은 major.minor인지, `min_app`, 버전을 확인하고 바뀐 파일만 받아 `~/.config/kw-campus/data/`에 둔다(`kw_mcp/datasync.py`). 도구 호출 하나는 시작할 때의 자료 한 벌만 쓴다. 데이터 모양을 바꿔 옛 버전이 못 읽게 되면 `datasync.MIN_APP`을 올린다.
+
 **확장 업데이트**: Claude 데스크톱은 파일로 설치한 확장을 스스로 업데이트하지 않는다. 그래서 확장이 초대 코드의 서버에서 `latest.json`의 `mcpb` 항목을 6시간마다 확인하고, 서명이 맞는 더 높은 버전이 있으면 `this_week`·`today_briefing`·`my_notices` 답에 `update_available`을 붙인다. `download_update` 도구(읽기 전용이 아니라 Claude가 사용자에게 먼저 묻는다)는 새 파일을 받아 서명된 SHA-256과 맞을 때만 다운로드 폴더에 저장한다. 확장은 `uv run --frozen --no-dev`로 의존성을 uv.lock에 고정된 버전·해시로만, 개발용 패키지 없이 설치한다. 다만 이 프로젝트 자체를 빌드하는 `uv_build`(빌드 백엔드)는 uv.lock에 들어가지 않는다. `pyproject.toml`에서 버전을 정확히 고정해 두었고, 같은 버전의 uv는 내장 백엔드를 쓰지만, 다른 버전의 uv는 그 버전을 PyPI에서 해시 확인 없이 받아 학번·비밀번호 환경변수가 있는 상태로 실행한다. 서명 단계는 `.mcpb` 안의 코드가 같은 버전 wheel과 다르면 거부한다(오래된 파일이 서명되는 것 방지).
 
 ## Claude Code에 등록

@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import json
 import re
+import sys
 from pathlib import Path
 
 import pytest
@@ -116,6 +117,14 @@ def test_disagreements_lower_confidence():
     ("성희롱 상담 어디서 받아?", "상담·학생지원", "성희롱"),
     ("풋살장 예약 어떻게 해?", "학식·편의시설", "풋살"),
     ("선수과목 안 들었는데 후수과목 들어도 돼?", "수강신청", "선수"),
+    ("졸업하려면 토익 필요해?", "졸업", "토익"),
+    ("KLAS 졸업사정에 어학 대상이라고 뜨는데 뭐야", "졸업", "어학"),
+    ("함지마루 저녁도 팔아?", "학식·편의시설", "함지마루"),
+    ("분실물 어디서 찾아?", "학식·편의시설", "분실물"),
+    ("학생상담실 예약 어떻게 해?", "상담·학생지원", "상담"),
+    ("다음 학기 수강신청 언제야?", "수강신청", "수강신청"),
+    ("부전공 포기하면 들은 과목 어떻게 돼?", "다전공", "일반선택"),
+    ("학생회비 냈는지 어디서 확인해?", "동아리·학생자치", "자율적학생경비"),
 ])
 
 def test_search_finds_the_right_entry(query, category, word):
@@ -131,6 +140,38 @@ def test_link_entries_carry_official_urls():
     assert "mobileid.kw.ac.kr/seatweb" in knowledge.entry("library-seat-status-live")["how_to"]
     assert "kw.happydorm.or.kr" in knowledge.entry("dorm-apply-how")["how_to"]
     assert "www.kw.ac.kr/ko/tour/directions.jsp" in knowledge.entry("shuttle-route-schedule")["how_to"]
+
+
+def _validate_module():
+    import importlib.util
+
+    root = Path(__file__).resolve().parents[1] / "scripts" / "knowledge"
+    sys.path.insert(0, str(root))
+    try:
+        spec = importlib.util.spec_from_file_location("kb_validate", root / "validate.py")
+        mod = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(mod)
+    finally:
+        sys.path.remove(str(root))
+    return mod
+
+
+def test_links_only_go_to_allowed_hosts():
+    v = _validate_module()
+    assert v.link_problems("바로가기 https://vvd.bz/bhjy") and v.link_problems("m.site.naver.com/2iMoN")
+    assert v.link_problems("https://aback-shirt-867.notion.site/x") and v.link_problems("https://instagram.com/x")
+    assert not v.link_problems("https://www.instagram.com/kwu_career https://daple.kwuniv.com www.kosaf.go.kr")
+    for e in ENTRIES:
+        blob = json.dumps({k: e[k] for k in ("questions", "answer", "conditions_exceptions", "how_to",
+                                             "disagreement", "sources")}, ensure_ascii=False)
+        assert not v.link_problems(blob), (e["id"], v.link_problems(blob))
+
+
+def test_curricula_notes_read_as_plain_notes():
+    index = json.loads((DATA / "curricula" / "index.json").read_text(encoding="utf-8"))
+    for d in index["departments"]:
+        for note in d["notes"]:
+            assert not re.search(r"지시에 따라|요청에 따라|required_only|\(A\)|\(B\)", note), (d["slug"], note)
 
 
 def test_office_phone_entries_have_no_people():
@@ -224,6 +265,15 @@ def test_guide_without_a_match_lists_categories():
     out = knowledge.guide("   ")
     assert out["answers"] == [] and set(out["categories"]) == CATEGORIES
     assert "school_notices" in out["note"]
+
+
+def test_round5_curricula_cover_the_robot_and_global_korea_majors():
+    robot = knowledge.curriculum("지능형로봇학과", 2026)
+    assert robot and robot["courses"] and robot["scope"] == "full"
+    assert all(s["url"].startswith("https://share.kw.ac.kr/") for s in robot["sources"])
+    assert "이미지" in robot["basis"]  # credits read from the 교육과정체계 image are said so
+    korea = knowledge.curriculum("글로벌코리아전공", 2026)
+    assert korea and any(c["name"] == "한국의 대중문화" for c in korea["courses"])
 
 
 def test_curriculum_lookup_explains_what_is_missing():

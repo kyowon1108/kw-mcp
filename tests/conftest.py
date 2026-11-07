@@ -57,6 +57,17 @@ def agent_config_in_tmp(tmp_path, monkeypatch):
     monkeypatch.setattr(agent, "LINK_FILE", tmp_path / "kw-campus" / "agent.json")
 
 
+@pytest.fixture(autouse=True)
+def package_data_only(monkeypatch):
+    """Loaders read the package's own data files and nothing syncs or reads ~/.config/kw-campus/data, as in a
+    source checkout (no data_version file), whatever the folder the tests run in. test_datasync turns it on."""
+    from kw_mcp import datasync
+
+    monkeypatch.setattr(datasync, "bundled_version", lambda: None)
+    monkeypatch.setattr(datasync, "_started", True)
+    monkeypatch.delenv(datasync.DATA_DIR_ENV, raising=False)
+
+
 TEST_BRIDGE = "https://bridge.example"
 TEST_BRIDGE_WS = "wss://ws.example/prod"
 

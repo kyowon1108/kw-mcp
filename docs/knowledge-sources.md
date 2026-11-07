@@ -4,11 +4,11 @@
 
 ## 한눈에 보기
 
-- Q&A 항목 333개, 22개 범주: 장학 38, 다전공 25, 수강신청 23, 학적변동 22, 재수강·성적 19, 졸업 18, 수업·출석 18, 증명서·학생증 17, 전과·전공배정 16, 등록·등록금 16, 기숙사 14, 학점교류·교환학생 13, 학식·편의시설 12, 기타 12, 도서관 11, 진로·취업 11, IT·계정 10, 계절학기 10, 동아리·학생자치 9, 셔틀·교통 7, 상담·학생지원 7, 병무·예비군 5. (1·2차 248개, 3차 뒤 287개)
-- 신뢰도: high 157, medium 139, low 37.
-- 교육과정: 학과·전공 45곳, 입학연도별 파일 247개(2026 현행 전체 표 + 2019~2025 필수과목).
+- Q&A 항목 345개, 22개 범주: 장학 38, 다전공 27, 수강신청 25, 학적변동 22, 졸업 21, 재수강·성적 19, 수업·출석 18, 증명서·학생증 17, 전과·전공배정 16, 등록·등록금 15, 기숙사 14, 학식·편의시설 14, 학점교류·교환학생 13, 기타 12, 계절학기 11, 도서관 11, IT·계정 11, 진로·취업 11, 동아리·학생자치 10, 상담·학생지원 8, 셔틀·교통 7, 병무·예비군 5. (1·2차 248개, 3차 뒤 287개, 4차 뒤 333개)
+- 신뢰도: high 158, medium 175, low 12. (4차 뒤 high 157, medium 139, low 37)
+- 교육과정: 학과·전공 47곳, 입학연도별 파일 250개(2026 현행 전체 표 + 2019~2025 필수과목, 지능형로봇학과는 2025·2026 학년도 교과목 표).
 - 규정 별표 HWP 3개를 표로 옮김(`rules_tables.json`): 학칙 [별표 6] 16개 구간, 연계전공 26개 학점·학위명, 교양교과목 분류.
-- 요청 311건(1·2차 228 + 3차 34 + 4차 49), Claude 비용 59.40달러(1·2차 41.03 + 3차 10.47 + 4차 7.90, 장부 기준).
+- 요청 353건(1·2차 228 + 3차 34 + 4차 49 + 5차 42), Claude 비용 70.43달러(1·2차 41.03 + 3차 10.47 + 4차 7.90 + 5차 11.03, 장부 기준). 이와 별도로 단축 주소 2개를 HEAD로 한 번씩 확인했습니다(아래 '보안 점검 반영').
 
 ## 수집 방법
 
@@ -84,7 +84,7 @@ Daple의 과목 수는 그 트랙이 인정하는 과목 전체(기준표 연도
 | 미디어커뮤니케이션학부 | 81 (admission 2007) | 69 (69) | Daple이 많음 |
 | 동북아문화산업학부 | 54 (admission 2017) | 15 (15) | Daple이 많음 |
 | 스포츠융합과학과 | 48 (admission 2017) | 37 (37) | Daple이 많음 |
-| 지능형로봇학과 | 30 (admission 2022) | 없음 | 이 지식베이스에 2026 표 없음 |
+| 지능형로봇학과 | 30 (admission 2022) | 19 (이수구분 없음) | 5차에 추가. 학과 사이트의 2026학년도 교과목 표는 지능형로봇학과 개설 과목만 적고, 마이크로모듈 표는 다른 학과 과목까지 인정 과목으로 적어 세는 범위가 다름 |
 | 국제통상학부 | 57 (admission 2017) | 47 (47) | Daple이 많음 |
 | 영어산업학과 | 42 (admission 2007) | 31 (31) | Daple이 많음 |
 | 정보융합학부 | 47 (admission 2017) | 40 (33) | Daple이 많음 |
@@ -162,6 +162,62 @@ Daple의 과목 수는 그 트랙이 인정하는 과목 전체(기준표 연도
 - 학생회비 금액과 납부 방법, 동아리 등록(신규 동아리) 절차: 공식 페이지에는 소관 부서와 연락처만 있습니다.
 - 수강신청 장바구니: 2026-2학기 수강신청 공고와 자료집 안내에 장바구니 제도가 없어 low로 두었습니다.
 - 학생상담실 온라인 예약: www 소개 페이지에는 위치·전화만 있습니다. 상담실 사이트는 열지 않았습니다.
+
+## 5차 보강 (2026-11-07, 빠진 교육과정·어학 요건·low 재검증)
+
+평가 문항과 결과는 이번에도 열지 않았습니다. 저장소는 `kw-mcp`(v1.2 브랜치)로 옮겨 작업했습니다.
+
+- **더 받은 자료(42건, robots.txt 포함)**: share.kw.ac.kr 14(지능형로봇학과 사이트: 첫 화면, 학과소개, 진학안내, 교육과정체계와 그 그림, 학과내규, 마이크로모듈 교과목 게시판, 2026·2025학년도 교과목 표, 2026 마이크로모듈 표), www 9(사이트맵, 자료실 목록 2쪽, 지능형로봇학과 교과목안내, 글로벌코리아전공 소개·교육과정·교과목안내, 학사일정, 함지마루 운영 안내 공지의 본문 그림), 총학생회 사이트 8(홈, 공지 목록, 분실물·자율적학생경비 공지 3건, 학생회칙·예결산 자료실), 학생상담실 6, rule 2(공학프로그램 운영 규정), office365.kw.ac.kr 2, job 1(취업박람회 공지). 받기 상한을 350건에서 400건으로 올렸습니다.
+- **robots와 접근 범위**: share·총학생회·office365는 robots.txt가 404라 막는 규칙이 없었습니다. office365.kw.ac.kr는 직접 열면 403과 '학교 포탈을 통해 접근하세요' 문구가 나와, 그 응답만 출처로 썼습니다(로그인하지 않음). 학생상담실은 공지 목록만 읽었습니다. 공지 글 두 건을 열어 보려 했지만 서버가 목록 화면을 돌려줘 출처에서 뺐습니다. 총학생회 학생회칙·예결산 자료실은 스크립트로 채워져 빈 틀만 왔습니다.
+- **그림**: 본문이 그림인 자료 2개는 Claude에게 그림으로 보여 읽혔습니다. 지능형로봇학과 '교육과정체계' 그림(과목별 학점)과 함지마루 2026-2 운영 안내(조식·중식 시간)입니다. 학과내규 게시글의 첨부 그림은 내용 없는 사진이라 쓰지 않았습니다.
+- **Claude**: 46회, 11.03달러(보안 점검 뒤 교육과정 메모 번역 1회 포함).
+
+| 작업 | 호출 수 | 비용(USD) |
+|---|---|---|
+| Q&A 5차 작성·검토(9개 주제) | 18 | 3.61 |
+| low 항목 재검증(범주별) | 15 | 2.72 |
+| 감사(5차가 고친 8개 범주) | 8 | 2.39 |
+| 범주 간 점검 | 1 | 1.40 |
+| 검색 점검 질문 | 1 | 0.67 |
+| 교육과정 구조화(2곳) | 2 | 0.14 |
+| 교육과정 메모 번역 | 1 | 0.11 |
+
+**항목별 결과**
+
+1. **빠진 교육과정**: 지능형로봇학과(2025·2026, 각 19·18과목)와 글로벌코리아전공(2026, 28과목)을 추가했습니다. 자세한 근거와 한계는 아래 '교육과정에서 빈 곳'에 적었습니다. `index.json` 형식은 그대로이고 출처만 늘었습니다.
+2. **어학 졸업요건**: `grad-english-certification`을 고쳤습니다. 전교 공통 영어 성적 요건은 없고(영어졸업인증제는 2014-04-18 시행세칙 개정으로 폐지, 2015년 2월 졸업예정자부터), 외국인 학생은 2020-2 신·편입학자부터 TOPIK 4급이 필요하다는 점을 답합니다. 공학프로그램 운영 규정(4-3-40, 2026.04.22 제정)에도 영어 성적 요건은 없고, 세부 기준은 학과별 공학프로그램 내규에 맡겨져 있습니다. 학과 내규는 공개 자료로 찾지 못했습니다. 'KLAS 졸업사정에 어학이 대상으로 떠' 같은 질문에는 화면의 뜻을 짐작하지 않고, 본인 학생 유형과 공학프로그램 여부를 확인하고, 학과 내규는 학과 사무실에, 화면의 뜻은 교육지원팀(02-940-5022)에 물으라고 안내합니다. 교육지원팀 페이지 두 곳의 등록금 안내에 '영어졸업인증제' 문구가 남아 있는 점은 `disagreement`에 적었습니다(medium).
+3. **low 37개 재검증**: 25개를 올렸고 12개는 low로 남겼습니다. 올린 것은 대부분 '최신 규정이 우선하고 다른 쪽은 개정 전 안내' 또는 '두 문서의 적용 대상이 다름'으로 정리된 경우입니다(예: 전과 규정 2026.10.28 개정은 2027학년도 전형부터, 광운인되기는 학칙 부칙(2025.12.17.) 제2조로 면제, 국가장학금Ⅱ유형은 2026.11.6 공지 기준). 내용을 바로잡은 것도 있습니다(`grade-f-credit`: F는 평점평균에 들어감, `cert-student-id`: 분실 재발급은 하나은행 출장소에서 가능). 남은 low 12개와 이유:
+   - `status-reserve-forces-leave`, `military-reserve-on-leave`: 휴학 중 예비군 훈련시간 근거가 2003·2006년 FAQ뿐이고 서로 다름.
+   - `multi-social-welfare-linked`: 2020학번 기준이 학사정보(51)와 내규 [별표1] 비고(45)에서 다름.
+   - `exchange-credit-transfer-eligibility`: 학칙(1년·35학점)과 세칙(1학년 수료) 요건이 다름. `exchange-short-term-program`: 단기연수 내규 본문이 없음.
+   - `scholar-clawback-refund`: 장학 규정 제17조(환불 비율)와 2026-2 화도·동해 공지(전액 반환)가 다름.
+   - `cert-mail-fax`(우편·FAX 절차 없음), `cert-old-graduate`(1987년/1967년 표기 다름), `cert-student-id`(문의 번호·수령 장소 표기 다름).
+   - `shuttle-return-afternoon`: 하교 셔틀이 없다는 것은 안내가 없다는 데서 나온 추론.
+   - `it-klas-password-reset`: 근거가 2003년 u-Campus FAQ뿐.
+   - `career-job-fair`: 2026-11-04 개최 공지 본문에도 날짜가 없음.
+   재검증이 `disagreement`를 남긴 채 high로 올린 4개는 assemble이 medium으로 낮춥니다(`disagreement`가 있으면 high가 아니라는 기존 원칙).
+4. **다시 찾은 것**: Office 365는 신청 포털이 학교 포털을 거쳐야 열린다는 점까지 확인했습니다(메뉴 위치와 비용은 여전히 없음). 분실물은 총학생회 공지(2026.05.10)의 월계축전 분실물 페이지와 보관 장소(축전 중 비마관 319-1호, 뒤에 복지관 301호)만 있어, 평소 분실물 창구는 없다고 적었습니다. 함지마루는 2026-2 운영 안내 그림 기준 조식 08:30~09:30, 중식 11:30~14:00이고 석식은 안내에 없습니다. 복지관 시설은 부서 소개에서 호실을 모아 새 항목을 만들었습니다. 학생회비는 총학생회의 '자율적학생경비 확인 시스템'(2026.03.22 공지)과 추가 납부 공지(2026.04.30)를 출처로 붙였습니다. 학생상담실은 상담실 사이트 공지 목록 화면의 메뉴(심리상담·심리검사 온라인신청)와 운영시간 09:00~17:30을 근거로 새 항목을 만들었습니다.
+5. **얇던 주제**: 다음 학기 수강신청 일정은 날짜를 넣지 않고, 학사일정 페이지와 '[학사] ○○학년도 ○학기 수강신청 공고' 제목 형식을 안내하는 항목(`enroll-notice-search`)을 새로 만들었습니다(2026-2 공고 7.22, 자료집 7.31은 지난 학기 예시로만). 부전공·다전공을 중도 포기하면 이수 과목이 일반선택으로 처리된다는 점은 다전공 운영 내규 제17조 제2항으로, 졸업 때까지 못 채운 경우는 다전공 이수 내규 제14조로 확인했습니다. 상호인정은 심화·마이크로전공에는 없다는 점을 더했고, 연계전공별 9·15학점 표를 새 항목(`multi-linked-mutual-cap`)으로 만들었습니다. 다전공 신청 전 이수 과목 인정(운영 내규 제17조 제1항)과 휴학생의 계절학기(`season-leave-student`)는 기존 답이 문서와 맞아 그대로 두었습니다.
+
+- **새 항목 18개 중 15개가 남았습니다.** 범주 간 점검이 새 항목 3개(`enroll-course-withdrawal` → `grade-course-drop`, `support-health-room` → `campus-health-center`, `campus-address-main-phone` → `shuttle-address-phone`)와 예전 항목 2개(`tuition-thesis-fail-fee` → `grad-thesis-fail-tuition`, `club-space-rental` → `campus-sports-court-rental`)를 중복으로 지웠습니다. 전체 333 → 346개, 보안 점검 반영 뒤 345개.
+- **Daple 값 지키기**: 재검증과 감사는 Daple 스냅숏을 문서로 보지 못해, 다전공 항목 3개에서 Daple 출처를 지우고 2개(`multi-minor-credits`, `multi-double-credits`)의 학점을 학사정보 표 기준으로 바꿨습니다. `apply_daple.py --restore`(Claude 없음)가 이전 faq.json을 기준으로 Daple 출처·링크와 Daple 값 답을 되돌렸고, 감사가 새로 쓴 `disagreement`(학사정보와 Daple 비교)는 남겼습니다. 앞으로의 재검증·감사 지시문에는 Daple 출처를 지우지 말라는 문장을 넣었습니다.
+- **검색 점검**(새로 쓴 346개 질문, 조정 전): 1위 0.809, 3위 안 0.965. 놓친 12개 중 7개를 질문에 더한 뒤 같은 질문으로 0.829 / 0.986(낙관적). '제대'로 묻는 복학 질문이 다른 항목으로 가서 `status-return-after-military`에 질문 하나를 더했습니다(`apply_links.py`).
+
+**보안 점검 반영 (5차 뒤)**
+- 링크 3개를 정리했습니다. `support-violence-prevention-education`의 단축 주소(vvd.bz)는 HEAD 한 번에 200만 오고 이동할 주소가 없어 지웠습니다. KW-MOOC 주소와 메뉴 경로는 그대로입니다. `support-humanrights-lecture-2026`의 신청 링크(m.site.naver.com)는 HEAD 한 번에 구글 폼으로 이어져 학교 주소가 아니고, 특강도 2026-11-10에 끝나 항목을 지웠습니다. `club-join-how`의 노션 페이지(소유자 모름)는 학교 중앙동아리 페이지(https://www.kw.ac.kr/ko/life/activity03.jsp)로 바꿨습니다. 세 가지 모두 `apply_links.py`에 있어 다시 만들 때도 같은 결과가 나옵니다. 단축 주소 HEAD 2건은 `fetch.py`를 거치지 않아 요청 수(353건)에 넣지 않았고, 이동한 곳은 열지 않았습니다.
+- `validate.py`가 링크 호스트를 검사합니다(`faq.json` 본문·출처, 교육과정 파일과 색인, 별표 표의 주소). 단축 주소(vvd.bz, bit.ly, han.gl, me2.do, naver.me, m.site.naver.com, url.kr, tinyurl.com, goo.gl, forms.gle, t.ly, buly.kr, linktr.ee, notion.site)는 거부하고, 아래 목록 밖의 호스트도 거부합니다.
+  - 하위 도메인까지 허용: `kw.ac.kr`, `go.kr`
+  - 호스트 그대로 허용: `kwuniv.com`, `daple.kwuniv.com`(Daple), `kw.happydorm.or.kr`(행복기숙사), `www.kwu-studentcouncil.co.kr`(총학생회), `webminwon.com`·`www.webminwon.com`(인터넷 증명발급), `www.isic.co.kr`(국제학생증), `www.selc.or.kr`(서울권역 e-러닝)
+  - 계정 경로만 허용: `instagram.com/kwu_career`, `instagram.com/kwu_studentcouncil`, `instagram.com/kw_club_union`, `cafe.naver.com/kwexchange`, `cafe.naver.com/kwucdy`, `pf.kakao.com/_Cxldyn`(총학생회 카카오톡 채널). 모두 학교 공식 페이지가 안내한 계정입니다.
+- 교육과정 `notes`와 `basis`에 남아 있던 만들 때의 표현('지시에 따라 … 생략함', (A)/(B), required_only)을 평이한 말로 바꿨습니다(예: '2026학번은 필수과목 목록을 따로 두지 않음', (A) → 교육과정 표, (B) → 필수과목표). `build_curricula.py --assemble`이 매번 같은 규칙(`PLAIN`)으로 바꿉니다. 영어로 남아 있던 메모 40개는 한국어로 옮겼습니다(Claude 1회, 0.11달러).
+
+**5차에서도 자료로 채우지 못한 것**
+- eduroam: 공식 Wi-Fi 안내는 여전히 Kwangwoon_KT·KW_<건물호실>만 적습니다. 지원한다/안 한다를 쓰지 않았습니다.
+- 함지마루 외 식당·카페·편의점과 그 운영시간: 편의시설 페이지와 공지 어디에도 없습니다.
+- 학생회비(자율적학생경비) 금액과 납부 방법: 공지에 금액이 없고, 총학생회 예결산 자료실은 스크립트로만 열립니다.
+- 동아리 신규 등록(창설) 절차와 가입 시기: 총동아리연합회 연락처만 있습니다.
+- 수강신청 장바구니: 2026-2 공고·자료집에 제도가 없습니다. `enroll-wishlist`는 공고에 있는 사실(0시 로그인, 즐겨찾기, 여석 확인)만으로 medium이 됐습니다.
+- 학생상담실 상담 비용, 평소 분실물 창구, Office 365 신청 메뉴 위치와 비용, 학과별 공학프로그램 내규(어학 기준 포함 여부), KLAS 졸업사정 '대상' 표시의 뜻.
 
 ## 읽은 자료와 쓰인 곳
 
@@ -399,8 +455,8 @@ Daple의 과목 수는 그 트랙이 인정하는 과목 전체(기준표 연도
 | reg-78 | [4-3-10 교과과정 편성 및 운영에 관한 규정](https://rule.kw.ac.kr/lmxsrv/law/lawFullContent.do?SEQ=78&SEQ_HISTORY=620) | 2026-11-07 | 200 | Q&A (인용됨) |
 | reg-189 | [4-3-39 자율전공학부 운영에 관한 규정](https://rule.kw.ac.kr/lmxsrv/law/lawFullContent.do?SEQ=189&SEQ_HISTORY=601) | 2026-11-07 | 200 | Q&A (인용됨) |
 | daple-snapshot | [다전공 플래너(Daple) 2026-11-07 확인](https://daple.kwuniv.com) | - | - | Q&A (인용됨) |
-| notices-haksa-1 | [공지사항 학사 목록 1쪽](https://www.kw.ac.kr/ko/life/notice.jsp?srCategoryId=1&mode=list&tpage=1) | 2026-11-07 | 200 | Q&A |
-| notices-haksa-2 | [공지사항 학사 목록 2쪽](https://www.kw.ac.kr/ko/life/notice.jsp?srCategoryId=1&mode=list&tpage=2) | 2026-11-07 | 200 | Q&A |
+| notices-haksa-1 | [공지사항 학사 목록 1쪽](https://www.kw.ac.kr/ko/life/notice.jsp?srCategoryId=1&mode=list&tpage=1) | 2026-11-07 | 200 | Q&A (인용됨) |
+| notices-haksa-2 | [공지사항 학사 목록 2쪽](https://www.kw.ac.kr/ko/life/notice.jsp?srCategoryId=1&mode=list&tpage=2) | 2026-11-07 | 200 | Q&A (인용됨) |
 | notices-haksa-3 | [공지사항 학사 목록 3쪽](https://www.kw.ac.kr/ko/life/notice.jsp?srCategoryId=1&mode=list&tpage=3) | 2026-11-07 | 200 | Q&A |
 | notices-jang-1 | [공지사항 등록/장학 목록 1쪽](https://www.kw.ac.kr/ko/life/notice.jsp?srCategoryId=4&mode=list&tpage=1) | 2026-11-07 | 200 | Q&A |
 | notices-jang-2 | [공지사항 등록/장학 목록 2쪽](https://www.kw.ac.kr/ko/life/notice.jsp?srCategoryId=4&mode=list&tpage=2) | 2026-11-07 | 200 | Q&A |
@@ -449,7 +505,7 @@ Daple의 과목 수는 그 트랙이 인정하는 과목 전체(기준표 연도
 | web-disability | [장애학생지원실](https://www.kw.ac.kr/ko/department/admin33.jsp) | 2026-11-07 | 200 | Q&A (인용됨) |
 | web-facility10 | [장소 사용(신청) 안내](https://www.kw.ac.kr/ko/life/facility10.jsp) | 2026-11-07 | 200 | Q&A (인용됨) |
 | web-facility04 | [대강당/소강당](https://www.kw.ac.kr/ko/life/facility04.jsp) | 2026-11-07 | 200 | Q&A |
-| web-tour01 | [광운캠퍼스안내](https://www.kw.ac.kr/ko/tour/tour01.jsp) | 2026-11-07 | 200 | Q&A |
+| web-tour01 | [광운캠퍼스안내](https://www.kw.ac.kr/ko/tour/tour01.jsp) | 2026-11-07 | 200 | Q&A (인용됨) |
 | web-activity01 | [학생자치활동(학생자치기구)](https://www.kw.ac.kr/ko/life/activity01.jsp) | 2026-11-07 | 200 | Q&A (인용됨) |
 | web-activity02 | [총동아리연합회](https://www.kw.ac.kr/ko/life/activity02.jsp) | 2026-11-07 | 200 | Q&A (인용됨) |
 | web-activity03 | [중앙동아리](https://www.kw.ac.kr/ko/life/activity03.jsp) | 2026-11-07 | 200 | Q&A (인용됨) |
@@ -458,14 +514,14 @@ Daple의 과목 수는 그 트랙이 인정하는 과목 전체(기준표 연도
 | internship-home | [현장실습지원팀 첫 화면](https://internship.kw.ac.kr/index.do) | 2026-11-07 | 200 | Q&A (인용됨) |
 | dept-electric-852 | [전기공학과 공지 2026-2 이수체계 준수제도 및 선수 교과목 미이수자 상담 안내](https://electric.kw.ac.kr/community/s_notice.php?BoardMode=view&UID=852) | 2026-11-07 | 200 | Q&A (인용됨) |
 | notice-53558 | [공지 [학생] 장소사용 신청 안내(2026년 11월)](https://www.kw.ac.kr/ko/life/notice.jsp?BoardMode=view&DUID=53558) | 2026-11-07 | 200 | Q&A (인용됨) |
-| notice-53200 | [공지 [학생] 2026-2 복지관 3층 학생식당(함지마루) 운영 안내](https://www.kw.ac.kr/ko/life/notice.jsp?BoardMode=view&DUID=53200) | 2026-11-07 | 200 | Q&A |
+| notice-53200 | [공지 [학생] 2026-2 복지관 3층 학생식당(함지마루) 운영 안내](https://www.kw.ac.kr/ko/life/notice.jsp?BoardMode=view&DUID=53200) | 2026-11-07 | 200 | Q&A (인용됨) |
 | notice-53599 | [공지 [시설] 한울관 및 아이스링크 주차장 입구 차량 출입 통제 안내](https://www.kw.ac.kr/ko/life/notice.jsp?BoardMode=view&DUID=53599) | 2026-11-07 | 200 | Q&A (인용됨) |
 | notice-53462 | [공지 [시설] 한울관 및 아이스링크 주차장 출입구 변경 안내](https://www.kw.ac.kr/ko/life/notice.jsp?BoardMode=view&DUID=53462) | 2026-11-07 | 200 | Q&A (인용됨) |
 | notice-53458 | [공지 [정보통신처] 불법 소프트웨어, 이미지, 폰트 사용 및 배포 방지를 위한 협조 안내](https://www.kw.ac.kr/ko/life/notice.jsp?BoardMode=view&DUID=53458) | 2026-11-07 | 200 | Q&A (인용됨) |
 | notice-53457 | [공지 [정보통신처] 내PC지키미를 이용한 PC보안 및 알약 점검 협조 요청](https://www.kw.ac.kr/ko/life/notice.jsp?BoardMode=view&DUID=53457) | 2026-11-07 | 200 | Q&A (인용됨) |
 | notice-53483 | [공지 [학사] KLAS 종합정보서비스 보안 강화 조치 시행 안내](https://www.kw.ac.kr/ko/life/notice.jsp?BoardMode=view&DUID=53483) | 2026-11-07 | 200 | Q&A (인용됨) |
 | notice-53549 | [공지 [학생상담실] 뇌파·맥파 측정 체험 및 해석상담](https://www.kw.ac.kr/ko/life/notice.jsp?BoardMode=view&DUID=53549) | 2026-11-07 | 200 | Q&A (인용됨) |
-| notice-53505 | [공지 [인권센터 특강] AI·SNS 시대 디지털 경계](https://www.kw.ac.kr/ko/life/notice.jsp?BoardMode=view&DUID=53505) | 2026-11-07 | 200 | Q&A (인용됨) |
+| notice-53505 | [공지 [인권센터 특강] AI·SNS 시대 디지털 경계](https://www.kw.ac.kr/ko/life/notice.jsp?BoardMode=view&DUID=53505) | 2026-11-07 | 200 | Q&A |
 | notice-52442 | [공지 [학생] 2026 폭력예방교육 수강 안내](https://www.kw.ac.kr/ko/life/notice.jsp?BoardMode=view&DUID=52442) | 2026-11-07 | 200 | Q&A (인용됨) |
 | notice-53210 | [공지 [취업] 2026-2 비교과프로그램 운영 안내](https://www.kw.ac.kr/ko/life/notice.jsp?BoardMode=view&DUID=53210) | 2026-11-07 | 200 | Q&A |
 | notice-53211 | [공지 [취업] 2026-2 온라인 이력서 클리닉](https://www.kw.ac.kr/ko/life/notice.jsp?BoardMode=view&DUID=53211) | 2026-11-07 | 200 | Q&A |
@@ -476,6 +532,40 @@ Daple의 과목 수는 그 트랙이 인정하는 과목 전체(기준표 연도
 | job-notice-12476 | [경력개발팀 공지 10월 외부상담사(온라인) 진로 및 취업상담 신청 안내](https://job.kw.ac.kr/community/notice.php?BoardMode=view&UID=12476) | 2026-11-07 | 200 | Q&A (인용됨) |
 | faq-755 | [종합 FAQ [정보운영팀] 홈페이지 및 종합정보서비스 비밀번호를 분실한 경우](https://www.kw.ac.kr/ko/life/faq.jsp?BoardMode=view&DUID=755) | 2026-11-07 | 200 | Q&A (인용됨) |
 | job-51947 | [취업게시판 경력개발팀 취업정보 인스타그램(@kwu_career) 제공 안내](https://www.kw.ac.kr/ko/life/job.jsp?BoardMode=view&DUID=51947) | 2026-11-07 | 200 | Q&A (인용됨) |
+| web-sitemap | [홈페이지 사이트맵](https://www.kw.ac.kr/ko/info/sitemap.jsp) | 2026-11-07 | 200 | Q&A |
+| web-data-1 | [KW-LIFE 자료실 목록 1쪽](https://www.kw.ac.kr/ko/life/data.jsp?mode=list&tpage=1) | 2026-11-07 | 200 | Q&A |
+| web-data-2 | [KW-LIFE 자료실 목록 2쪽](https://www.kw.ac.kr/ko/life/data.jsp?mode=list&tpage=2) | 2026-11-07 | 200 | Q&A |
+| web-ai06-5 | [지능형로봇학과 교과목안내](https://www.kw.ac.kr/ko/univ/ai06_5.jsp) | 2026-11-07 | 200 | Q&A, 교육과정 |
+| web-law06-1 | [국제학부 글로벌코리아전공 소개](https://www.kw.ac.kr/ko/univ/law06_1.jsp) | 2026-11-07 | 200 | Q&A, 교육과정 |
+| web-calendar | [학사일정](https://www.kw.ac.kr/ko/life/bachelor_calendar.jsp) | 2026-11-07 | 200 | Q&A (인용됨) |
+| share-home | [지능형로봇학과(지능형로봇혁신융합대학사업단) 홈](https://share.kw.ac.kr/) | 2026-11-07 | 200 | 교육과정 |
+| sangdam-notice | [학생상담실 공지사항 목록](https://sangdam.kw.ac.kr/board/notice.php) | 2026-11-07 | 200 | Q&A (인용됨) |
+| council-home | [총학생회 이음 홈](https://www.kwu-studentcouncil.co.kr/) | 2026-11-07 | 200 | Q&A (인용됨) |
+| council-notices | [총학생회 이음 공지사항](https://www.kwu-studentcouncil.co.kr/notices) | 2026-11-07 | 200 | Q&A (인용됨) |
+| regview-272 | [4-3-40 공학프로그램 운영 규정 (개정 정보)](https://rule.kw.ac.kr/lmxsrv/law/lawFullView.do?SEQ=272) | 2026-11-07 | 200 | Q&A |
+| web-law06-4 | [국제학부 글로벌코리아전공 교육과정](https://www.kw.ac.kr/ko/univ/law06_4.jsp) | 2026-11-07 | 200 | 교육과정 |
+| web-law06-5 | [국제학부 글로벌코리아전공 교과목안내](https://www.kw.ac.kr/ko/univ/law06_5.jsp) | 2026-11-07 | 200 | 교육과정 |
+| share-main | [지능형로봇학과(사업단) 메인](https://share.kw.ac.kr/main/main.php) | 2026-11-07 | 200 | 교육과정 |
+| council-lost-found | [총학생회 공지 분실물 게시/습득 페이지 (2026.05.10)](https://www.kwu-studentcouncil.co.kr/notices/cl1778405153738tgq2y2n) | 2026-11-07 | 200 | Q&A (인용됨) |
+| council-student-fee | [총학생회 공지 1학기 자율적학생경비 추가 납부 안내 (2026.04.30)](https://www.kwu-studentcouncil.co.kr/notices/cl1789744608455mdfnh2u) | 2026-11-07 | 200 | Q&A (인용됨) |
+| reg-272 | [4-3-40 공학프로그램 운영 규정](https://rule.kw.ac.kr/lmxsrv/law/lawFullContent.do?SEQ=272&SEQ_HISTORY=629) | 2026-11-07 | 200 | Q&A (인용됨) |
+| robot-edu-system | [지능형로봇학과 교육과정체계](https://share.kw.ac.kr/edu_pro/edu_pro01.php?tmenu=3&smenu=1) | 2026-11-07 | 200 | 교육과정 |
+| robot-rules | [지능형로봇학과 학과내규](https://share.kw.ac.kr/edu_pro/edu_pro02.php?tmenu=3&smenu=2) | 2026-11-07 | 200 | 교육과정 |
+| robot-admission | [지능형로봇학과 진학안내](https://share.kw.ac.kr/department/department03.php?tmenu=2&smenu=3) | 2026-11-07 | 200 | 교육과정 |
+| robot-intro | [지능형로봇학과 학과소개](https://share.kw.ac.kr/department/department02.php?tmenu=2&smenu=2) | 2026-11-07 | 200 | 교육과정 |
+| robot-modules | [지능형로봇학과 마이크로모듈교과목안내](https://share.kw.ac.kr/department/department0403new.php?tmenu=2&smenu=4) | 2026-11-07 | 200 | 교육과정 |
+| robot-rules-1159 | [지능형로봇학과 학과내규 (2022-06-06 게시)](https://share.kw.ac.kr/edu_pro/edu_pro02.php?admin_mode=read&no=1159&make=&search=&type=&tmenu=3&smenu=2&page=1&sub=) | 2026-11-07 | 200 | 교육과정 |
+| robot-edu-image | [지능형로봇학과 교육과정체계 그림](https://share.kw.ac.kr/asset/images/edu_pro_img01.png) | 2026-11-07 | 200 | 교육과정 |
+| robot-rules-image | [지능형로봇학과 학과내규 (게시 이미지)](https://share.kw.ac.kr/board/free/photo/a_202206061718380.jpg) | 2026-11-07 | 200 | 교육과정 |
+| robot-courses-2026 | [2026학년도 지능형로봇학과 교과목 표](https://share.kw.ac.kr/department/department0403new.php?admin_mode=read&no=1593&make=&search=&tmenu=2&smenu=4) | 2026-11-07 | 200 | 교육과정 |
+| robot-modules-2026 | [2026학년도 마이크로모듈 교과목(예정)](https://share.kw.ac.kr/department/department0403new.php?admin_mode=read&no=1592&make=&search=&tmenu=2&smenu=4) | 2026-11-07 | 200 | 교육과정 |
+| robot-courses-2025 | [2025학년도 지능형로봇학과 교과목 표](https://share.kw.ac.kr/department/department0403new.php?admin_mode=read&no=1508&make=&search=&tmenu=2&smenu=4) | 2026-11-07 | 200 | 교육과정 |
+| council-fee-check | [총학생회 공지 자율적학생경비 확인 시스템 (2026.03.22)](https://www.kwu-studentcouncil.co.kr/notices/cl1774108950706mdbkjig) | 2026-11-07 | 200 | Q&A (인용됨) |
+| council-bylaws | [총학생회 자료실 학생회칙](https://www.kwu-studentcouncil.co.kr/resources/bylaws) | 2026-11-07 | 200 | Q&A |
+| council-budgets | [총학생회 자료실 예·결산 자료](https://www.kwu-studentcouncil.co.kr/resources/budgets) | 2026-11-07 | 200 | Q&A |
+| office365-home | [Office 365 신청 포털 (직접 접속 시 응답)](https://office365.kw.ac.kr/) | 2026-11-07 | 403 | Q&A (인용됨) |
+| notice-53200-image | [[학생] 2026학년도 2학기 복지관 3층 학생식당(함지마루) 운영 안내 (본문 이미지)](https://www.kw.ac.kr/KWData/webeditor/2026/2026_08_27_150842.jpg) | 2026-11-07 | 200 | Q&A (인용됨) |
+| job-notice-12624 | [경력개발팀 공지 2026 광운대학교 취업박람회 개최 안내](https://job.kw.ac.kr/community/notice.php?BoardMode=view&UID=12624) | 2026-11-07 | 200 | Q&A (인용됨) |
 
 ## 읽지 못한 것과 빈 곳
 
@@ -495,7 +585,8 @@ Daple의 과목 수는 그 트랙이 인정하는 과목 전체(기준표 연도
 - 금융부동산법무학과: 필수과목표 링크가 국제학부 파일을 가리켜(학교 페이지 오류로 보임) 2026 현행 표만 있습니다.
 - 정보콘텐츠학과(야)·자산관리학과(야): www 교육과정 탭이 없어 2019~2024 필수과목만 있습니다.
 - 소프트웨어학부·정보융합학부·환경공학과·미디어커뮤니케이션학부 등 일부는 2024~2025 필수과목표 행에 전공필수가 없어 그 입학연도 파일이 없습니다.
-- 글로벌코리아전공: 교육과정 탭이 없습니다.
+- 글로벌코리아전공(5차에 추가): www 전공 페이지의 '교육과정' 탭(law06_4)은 학년·학기별 과목명만 있고 연도·학점·이수구분·학정번호가 없습니다. 2026 현행으로 간주했고, 같은 표의 국제지역학전공 행이 국제학부 교육과정 페이지와 달라 오래된 표일 수 있습니다(`notes`에 적음). 필수과목표에는 이 전공 행이 없습니다.
+- 지능형로봇학과(5차에 추가): 신입생 정원이 없는 학과라 입학연도별 표가 없습니다. 학과 사이트(share.kw.ac.kr)의 '2026학년도/2025학년도 지능형로봇학과 교과목 표'(HTML 표)를 그 학년도 파일로 썼습니다(`basis`에 적음). 표에는 학정번호와 학년이 없고, 학점이 적힌 과목은 2개뿐이라 나머지 학점은 '교육과정체계' 그림(연도 표기 없음)을 Claude로 읽어 같은 과목명일 때만 채웠습니다(`basis`에 '이미지'로 적음). 전과 시 60학점 기준과 마이크로전공 이수 조건은 `notes`에 있습니다. 학과내규 게시글의 첨부 이미지는 내용 없는 사진이라 쓰지 않았습니다.
 - 학부 안 전공 페이지 일부는 학부 표와 같습니다. 미디어커뮤니케이션학부와 두 전공(인터랙티브미디어·전략커뮤니케이션)은 같은 표, 국제금융전공과 글로벌비즈니스전공은 같은 표, 로봇학부와 정보제어·지능시스템전공은 같은 표입니다.
 - 필수과목표와 www 표의 학점이 다른 과목이 있습니다(예: 소프트웨어학부 리눅스활용실습 2 대 3). 학과별 `notes`에 적었습니다. 필수과목표 칸이 학점인지 시수인지 확실하지 않습니다.
 
@@ -599,14 +690,16 @@ Claude 비교는 별표와 rules JSON 발췌만 보고 했습니다. 학칙 본�
 - 연락처: 부서 대표번호는 담당 업무표에서 왔습니다. 인사이동이 있으면 업무별 번호가 바뀝니다.
 - Daple: 스냅숏은 2026-11-07 하루치입니다. 다전공 신청 기간마다 트랙이 바뀌므로 소유자가 새 스냅숏을 떠 주면 `apply_daple.py`를 다시 돌려야 합니다.
 - 셔틀: 위치 안내 페이지의 버스 노선표는 스스로 '2016년 12월 1일자'라고 적혀 있어 오래됐을 수 있습니다.
+- 지능형로봇학과: 학과 사이트가 학년도마다 교과목 표를 새 글로 올립니다(2026은 no=1593). 새 학년도 표가 올라오면 `discover.py`의 `ROUND5_OTHER`에 글 주소를 더하고 `build_curricula.py`의 `EXTRA_A`·`EXTRA_DOCS`를 바꿉니다.
 
 **다시 만들 때** (모두 `scripts/knowledge/`에서, `KB_WORK`로 작업 폴더 지정)
 
 ```sh
 export KB_WORK=/path/to/work   # 기본값: 시스템 임시 폴더/kw-knowledge
+export KB_LEDGER=/path/to/claude-spend/ledger.py   # 지출 장부. 없으면 Claude 호출 전에 멈춤
 python discover.py --seed                     # 출처 목록(sources.json) 시작점
 python fetch.py --sources --dry-run           # 받을 목록만 보기
-python fetch.py --sources                     # 정중하게 받기(UA, 3.5초, robots, GET, 350건 상한)
+python fetch.py --sources                     # 정중하게 받기(UA, 3.5초, robots, GET, 400건 상한)
 python discover.py --derive && python fetch.py --sources   # 규정 본문·학과 교육과정 탭·FAQ 글
 uv run --frozen --with xlrd python extract.py
 CLAUDE="uv run --frozen --with anthropic --with 'botocore[crt]' --with boto3 --with xlrd python"
@@ -621,6 +714,10 @@ $CLAUDE build_faq.py --crosscheck --budget 45 # 범주 사이 모순·중복 정
 $CLAUDE build_faq.py --audit --only 계절학기 수업·출석 전과·전공배정 학점교류·교환학생 증명서·학생증 병무·예비군 기타 기숙사 --budget 45
 $CLAUDE build_faq.py --round3 --budget 56     # 3차: 휴·복학, 등록금 반환, 장학 환수, 출석, 기숙사·도서관·셔틀
 $CLAUDE build_faq.py --round4 --budget 87     # 4차: IT·계정, 학생증, 상담, 시설, 진로·취업, 동아리, 수강신청 빈 곳
+$CLAUDE build_faq.py --round5 --budget 100    # 5차: 어학 요건, 못 찾았던 생활 질문, 다전공·수강신청 얇은 곳
+$CLAUDE build_faq.py --reverify --budget 100  # low 항목 재검증(범주별)
+$CLAUDE build_faq.py --crosscheck --budget 100 && $CLAUDE build_faq.py --audit --only 졸업 다전공 수강신청 계절학기 학식·편의시설 동아리·학생자치 상담·학생지원 IT·계정 --budget 100
+python apply_daple.py --restore <이 패스들 전의 faq.json>   # 지워진 Daple 출처·링크와 Daple 값 답을 되돌림(Claude 없음)
 python build_contacts.py                      # 학과 사무실·교학팀 번호(Claude 없음)
 python apply_links.py                         # 링크형 항목에 공식 주소
 $CLAUDE apply_daple.py --snapshot <소유자가 뜬 Daple 스냅숏.json> --budget 45   # 다전공 값을 Daple에 맞춤

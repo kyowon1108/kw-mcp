@@ -202,6 +202,55 @@ NOTICE_PICK = ("국가장학금 지급", "동계계절수업", "유고결석 및
                "졸업연기 및 조기졸업", "수강신청 공고", "조기취업자", "성적 확인 및 성적증명서", "화도 및 동해장학금",
                "중간고사 일정", "재입학 전형")
 
+# Round 5 (owner's real use): missing curricula (지능형로봇학과, 글로벌코리아전공), 어학 졸업요건, unsourced retries.
+ROUND5 = [
+    ("web-sitemap", "/ko/info/sitemap.jsp", "홈페이지 사이트맵"),
+    ("web-data-1", "/ko/life/data.jsp?mode=list&tpage=1", "KW-LIFE 자료실 목록 1쪽"),
+    ("web-data-2", "/ko/life/data.jsp?mode=list&tpage=2", "KW-LIFE 자료실 목록 2쪽"),
+    ("web-ai06-5", "/ko/univ/ai06_5.jsp", "지능형로봇학과 교과목안내"),
+    ("web-law06-1", "/ko/univ/law06_1.jsp", "국제학부 글로벌코리아전공 소개"),
+    ("web-calendar", "/ko/life/bachelor_calendar.jsp", "학사일정"),
+]
+ROUND5_OTHER = [
+    ("share-home", "https://share.kw.ac.kr/", "지능형로봇학과(지능형로봇혁신융합대학사업단) 홈"),
+    ("sangdam-notice", "https://sangdam.kw.ac.kr/board/notice.php", "학생상담실 공지사항 목록"),
+    ("council-home", "https://www.kwu-studentcouncil.co.kr/", "총학생회 이음 홈"),
+    ("council-notices", "https://www.kwu-studentcouncil.co.kr/notices", "총학생회 이음 공지사항"),
+    ("regview-272", "https://rule.kw.ac.kr/lmxsrv/law/lawFullView.do?SEQ=272", "4-3-40 공학프로그램 운영 규정 (개정 정보)"),
+    ("web-law06-4", "https://www.kw.ac.kr/ko/univ/law06_4.jsp", "국제학부 글로벌코리아전공 교육과정"),
+    ("web-law06-5", "https://www.kw.ac.kr/ko/univ/law06_5.jsp", "국제학부 글로벌코리아전공 교과목안내"),
+    ("share-main", "https://share.kw.ac.kr/main/main.php", "지능형로봇학과(사업단) 메인"),
+    ("council-lost-found", "https://www.kwu-studentcouncil.co.kr/notices/cl1778405153738tgq2y2n",
+     "총학생회 공지 분실물 게시/습득 페이지 (2026.05.10)"),
+    ("council-student-fee", "https://www.kwu-studentcouncil.co.kr/notices/cl1789744608455mdfnh2u",
+     "총학생회 공지 1학기 자율적학생경비 추가 납부 안내 (2026.04.30)"),
+    ("robot-edu-system", "https://share.kw.ac.kr/edu_pro/edu_pro01.php?tmenu=3&smenu=1", "지능형로봇학과 교육과정체계"),
+    ("robot-rules", "https://share.kw.ac.kr/edu_pro/edu_pro02.php?tmenu=3&smenu=2", "지능형로봇학과 학과내규"),
+    ("robot-admission", "https://share.kw.ac.kr/department/department03.php?tmenu=2&smenu=3", "지능형로봇학과 진학안내"),
+    ("robot-intro", "https://share.kw.ac.kr/department/department02.php?tmenu=2&smenu=2", "지능형로봇학과 학과소개"),
+    ("robot-modules", "https://share.kw.ac.kr/department/department0403new.php?tmenu=2&smenu=4",
+     "지능형로봇학과 마이크로모듈교과목안내"),
+    ("robot-rules-1159", "https://share.kw.ac.kr/edu_pro/edu_pro02.php?admin_mode=read&no=1159&make=&search=&type=&tmenu=3&smenu=2&page=1&sub=",
+     "지능형로봇학과 학과내규 (2022-06-06 게시)"),
+    ("robot-edu-image", "https://share.kw.ac.kr/asset/images/edu_pro_img01.png", "지능형로봇학과 교육과정체계 그림"),
+    ("robot-rules-image", "https://share.kw.ac.kr/board/free/photo/a_202206061718380.jpg", "지능형로봇학과 학과내규 (게시 이미지)"),
+    ("robot-courses-2026", "https://share.kw.ac.kr/department/department0403new.php?admin_mode=read&no=1593&make=&search=&tmenu=2&smenu=4",
+     "2026학년도 지능형로봇학과 교과목 표"),
+    ("robot-modules-2026", "https://share.kw.ac.kr/department/department0403new.php?admin_mode=read&no=1592&make=&search=&tmenu=2&smenu=4",
+     "2026학년도 마이크로모듈 교과목(예정)"),
+    ("council-fee-check", "https://www.kwu-studentcouncil.co.kr/notices/cl1774108950706mdbkjig",
+     "총학생회 공지 자율적학생경비 확인 시스템 (2026.03.22)"),
+    ("council-bylaws", "https://www.kwu-studentcouncil.co.kr/resources/bylaws", "총학생회 자료실 학생회칙"),
+    ("council-budgets", "https://www.kwu-studentcouncil.co.kr/resources/budgets", "총학생회 자료실 예·결산 자료"),
+    ("office365-home", "https://office365.kw.ac.kr/", "Office 365 신청 포털 (직접 접속 시 응답)"),
+    ("notice-53200-image", "https://www.kw.ac.kr/KWData/webeditor/2026/2026_08_27_150842.jpg",
+     "[학생] 2026학년도 2학기 복지관 3층 학생식당(함지마루) 운영 안내 (본문 이미지)"),
+    ("job-notice-12624", "https://job.kw.ac.kr/community/notice.php?BoardMode=view&UID=12624",
+     "경력개발팀 공지 2026 광운대학교 취업박람회 개최 안내"),
+    ("robot-courses-2025", "https://share.kw.ac.kr/department/department0403new.php?admin_mode=read&no=1508&make=&search=&tmenu=2&smenu=4",
+     "2025학년도 지능형로봇학과 교과목 표"),
+]
+
 # Not fetched: facts from a Daple snapshot the owner took in their own session (scripts/knowledge/apply_daple.py).
 OWNER_SNAPSHOTS = [
     ("daple-snapshot", "https://daple.kwuniv.com", "다전공 플래너(Daple) 2026-11-07 확인", ["faq"]),
@@ -245,6 +294,11 @@ def seed() -> list[dict]:
                           ["faq"]))
     for sid, url, title in ROUND4_OTHER_2:
         out.append(_entry(sid, url, title, ["faq"]))
+    for sid, path, title in ROUND5:
+        out.append(_entry(sid, WWW + path, title, ["faq", "curricula"] if "ai06" in path or "law06" in path else ["faq"]))
+    for sid, url, title in ROUND5_OTHER:
+        curr = sid.startswith(("robot-", "share-", "web-law06"))
+        out.append(_entry(sid, url, title, ["curricula"] if curr else ["faq"]))
     for sid, url, title, feeds in OWNER_SNAPSHOTS:
         out.append(_entry(sid, url, title, feeds, fetch=False, provided_by="owner snapshot"))
     return out

@@ -1,0 +1,193 @@
+{
+ "department": "지능형로봇학과",
+ "admission_year": 2025,
+ "scope": "full",
+ "basis": "2025학년도 지능형로봇학과 교과목 표2025학년도 표를 2025 입학년도에 적용함. 학과는 입학년도별이 아닌 학년도별 교과목 표만 공개하기 때문임. 표에 학점이 없는 교과목은 교육과정체계 이미지(연도 표기 없음)에서 같은 교과목명의 학점을 읽음.",
+ "courses": [
+  {
+   "code": null,
+   "name": "지능형로봇의 이해",
+   "credits": 2,
+   "type": "",
+   "year_level": null,
+   "term": null,
+   "note": "초급 · 이공계/비이공계 · 1,2학기"
+  },
+  {
+   "code": null,
+   "name": "로봇명사와의 만남",
+   "credits": 2,
+   "type": "",
+   "year_level": null,
+   "term": null,
+   "note": "초급 · 이공계/비이공계 · 1,2학기"
+  },
+  {
+   "code": null,
+   "name": "기초로봇수학",
+   "credits": 3,
+   "type": "",
+   "year_level": null,
+   "term": 2,
+   "note": "초급 · 이공계/비이공계 · 2학기"
+  },
+  {
+   "code": null,
+   "name": "데이터사이언스개론",
+   "credits": 3,
+   "type": "",
+   "year_level": null,
+   "term": 2,
+   "note": "초급 · 이공계/비이공계 · 2학기 (표준교과목명: 코딩기초)"
+  },
+  {
+   "code": null,
+   "name": "로봇과 상상",
+   "credits": 3,
+   "type": "",
+   "year_level": null,
+   "term": 1,
+   "note": "초급 · 이공계/비이공계 · 1학기 (표준교과목명: 생활과 로봇디자인)"
+  },
+  {
+   "code": null,
+   "name": "모바일로봇의 이해",
+   "credits": 3,
+   "type": "",
+   "year_level": null,
+   "term": null,
+   "note": "중급 · 로봇기구/로봇전장/로봇제어/로봇지능/중급융합 · 1,2학기"
+  },
+  {
+   "code": null,
+   "name": "머신러닝의이해",
+   "credits": null,
+   "type": "",
+   "year_level": null,
+   "term": 2,
+   "note": "중급 · 로봇기구/로봇전장/로봇제어/로봇지능/중급융합 · 2학기"
+  },
+  {
+   "code": null,
+   "name": "기초로봇설계",
+   "credits": null,
+   "type": "",
+   "year_level": null,
+   "term": 1,
+   "note": "중급 · 로봇기구 · 1학기 (표준교과목명: 기계로봇 기초설계)"
+  },
+  {
+   "code": null,
+   "name": "마이크로프로세서 응용설계",
+   "credits": null,
+   "type": "",
+   "year_level": null,
+   "term": 1,
+   "note": "중급 · 로봇전장 · 1학기 (표준교과목명: 마이크로프로세서)"
+  },
+  {
+   "code": null,
+   "name": "로봇프로그래밍",
+   "credits": null,
+   "type": "",
+   "year_level": null,
+   "term": 1,
+   "note": "중급 · 로봇제어 · 1학기"
+  },
+  {
+   "code": null,
+   "name": "AI 프로그래밍",
+   "credits": null,
+   "type": "",
+   "year_level": null,
+   "term": 2,
+   "note": "중급 · 로봇지능 · 2학기 (표준교과목명: 인공지능 프로그래밍)"
+  },
+  {
+   "code": null,
+   "name": "로봇기초실습",
+   "credits": 3,
+   "type": "",
+   "year_level": null,
+   "term": 1,
+   "note": "중급 · 중급융합 (로봇마케팅, 로봇미디어커뮤니케이션) · 1학기"
+  },
+  {
+   "code": null,
+   "name": "로봇기업경영",
+   "credits": 3,
+   "type": "",
+   "year_level": null,
+   "term": 2,
+   "note": "중급 · 중급융합 (로봇마케팅, 로봇미디어커뮤니케이션) · 2학기"
+  },
+  {
+   "code": null,
+   "name": "고급로봇설계",
+   "credits": null,
+   "type": "",
+   "year_level": null,
+   "term": null,
+   "note": "고급 · HW시스템/메니플레이션/네비게이션/인간로봇 상호작용/로봇 SI · 2학기, 겨울학기(운영 7~9월)"
+  },
+  {
+   "code": null,
+   "name": "지능형드론제어",
+   "credits": null,
+   "type": "",
+   "year_level": null,
+   "term": 2,
+   "note": "고급 · HW시스템/네비게이션 · 2학기"
+  },
+  {
+   "code": null,
+   "name": "협동로봇실습",
+   "credits": null,
+   "type": "",
+   "year_level": null,
+   "term": null,
+   "note": "고급 · HW시스템/메니플레이션/네비게이션/인간로봇 상호작용/로봇 SI · 2학기, 겨울학기(운영 7~9월)"
+  },
+  {
+   "code": null,
+   "name": "로봇비전응용",
+   "credits": null,
+   "type": "",
+   "year_level": null,
+   "term": 1,
+   "note": "고급 · 메니플레이션/네비게이션/AI시스템/인간로봇 상호작용/로봇 SI · 1학기"
+  },
+  {
+   "code": null,
+   "name": "자연어처리및응용",
+   "credits": null,
+   "type": "",
+   "year_level": null,
+   "term": 1,
+   "note": "고급 · AI시스템/인간로봇 상호작용 · 1학기"
+  }
+ ],
+ "sources": [
+  {
+   "title": "2026학년도 지능형로봇학과 교과목 표",
+   "url": "https://share.kw.ac.kr/department/department0403new.php?admin_mode=read&no=1593&make=&search=&tmenu=2&smenu=4",
+   "checked_at": "2026-11-07"
+  },
+  {
+   "title": "2025학년도 지능형로봇학과 교과목 표",
+   "url": "https://share.kw.ac.kr/department/department0403new.php?admin_mode=read&no=1508&make=&search=&tmenu=2&smenu=4",
+   "checked_at": "2026-11-07"
+  },
+  {
+   "title": "지능형로봇학과 진학안내",
+   "url": "https://share.kw.ac.kr/department/department03.php?tmenu=2&smenu=3",
+   "checked_at": "2026-11-07"
+  },
+  {
+   "title": "지능형로봇학과 교육과정체계",
+   "url": "https://share.kw.ac.kr/edu_pro/edu_pro01.php?tmenu=3&smenu=1",
+   "checked_at": "2026-11-07"
+  }
+ ],
+ "checked_at": "2026-11-07"
+}

@@ -2,7 +2,7 @@
  "department": "정보제어·지능시스템전공",
  "admission_year": 2026,
  "scope": "full",
- "basis": "(A) www.kw.ac.kr 교육과정 페이지의 현재 교육과정표를 현행 교육과정으로 간주함. (B) 필수과목표가 없어 학정번호는 모두 빈 값.",
+ "basis": "교육과정 표 www.kw.ac.kr 교육과정 페이지의 현재 교육과정표를 현행 교육과정으로 간주함. 필수과목표가 없어 학정번호는 모두 빈 값.",
  "courses": [
   {
    "code": null,

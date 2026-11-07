@@ -20,8 +20,10 @@ import functools
 import json
 import re
 import unicodedata
-from importlib import resources
+from datetime import date
 from typing import Any
+
+from . import datasync
 
 MET, NOT_MET, CHECK, NOT_APPLICABLE = "충족", "미충족", "확인 필요", "해당 없음"
 # 다전공 answers follow Daple; the graduation outlook (교양, 졸업학점) follows the 학칙 and keeps its own wording.
@@ -29,8 +31,8 @@ DISCLAIMER = "Daple(다전공 플래너)과 같은 기준으로 계산한 참고
 GRADUATION_DISCLAIMER = "참고용 계산입니다. 공식 판정은 학교 다전공 플래너(Daple)나 학과사무실에서 확인하세요."
 REPORT = "규정이 바뀌었거나 틀린 곳은 디스코드 #알림-설정의 '제보하기'(또는 /제보)로 알려 주세요."
 DAPLE_BASIS = "Daple 과정 과목 목록(2026-11-07) 기준"
-COURSE_MATCHING = ("Daple 과정 과목 목록(2026-11-07) 기준으로 성적표 학정번호(과목번호 4자리 + 개설 학과 코드)를 맞춥니다. "
-                   "개설 학과 코드를 두 자료로 확인한 과정만 계산하고, 나머지는 course_matching.reasons에 이유가 있습니다.")
+COURSE_MATCHING = ("Daple 과정 과목 목록(2026-11-07)과 성적표 학정번호(과목번호 4자리 + 개설 학과 코드)를 맞춰 봤어요. "
+                   "학과 코드는 KLAS 학과 목록으로 확인했고, 맞춰 보지 못한 과정은 course_matching.reasons에 이유가 있어요.")
 # Daple's snapshot shows one version of each 복수·부전공 target (basis admission, version_year): the one for
 # the snapshot's own cohort. That cohort is 2024학번 or earlier (it shows the 전정대 targets' 2017 version, 54,
 # where the 2025 table has 45), so a target's Daple value is used from its version_year to this admission
@@ -74,10 +76,19 @@ WAIVER = "광운인되기는 이수하지 않아도 됩니다(2026-03-01부터).
 WAIVER_SOURCE = {"source_ids": ["reg-hakchik", "web-info12"], "articles": {"reg-hakchik": "부칙<2025.12.17.> 제1조 단서·제2조"}}
 
 
-@functools.cache
 def rules(name: str) -> dict[str, Any]:
-    """rules/<name>.json from the installed package, read once."""
-    return json.loads(resources.files("kw_mcp").joinpath("rules", f"{name}.json").read_text(encoding="utf-8"))
+    """rules/<name>.json from the data snapshot in use (kw_mcp.datasync: a newer signed copy from the bridge,
+    else the package's own), read once per snapshot. Within one tool call every rules file comes from the
+    same snapshot (datasync.pinned), so graduation.json and track_courses.json never mix versions."""
+    return _rules(name, datasync.snapshot())
+
+
+@functools.lru_cache(maxsize=16)  # a few files, for the data in use and, while calls still run on it, the one before
+def _rules(name: str, snap: datasync.Active | None) -> dict[str, Any]:
+    return json.loads(datasync.read(f"rules/{name}.json", snap))
+
+
+rules.cache_clear = _rules.cache_clear  # type: ignore[attr-defined]
 
 
 def _int(value: Any) -> int | None:
@@ -323,10 +334,10 @@ def course_matching(entry: dict[str, Any] | None, required: int | None,
     sources agree on are matched (track_courses.json matching); a row whose number is listed but whose
     code isn't known is shown as unconfirmed, never counted. Estimated, Daple's list as the basis."""
     if entry is None or not entry["matching"]["reliable"]:
-        reasons = entry["matching"]["reasons"] if entry else ["Daple 과정 과목 목록에 이 과정이 없습니다."]
+        reasons = entry["matching"]["reasons"] if entry else ["Daple 과정 과목 목록에 이 과정이 없어요."]
         return {"reliable": False, "reasons": reasons, "basis": DAPLE_BASIS}
     if grades is None:
-        return {"reliable": True, "computed": False, "reason": "성적표를 읽지 못해 맞춰 보지 못했습니다.", "basis": DAPLE_BASIS}
+        return {"reliable": True, "computed": False, "reason": "성적표를 못 읽어서 맞춰 보지 못했어요.", "basis": DAPLE_BASIS}
     codes = rules("track_courses")["department_codes"]
     owner = {prefix: dept for dept, v in codes.items() for prefix in v["course_code_prefixes"]}
     listed = {number: dept for number, dept in entry["courses"]}  # a number appears once per list
@@ -364,12 +375,12 @@ def course_matching(entry: dict[str, Any] | None, required: int | None,
             out["remaining_if_in_progress_passed"] = max(0, required - credits["recognized"] - credits["in_progress"])
     if found["unconfirmed"]:
         out["unconfirmed_courses"] = found["unconfirmed"]
-        out["unconfirmed_note"] = (f"과목번호는 목록에 있지만 학정번호 앞자리(개설 학과 코드)를 확인하지 못한 과목입니다. 인정되면 남은 학점이 "
-                                   f"최대 {credits['unconfirmed']}학점 줄어듭니다. Daple에서 확인하세요.")
+        out["unconfirmed_note"] = (f"과목번호는 목록에 있는데 학정번호 앞자리(개설 학과 코드)를 확인하지 못한 과목이에요. 인정되면 남은 학점이 "
+                                   f"최대 {credits['unconfirmed']}학점 줄어요. Daple에서 확인해 주세요.")
     if without_code:
         out["rows_without_code"] = without_code
-    out["note"] = ("같은 학정번호는 한 번만 셉니다. 필수과목, 과목별 인정 한도, 주전공과의 상호인정, 성적 조건은 반영하지 않았습니다."
-                   + (f" 학정번호가 없는 성적표 행 {without_code}개는 비교하지 못했습니다." if without_code else ""))
+    out["note"] = ("같은 학정번호는 한 번만 셌어요. 필수과목, 과목별 인정 한도, 주전공과의 상호인정, 성적 조건은 반영하지 않았어요."
+                   + (f" 학정번호가 없는 성적표 행 {without_code}개는 비교하지 못했어요." if without_code else ""))
     return out
 
 
@@ -553,7 +564,8 @@ def _major_paths(year: int | None, row: dict[str, Any] | None) -> list[tuple[str
     return paths
 
 
-def _other_conditions(me: dict[str, Any], grades: list[dict[str, Any]] | None) -> list[dict[str, Any]]:
+def _other_conditions(me: dict[str, Any], grades: list[dict[str, Any]] | None,
+                      tracks: list[dict[str, Any]] = ()) -> list[dict[str, Any]]:
     year, department, college = me["admission_year"], me["department"], me["college"]
     semesters = _semesters(grades)
     by_id = {c["id"]: c for c in rules("graduation")["other_conditions"]}
@@ -586,6 +598,9 @@ def _other_conditions(me: dict[str, Any], grades: list[dict[str, Any]] | None) -
         add("multi_major_mandatory", NOT_APPLICABLE, reason="2025학번부터의 졸업요건입니다.")
     elif department == "건축학과" or me["transfer"]:
         add("multi_major_mandatory", NOT_APPLICABLE, reason="건축학과·편입생은 다전공 의무 예외입니다.")
+    elif tracks:
+        mine = ", ".join(f"{t['type']}({t['name']}, {t['status']})" for t in tracks)
+        add("multi_major_mandatory", CHECK, reason=f"신청한 다전공: {mine}. 이수를 마쳤는지는 졸업 사정에서 정해져요.")
     else:
         add("multi_major_mandatory", CHECK, reason="다전공 신청·이수 현황은 KLAS 학적 자료에 없습니다. 외국인전형·특성화고 "
                                                    "재직자전형·체육특기자도 예외입니다. explore_multi_major로 선택지를 보세요.")
@@ -595,11 +610,134 @@ def _other_conditions(me: dict[str, Any], grades: list[dict[str, Any]] | None) -
     return out
 
 
+LANGUAGE_NOTE = ("영어졸업인증제는 2014년에 폐지됐고, TOPIK은 외국인 신·편입학자만 해당해요. "
+                 "KLAS에는 아직 '대상'으로 나오니 헷갈리면 학과에 확인해 주세요.")
+
+
+def language_note(language: Any) -> dict[str, Any] | None:
+    """One short note when KLAS's 어학 요건 says 대상 without a pass (other_conditions english_certification,
+    topik): the 영어졸업인증제 is gone, TOPIK is for foreign students only."""
+    if not isinstance(language, dict):
+        return None
+    target, passed = (str(language.get(k) or "").strip() for k in ("target", "passed"))
+    if target not in ("Y", "대상") or passed in ("Y", "통과", "합격"):
+        return None
+    by_id = {c["id"]: c for c in rules("graduation")["other_conditions"]}
+    return {"note": LANGUAGE_NOTE,
+            "source_ids": sorted({*by_id["english_certification"]["source_ids"], *by_id["topik"]["source_ids"]})}
+
+
+def _applies_from(applied: str | None) -> date | None:
+    """The semester an application takes effect: the first 3월 1일 or 9월 1일 after it is made
+    (2·4·8·10월 신청기간: 2월→3월, 4월·8월→9월, 10월→다음 해 3월)."""
+    try:
+        day = date.fromisoformat(str(applied or "")[:10])
+    except ValueError:
+        return None
+    if not 1900 <= day.year <= 2100:  # a sentinel such as 9999-12-31 (date(10000, 3, 1) would raise)
+        return None
+    for start in (date(day.year, 3, 1), date(day.year, 9, 1), date(day.year + 1, 3, 1)):
+        if start > day:
+            return start
+    return None
+
+
+def _applied_track(entry: dict[str, Any], me: dict[str, Any], row: dict[str, Any] | None,
+                   grades: list[dict[str, Any]] | None, today: date | None) -> dict[str, Any] | None:
+    """One 다전공 I applied for (academic_status row): its credits, what my transcript already has
+    toward it (Daple list, estimated) and whether it is confirmed yet."""
+    kind = _type_of(entry.get("track_type"))
+    if kind is None:
+        return None
+    year = me["admission_year"]
+    name = entry.get("department") if kind in ("복수전공", "부전공") else entry.get("name")
+    out: dict[str, Any] = {"type": kind, "name": name or entry.get("name"), "applied": entry.get("applied")}
+    applies_from = _applies_from(entry.get("applied"))
+    earned = _earned_codes(kind, grades)
+    if applies_from and today and today < applies_from:
+        out["status"], out["applies_from"] = "신청함(확정 전)", applies_from.isoformat()
+    elif earned and (earned["earned"] or earned["in_progress"]):
+        out["status"] = "확정"  # KLAS already files my courses under this kind (복필·부선…)
+    else:
+        out["status"] = "신청함(확정 여부는 KLAS 학적에서 확인)"
+    if kind in ("복수전공", "부전공") and name:
+        credits = target_credits(kind, name, year)
+        entry_courses = daple_track(kind=kind, department=name)
+    elif kind in ("연계전공", "마이크로전공") and name:
+        found, _, _ = find_tracks(name, kind)
+        track = found[0]["track"] if len(found) == 1 and "track" in found[0] else None
+        if track is None:
+            credits = {"required_credits": None, "basis": f"다전공 목록에서 '{name}'을(를) 하나로 찾지 못했어요."}
+            entry_courses = None
+        else:
+            out["name"] = track["name"]
+            credits = {"required_credits": _linked_credits(track, year) if kind == "연계전공" else track.get("required_credits"),
+                       "basis": "Daple 과정 이수학점", "source_ids": ["daple-2026-11-07"]}
+            entry_courses = daple_track(program_code=track.get("program_code"))
+    elif kind == "심화전공":
+        credits = {"required_credits": (row or {}).get("advanced_major_total"), "basis": _row_label(year, row)}
+        entry_courses = None
+    else:
+        credits, entry_courses = {"required_credits": None, "basis": "이 다전공은 학점 기준 자료가 없어요."}, None
+    out.update(credits)
+    if kind != "심화전공":
+        out["recognized"] = course_matching(entry_courses, credits.get("required_credits"), grades)
+    if earned is not None:
+        out["on_transcript"] = {**earned, "codes": list(TRANSCRIPT_CODES[kind])}
+    out["major_credits_if_completed"] = _completed_major(kind, year, row)[0]
+    if applies_from:
+        out.setdefault("applies_from", applies_from.isoformat())
+    return out
+
+
+def _major_rule(kinds: list[str], year: int | None, row: dict[str, Any] | None,
+                earned: int | None) -> dict[str, Any] | None:
+    """The 주전공 학점 that applies with the 다전공 I applied for. 2017~2024학번: only 복수·연계전공 lower it
+    ('다전공 이수시' 칸); 부·마이크로·학생설계융합전공 don't. 2025학번~: any 다전공 (참빛인재대학 39)."""
+    major = (row or {}).get("major")
+    if not kinds or not isinstance(major, dict):
+        return None
+    if "심화전공" in kinds:
+        required, path = row.get("advanced_major_total"), "심화전공"
+    elif "without_advanced" in major:
+        required, path = major["with_multi_major"], "다전공 하나 이수 시 주전공"
+    elif any(k in ("복수전공", "연계전공") for k in kinds) and "with_multi_major" in major:
+        required, path = major["with_multi_major"], "복수전공·연계전공 이수 시"
+    else:
+        required, path = major.get("single"), "단일전공(부전공·마이크로전공은 주전공 학점을 낮추지 않아요)"
+    if required is None:
+        return None
+    out = {"path": path, "required": required}
+    if earned is not None:
+        out.update(status=MET if earned >= required else NOT_MET, remaining=max(0, required - earned))
+    return out
+
+
+def _plan(major: dict[str, Any] | None, tracks: list[dict[str, Any]]) -> dict[str, str] | None:
+    """'주전공 60 + 부전공 21(지능형로봇학과)' and what is left of each, in one or two short lines."""
+    if major is None:
+        return None
+    parts = [f"주전공 {major['required']}"] + [
+        f"{t['type']} {t['required_credits'] if t.get('required_credits') is not None else '?'}({t['name']})"
+        for t in tracks]
+    left = [f"주전공 {major['remaining']}학점"] if "remaining" in major else []
+    left += [f"{t['type']} {t['recognized']['remaining_credits']}학점" for t in tracks
+             if (t.get("recognized") or {}).get("remaining_credits") is not None]
+    plan = {"line": " + ".join(parts)}
+    if left:
+        plan["remaining"] = ", ".join(left) + " 남았어요."
+    pending = [f"{t['type']}({t['name']})" for t in tracks if t["status"] == "신청함(확정 전)"]
+    if pending:
+        plan["note"] = f"{', '.join(pending)}은 아직 확정 전이에요."  # every kind ends in 전공: 은
+    return plan
+
+
 def graduation_outlook(record: dict[str, Any], totals: dict[str, Any], grades: list[dict[str, Any]] | None,
-                       gen_ed: dict[str, Any]) -> dict[str, Any]:
+                       gen_ed: dict[str, Any], applied: list[dict[str, Any]] | None = None, language: Any = None,
+                       today: date | None = None) -> dict[str, Any]:
     """Where this student stands on every graduation requirement the published rules give: total and
-    major credits for the admission year and department, 교양 by the corrected rules, and the other
-    conditions. Reference only."""
+    major credits for the admission year and department, 교양 by the corrected rules, the 다전공 I applied
+    for (academic_status rows; the 주전공 학점 follows them), and the other conditions. Reference only."""
     me = student(record)
     year, college, department = me["admission_year"], me["college"], me["department"]
     row = credit_row(year, college, department)
@@ -640,8 +778,13 @@ def graduation_outlook(record: dict[str, Any], totals: dict[str, Any], grades: l
     major = {"earned": major_earned, "paths": paths, "source_ids": ["web-info12", "web-info11", "reg-damajor-isu"],
              "note": "KLAS 전공 취득 학점 기준입니다. 다전공 과목이 여기에 섞여 잡히는지는 KLAS 자료로 구분되지 않을 수 있고, "
                      "학과 전공필수 이수 여부는 other_conditions의 required_courses를 보세요."}
+    rows = [e for e in applied or [] if isinstance(e, dict)]
+    tracks = [t for e in rows if e.get("status") != "unavailable" and (t := _applied_track(e, me, row, grades, today))]
+    unread = [e.get("kind") for e in rows if e.get("status") == "unavailable"]
+    if rule := _major_rule([t["type"] for t in tracks], year, row, major_earned):
+        major["applies"] = rule
     ge = general_education_check(me, gen_ed, grades)
-    others = _other_conditions(me, grades)
+    others = _other_conditions(me, grades, tracks)
     summary: dict[str, list[str]] = {MET: [], NOT_MET: [], CHECK: []}
     for label, status in [("졸업학점", credits["status"]),
                           ("교양", MET if ge["met"] else NOT_MET if ge["met"] is False else CHECK),
@@ -659,6 +802,16 @@ def graduation_outlook(record: dict[str, Any], totals: dict[str, Any], grades: l
         "other_conditions": others,
         "summary": summary,
     }
+    if applied is None:
+        answer["applied_multi_major"] = "unavailable"
+    else:
+        answer["applied_multi_major"] = tracks
+        if unread:
+            answer["applied_multi_major_note"] = f"{', '.join(unread)} 신청 내역은 KLAS에서 못 읽었어요."
+        if plan := _plan(major.get("applies"), tracks):
+            summary["plan"] = plan
+    if note := language_note(language):
+        answer["language_note"] = note
     return _wrap("graduation", answer, _uncertain("graduation", year, {department or ""}, {college or ""}),
                  GRADUATION_DISCLAIMER)
 

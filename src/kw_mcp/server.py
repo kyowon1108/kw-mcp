@@ -10,6 +10,7 @@ import os
 import threading
 from collections.abc import Callable, Iterator
 from contextlib import contextmanager
+from datetime import datetime, timedelta
 from typing import Any, Literal
 
 import httpx
@@ -18,7 +19,16 @@ from mcp.server.mcpserver import MCPServer
 from mcp.server.mcpserver.exceptions import ToolError
 from mcp.types import ImageContent, TextContent, ToolAnnotations
 
-from . import combined, credentials, klas, knowledge, notices, updates, webconnect
+from . import (
+    combined,
+    credentials,
+    datasync,
+    klas,
+    knowledge,
+    notices,
+    updates,
+    webconnect,
+)
 from .attachments import UnreadableAttachment
 from .holder import KlasHolder
 from .klas import KlasError
@@ -28,7 +38,7 @@ from .public_api import (
     PublicUnavailable,
     UnknownCategory,
 )
-from .service import KlasService
+from .service import KST, KlasService
 from .text import scrub
 
 INSTRUCTIONS = """\
@@ -42,6 +52,7 @@ INSTRUCTIONS = """\
 - 수강신청·휴학·졸업요건·다전공·장학·기숙사·학교 메일·와이파이·상담·현장실습·동아리 같은 학사·생활 질문은 school_guide로 먼저 찾으세요.
   학과·학번별 교과목은 department_curriculum입니다. 답할 때 sources(규정·조항·URL)와 confidence를 밝히고,
   disagreement나 not_in_documents가 있으면 그대로 알리세요. 날짜와 이번 학기 변경은 공지로 확인하세요.
+- school_guide의 recent_notices가 있으면 그 공지의 마감·대상·링크를 먼저 말하고, 규정 안내는 그다음에 붙이세요.
 - 휴·복학 신청 기간·상태와 내가 신청한 다전공은 get_academic_status가 KLAS에서 바로 읽으니 school_guide보다 먼저 쓰세요.
 - 광운대 공지·학칙·장학 질문은 school_notices(query로 검색)로 먼저 찾고 read_school_notice로 본문·첨부·이미지를 읽으세요.
   일반 웹 검색은 다른 학교 페이지가 섞이니 이 도구들에서 찾지 못했을 때만 쓰세요.
@@ -84,7 +95,8 @@ class _Server(MCPServer):
         @functools.wraps(fn)  # the SDK reads the name, docstring and signature through __wrapped__
         async def scrubbed(*call_args: Any, **call_kwargs: Any) -> Any:
             try:
-                answer = await fn(*call_args, **call_kwargs)
+                with datasync.pinned():  # one data version for the whole call, even if sync switches meanwhile
+                    answer = await fn(*call_args, **call_kwargs)
             except Exception as e:
                 message = str(e)
                 if (safe := scrub(message)) != message:
@@ -342,7 +354,9 @@ async def get_graduation_progress() -> dict[str, Any]:
 async def simulate_graduation() -> dict[str, Any]:
     """졸업 시뮬레이션(참고용): 내 입학 연도·학과의 공식 규정 표로 졸업학점·주전공 학점(단일전공·다전공 이수 시·심화전공)·
     교양(입학 연도별 규칙)·기타 졸업요건(등록 학기, 전공필수, 졸업논문, 다전공 의무 등)을 하나씩 충족·미충족·'확인 필요'로
-    보여 줍니다. "졸업하려면 뭐가 남았어?", "몇 학점 더 들어야 해?"처럼 졸업요건 전체를 물을 때 쓰세요. 교양 영역별 학점만
+    보여 줍니다. KLAS에 신청한 다전공이 있으면 자동으로 넣어 summary.plan에 "주전공 60 + 부전공 21(지능형로봇학과)"처럼
+    적고 남은 학점과 확정 전 여부를 함께 줍니다. 답할 때 이 줄을 먼저 말하세요. language_note가 있으면 한 줄로 전하세요.
+    "졸업하려면 뭐가 남았어?", "몇 학점 더 들어야 해?"처럼 졸업요건 전체를 물을 때 쓰세요. 교양 영역별 학점만
     궁금하면 get_graduation_progress가 더 짧습니다. 결과는 참고용입니다: disclaimer와 '확인 필요' 항목의 이유(reason),
     uncertain(규정 자료끼리 다른 곳)을 함께 알리고, 공식 판정은 학과사무실·학교 다전공 플래너(Daple)라고 말하세요."""
     with expected_errors():
@@ -394,8 +408,39 @@ async def school_guide(question: str, category: str | None = None) -> dict[str, 
     계절학기, 수업·출석, 학적변동, 졸업, 다전공, 전과·전공배정, 학점교류·교환학생, 장학, 등록·등록금, 증명서·학생증,
     기숙사, 셔틀·교통, 도서관, 학식·편의시설, 병무·예비군, IT·계정, 상담·학생지원, 진로·취업, 동아리·학생자치, 기타).
     내 학점·이수 현황이 필요하면 get_graduation_progress나
-    simulate_graduation을, 이번 학기 날짜·변경은 school_notices를 함께 쓰세요."""
-    return knowledge.guide(question, category)
+    simulate_graduation을, 이번 학기 날짜·변경은 school_notices를 함께 쓰세요. 그 분야의 최근 공지가 있으면
+    recent_notices(제목·게시일·url·마감·대상·신청 방법)를 함께 줍니다. "unavailable"이면 공지를 확인하지 못한 것이에요."""
+    return await _with_recent_notices(knowledge.guide(question, category))
+
+
+NOTICE_TIMEOUT_S = 4.0  # the knowledge answer never waits longer than this for notices
+
+
+async def _with_recent_notices(answer: dict[str, Any]) -> dict[str, Any]:
+    """The guide answer plus up to 3 public notices of the top answer's category (knowledge/notice_links.json):
+    the ones whose deadline is still ahead, else the newest of the last NOTICE_DAYS days. Never fails the tool:
+    any trouble gives recent_notices "unavailable"; no link or no public API adds nothing."""
+    top = next(iter(answer.get("answers") or []), {}).get("category")
+    queries = knowledge.notice_queries(top)
+    api = public()
+    if not queries or not api.configured:
+        return answer
+    today = datetime.now(KST).date()
+
+    async def rows(**kw: Any) -> list[dict[str, Any]]:
+        found = await asyncio.gather(*(api.notices(category=q.get("category"), query=q.get("q"), limit=5, **kw)
+                                       for q in queries))
+        return [r for part in found for r in part]
+
+    try:
+        async with asyncio.timeout(NOTICE_TIMEOUT_S):
+            picked = knowledge.pick_notices(await rows(open_only=True), today, open_only=True)
+            if not picked:
+                since = (today - timedelta(days=knowledge.NOTICE_DAYS)).isoformat()
+                picked = knowledge.pick_notices(await rows(since=since), today)
+    except Exception:  # noqa: BLE001 - notices are extra: the knowledge answer still goes out
+        return {**answer, "recent_notices": "unavailable"}
+    return {**answer, "recent_notices": picked, **({"recent_notices_note": knowledge.NOTICES_NOTE} if picked else {})}
 
 
 @mcp.tool(annotations=READ_ONLY)
@@ -594,6 +639,7 @@ async def academic_calendar(start: str | None = None, end: str | None = None) ->
 async def klas_status() -> dict[str, Any]:
     """이 확장의 상태(KLAS에는 요청하지 않음): 버전, 로그인 정보 출처(확장 설정/키체인, 학번은 입학 연도만),
     이 실행에서 마지막 로그인 결과·시각, 이 PC에 남은 '비밀번호 거부' 기록, 최근 10분 KLAS 요청 수, 새 버전 여부,
+    학사 안내·졸업요건 자료 버전(data: 내장 자료와 서버 자료 버전, 쓰는 쪽, 마지막 확인 시각),
     웹·폰 연결(web_connection: 연결 여부, 연결 서버, 자동 실행, 이 PC의 에이전트가 켜져 있는지, 연결한 앱).
     로그인이 안 되거나 "연결돼 있어?"라고 물으면 먼저 쓰세요."""
     web = asyncio.create_task(webconnect.status())  # the connected-app list asks the bridge: alongside the rest
@@ -635,6 +681,10 @@ async def klas_status() -> dict[str, Any]:
             out["update"] = updates.notice(check.result()) if check.result() else "최신 버전입니다(또는 확인할 수 없음)."
         else:
             out["update"] = "새 버전 확인이 아직 끝나지 않았습니다."
+    try:  # file reads only (no network); the first look hashes the cached data, so off the event loop
+        out["data"] = await asyncio.to_thread(datasync.status)
+    except Exception as e:  # noqa: BLE001 -- the status must answer regardless
+        out["data"] = {"error": f"자료 버전을 못 읽었어요({e.__class__.__name__})."}
     try:
         out["web_connection"] = await web
     except Exception as e:  # noqa: BLE001 -- status() doesn't raise; the status must answer regardless
@@ -716,4 +766,8 @@ def run() -> None:
     # httpx logs every request URL at INFO; keep the MCP client's log view quiet.
     logging.getLogger("httpx").setLevel(logging.WARNING)
     restart_agent_in_background()
+    # Newer signed knowledge/rules data from the bridge, once a day in a daemon thread (kw_mcp.datasync). Only
+    # with an invite: without one this copy talks to KLAS alone.
+    if updates.server():
+        datasync.start_background_sync()
     mcp.run("stdio")

@@ -18,11 +18,18 @@ import pytest
 from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey
 
 from kw_mcp import agent, release, server, simulation
+from kw_mcp.klas import KlasError
 from kw_mcp.service import (
     GEN_ED,
     GRADE_TOTALS,
     GRADES,
     KST,
+    LANGUAGE_REQUIREMENT,
+    LEAVE_STATUS,
+    LEAVE_WINDOWS,
+    LINKED_APPLIED,
+    MAJOR_APPLIED,
+    MICRO_APPLIED,
     STUDENT_RECORD,
     KlasService,
 )
@@ -342,7 +349,7 @@ async def test_a_linked_major_is_found_leniently(query):
     assert match["type"] == "연계전공" and match["operator"] == "정보융합학부" and match["program_code"] == (
         "interdisciplinary_major:big-data")
     assert match["required_credits"] == 30 and match["mutual_recognition_max"] == 9
-    assert match["course_matching"]["reliable"] is False and match["source"]["url"].startswith("https://")
+    assert match["course_matching"]["reliable"] is True and match["source"]["url"].startswith("https://")
     assert list(out["types"]) == ["연계전공"]
 
 
@@ -467,13 +474,13 @@ async def test_course_matching_for_a_target_department_and_a_linked_major():
 
 
 async def test_unreliable_lists_say_why_instead_of_guessing():
-    out = await service(SimClient(2024, "컴퓨터정보공학부", semesters=MARKETING)).multi_major_options(track="경영학부")
-    result = out["track_matches"][0]["double_major"]["course_matching"]
-    assert result["reliable"] is False and "recognized_credits" not in result
-    assert "정보융합학부" in result["reasons"][0]  # a department whose course codes no second source confirms
-    welfare = (await service(STUDENTS["2024 경영대학"]()).multi_major_options(track="사회복지학"))["track_matches"][0]
+    svc = service(SimClient(2024, "컴퓨터정보공학부", semesters=MARKETING))
+    robot = (await svc.multi_major_options(track="로봇기구전공"))["track_matches"][0]["course_matching"]
+    assert robot["reliable"] is False and "recognized_credits" not in robot
+    assert "교육과정보다 3과목 적어요" in robot["reasons"][0]  # Daple's own list is short
+    welfare = (await svc.multi_major_options(track="사회복지학"))["track_matches"][0]
     reasons = " ".join(welfare["course_matching"]["reasons"])
-    assert "과목번호가 없는 과목 4개" in reasons and "개설 학과 이름이 없는 과목 18개" in reasons
+    assert "과목번호가 없는 과목 4개" in reasons and "학과를 정하지 못한 과목이 6개" in reasons
 
 
 def test_track_courses_data():
@@ -481,18 +488,23 @@ def test_track_courses_data():
     tracks = data["tracks"]
     assert len(tracks) == 146 and data["version"]["sources"][0]["id"] == "daple-2026-11-07"
     assert {t["type"] for t in tracks} == {"복수전공", "부전공", "연계전공", "마이크로전공"}
-    assert sum(t["matching"]["reliable"] for t in tracks) == 35
+    assert sum(t["matching"]["reliable"] for t in tracks) == 113
+    assert all(t["matching"]["reliable"] for t in tracks if t["type"] in ("복수전공", "부전공"))
     # Names, numbers, codes and department names only: no Daple prose.
     allowed = {"program_code", "name", "type", "required_credits", "basis", "version_year", "target_department",
                "course_count", "curriculum_gap_count", "matching", "courses"}
     assert all(set(t) <= allowed for t in tracks)
     assert all(len(c) == 2 and (c[0] is None or len(c[0]) == 4) for t in tracks for c in t["courses"])
-    # Every 연계·마이크로전공 links to its course list; a verified department's codes agree in both sources.
+    # Every 연계·마이크로전공 links to its course list; every department code is one KLAS lists, owned once.
     codes = {t["program_code"] for t in tracks}
     assert all(t["program_code"] in codes for t in simulation.rules("multi_major")["tracks"])
+    klas = {c["code"]: c["name"] for c in simulation.rules("department_codes")["codes"]}
+    owned = [p for v in data["department_codes"].values() for p in v["course_code_prefixes"]]
+    assert len(owned) == len(set(owned)) and set(owned) <= set(klas)
     for dept, v in data["department_codes"].items():
-        if v["verified"]:
-            assert v["course_code_prefixes"] and set(v["course_code_prefixes"]) <= set(v["daple_program_codes"]), dept
+        assert all(klas[p] == dept for p in v["klas_codes"]), dept
+        assert all(klas[p] == name for p, name in v.get("older_names", {}).items()), dept
+    assert data["department_codes"]["컴퓨터정보공학부"]["older_names"] == {"7220": "컴퓨터공학과"}
 
 
 async def test_required_courses_are_estimated_from_my_curriculum(no_curriculum):
@@ -522,14 +534,180 @@ async def test_a_type_alone_lists_its_tracks():
     assert len(out["tracks"]) == 64 and list(out["types"]) == ["마이크로전공"]
     assert {"name": "기초전공", "operator": "지능형로봇학과 (지능형로봇혁신융합대학사업단)", "required_credits": 12,
             "courses_matchable": False} in out["tracks"]
-    assert sum(t["courses_matchable"] for t in out["tracks"]) == 16
+    assert sum(t["courses_matchable"] for t in out["tracks"]) == 41
     exceptions = out["types"]["마이크로전공"]["exceptions"]
     assert {e["credits"] for e in exceptions} == {12, 9} and all("2개 이상" in e["note"] for e in exceptions)
     odd = await service(STUDENTS["2026 전자정보공과대학"]()).multi_major_options(track_type="이상한 유형")
     assert list(odd["types"]) == list(simulation.TYPES) and "알아보지 못해" in odd["notes"][0]
 
 
+# --- KLAS department codes (rules/department_codes.json) ------------------------------------------
+
+def test_department_codes_come_from_klas():
+    data = simulation.rules("department_codes")
+    assert {s["id"] for s in data["version"]["sources"]} == {"klas-lectureplan-2026", "klas-department-lists"}
+    codes = {c["code"]: c for c in data["codes"]}
+    assert len(codes) == len(data["codes"]) == 72
+    # The prefixes the owner's transcript showed: 7450 and H040 are older codes of the same departments.
+    assert (codes["7450"]["name"], codes["7450"]["college"], codes["7450"]["last"]) == ("지능형로봇학과", "전자정보공과대학", "2023,2")
+    assert codes["H040"]["name"] == codes["I040"]["name"] == "정보융합학부" and codes["I060"]["name"] == "지능형로봇학과"
+    # 2026 course lists: only the code, number and name of each course, under its own department's code.
+    assert len(data["departments"]) == 44
+    for d in data["departments"]:
+        assert set(d) == {"name", "college", "class_code", "semesters", "course_code_prefixes", "courses"}
+        assert d["course_code_prefixes"] == [d["class_code"]] and all(len(c) == 3 for c in d["courses"])
+    text = json.dumps(data, ensure_ascii=False)
+    assert "memberName" not in text and "telNo" not in text
+
+
+async def test_an_older_department_code_still_counts():
+    # 7220 was 컴퓨터공학과; the 필수과목표 lists 컴퓨터정보공학부 courses under it.
+    number = simulation.daple_track(kind="복수전공", department="컴퓨터정보공학부")["courses"][0][0]
+    rows = [{"thisYear": "2019", "hakgi": "1", "sungjukList": [{**course("옛 과목", "일선"), "hakjungNo": f"7220-2-{number}-01"}]}]
+    out = await service(SimClient(2024, "경영학부", semesters=rows)).multi_major_options(track="컴퓨터정보공학부")
+    matched = out["track_matches"][0]["double_major"]["course_matching"]
+    assert [c["code"] for c in matched["recognized_courses"]] == [f"7220-2-{number}-01"]
+
+
+# --- the 다전공 I applied for, in simulate_graduation ----------------------------------------------
+
+def result_list(*rows: dict[str, Any]) -> dict[str, Any]:
+    return {"stats": True, "hakjukMap": {"kname": FAKE_NAME}, "resultList": list(rows)}
+
+
+class AppliedClient(SimClient):
+    """SimClient plus the 학적 reads academic_status makes and the 어학 요건."""
+
+    def __init__(self, *args: Any, applied: Any = (), micro: Any = (), linked: Any = (), language: Any = None,
+                 **kw: Any) -> None:
+        super().__init__(*args, **kw)
+        self.extra = {MAJOR_APPLIED: result_list(*applied), MICRO_APPLIED: micro if isinstance(micro, Exception)
+                      else result_list(*micro), LINKED_APPLIED: result_list(*linked), LEAVE_STATUS: {"statu": []},
+                      LEAVE_WINDOWS: {}, LANGUAGE_REQUIREMENT: language or []}
+
+    async def post(self, path: str, body: dict[str, Any] | None = None, **kw: Any) -> Any:
+        if path in self.extra:
+            self.calls.append(path)
+            if isinstance(self.extra[path], Exception):
+                raise self.extra[path]
+            return self.extra[path]
+        return await super().post(path, body, **kw)
+
+
+ROBOT_MINOR = {"submajor": "부전공", "applyDate": "20261015", "organName": "인공지능융합대학", "className": "지능형로봇학과",
+               "majorName": "지능형로봇학과", "finishOpt": "N"}
+
+
+def coded(name: str, code: str, category: str = "일선", grade: str = "A0") -> dict[str, Any]:
+    return {**course(name, category, grade=grade), "hakjungNo": code}
+
+
+OWNER_LIKE = [  # 2022학번 정보융합학부 with 지능형로봇학과 courses under its old (7450) and new (I060) code
+    {"thisYear": "2022", "hakgi": "1", "sungjukList": [coded("전공과목", "H040-1-3687-01", "전선")]},
+    {"thisYear": "2024", "hakgi": "1", "sungjukList": [coded("로봇과목1", "7450-1-4024-01")]},
+    {"thisYear": "2024", "hakgi": "2", "sungjukList": [coded("로봇과목2", "I060-2-4025-01")]},
+    {"thisYear": "2026", "hakgi": "2", "sungjukList": [coded("로봇과목3", "I060-3-4026-01", grade="")]},
+]
+
+
+async def test_the_outlook_puts_in_my_applied_minor():
+    client = AppliedClient(2022, "정보융합학부", earned=110, major=42, semesters=OWNER_LIKE, applied=[ROBOT_MINOR])
+    out = await service(client).graduation_outlook()
+    assert out["summary"]["plan"] == {"line": "주전공 60 + 부전공 21(지능형로봇학과)",
+                                      "remaining": "주전공 18학점, 부전공 15학점 남았어요.",
+                                      "note": "부전공(지능형로봇학과)은 아직 확정 전이에요."}
+    [minor] = out["applied_multi_major"]
+    assert (minor["type"], minor["name"], minor["status"], minor["applies_from"]) == (
+        "부전공", "지능형로봇학과", "신청함(확정 전)", "2027-03-01")
+    assert minor["required_credits"] == 21 and minor["recognized"]["recognized_credits"] == 6
+    assert [c["code"] for c in minor["recognized"]["recognized_courses"]] == ["7450-1-4024-01", "I060-2-4025-01"]
+    assert [c["code"] for c in minor["recognized"]["in_progress_courses"]] == ["I060-3-4026-01"]
+    # 부전공 doesn't lower the 주전공 (2017~2024학번): 60, not the '다전공 이수시' 54.
+    assert out["major_credits"]["applies"]["required"] == 60 and "부전공" in out["major_credits"]["applies"]["path"]
+    assert out["disclaimer"] == simulation.GRADUATION_DISCLAIMER
+
+
+async def test_double_and_linked_majors_lower_the_major_but_minors_do_not():
+    double = {**ROBOT_MINOR, "submajor": "복수전공", "className": "경영학부", "majorName": "경영학전공"}
+    out = await service(AppliedClient(2022, "정보융합학부", semesters=OWNER_LIKE, applied=[double])).graduation_outlook()
+    assert out["summary"]["plan"]["line"] == "주전공 54 + 복수전공 45(경영학부)"
+    linked = await service(AppliedClient(2022, "정보융합학부", semesters=OWNER_LIKE,
+                                         linked=[{"linkmajorName": "빅데이터", "applyDate": "20250601"}])).graduation_outlook()
+    assert linked["summary"]["plan"]["line"] == "주전공 54 + 연계전공 30(빅데이터)"
+    # 2025학번~: any 다전공 means the 45 of '다전공 하나 이수 시'.
+    later = await service(AppliedClient(2025, "행정학과", applied=[ROBOT_MINOR])).graduation_outlook()
+    assert later["major_credits"]["applies"] == {"path": "다전공 하나 이수 시 주전공", "required": 45,
+                                                 "status": "미충족", "remaining": 15}
+
+
+async def test_confirmation_shows_once_klas_files_my_courses_under_it():
+    earlier = {**ROBOT_MINOR, "applyDate": "20260210"}  # applies from 2026-03-01, already started
+    rows = [{"thisYear": "2026", "hakgi": "1", "sungjukList": [coded("로봇과목1", "I060-1-4024-01", "부선")]}]
+    confirmed = await service(AppliedClient(2022, "정보융합학부", semesters=rows, applied=[earlier])).graduation_outlook()
+    assert confirmed["applied_multi_major"][0]["status"] == "확정"
+    assert confirmed["applied_multi_major"][0]["on_transcript"]["earned"] == 3
+    unclear = await service(AppliedClient(2022, "정보융합학부", applied=[earlier])).graduation_outlook()
+    assert unclear["applied_multi_major"][0]["status"] == "신청함(확정 여부는 KLAS 학적에서 확인)"
+    assert "plan" in unclear["summary"] and "note" not in unclear["summary"]["plan"]
+
+
+async def test_micro_and_linked_rows_use_their_own_field_names():
+    micro = {"micromajorName": "데이터분석전공", "micromajorOrganname": "자연과학대학", "micromajorClassname": "수학과",
+             "applyDate": "20260601"}
+    client = AppliedClient(2024, "경영학부", micro=[micro], linked=[{"linkmajorName": "빅데이터", "applyDate": "20260601"}])
+    status = await service(client).academic_status()
+    names = {(r["kind"], r["track_type"], r["name"], r.get("department")) for r in status["multi_major"]}
+    assert names == {("마이크로", "마이크로전공", "데이터분석전공", "수학과"), ("연계", "연계전공", "빅데이터", None)}
+    out = await service(client).graduation_outlook()
+    assert [(t["type"], t["name"], t["required_credits"]) for t in out["applied_multi_major"]] == [
+        ("마이크로전공", "데이터분석전공", 15), ("연계전공", "빅데이터", 30)]
+    # 2024 경영학부: 54 alone, 45 with the 연계전공 (the 마이크로전공 alone wouldn't lower it).
+    assert out["summary"]["plan"]["line"] == "주전공 45 + 마이크로전공 15(데이터분석전공) + 연계전공 30(빅데이터)"
+
+
+async def test_unread_applications_are_said_not_hidden():
+    partly = await service(AppliedClient(2024, "경영학부", applied=[ROBOT_MINOR],
+                                         micro=KlasError("down"))).graduation_outlook()
+    assert partly["applied_multi_major_note"] == "마이크로 신청 내역은 KLAS에서 못 읽었어요."
+    assert [t["type"] for t in partly["applied_multi_major"]] == ["부전공"]
+    none = await service(SimClient(2024, "경영학부")).graduation_outlook()  # every 학적 read fails
+    assert none["applied_multi_major"] == "unavailable" and "plan" not in none["summary"]
+
+
+@pytest.mark.parametrize(("language", "noted"), [
+    ([{"daesangOpt": "Y", "passOpt": "N", "langName": "TOEIC"}], True),
+    ([{"daesangOpt": "Y", "passOpt": "Y"}], False),
+    ([{"daesangOpt": "N", "passOpt": "N"}], False),
+    ([], False),
+])
+async def test_language_note_when_klas_says_target_without_a_pass(language, noted):
+    client = AppliedClient(2022, "정보융합학부", language=language)
+    for out in (await service(client).graduation_outlook(), await service(client).graduation_progress()):
+        assert ("language_note" in out) is noted
+        if noted:
+            note = out["language_note"]["note"]
+            assert note == simulation.LANGUAGE_NOTE and note.count("요.") <= 2
+            assert "2014년" in note and "TOPIK" in note and "학과" in note
+            assert set(out["language_note"]["source_ids"]) <= {"reg-hakchik", "reg-sihaeng", "web-info07"}
+
+
 # --- agent, tools ---------------------------------------------------------------------------------
+
+@pytest.mark.parametrize(("applied", "start"), [
+    ("2026-10-15", "2027-03-01"), ("2026-02-10", "2026-03-01"), ("2026-04-20", "2026-09-01"),
+    ("9999-12-31", None), ("99991231", None), ("1899-12-31", None), ("", None), (None, None), ("2026-13-01", None),
+])
+def test_applies_from_survives_sentinel_dates(applied, start):
+    found = simulation._applies_from(applied)
+    assert (found.isoformat() if found else None) == start
+
+
+async def test_a_sentinel_apply_date_does_not_break_the_outlook():
+    sentinel = {**ROBOT_MINOR, "applyDate": "99991231"}
+    out = await service(AppliedClient(2022, "정보융합학부", applied=[sentinel])).graduation_outlook()
+    [minor] = out["applied_multi_major"]
+    assert "applies_from" not in minor and minor["status"].startswith("신청함")
+
 
 def test_the_agent_knows_both_calls_with_optional_arguments():
     assert agent.CALLS["graduation_outlook"] == () and agent.CALLS["multi_major_options"] == ("track", "track_type")
@@ -569,7 +747,8 @@ async def test_extension_tools_answer_and_say_they_are_reference_only():
 
 # --- packaging: the rules data travels with the code ---------------------------------------------
 
-RULES_FILES = ("rules/graduation.json", "rules/multi_major.json", "rules/track_courses.json")
+RULES_FILES = ("rules/graduation.json", "rules/multi_major.json", "rules/track_courses.json",
+               "rules/department_codes.json")
 
 
 def test_rules_load_as_package_data():

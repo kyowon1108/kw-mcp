@@ -152,6 +152,10 @@ def _ext(data: bytes, ctype: str, url: str) -> str:
     head = data[:8]
     if head.startswith(b"%PDF"):
         return ".pdf"
+    if head.startswith(b"\x89PNG"):
+        return ".png"
+    if head.startswith(b"\xff\xd8\xff"):
+        return ".jpg"
     if head.startswith(b"\xd0\xcf\x11\xe0"):  # OLE: old Excel or HWP
         return ".xls" if ".xls" in url.lower() else ".hwp"
     if head.startswith(b"PK"):

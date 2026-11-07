@@ -44,7 +44,7 @@ from cryptography.hazmat.primitives.asymmetric.utils import decode_dss_signature
 from cryptography.hazmat.primitives.ciphers.aead import AESGCM
 from keyring.errors import KeyringError, PasswordDeleteError
 
-from . import credentials, release
+from . import credentials, datasync, release
 
 if TYPE_CHECKING:  # the KLAS layer is imported when first used, so a bug there can't stop the updater
     from .holder import KlasHolder
@@ -652,8 +652,10 @@ async def answer(klas: KlasHolder, link: Link, message: dict[str, Any], http: ht
     op = str(message.get("op") or "") if message.get("type") == "call" else None
     args = message.get("args") if isinstance(message.get("args"), dict) else None
     try:
-        async with asyncio.timeout(ANSWER_DEADLINE_S):
-            data = await build_result(klas, op, args)
+        # one data version (knowledge, rules) for the whole call, even if the daily sync switches meanwhile
+        with datasync.pinned():
+            async with asyncio.timeout(ANSWER_DEADLINE_S):
+                data = await build_result(klas, op, args)
     except TimeoutError:
         # The reads keep going in the background (the service shares them), so a retry is faster.
         data = {"error": "klas_slow", "message": "KLAS 응답이 느립니다. 잠시 뒤 다시 물어보세요."}
@@ -1525,6 +1527,8 @@ async def _main(lock: InstanceLock) -> int:
     started, connected, stop = time.monotonic(), asyncio.Event(), asyncio.Event()
     if os.name != "nt":
         asyncio.get_running_loop().add_signal_handler(signal.SIGTERM, stop.set)
+    # Newer signed knowledge/rules data for the simulations this PC answers: a daemon thread, once a day.
+    datasync.start_background_sync()
     on_trial = "pending" in load_state()
     first = random.uniform(*UPDATE_AFTER_CRASH_S) if crashed or on_trial else UPDATE_FIRST_CHECK_S
     runner = asyncio.create_task(run_forever(connected))

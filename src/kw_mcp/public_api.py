@@ -128,12 +128,13 @@ class PublicApi:
 
     async def notices(self, category: str | None = None, limit: int = 10, query: str | None = None,
                       since: str | None = None, pinned: bool = True,
-                      source: str | list[str] | None = None) -> list[dict[str, Any]]:
+                      source: str | list[str] | None = None, open_only: bool = False) -> list[dict[str, Any]]:
         """source: only these boards, filtered by the server before the limit ("kw-notice" is the main
-        board); a list sends the parameter once per board."""
+        board); a list sends the parameter once per board. open_only: only notices whose extracted
+        deadline is today or later (a server that predates it ignores it; callers check the rows too)."""
         data = await self._get("/api/notices", {"category": category, "limit": limit, "q": query,
                                                 "since": since, "pinned": "true" if pinned else "false",
-                                                "source": source or None})
+                                                "source": source or None, "open_only": "true" if open_only else None})
         return _rows(data, "notices")
 
     async def menu(self, day: str | None = None) -> dict[str, Any] | None:

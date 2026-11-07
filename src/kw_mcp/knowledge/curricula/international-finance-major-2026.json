@@ -2,7 +2,7 @@
  "department": "국제금융전공",
  "admission_year": 2026,
  "scope": "full",
- "basis": "(A) 국제통상학부 국제금융전공 교육과정 page (www.kw.ac.kr), treated as the current curriculum. Codes filled from (B) 국제통상학부 필수과목표 where the same course name appears; otherwise code is empty.",
+ "basis": "교육과정 표인 국제통상학부 국제금융전공 교육과정 페이지(www.kw.ac.kr)를 현행 교육과정으로 간주함. 같은 과목명이 있으면 필수과목표인 국제통상학부 필수과목표에서 코드를 채웠고, 없으면 코드를 비워 둠.",
  "courses": [
   {
    "code": "5100-1-4488",

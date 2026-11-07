@@ -138,7 +138,7 @@ def test_urls_are_normalized_to_https_without_fragment():
 
 
 @pytest.mark.parametrize("url", [
-    "https://www.example.com/notice", "https://kw.ac.kr.evil.example/x", "https://job.kw.ac.kr/notice/news.php",
+    "https://www.example.com/notice", "https://kw.ac.kr.evil.example/x", "https://share.kw.ac.kr/notice/news.php",
     "https://klas.kw.ac.kr/", "https://user:pw@www.kw.ac.kr/", "https://www.kw.ac.kr:8443/", "ftp://www.kw.ac.kr/",
     "file:///etc/passwd", "https://static.wixstatic.com/media/a.jpg", "https://ce.kw.ac.kr/department_office/lecture.php",
 ])

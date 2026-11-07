@@ -1501,6 +1501,7 @@ class KlasService:
             check["transfer_credits"] = transfer
         extra, _ = await _gather_some({"check": self.graduation_check(), "language": self.language_requirement()},
                                       optional=True)
+        language_note = simulation.language_note(extra.get("language"))
         return {
             "student": {"department": record.get("hakgwa"), "year": record.get("grade"),
                         "status": record.get("hakjukStatu"), "admission_year": me["admission_year"]},
@@ -1515,6 +1516,7 @@ class KlasService:
             "check": check,
             "official_check": extra.get("check"),
             "language_requirement": extra.get("language", "unavailable"),
+            **({"language_note": language_note} if language_note else {}),
             "notes": ["성적 처리가 끝난 과목만 합산(F·NP·삭제 학점 제외)", "균형교양은 3·4학점 과목만 인정, e러닝·K-MOOC 등 일부 계열 제외",
                       "전공 졸업 학점·공학인증 등 학과별 요건은 학과 사무실에 확인하세요",
                       "어학 요건의 target·passed는 KLAS 코드 그대로예요. 뜻은 KLAS에서 확인해 주세요"],
@@ -1548,10 +1550,15 @@ class KlasService:
 
     async def graduation_outlook(self) -> dict[str, Any]:
         """졸업 시뮬레이션 (reference only): every graduation requirement of the published rules for my
-        admission year and department, from the same reads as graduation_progress plus the transcript."""
-        record, totals, transcript, gen_ed = await _gather(self._student_record(), self._grade_totals(),
-                                                           self._transcript(), self._gen_ed())
-        return simulation.graduation_outlook(record, totals, transcript, gen_ed)
+        admission year and department, from the same reads as graduation_progress plus the transcript,
+        with the 다전공 I applied for (academic_status, shared) and the 어학 요건 when KLAS answers."""
+        (record, totals, transcript, gen_ed), (extra, _) = await _gather(
+            _gather(self._student_record(), self._grade_totals(), self._transcript(), self._gen_ed()),
+            _gather_some({"status": self.academic_status(), "language": self.language_requirement()}, optional=True))
+        status = extra.get("status") or {}
+        applied = status.get("multi_major") if isinstance(status.get("multi_major"), list) else None
+        return simulation.graduation_outlook(record, totals, transcript, gen_ed, applied=applied,
+                                             language=extra.get("language"), today=self._now().date())
 
     async def multi_major_options(self, track: str | None = None, track_type: str | None = None) -> dict[str, Any]:
         """다전공 options (reference only) for my admission year and college; with track, one 연계·마이크로
@@ -1588,10 +1595,15 @@ class KlasService:
 
     async def _majors_applied(self, kind: str, path: str) -> list[dict[str, Any]]:
         """My applications of one 다전공 kind. Only resultList is read: hakjukMap holds my name, student id
-        and my advisor's name and e-mail, and none of it may leave this PC."""
+        and my advisor's name and e-mail, and none of it may leave this PC. The 연계 and 마이크로 pages name
+        their columns differently (linkmajorName; micromajorName, micromajorOrganname, micromajorClassname:
+        CntcSbjectStdPage.do and MicroMajorStdPage.do templates, checked 2026-11-07)."""
         data = await self._hakjuk(path)
-        return [{"kind": kind, "track_type": _label(r.get("submajor")), "name": _label(r.get("majorName")),
-                 "college": _label(r.get("organName")), "department": _label(r.get("className")),
+        default_type = {"마이크로": "마이크로전공", "연계": "연계전공"}.get(kind)
+        return [{"kind": kind, "track_type": _label(r.get("submajor")) or default_type,
+                 "name": _label(r.get("majorName") or r.get("micromajorName") or r.get("linkmajorName")),
+                 "college": _label(r.get("organName") or r.get("micromajorOrganname")),
+                 "department": _label(r.get("className") or r.get("micromajorClassname")),
                  "applied": _day(r.get("applyDate")), "finished": _free_text(r.get("finishOpt"))}
                 for r in _list(data.get("resultList"), path) if isinstance(r, dict)]
 

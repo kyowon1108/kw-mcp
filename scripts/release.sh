@@ -7,6 +7,8 @@
 #   scripts/release.sh stage DIR   copy just the extension's files into DIR
 #   scripts/release.sh pack FILE   pack the extension into FILE the way a release does
 #   scripts/release.sh check-install   install this checkout like an agent update and self-test it
+#   scripts/release.sh data        data-only release: HEAD's knowledge/rules files, data tests, signed into
+#                                  dist/data/ (`data --dry-run`: throwaway key, dist/data-dry-run)
 set -euo pipefail
 cd "$(dirname "$0")/.."
 exec uv run --frozen --quiet python scripts/release.py "$@"
