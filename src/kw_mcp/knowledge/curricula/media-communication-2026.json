@@ -1,0 +1,642 @@
+{
+ "department": "미디어커뮤니케이션학부",
+ "admission_year": 2026,
+ "scope": "full",
+ "basis": "www.kw.ac.kr의 (A) 미디어엔터테인먼트전공 교육과정 페이지를 현행 교육과정으로 간주함. 기재된 과목은 모두 전공선택임. 이 과목명들은 (B)에 없어 모든 학정번호가 \"\"임.",
+ "courses": [
+  {
+   "code": null,
+   "name": "미디어이론",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 1,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "광고PR과전략커뮤니케이션",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 1,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "인터랙티브커뮤니케이션개론",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 1,
+   "term": 2,
+   "note": "구,디지털미디어개론"
+  },
+  {
+   "code": null,
+   "name": "방송영상론",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 1,
+   "term": 2,
+   "note": "구,방송론"
+  },
+  {
+   "code": null,
+   "name": "커뮤니케이션과한국사회",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 1,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "비주얼커뮤니케이션디자인",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 1,
+   "note": "구.디지털이미지프로세싱"
+  },
+  {
+   "code": null,
+   "name": "디지털영상촬영및편집",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 1,
+   "note": "구,디지털영상이론및기획"
+  },
+  {
+   "code": null,
+   "name": "대중영화의이해",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 1,
+   "note": "구,대중영화의역사와이데올로기"
+  },
+  {
+   "code": null,
+   "name": "미래시나리오전략기획",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "빅데이터와커뮤니케이션",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "광고심리",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "사회심리이론실험",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "사람과기술,너때는말이야!",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "위험사회와커뮤니케이션",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "커뮤니케이션과혁신",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "Gen-AI기반사용성평가",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 1,
+   "note": "구.HCI와UX평가, HCI와디지털미디어분석"
+  },
+  {
+   "code": null,
+   "name": "Gen-AI기반데이터분석과기획",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 1,
+   "note": "구.OTT미디어와데이터사이언스, 데이터사이언스의이론과실제"
+  },
+  {
+   "code": null,
+   "name": "미디어플래닝",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "논픽션미디어의이해",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 2,
+   "note": "구.다큐멘터리의역사"
+  },
+  {
+   "code": null,
+   "name": "미디어와젠더",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "브랜드커뮤니케이션",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "엔터테인먼트산업",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 2,
+   "note": "구.미디어산업의이해"
+  },
+  {
+   "code": null,
+   "name": "광고PR조사방법론",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 2,
+   "note": "구.디지털광고PR의이해"
+  },
+  {
+   "code": null,
+   "name": "근거기반캠페인전략",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 2,
+   "note": "구.데이터와캠페인전략, 생활속의캠페인"
+  },
+  {
+   "code": null,
+   "name": "디지털콘텐츠와게임",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "디지털미디어사회의이해",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 2,
+   "note": "구.온라인커뮤니케이션과사회변화"
+  },
+  {
+   "code": null,
+   "name": "컴퓨터그래픽디자인",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 2,
+   "note": "구.인터랙티브미디어디자인"
+  },
+  {
+   "code": null,
+   "name": "인터랙티브데이터시각화",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 2,
+   "note": "구.소셜미디어영상기획및제작"
+  },
+  {
+   "code": null,
+   "name": "모션그래픽이론및실습",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 2,
+   "note": "구.디지털영상프로덕션"
+  },
+  {
+   "code": null,
+   "name": "Gen-AI기반마케팅크리에이티브",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 2,
+   "note": "구.Gen-AI기반디지털마케팅크리에이티브, 디지털마케팅크리에이티브, 디지털마케팅"
+  },
+  {
+   "code": null,
+   "name": "메타버스,너때는말이야!",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "실감미디어론",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "미디어문화론",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "소셜마케팅",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 1,
+   "note": "구.소셜디자인과캠페인"
+  },
+  {
+   "code": null,
+   "name": "엔터테인먼트크리에이티비티",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "문화다양성과커뮤니케이션전략",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 1,
+   "note": "구.글로벌문화융합콘텐츠, 문화다양성과커뮤니케이션, 캠페인이론과실제"
+  },
+  {
+   "code": null,
+   "name": "캠페인인문학",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 1,
+   "note": "구.디자인싱킹콘텐츠방법론, 광고PR콘텐츠, 커뮤니케이션크리에이티브전략"
+  },
+  {
+   "code": null,
+   "name": "아트매니지먼트",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "디지털광고PR기획",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "Gen-AI기반커뮤니티 임팩트프로젝트",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 1,
+   "note": "구.미디어/콘텐츠디지털트랜스포메이션"
+  },
+  {
+   "code": null,
+   "name": "뮤직비즈니스",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "E-스포츠",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "미디어엔터테인먼트특강",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "엔터테인먼트비평",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "APP디자인",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 1,
+   "note": "구.UX/UI디자인"
+  },
+  {
+   "code": null,
+   "name": "위험사회와미디어",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "뉴스와기자의미래",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 2,
+   "note": "구.뉴스와기자"
+  },
+  {
+   "code": null,
+   "name": "뉴스비판과제작연습",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "정서와소비자행동",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 2,
+   "note": "구.소비자행동과트렌드"
+  },
+  {
+   "code": null,
+   "name": "광고와사회",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "UX/UI기획및제작",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 2,
+   "note": "구.UX/UI디자인프로세스"
+  },
+  {
+   "code": null,
+   "name": "실감미디어콘텐츠개발",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 2,
+   "note": "구.디지털미디어콘텐츠개발"
+  },
+  {
+   "code": null,
+   "name": "비주얼스토리텔링",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 2,
+   "note": "구.디지털콘텐츠스토리텔링"
+  },
+  {
+   "code": null,
+   "name": "Gen-AI기반 텍스트마이닝전략개발",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 2,
+   "note": "구.캠페이+데이터사이언스, 텍스트마이닝과미디어콘텐츠"
+  },
+  {
+   "code": null,
+   "name": "Gen-AI기반커뮤니케이션캡스톤",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 2,
+   "note": "구.빅데이터/메타버스프로젝트"
+  },
+  {
+   "code": null,
+   "name": "미디어리터러시",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "전략커뮤니케이션세미나",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 1,
+   "note": "구.통합커뮤니케이션캠페인, 커뮤니케이터와캠페이너"
+  },
+  {
+   "code": null,
+   "name": "디지털미디어와여론",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "스몰데이터분석기획",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "전략커뮤니케이션리딩",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "데이터기반UX디자인",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "BI디자인",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "엔터테인먼트기획실습",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 1,
+   "note": "구.엔터테인먼트기획세미나, 미디어교양세미나"
+  },
+  {
+   "code": null,
+   "name": "포트폴리오워크샵",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "전략커뮤니케이션트렌드",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 1,
+   "note": "구.넛지커뮤니케이션, 전략적커뮤니케이터와창의적캠페이너, 전략커뮤니케이션과콜라보레이션"
+  },
+  {
+   "code": null,
+   "name": "글로벌전략트렌드와영어연습",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "시각정보디자인",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "미디어와문화기획",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "전략커뮤니케이션과마케팅",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 2,
+   "note": "구.마케팅PR(MPR), 커뮤니케이션트렌드와PR"
+  }
+ ],
+ "sources": [
+  {
+   "title": "미디어커뮤니케이션학부 교육과정",
+   "url": "https://www.kw.ac.kr/ko/univ/social03_4.jsp",
+   "checked_at": "2026-11-07"
+  },
+  {
+   "title": "필수과목표 must_2026_22",
+   "url": "https://www.kw.ac.kr/ko/life/must_2026_22.xls",
+   "checked_at": "2026-11-07"
+  }
+ ],
+ "checked_at": "2026-11-07"
+}

@@ -1,0 +1,390 @@
+{
+ "department": "소프트웨어학부",
+ "admission_year": 2026,
+ "scope": "full",
+ "basis": "(A) www 교육과정 페이지를 현행 교육과정으로 간주함. 학정번호는 (B)에 같은 과목명이 있으면 가장 최근 번호로 채우고, 없으면 비워 둠.",
+ "courses": [
+  {
+   "code": null,
+   "name": "소프트웨어입문세미나",
+   "credits": 1,
+   "type": "전선",
+   "year_level": 1,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": "7260-2-2854",
+   "name": "리눅스활용실습",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": 1,
+   "note": "구,소프트웨어실습1"
+  },
+  {
+   "code": null,
+   "name": "디지털논리",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "고급프로그래밍",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "웹프로그래밍",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "이산구조",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": "I030-2-3405",
+   "name": "자료구조실습",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": 2,
+   "note": "구, 시스템소프트웨어실습"
+  },
+  {
+   "code": "I030-2-1243",
+   "name": "자료구조",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "객체지향프로그래밍",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 2,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "시스템소프트웨어",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 2,
+   "term": 2,
+   "note": "시스템SW세필"
+  },
+  {
+   "code": null,
+   "name": "오픈소스소프트웨어개발",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 2,
+   "term": 2,
+   "note": "응용SW세필"
+  },
+  {
+   "code": "I030-3-8485",
+   "name": "응용소프트웨어실습",
+   "credits": 4,
+   "type": "전필",
+   "year_level": 3,
+   "term": 1,
+   "note": "구,소프트웨어실습3"
+  },
+  {
+   "code": "I030-3-0969",
+   "name": "알고리즘",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 3,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "운영체제",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 3,
+   "term": 1,
+   "note": "시스템SW세필"
+  },
+  {
+   "code": null,
+   "name": "컴퓨터구조",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 3,
+   "term": 1,
+   "note": "시스템SW세필"
+  },
+  {
+   "code": null,
+   "name": "데이터통신",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 3,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "데이터베이스",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 3,
+   "term": 1,
+   "note": "응용SW세필"
+  },
+  {
+   "code": null,
+   "name": "휴먼컴퓨터인터페이스",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 3,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "심화전공실습",
+   "credits": 4,
+   "type": "전선",
+   "year_level": 3,
+   "term": 2,
+   "note": "구, 심화전공실습1"
+  },
+  {
+   "code": null,
+   "name": "프로그래밍언어론",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 3,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "컴퓨터네트워크",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 3,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "컴퓨터그래픽스",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 3,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "모바일프로그래밍",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 3,
+   "term": 2,
+   "note": "구,임베디드운영체제"
+  },
+  {
+   "code": null,
+   "name": "빅데이터처리및응용",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 3,
+   "term": 2,
+   "note": "인공지능세필"
+  },
+  {
+   "code": null,
+   "name": "컴퓨터비전",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 3,
+   "term": 2,
+   "note": "구, 디지털영상처리; 인공지능세필"
+  },
+  {
+   "code": null,
+   "name": "인공지능",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 3,
+   "term": 2,
+   "note": "인공지능세필"
+  },
+  {
+   "code": null,
+   "name": "컴파일러",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 4,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "컴퓨터애니메이션실습",
+   "credits": 4,
+   "type": "전선",
+   "year_level": 4,
+   "term": 1,
+   "note": "구, 심화전공실습2"
+  },
+  {
+   "code": null,
+   "name": "컴퓨터애니메이션",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 4,
+   "term": 1,
+   "note": "구,게임공학"
+  },
+  {
+   "code": null,
+   "name": "네트워크보안",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 4,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "산학협력캡스톤설계1",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 4,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "무선네트워크",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 4,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "기계학습",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 4,
+   "term": 1,
+   "note": "인공지능세필"
+  },
+  {
+   "code": null,
+   "name": "소프트웨어공학",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 4,
+   "term": 1,
+   "note": "응용SW세필"
+  },
+  {
+   "code": null,
+   "name": "딥러닝실습",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 4,
+   "term": 1,
+   "note": "인공지능세필"
+  },
+  {
+   "code": null,
+   "name": "정보시스템응용",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 4,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "혼합현실",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 4,
+   "term": 2,
+   "note": "구, 가상현실"
+  },
+  {
+   "code": null,
+   "name": "산학협력캡스톤설계2",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 4,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "미래네트워크특강",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 4,
+   "term": 2,
+   "note": "구, 차세대네트워크응용"
+  },
+  {
+   "code": null,
+   "name": "최신정보보안이론",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 4,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "게임프로그래밍",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 4,
+   "term": 2,
+   "note": null
+  }
+ ],
+ "sources": [
+  {
+   "title": "소프트웨어학부 교육과정",
+   "url": "https://www.kw.ac.kr/ko/univ/ai02_4.jsp",
+   "checked_at": "2026-11-07"
+  },
+  {
+   "title": "필수과목표 must_2026_08",
+   "url": "https://www.kw.ac.kr/ko/life/must_2026_08.xls",
+   "checked_at": "2026-11-07"
+  }
+ ],
+ "checked_at": "2026-11-07"
+}

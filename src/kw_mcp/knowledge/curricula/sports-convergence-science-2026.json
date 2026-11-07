@@ -1,0 +1,354 @@
+{
+ "department": "스포츠융합과학과",
+ "admission_year": 2026,
+ "scope": "full",
+ "basis": "www.kw.ac.kr의 (A) 현행 교육과정 페이지를 2026학번의 현행 교육과정으로 간주함. 학정번호는 (B)에 같은 과목명이 있으면 최신 번호로 채우고, 없으면 비워 둠.",
+ "courses": [
+  {
+   "code": null,
+   "name": "여가레크레이션",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 1,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "오리엔티어링1",
+   "credits": 2,
+   "type": "전선",
+   "year_level": 1,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "오리엔티어링2",
+   "credits": 2,
+   "type": "전선",
+   "year_level": 1,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "운동발달",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 1,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": "6130-2-2346",
+   "name": "운동생리학",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": "6130-2-3211",
+   "name": "스포츠사회학",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": "6130-2-6157",
+   "name": "스포츠및운동심리학",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": 1,
+   "note": "구,스포츠심리학"
+  },
+  {
+   "code": "6130-2-5730",
+   "name": "스포츠역학",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "전공축구1",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "운동기능해부학",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "라켓스포츠1",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "스포츠빅데이터",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": "6090-2-3217",
+   "name": "트레이닝방법론",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 2,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "스포츠미디어",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 2,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "전공축구2",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 2,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "운동학습및제어",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 2,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "라켓스포츠2",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 2,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "ICT와스포츠과학",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 2,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": "6130-3-5735",
+   "name": "스포츠복지와노인체육",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 3,
+   "term": 2,
+   "note": "구.노인체육"
+  },
+  {
+   "code": null,
+   "name": "스포츠측정평가",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 3,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "스포츠융합과학캡스톤설계",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 3,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "전공골프1",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 3,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": "6080-3-5491",
+   "name": "스포츠경영학",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 3,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "스포츠영양학",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 3,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "워터스포츠",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 3,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "인체보행및자세균형의생체역학기초",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 3,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "스포츠손상및재활",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 3,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "전공골프2",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 3,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "동계스포츠",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 3,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "스포츠카운셀링",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 3,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "임상역학",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 3,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "스포츠컨디셔닝",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 4,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "현장실습1",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 4,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "병태생리학",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 4,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "현장실습2",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 4,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "운동검사및처방",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 4,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "특수체육",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 4,
+   "term": 2,
+   "note": null
+  }
+ ],
+ "sources": [
+  {
+   "title": "스포츠융합과학과 교육과정",
+   "url": "https://www.kw.ac.kr/ko/univ/science04_4.jsp",
+   "checked_at": "2026-11-07"
+  },
+  {
+   "title": "필수과목표 must_2026_18",
+   "url": "https://www.kw.ac.kr/ko/life/must_2026_18.xlsx",
+   "checked_at": "2026-11-07"
+  }
+ ],
+ "checked_at": "2026-11-07"
+}

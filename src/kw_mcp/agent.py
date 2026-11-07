@@ -1,6 +1,8 @@
 """PC agent for the KW Campus bridge: Claude/ChatGPT connectors read KLAS through this PC.
 
-  kw-mcp link <invite>   once: register this PC (public key only) and start the agent at login
+  connect_other_devices  once, from the Claude Desktop extension (webconnect.py; `kw-mcp link <invite>` in a
+                         terminal does the same for maintainers): register this PC (public key only) and
+                         start the agent at login
   kw-mcp agent           keep a WebSocket open to the bridge; when a connector asks, read KLAS with
                          the keychain login (logging in again when the session has expired),
                          encrypt the result with that request's one-time key and post it back
@@ -66,7 +68,7 @@ WINDOWS_RUN_VALUE = "KWCampusAgent"
 # tools' "id" and "file_index", and `kw-mcp update` exists, so the bridge stops suggesting an update.
 PROTOCOL_VERSION = 3
 # Single-item reads the bridge may ask for: op -> argument names. Each op is a read-only
-# KlasService method taking those arguments as strings ("id" and "file_index" may be left out).
+# KlasService method taking those arguments as strings (the OPTIONAL_ARGS ones may be left out).
 CALLS: dict[str, tuple[str, ...]] = {
     "assignment_detail": ("course", "title", "id"),
     "syllabus": ("course",),
@@ -86,6 +88,10 @@ CALLS: dict[str, tuple[str, ...]] = {
     "application_windows": (),
     "course_overview": ("course",),
     "department": (),  # my_notices on the bridge: only the department name, to pick department boards
+    "scholarships": (),  # 장학 수혜 내역: asked only when the user asks about scholarships
+    "graduation_outlook": (),  # 졸업 시뮬레이션 (reference only, kw_mcp.simulation)
+    "multi_major_options": ("track", "track_type"),  # 다전공 시뮬레이션; both may be left out
+    "academic_status": (),  # 휴·복학 신청 기간·내역과 내가 신청한 다전공
 }
 # The bridge says "id"; the service names it after what it identifies. The service only accepts
 # ids its own lists handed out.
@@ -94,7 +100,7 @@ ARG_NAMES: dict[str, dict[str, str]] = {
     "course_post": {"id": "post_id"},
     "read_attachment": {"id": "item_id"},
 }
-OPTIONAL_ARGS = frozenset({"id", "file_index"})  # None when not given, not ""
+OPTIONAL_ARGS = frozenset({"id", "file_index", "track", "track_type"})  # None when not given, not ""
 MAX_ARG_CHARS = 100
 ATTACHMENT_WAIT_S = 17.0  # a big attachment keeps downloading; the answer says "ask again shortly"
 MAX_RESULT_CHARS = 300_000  # same cap as the bridge's /device/result
@@ -122,10 +128,20 @@ _HOST_NAME = re.compile(r"(?=.{1,253}$)[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?(?:\.
 _APP_LABELS = {"claude.ai": "Claude", "claude.com": "Claude", "chatgpt.com": "ChatGPT",
                "localhost": "이 PC의 앱(Claude Code, MCP Inspector 등)", "127.0.0.1": "이 PC의 앱(Claude Code, MCP Inspector 등)"}
 _SAFE_VERSION = re.compile(r"[0-9][0-9A-Za-z._]*")  # a version that may appear in a cmd.exe line as is
+# Where students link this PC now: the extension's connect_other_devices tool, not a terminal.
+ASK_TO_CONNECT = "Claude 데스크톱에서 '웹이랑 폰에서도 쓰게 연결해 줘'라고 말해 주세요"
+EXTENSION = "mcpb"  # KW_MCP_DISTRIBUTION inside the Claude Desktop extension (manifest.json)
 
 
 class NotLinked(RuntimeError):
     pass
+
+
+class TooManyCodes(RuntimeError):
+    """The bridge gives one PC at most 10 connection codes an hour (HTTP 429 from /device/pair)."""
+
+    def __init__(self) -> None:
+        super().__init__("연결 코드를 너무 자주 받았어요. 한 시간쯤 뒤에 다시 해 주세요.")
 
 
 class ClockSkew(RuntimeError):
@@ -134,17 +150,36 @@ class ClockSkew(RuntimeError):
     def __init__(self, offset_s: float) -> None:
         self.offset_s = offset_s
         minutes = max(1, round(abs(offset_s) / 60))
-        direction = "빠릅니다" if offset_s > 0 else "느립니다"
-        super().__init__(f"이 PC 시계가 중계 서버보다 약 {minutes}분 {direction}. 날짜·시간 설정에서 "
-                         "'자동으로 시간 설정'을 켜고 다시 실행하세요(기기를 다시 등록할 필요는 없습니다).")
+        direction = "빨라요" if offset_s > 0 else "느려요"
+        super().__init__(f"PC 시계가 약 {minutes}분 {direction}. 날짜·시간 설정에서 시간 자동 설정을 켜 주세요.")
 
 
 class UnlinkFailed(RuntimeError):
-    pass
+    def __init__(self, message: str, *, refused: bool = False) -> None:
+        super().__init__(message)
+        self.refused = refused  # the bridge won't hear from this device at all (revoked invite, bad signature)
 
 
 class DeviceRefused(RuntimeError):
     """The bridge knows this device but won't accept its signature, or its invite was withdrawn."""
+
+
+class InviteRevoked(DeviceRefused):
+    """The invite this device registered with was withdrawn: it gets no new codes, and its connectors stop."""
+
+
+class InviteRefused(ValueError):
+    """The bridge won't register a PC with this invite (unknown, withdrawn, or out of places)."""
+
+
+class ForeignBridge(InviteRefused):
+    """An invite for a server other than the KW CAMPUS bridge (release.bridge_origin()), or a registration
+    answer naming another WebSocket URL (release.bridge_ws_url()): never used."""
+
+
+NOT_OUR_INVITE = "KW CAMPUS 초대 코드가 아니에요. 디스코드 #설치-안내에서 다시 받아 주세요."
+FOREIGN_WS = "연결 서버가 KW CAMPUS가 아닌 주소로 접속하라고 해서 멈췄어요."
+FOREIGN_LINK = f"이 PC가 KW CAMPUS가 아닌 서버에 연결돼 있어요. {ASK_TO_CONNECT}."
 
 
 def b64u(data: bytes) -> str:
@@ -186,6 +221,15 @@ def parse_invite(invite: str) -> tuple[str, str]:
     return server, token
 
 
+def official_invite(invite: str) -> tuple[str, str]:
+    """parse_invite, refusing any server but the KW CAMPUS bridge. A look-alike invite would link this PC
+    to someone else's bridge, which could then read the student's KLAS through it."""
+    server, token = parse_invite(invite)
+    if server != release.bridge_origin():
+        raise ForeignBridge(NOT_OUR_INVITE)
+    return server, token
+
+
 @dataclass(frozen=True)
 class Link:
     server: str
@@ -209,7 +253,7 @@ def load_link() -> Link:
             raise ValueError
         return Link(**values)
     except (OSError, ValueError, TypeError, KeyError):
-        raise NotLinked("이 PC가 아직 연결되지 않았습니다. `kw-mcp link <초대코드>`를 먼저 실행하세요.") from None
+        raise NotLinked(f"웹·폰 연결이 아직 안 돼 있어요. {ASK_TO_CONNECT}.") from None
 
 
 class DeviceKey:
@@ -226,10 +270,10 @@ class DeviceKey:
     def load(cls) -> DeviceKey:
         pem = keyring.get_password(credentials.KEYRING_SERVICE, KEYRING_DEVICE_KEY)
         if not pem:
-            raise NotLinked("키체인에 기기 키가 없습니다. `kw-mcp link <초대코드>`를 다시 실행하세요.")
+            raise NotLinked(f"이 PC의 기기 키가 없어요. {ASK_TO_CONNECT}.")
         key = serialization.load_pem_private_key(pem.encode(), password=None)
         if not isinstance(key, ec.EllipticCurvePrivateKey):
-            raise NotLinked("키체인의 기기 키 형식이 올바르지 않습니다. `kw-mcp link`를 다시 실행하세요.")
+            raise NotLinked(f"이 PC의 기기 키를 못 읽었어요. {ASK_TO_CONNECT}.")
         return cls(key)
 
     def save(self) -> None:
@@ -301,7 +345,7 @@ def _error_body(r: httpx.Response) -> dict[str, Any]:
     return body if isinstance(body, dict) else {}
 
 
-_NOT_LINKED = "중계 서버가 이 PC를 알아보지 못했습니다. `kw-mcp link <초대코드>`를 다시 실행하세요."
+_NOT_LINKED = f"연결 서버가 이 PC를 몰라요. {ASK_TO_CONNECT}."
 
 
 def _raise_refusal(server: str, r: httpx.Response) -> None:
@@ -318,10 +362,10 @@ def _raise_refusal(server: str, r: httpx.Response) -> None:
     if r.status_code != 403:
         return
     if code == "invite_revoked":
-        raise DeviceRefused("이 PC를 연결한 초대가 철회돼 새 연결 코드를 받을 수 없습니다. 초대해 준 사람에게 새 초대를 받으세요.")
+        raise InviteRevoked(f"초대가 철회됐어요. 새 초대 코드를 확장 설정에 넣고 {ASK_TO_CONNECT}.")
     if code == "bad_signature":
-        raise DeviceRefused("중계 서버가 이 PC의 서명을 받아들이지 않습니다(키체인의 기기 키가 등록한 것과 다릅니다). "
-                            "`kw-mcp link <초대코드> --relink`로 다시 등록하세요(기존 커넥터는 다시 연결해야 합니다).")
+        # the keychain's device key isn't the one registered
+        raise DeviceRefused("이 PC를 새로 등록해야 해요. 그러면 커넥터도 다시 연결해야 해요.")
     if code != "unknown_device":  # an older bridge: one 403 for every cause, so look at the clock
         _explain_refusal(server, r)
     raise NotLinked(_NOT_LINKED)
@@ -332,19 +376,25 @@ def _raise_refusal(server: str, r: httpx.Response) -> None:
 def register(invite: str, expected_server: str | None = None) -> tuple[Link, str]:
     """Register this PC with a fresh key. Returns the link and the connector (MCP) URL.
 
-    The installer passes the server it was downloaded from as expected_server, so a doctored
-    invite can't point this PC at someone else's bridge.
+    Only an invite for the KW CAMPUS bridge registers (official_invite). The installer also passes the
+    server it was downloaded from as expected_server.
     """
-    server, token = parse_invite(invite)
+    server, token = official_invite(invite)
     if expected_server and server != expected_server.rstrip("/"):
         raise ValueError(f"초대 코드의 서버({server})가 설치한 곳({expected_server})과 다릅니다. 받은 링크를 다시 확인하세요.")
     key = DeviceKey.generate()
     # Register first: if the network or the bridge fails here, the current link stays as it was.
     r = httpx.post(f"{server}/device/register", json={"invite": token, "public_key": key.public_jwk()}, timeout=20)
     if r.status_code == 403:
-        raise ValueError("초대 코드가 유효하지 않습니다. 받은 코드를 다시 확인하세요.")
+        raise InviteRefused("이 초대 코드로는 연결이 안 돼요.")
+    if r.status_code == 409 and _error_body(r).get("error") == "too_many_devices":
+        limit = _error_body(r).get("limit")
+        many = f"이미 {limit}대예요" if isinstance(limit, int) else "너무 많아요"
+        raise InviteRefused(f"이 초대 코드로 연결한 PC가 {many}.")
     r.raise_for_status()
     data = r.json()
+    if data["ws_url"] != release.bridge_ws_url():  # checked before anything is saved
+        raise ForeignBridge(FOREIGN_WS)
     _forget_previous_device()
     key.save()
     link = Link(server=server, ws_url=data["ws_url"], uid=data["uid"])
@@ -356,6 +406,8 @@ def _forget_previous_device() -> None:
     """Best effort: ask the bridge to drop this PC's previous device after a new one registered."""
     try:
         old, old_key = load_link(), DeviceKey.load()
+        if old.server != release.bridge_origin():
+            return  # a link to another server: nothing of ours to tell
         r = httpx.post(f"{old.server}/device/unlink", json=old_key.signed(old.uid, "unlink"), timeout=20)
         if r.status_code != 200:
             log.warning("the bridge kept the previous device record (HTTP %s)", r.status_code)
@@ -366,7 +418,10 @@ def _forget_previous_device() -> None:
 def _device_call(path: str, purpose: str, **extra: str) -> httpx.Response:
     """POST a signed device request. Refusals raise ClockSkew, NotLinked or DeviceRefused; any other
     answer is returned for the caller to read."""
-    link, key = load_link(), DeviceKey.load()
+    link = load_link()
+    if link.server != release.bridge_origin():
+        raise NotLinked(FOREIGN_LINK)  # never sign anything for another server
+    key = DeviceKey.load()
     for attempt in range(2):
         r = httpx.post(f"{link.server}/device/{path}", json={**key.signed(link.uid, purpose), **extra}, timeout=20)
         if r.status_code == 409 and _error_body(r).get("error") == "replayed" and attempt == 0:
@@ -386,7 +441,7 @@ def linked_to(server: str) -> bool:
     """
     try:
         link = load_link()
-        if link.server != server.rstrip("/"):
+        if link.server != server.rstrip("/") or link.ws_url != release.bridge_ws_url():
             return False
         try:
             grants()  # a signed request that creates nothing
@@ -400,7 +455,9 @@ def linked_to(server: str) -> bool:
 def pair_code() -> dict[str, Any]:
     """A one-time code (15 minutes) to type on the connector's approval page."""
     r = _device_call("pair", "pair")
-    r.raise_for_status()
+    if r.status_code == 429 and _error_body(r).get("error") == "too_many_codes":
+        raise TooManyCodes()
+    r.raise_for_status()  # any other 429 (API Gateway throttling) is an HTTPStatusError: "잠시 뒤에"
     return r.json()
 
 
@@ -410,7 +467,7 @@ def _text(value: Any, limit: int = 100) -> str:
 
 
 def _grant_id(value: Any) -> str:
-    """A bridge-supplied grant id fit to show inside a `kw-mcp revoke <ID>` command people copy, or ""
+    """A bridge-supplied grant id fit to show (a notification, `kw-mcp connections`, disconnect_app), or ""
     when it isn't in the bridge's own format (a compromised bridge must not hand out a shell command)."""
     return value if isinstance(value, str) and _SHOWN_GRANT_ID.fullmatch(value) else ""
 
@@ -445,13 +502,13 @@ def revoke(grant_id: str) -> None:
     """Disconnect one app; this PC and the other apps stay connected."""
     grant_id = grant_id.strip()
     if not _GRANT_ID.fullmatch(grant_id):
-        raise ValueError("연결 ID 형식이 아닙니다. `kw-mcp connections`에 나온 ID를 그대로 넣으세요.")
+        raise ValueError("연결 ID가 맞지 않아요.")
     r = _device_call("revoke", f"revoke:{grant_id}", grant_id=grant_id)
     if r.status_code == 404:
-        raise LookupError(f"'{grant_id}' 연결이 없습니다. `kw-mcp connections`로 ID를 확인하세요.")
+        raise LookupError("그 연결을 찾지 못했어요.")
     r.raise_for_status()
     if r.json().get("ok") is not True:
-        raise LookupError("중계 서버가 연결을 끊었다고 확인하지 않았습니다. 잠시 뒤 다시 실행하세요.")
+        raise LookupError("연결을 끊지 못했어요. 잠시 뒤 다시 해 주세요.")
 
 
 def unlink(*, force: bool = False) -> None:
@@ -463,19 +520,17 @@ def unlink(*, force: bool = False) -> None:
     load_link()
     uninstall_autostart()  # the PC stops answering either way
     if not force:
-        keep = "다시 시도할 수 있게 이 PC의 키는 남겨 두었습니다."
+        # The key stays on every failure but NotLinked, so a retry can still remove the bridge's record.
         try:
             r = _device_call("unlink", "unlink")  # ClockSkew keeps the key: fix the clock, then retry
         except NotLinked:
             r = None  # the bridge no longer knows this device (or there is no key): only local state is left
-        except DeviceRefused as e:
-            raise UnlinkFailed(f"{e} 이 PC의 설정만 지우려면 `kw-mcp unlink --force`.") from None
-        except httpx.HTTPError as e:
-            raise UnlinkFailed(f"중계 서버에 연결하지 못해 서버의 기기 기록을 지우지 못했습니다({e.__class__.__name__}). "
-                               f"인터넷을 확인하고 `kw-mcp unlink`를 다시 실행하세요. {keep}") from None
+        except DeviceRefused:  # `kw-mcp unlink --force` (or disconnect_this_pc) clears this PC alone
+            raise UnlinkFailed("연결 서버가 이 PC를 확인해 주지 않아 끊지 못했어요.", refused=True) from None
+        except httpx.HTTPError:
+            raise UnlinkFailed("연결 서버에 연결하지 못해 끊지 못했어요. 인터넷을 확인하고 다시 해 주세요.") from None
         if r is not None and (r.status_code != 200 or not _confirmed(r)):
-            raise UnlinkFailed(f"중계 서버가 기기 기록을 지웠다고 확인하지 않았습니다(HTTP {r.status_code}). "
-                               f"잠시 뒤 `kw-mcp unlink`를 다시 실행하세요. {keep}")
+            raise UnlinkFailed(f"연결 서버가 끊었다고 확인해 주지 않았어요(HTTP {r.status_code}). 잠시 뒤 다시 해 주세요.")
     _delete_device_key()
     LINK_FILE.unlink(missing_ok=True)
 
@@ -628,24 +683,30 @@ _BALLOON = ("Add-Type -AssemblyName System.Windows.Forms; Add-Type -AssemblyName
             "$n.ShowBalloonTip(15000); Start-Sleep -Seconds 16; $n.Dispose()")
 
 
-def notify(title: str, text: str) -> None:
-    """Best-effort desktop notification. The text comes from the bridge, so it is passed as data
-    (argv, environment), never pasted into a script."""
+def notify(title: str, text: str) -> bool:
+    """Best-effort desktop notification; True if one was handed to the OS. The text comes from the bridge,
+    so it is passed as data (argv, environment), never pasted into a script. No stdio is shared: in the
+    extension, stdin and stdout are the MCP connection."""
     title, text = _text(title, 60), _text(text, 240)
+    quiet = {"stdin": subprocess.DEVNULL, "stdout": subprocess.DEVNULL, "stderr": subprocess.DEVNULL}
     try:
         if sys.platform == "darwin":
             subprocess.Popen(["osascript", "-e", "on run argv", "-e",
                               "display notification (item 2 of argv) with title (item 1 of argv)", "-e", "end run",
-                              title, text], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+                              title, text], **quiet)
         elif os.name == "nt":
             script = base64.b64encode(_BALLOON.encode("utf-16-le")).decode()
             subprocess.Popen([_powershell(), "-NoProfile", "-NonInteractive", "-WindowStyle", "Hidden",
                               "-EncodedCommand", script], env={**os.environ, "KW_NOTIFY_TITLE": title, "KW_NOTIFY_TEXT": text},
-                             creationflags=subprocess.CREATE_NO_WINDOW, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+                             creationflags=subprocess.CREATE_NO_WINDOW, **quiet)
         elif shutil.which("notify-send"):
-            subprocess.Popen(["notify-send", title, text], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+            subprocess.Popen(["notify-send", title, text], **quiet)
+        else:
+            return False
     except OSError as e:
         log.warning("could not show a notification (%s)", e.__class__.__name__)
+        return False
+    return True
 
 
 def _paired(message: dict[str, Any]) -> None:
@@ -655,8 +716,7 @@ def _paired(message: dict[str, Any]) -> None:
     app = _app_label(host)
     log.info("a new app was connected with this PC's code: %s (%s, %s)", app, host or "-", grant or "-")
     notify("KW Campus", f"새 연결: {app}" + (f" ({host})" if host and host != app else "")
-           + f". 내가 연결한 게 아니면 `kw-mcp revoke {grant or '<ID>'}`로 끊으세요"
-           + ("." if grant else "(ID는 `kw-mcp connections`에서 확인)."))
+           + ". 내가 한 게 아니면 Claude 데스크톱에서 '연결된 앱 끊어 줘'라고 말해 주세요.")
 
 
 # --- the long-running agent -------------------------------------------------------------
@@ -837,6 +897,18 @@ def in_uv_tool() -> bool:
     """Updates replace the uv tool environment. Run from anywhere else (a dev checkout), they
     would install into the tool and restart into the same old code every few minutes."""
     return (Path(sys.prefix) / "uv-receipt.toml").is_file()
+
+
+def from_extension() -> bool:
+    """This copy runs from the Claude Desktop extension's environment: the extension sets
+    KW_MCP_DISTRIBUTION=mcpb, and the agent it starts at login gets --from-extension (see agent_command)."""
+    return os.environ.get("KW_MCP_DISTRIBUTION") == EXTENSION
+
+
+def self_updates() -> bool:
+    """Whether this agent installs signed releases itself. Only a `uv tool` install does. The extension's
+    copy never does: Claude Desktop owns that environment, and new versions come with the extension."""
+    return in_uv_tool() and not from_extension()
 
 
 def _tool_python() -> Path:
@@ -1032,11 +1104,14 @@ def _windows_swap(uv: str, files: tuple[Path, Path], version: str, back: tuple[P
 def install_update(wheel: Path, constraints: Path, version: str) -> bool:
     """Install a verified release. True means: exit now so the version on disk starts. That is
     `version`, unless it failed and the running version could not be put back (see _put_back)."""
+    if from_extension():
+        log.info("installed with the Claude Desktop extension; the extension brings new versions")
+        return False
     uv = find_uv()
     if not uv:
         log.warning("uv not found; skipping the update (run `kw-mcp link` again from a terminal to record it)")
         return False
-    if not in_uv_tool():
+    if not self_updates():
         log.warning("not running from a uv tool install (%s); skipping the update", sys.prefix)
         return False
     with _INSTALLING:
@@ -1127,6 +1202,9 @@ def roll_back(pending: dict[str, Any]) -> bool:
     """Put back the version that ran before an update that keeps failing. True: exit now."""
     bad, previous = str(pending.get("version")), str(pending.get("previous"))
     skip_version(bad, None)
+    if not self_updates():  # e.g. a uv tool agent's trial left behind when the extension took over autostart
+        log.info("not reinstalling %s: this agent doesn't install releases (%s)", previous, sys.prefix)
+        return False
     back, uv = release_files(previous), find_uv()
     if back is None or uv is None:
         log.error("%s keeps failing, but %s can't be reinstalled (%s)", bad, previous,
@@ -1166,7 +1244,8 @@ def note_start(replaced: bool = False) -> tuple[bool, dict[str, Any] | None]:
     that the version on trial itself started: that version's trial resumes where it was."""
     state = load_state()
     crashed = bool(state.get("running")) and not replaced
-    state.update(running=True, pid=os.getpid(), started=int(time.time()))
+    # version: what this run started as (the extension compares it with its own after an update)
+    state.update(running=True, pid=os.getpid(), started=int(time.time()), version=installed_version())
     pending, rollback = state.get("pending"), None
     if isinstance(pending, dict):
         version = str(pending.get("version"))
@@ -1243,7 +1322,10 @@ async def update_once(http: httpx.AsyncClient, server: str) -> str | None:
 
 async def update_loop(server: str, first_delay: float = UPDATE_FIRST_CHECK_S) -> None:
     """Returns once a newer signed version is installed (the caller then exits to restart)."""
-    if not in_uv_tool():
+    if from_extension():
+        log.info("installed with the Claude Desktop extension; the extension brings new versions")
+        await asyncio.Event().wait()
+    if not self_updates():
         log.info("not running from a uv tool install (%s); automatic updates are off", sys.prefix)
         await asyncio.Event().wait()
     await asyncio.sleep(first_delay)
@@ -1427,7 +1509,8 @@ async def _main(lock: InstanceLock) -> int:
     if failing and roll_back(failing):
         return RESTART_EXIT_CODE
     try:
-        server = load_link().server
+        link = load_link()
+        server = link.server
     except NotLinked:
         if "pending" not in load_state():
             raise  # unlinked: stay down (exit 0)
@@ -1435,6 +1518,10 @@ async def _main(lock: InstanceLock) -> int:
         # non-zero, so launchd starts it again and the starts add up to a rollback.
         log.exception("the new version can't read this PC's link; it will be rolled back if this repeats")
         return 1
+    if server != release.bridge_origin() or link.ws_url != release.bridge_ws_url():
+        log.error("not connecting: this PC is linked to %s (%s), not the KW CAMPUS bridge; link it again",
+                  server, link.ws_url)
+        return 0  # a clean exit: launchd leaves it down
     started, connected, stop = time.monotonic(), asyncio.Event(), asyncio.Event()
     if os.name != "nt":
         asyncio.get_running_loop().add_signal_handler(signal.SIGTERM, stop.set)
@@ -1455,7 +1542,7 @@ async def _main(lock: InstanceLock) -> int:
         log.error("the agent stopped unexpectedly; checking for a fixed version", exc_info=error)
         try:
             async with httpx.AsyncClient(timeout=120) as http:
-                if in_uv_tool() and await update_once(http, server):
+                if self_updates() and await update_once(http, server):
                     return RESTART_EXIT_CODE
         except Exception:
             log.exception("update check failed")
@@ -1489,10 +1576,19 @@ def default_log_file() -> Path:
 
 
 def agent_command() -> list[str]:
-    python = Path(sys.executable)
+    """The agent run by this very environment's Python: a uv tool install's, or the Claude Desktop
+    extension's own venv (whose agent is marked so it never installs releases itself)."""
+    python = Path(sys.executable)  # not resolved: a venv's python is a link to the base interpreter
     if os.name == "nt" and python.with_name("pythonw.exe").exists():
         python = python.with_name("pythonw.exe")  # no console window
-    return [str(python), "-m", "kw_mcp", "agent", "--log-file", str(default_log_file())]
+    command = [str(python), "-m", "kw_mcp", "agent", "--log-file", str(default_log_file())]
+    return [*command, "--from-extension"] if from_extension() else command
+
+
+def _agent_env() -> dict[str, str]:
+    """A started agent reads the login from the keychain like the one launched at login, not the
+    extension's settings it would otherwise inherit (they'd go stale when the student changes them)."""
+    return {k: v for k, v in os.environ.items() if k not in ("KLAS_ID", "KLAS_PASSWORD")}
 
 
 def launchd_plist_path() -> Path:
@@ -1535,7 +1631,7 @@ def install_autostart() -> str:
                                 winreg.KEY_SET_VALUE) as run_key:
             winreg.SetValueEx(run_key, WINDOWS_RUN_VALUE, 0, winreg.REG_SZ, _quote(agent_command()))
         flags = subprocess.DETACHED_PROCESS | subprocess.CREATE_NEW_PROCESS_GROUP | subprocess.CREATE_NO_WINDOW
-        subprocess.Popen([*agent_command(), "--replace"], creationflags=flags, close_fds=True)
+        subprocess.Popen([*agent_command(), "--replace"], creationflags=flags, close_fds=True, env=_agent_env())
         return "Windows 시작 프로그램(HKCU\\...\\Run)"
     raise NotImplementedError("자동 실행은 macOS와 Windows만 지원합니다. `kw-mcp agent`를 직접 실행해 두세요.")
 
@@ -1563,6 +1659,32 @@ def uninstall_autostart() -> None:
             pass
     stop_running_agent()
     _ask_legacy_agent_to_exit()
+
+
+def autostart_command() -> str | None:
+    """The command the installed autostart runs, quoted like the Windows Run value; None if there is none."""
+    if sys.platform == "darwin":
+        try:
+            arguments = plistlib.loads(launchd_plist_path().read_bytes()).get("ProgramArguments")
+        except (OSError, ValueError, AttributeError):  # missing, unreadable, or not a launchd job
+            return None
+        return _quote([str(a) for a in arguments]) if isinstance(arguments, list) else None
+    if os.name == "nt":
+        import winreg
+
+        try:
+            with winreg.OpenKey(winreg.HKEY_CURRENT_USER, r"Software\Microsoft\Windows\CurrentVersion\Run") as run_key:
+                value, _ = winreg.QueryValueEx(run_key, WINDOWS_RUN_VALUE)
+        except OSError:
+            return None
+        return value if isinstance(value, str) else None
+    return None
+
+
+def autostart_runs_this_agent() -> bool:
+    """True if the installed autostart runs exactly agent_command(): this environment's Python with its
+    flags (for the extension, its own venv and --from-extension). An agent installed another way isn't."""
+    return autostart_command() == _quote(agent_command())
 
 
 def autostart_installed() -> bool:

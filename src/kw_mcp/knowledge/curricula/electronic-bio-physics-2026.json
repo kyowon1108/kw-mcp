@@ -1,0 +1,453 @@
+{
+ "department": "전자바이오물리학과",
+ "admission_year": 2026,
+ "scope": "full",
+ "basis": "(A) www 교육과정 페이지를 현행 교육과정으로 간주함. 학정번호는 (B)에 같은 과목명이 있으면 채우고, 없으면 비워 둠.",
+ "courses": [
+  {
+   "code": null,
+   "name": "일반물리학 및 실험1",
+   "credits": 3,
+   "type": "교양필수",
+   "year_level": 1,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "일반물리학 및 실험2",
+   "credits": 3,
+   "type": "교양필수",
+   "year_level": 1,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "일반화학 및 실험1",
+   "credits": 3,
+   "type": "교양필수",
+   "year_level": 1,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "일반화학 및 실험2",
+   "credits": 3,
+   "type": "교양필수",
+   "year_level": 1,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "대학수학 및 연습1",
+   "credits": 3,
+   "type": "교양필수",
+   "year_level": 1,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "대학수학 및 연습2",
+   "credits": 3,
+   "type": "교양필수",
+   "year_level": 1,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": "6060-1-1077",
+   "name": "영어회화",
+   "credits": 3,
+   "type": "교양필수",
+   "year_level": 1,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "영어읽기와쓰기",
+   "credits": 3,
+   "type": "교양필수",
+   "year_level": 1,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": "6060-2-4564",
+   "name": "역학",
+   "credits": 3,
+   "type": "전공필수",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "물리학개론",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": "6060-2-1411",
+   "name": "전자기학1",
+   "credits": 3,
+   "type": "전공필수",
+   "year_level": 2,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "전자학1",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "전자학2",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "전자학실험1",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "전자학실험2",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "현대물리개론",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "양자물리개론",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "물리수학1",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "물리수학2",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "전산물리",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "시뮬레이션물리학",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "세포생물학",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "생체재료학",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": "6060-3-1412",
+   "name": "전자기학2",
+   "credits": 3,
+   "type": "전공필수",
+   "year_level": 3,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "마이크로파물리학",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": "6060-3-0975",
+   "name": "양자역학1",
+   "credits": 3,
+   "type": "전공필수",
+   "year_level": 3,
+   "term": 1,
+   "note": "Code is from the 2015-2018 rows of (B); from 2019 (B) uses 양자역학 6060-3-0974 (구,양자역학1)"
+  },
+  {
+   "code": null,
+   "name": "양자역학2",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "반도체소자물리학1",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "반도체소자물리학2",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "디지털회로설계 및 실험1",
+   "credits": 4,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "디지털회로설계 및 실험2",
+   "credits": 4,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "열물리학",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "광학",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "정보디스플레이개론",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "광전자실험",
+   "credits": 2,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "생분자물리학",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "바이오환경물리학",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "학부논문연구1",
+   "credits": 1,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "학부논문연구2",
+   "credits": 1,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "고체물리학/반도체물리학",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "플라즈마물리학",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "현대광학",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "디스플레이반도체공정",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "종합설계방식학부논문자율연구",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "반도체소자실험",
+   "credits": 2,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "디스플레이소자실험",
+   "credits": 2,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "플라즈마융합과학/플라즈마바이오물리학",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "핵 및 의학영상물리학",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 2,
+   "note": null
+  }
+ ],
+ "sources": [
+  {
+   "title": "전자바이오물리학과 교육과정",
+   "url": "https://www.kw.ac.kr/ko/univ/science02_4.jsp",
+   "checked_at": "2026-11-07"
+  },
+  {
+   "title": "필수과목표 must_2026_16",
+   "url": "https://www.kw.ac.kr/ko/life/must_2026_16.xls",
+   "checked_at": "2026-11-07"
+  }
+ ],
+ "checked_at": "2026-11-07"
+}

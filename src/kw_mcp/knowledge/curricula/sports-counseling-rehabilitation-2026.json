@@ -1,0 +1,291 @@
+{
+ "department": "스포츠상담재활학과",
+ "admission_year": 2026,
+ "scope": "full",
+ "basis": "(A) 학과 교육과정 페이지의 현행 교과목표를 2026학년도 입학생 교육과정으로 간주함. (B)에는 과목 정보가 없어 학정번호는 모두 공란.",
+ "courses": [
+  {
+   "code": null,
+   "name": "캠핑및아웃도어스포츠",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 1,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "스포츠안전 및 응급처치",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 1,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "건강교육",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 1,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "스포츠피싱",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 1,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "트레이닝방법론",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "스포츠수행심리학",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "요가&필라테스",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "재활승마심리운동",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "인체 및 기능해부학",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "운동생리학",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "운동영양학",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 2,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "운동손상 및 재활",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 2,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "특수체육개론",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 2,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "스포츠심리기술훈련",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 2,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "승마",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 3,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "스포츠마사지",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 3,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "근골격계 측정 및 평가",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 3,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "골프멘탈코칭",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 3,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "코칭론",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 3,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "근골격계 재활운동",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 3,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "기능훈련",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 3,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "운동조절 및 동작발달",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 3,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "스포츠컨디셔닝",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 3,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "스포츠헬스케어 비즈니스",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 4,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "병리학",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 4,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "운동감각과 지각",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 4,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "스포츠재활 프로그램설계",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 4,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "전공골프",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 4,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "스포츠재활 임상실습",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 4,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "팀스포츠멘탈코칭",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 4,
+   "term": 2,
+   "note": null
+  }
+ ],
+ "sources": [
+  {
+   "title": "스포츠상담재활학과 교육과정",
+   "url": "https://www.kw.ac.kr/ko/univ/chambit04_4.jsp",
+   "checked_at": "2026-11-07"
+  },
+  {
+   "title": "필수과목표 must_2026_33",
+   "url": "https://www.kw.ac.kr/ko/life/must_2026_33.xlsx",
+   "checked_at": "2026-11-07"
+  }
+ ],
+ "checked_at": "2026-11-07"
+}

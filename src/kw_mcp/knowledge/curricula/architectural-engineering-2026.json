@@ -1,0 +1,399 @@
+{
+ "department": "건축공학과",
+ "admission_year": 2026,
+ "scope": "full",
+ "basis": "(A) www.kw.ac.kr 건축공학과 교육과정 페이지(한국공학인증원 인증 교과과정 기준)를 현재 교육과정으로 간주함. 병합셀로 중복된 행은 1회만 기재. 학정번호는 (B)에 같은 이름의 과목이 있을 때만 기재.",
+ "courses": [
+  {
+   "code": null,
+   "name": "광운인되기",
+   "credits": 1,
+   "type": "필수교양",
+   "year_level": 1,
+   "term": 1,
+   "note": "인증: 교양필수"
+  },
+  {
+   "code": null,
+   "name": "대학수학및연습1",
+   "credits": 3,
+   "type": "기초교양",
+   "year_level": 1,
+   "term": 1,
+   "note": "인증: 공학필수"
+  },
+  {
+   "code": null,
+   "name": "대학물리학1",
+   "credits": 3,
+   "type": "기초교양",
+   "year_level": 1,
+   "term": 1,
+   "note": "인증: 공학필수"
+  },
+  {
+   "code": null,
+   "name": "대학화학",
+   "credits": 3,
+   "type": "기초교양",
+   "year_level": 1,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "스마트사회와인공지능",
+   "credits": 3,
+   "type": "기초교양",
+   "year_level": 1,
+   "term": 1,
+   "note": "인증: 공학필수"
+  },
+  {
+   "code": null,
+   "name": "건축공학개론",
+   "credits": 3,
+   "type": "전공",
+   "year_level": 1,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "디지털건축",
+   "credits": 3,
+   "type": "전공",
+   "year_level": 1,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "대학수학및연습2",
+   "credits": 3,
+   "type": "기초교양",
+   "year_level": 1,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "확률및통계",
+   "credits": 3,
+   "type": "기초교양",
+   "year_level": 1,
+   "term": 2,
+   "note": "인증: 공학필수"
+  },
+  {
+   "code": null,
+   "name": "대학물리학2",
+   "credits": 3,
+   "type": "기초교양",
+   "year_level": 1,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "파이썬프로그래밍",
+   "credits": 3,
+   "type": "기초교양",
+   "year_level": 1,
+   "term": 2,
+   "note": "인증: 공학필수"
+  },
+  {
+   "code": null,
+   "name": "공학설계입문",
+   "credits": 3,
+   "type": "전공",
+   "year_level": 1,
+   "term": 2,
+   "note": "인증: 공학필수"
+  },
+  {
+   "code": "117020276",
+   "name": "구조역학1",
+   "credits": 3,
+   "type": "전공",
+   "year_level": 2,
+   "term": 1,
+   "note": "인증: 필수"
+  },
+  {
+   "code": "117023701",
+   "name": "일반구조",
+   "credits": 3,
+   "type": "전공",
+   "year_level": 2,
+   "term": 1,
+   "note": "인증: 필수"
+  },
+  {
+   "code": null,
+   "name": "건축환경1",
+   "credits": 3,
+   "type": "전공",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "건축계획및법규",
+   "credits": 3,
+   "type": "전공",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "공학수학1",
+   "credits": 3,
+   "type": "기초교양",
+   "year_level": 2,
+   "term": 2,
+   "note": "인증: 공학필수"
+  },
+  {
+   "code": "117022056",
+   "name": "건축환경2",
+   "credits": 3,
+   "type": "전공",
+   "year_level": 2,
+   "term": 2,
+   "note": "인증: 필수"
+  },
+  {
+   "code": null,
+   "name": "건설공법및실습",
+   "credits": 3,
+   "type": "전공",
+   "year_level": 2,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": "117020277",
+   "name": "구조역학2",
+   "credits": 3,
+   "type": "전공",
+   "year_level": 2,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "건축사",
+   "credits": 3,
+   "type": "전공",
+   "year_level": 2,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "건축설계및도서작성",
+   "credits": 3,
+   "type": "전공",
+   "year_level": 2,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": "117035340",
+   "name": "건설관리",
+   "credits": 3,
+   "type": "전공",
+   "year_level": 3,
+   "term": 1,
+   "note": "인증: 필수; 구, 건설경영개론"
+  },
+  {
+   "code": "117033316",
+   "name": "건축설비1",
+   "credits": 3,
+   "type": "전공",
+   "year_level": 3,
+   "term": 1,
+   "note": "인증: 필수"
+  },
+  {
+   "code": null,
+   "name": "철근콘크리트구조1",
+   "credits": 3,
+   "type": "전공",
+   "year_level": 3,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "건축재료",
+   "credits": 3,
+   "type": "전공",
+   "year_level": 3,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "건축IT",
+   "credits": 3,
+   "type": "전공",
+   "year_level": 3,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "건축구조시스템",
+   "credits": 3,
+   "type": "전공",
+   "year_level": 3,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "건축환경실험및실습",
+   "credits": 3,
+   "type": "전공",
+   "year_level": 3,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": "1170-3-1591",
+   "name": "철골구조",
+   "credits": 3,
+   "type": "전공",
+   "year_level": 3,
+   "term": 2,
+   "note": "인증: 필수"
+  },
+  {
+   "code": null,
+   "name": "철근콘크리트구조2",
+   "credits": 3,
+   "type": "전공",
+   "year_level": 3,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "건축환경조절시스템",
+   "credits": 3,
+   "type": "전공",
+   "year_level": 3,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "건축설비2",
+   "credits": 3,
+   "type": "전공",
+   "year_level": 3,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "건축공정관리",
+   "credits": 3,
+   "type": "전공",
+   "year_level": 3,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "건설프로젝트파이낸싱",
+   "credits": 3,
+   "type": "전공",
+   "year_level": 3,
+   "term": 2,
+   "note": "구, 건축경제"
+  },
+  {
+   "code": null,
+   "name": "건축실무",
+   "credits": 3,
+   "type": "전공",
+   "year_level": 3,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "BIM",
+   "credits": 3,
+   "type": "전공",
+   "year_level": 3,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "건축설비설계",
+   "credits": 3,
+   "type": "전공",
+   "year_level": 4,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "프로젝트설계",
+   "credits": 3,
+   "type": "전공",
+   "year_level": 4,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "건축구조설계",
+   "credits": 3,
+   "type": "전공",
+   "year_level": 4,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "건축공학캡스톤설계",
+   "credits": 3,
+   "type": "전공",
+   "year_level": 4,
+   "term": 1,
+   "note": "구, 건축공학캡스톤설계1"
+  },
+  {
+   "code": null,
+   "name": "건축종합논문",
+   "credits": 3,
+   "type": "전공",
+   "year_level": 4,
+   "term": 2,
+   "note": null
+  }
+ ],
+ "sources": [
+  {
+   "title": "건축공학과 교육과정",
+   "url": "https://www.kw.ac.kr/ko/univ/engineering01_4.jsp",
+   "checked_at": "2026-11-07"
+  },
+  {
+   "title": "필수과목표 must_2026_11",
+   "url": "https://www.kw.ac.kr/ko/life/must_2026_11.xls",
+   "checked_at": "2026-11-07"
+  }
+ ],
+ "checked_at": "2026-11-07"
+}

@@ -238,8 +238,17 @@ async def test_mcp_tools_are_registered_and_callable(svc):
         "get_attendance", "get_exam_info", "get_class_changes", "get_graduation_progress",
         "this_week", "today_briefing", "my_notices", "school_notices", "cafeteria_menu", "academic_calendar",
         "get_online_tests", "get_surveys", "get_discussions", "get_course_evaluation", "academic_deadlines",
-        "get_course_overview", "klas_status",
+        "get_course_overview", "klas_status", "read_school_notice", "get_scholarships",
+        "simulate_graduation", "explore_multi_major", "school_guide", "department_curriculum",
+        "connect_other_devices", "disconnect_app", "disconnect_this_pc", "get_academic_status",
     }
+    # Only linking this PC changes anything (keychain, autostart, the bridge's device record); never destructive.
+    linking = tools.pop("connect_other_devices").annotations
+    assert linking.read_only_hint is False and linking.destructive_hint is False
+    ending = tools.pop("disconnect_app").annotations  # ends one app's connection, never the PC's link
+    assert ending.read_only_hint is False and ending.destructive_hint is True
+    unlinking = tools.pop("disconnect_this_pc").annotations
+    assert unlinking.read_only_hint is False and unlinking.destructive_hint is True
     assert all(t.annotations.read_only_hint for t in tools.values())
 
     server.set_service(svc)
@@ -281,3 +290,15 @@ async def test_projects_only_return_whitelisted_fields(svc):
         "submitted": False, "score": None, "team_no": 3,
     }]
     assert "홍길동" not in str(rows) and "2022000000" not in str(rows)
+
+
+def test_schedule_slots_carry_clock_times():
+    from kw_mcp.service import schedule_slots
+
+    slots = schedule_slots("수 5,6교시/한울B101, 금 2교시/새빛103")
+    assert slots == [
+        {"weekday": "수", "periods": [5, 6], "room": "한울B101", "time": "15:00~17:45"},
+        {"weekday": "금", "periods": [2], "room": "새빛103", "time": "10:30~11:45"},
+    ]
+    assert schedule_slots("월 14교시/어딘가") == [{"weekday": "월", "periods": [14], "room": "어딘가"}]
+    assert schedule_slots(None) == [] and schedule_slots("미지정") == []

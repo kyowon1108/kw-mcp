@@ -23,7 +23,7 @@ from typing import Any
 import httpx
 
 from . import release
-from .agent import installed_version, parse_invite
+from .agent import installed_version, official_invite
 
 __all__ = ["check", "download", "enabled", "installed_version", "latest", "notice", "server", "unavailable_reason"]
 
@@ -52,7 +52,7 @@ def _invite() -> str:
 def server() -> str | None:
     invite = _invite()
     try:
-        return parse_invite(invite)[0] if invite else None
+        return official_invite(invite)[0] if invite else None
     except ValueError:
         return None
 
@@ -60,13 +60,13 @@ def server() -> str | None:
 def unavailable_reason() -> str | None:
     """Why this copy can't look for new versions, or None if it can."""
     if not enabled():
-        return "새 버전 확인은 Claude 데스크톱 확장에서만 합니다. PC 에이전트는 스스로 업데이트합니다(`kw-mcp update`)."
+        return "새 버전 확인은 Claude 데스크톱 확장에서만 해요."
     invite = _invite()
     if not invite:
         return ("초대 코드가 없어 새 버전을 확인할 수 없습니다(보안 수정 포함). Claude 데스크톱 설정 → 확장 프로그램 → "
                 "KW CAMPUS (광운 캠퍼스) → 구성에 초대 코드를 넣거나, 초대해 준 사람에게 최신 파일을 받으세요.")
     try:
-        parse_invite(invite)
+        official_invite(invite)
     except ValueError as e:
         return f"초대 코드를 읽지 못해 새 버전을 확인할 수 없습니다: {e} 확장 설정에서 초대 코드를 다시 붙여 넣으세요."
     return None

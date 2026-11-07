@@ -1,0 +1,309 @@
+{
+ "department": "산업심리학과",
+ "admission_year": 2026,
+ "scope": "full",
+ "basis": "(A) www.kw.ac.kr 교육과정 페이지를 현재 교육과정으로 간주함. (A)에는 학점이 없으므로 학점은 (B)에 같은 과목이 있는 경우에만 (B)에서 채웠고, 나머지는 빈칸으로 둠. 학정번호는 (B)의 가장 최근 행(2026)에서 가져왔으며, 컴퓨터통계분석은 2015~2018 행에서 가져옴.",
+ "courses": [
+  {
+   "code": null,
+   "name": "심리학개론1",
+   "credits": null,
+   "type": "전선",
+   "year_level": 1,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": "3110-2-0956",
+   "name": "심리통계학",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "학습심리학",
+   "credits": null,
+   "type": "전선",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": "3110-2-3245",
+   "name": "산업심리학",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": 1,
+   "note": "(B)에서는 인사심리학(구,산업심리학)으로 표기됨"
+  },
+  {
+   "code": null,
+   "name": "청년발달",
+   "credits": null,
+   "type": "전선",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "심리검사",
+   "credits": null,
+   "type": "전선",
+   "year_level": 3,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "인지심리학",
+   "credits": null,
+   "type": "전선",
+   "year_level": 3,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "지각심리학",
+   "credits": null,
+   "type": "전선",
+   "year_level": 3,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "소비자의사결정심리학",
+   "credits": null,
+   "type": "전선",
+   "year_level": 3,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "직무분석",
+   "credits": null,
+   "type": "전선",
+   "year_level": 3,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "직무수행평가",
+   "credits": null,
+   "type": "전선",
+   "year_level": 4,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "광고심리학",
+   "credits": null,
+   "type": "전선",
+   "year_level": 4,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "캡스톤설계조직심리세미나",
+   "credits": null,
+   "type": "전선",
+   "year_level": 4,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "진로상담",
+   "credits": null,
+   "type": "전선",
+   "year_level": 4,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "이상심리",
+   "credits": null,
+   "type": "전선",
+   "year_level": 4,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "성격심리",
+   "credits": null,
+   "type": "전선",
+   "year_level": 4,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "심리학개론2",
+   "credits": null,
+   "type": "전선",
+   "year_level": 1,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": "3110-2-1542-01",
+   "name": "조직심리학",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "사회심리학",
+   "credits": null,
+   "type": "전선",
+   "year_level": 2,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": "9050-2-1667",
+   "name": "컴퓨터통계분석",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": 2,
+   "note": "학정번호와 학점은 (B)의 2015~2018 행에서 가져옴. 2019년 이후로는 (B)에 필수과목으로 나오지 않음"
+  },
+  {
+   "code": "3110-2-0954",
+   "name": "실험심리학",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "조사방법론",
+   "credits": null,
+   "type": "전선",
+   "year_level": 2,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "소비자심리학",
+   "credits": null,
+   "type": "전선",
+   "year_level": 3,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "상담이론과실제",
+   "credits": null,
+   "type": "전선",
+   "year_level": 3,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "산업조직동기관리",
+   "credits": null,
+   "type": "전선",
+   "year_level": 3,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "인지공학심리학",
+   "credits": null,
+   "type": "전선",
+   "year_level": 3,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "산업교육",
+   "credits": null,
+   "type": "전선",
+   "year_level": 3,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "조직리더십",
+   "credits": null,
+   "type": "전선",
+   "year_level": 4,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "가족상담",
+   "credits": null,
+   "type": "전선",
+   "year_level": 4,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "코칭심리",
+   "credits": null,
+   "type": "전선",
+   "year_level": 4,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "행동수정",
+   "credits": null,
+   "type": "전선",
+   "year_level": 4,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "집단상담",
+   "credits": null,
+   "type": "전선",
+   "year_level": 4,
+   "term": 2,
+   "note": null
+  }
+ ],
+ "sources": [
+  {
+   "title": "산업심리학과 교육과정",
+   "url": "https://www.kw.ac.kr/ko/univ/social06_4.jsp",
+   "checked_at": "2026-11-07"
+  },
+  {
+   "title": "필수과목표 must_2026_23",
+   "url": "https://www.kw.ac.kr/ko/life/must_2026_23.xls",
+   "checked_at": "2026-11-07"
+  }
+ ],
+ "checked_at": "2026-11-07"
+}

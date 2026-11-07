@@ -1,0 +1,516 @@
+{
+ "department": "로봇학부",
+ "admission_year": 2026,
+ "scope": "full",
+ "basis": "(A) 로봇학부 AI로봇전공 교육과정 페이지(www)를 현행 교육과정으로 간주하여 전체 과목 수록. 학정번호는 (B)에 동일 과목명이 있는 경우에만 기입(AI로봇전공 전필은 (B) 2026년 AI로봇전공 행 기준).",
+ "courses": [
+  {
+   "code": null,
+   "name": "광운인되기",
+   "credits": 1,
+   "type": "교필",
+   "year_level": 1,
+   "term": null,
+   "note": "학기 중 택1"
+  },
+  {
+   "code": null,
+   "name": "대학물리및실험1",
+   "credits": 3,
+   "type": "교선",
+   "year_level": 1,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "대학물리학2",
+   "credits": 3,
+   "type": "교선",
+   "year_level": 1,
+   "term": 2,
+   "note": "구:대학물리및실험2"
+  },
+  {
+   "code": null,
+   "name": "대학수학및연습1",
+   "credits": 3,
+   "type": "교선",
+   "year_level": 1,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "대학수학및연습2",
+   "credits": 3,
+   "type": "교선",
+   "year_level": 1,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "C프로그래밍",
+   "credits": 3,
+   "type": "교선",
+   "year_level": 1,
+   "term": 1,
+   "note": "구:프로그래밍기초"
+  },
+  {
+   "code": null,
+   "name": "C프로그래밍응용",
+   "credits": 3,
+   "type": "교선",
+   "year_level": 1,
+   "term": 2,
+   "note": "구:컴퓨팅사고"
+  },
+  {
+   "code": null,
+   "name": "융합적사고와 글쓰기",
+   "credits": 3,
+   "type": "교선",
+   "year_level": 1,
+   "term": null,
+   "note": "학기 중 택1"
+  },
+  {
+   "code": null,
+   "name": "로봇학입문",
+   "credits": null,
+   "type": "전선",
+   "year_level": 1,
+   "term": null,
+   "note": "학기 중 택1"
+  },
+  {
+   "code": null,
+   "name": "공학수학1",
+   "credits": 3,
+   "type": "교선",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "고급프로그래밍 / 자바프로그래밍",
+   "credits": 3,
+   "type": "교선",
+   "year_level": 2,
+   "term": null,
+   "note": "학기 중 택1"
+  },
+  {
+   "code": null,
+   "name": "전자기학",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "메카니즘해석",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 2,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "기초역학",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "신호및시스템",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 2,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "회로이론1",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "회로이론2",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 2,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "디지털공학",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "컴퓨터구조",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 2,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "로봇기초설계",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 2,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": "I050-2-6154",
+   "name": "로봇학실험1",
+   "credits": null,
+   "type": "전필",
+   "year_level": 2,
+   "term": 1,
+   "note": "(A)에 'AI로봇실험1'과 한 칸에 병기; (B)상 정보제어·지능시스템전공 전필"
+  },
+  {
+   "code": "I050-2-5473",
+   "name": "AI로봇실험1",
+   "credits": null,
+   "type": "전필",
+   "year_level": 2,
+   "term": 1,
+   "note": "AI로봇전공 전필"
+  },
+  {
+   "code": "I050-2-62446",
+   "name": "로봇학실험2",
+   "credits": null,
+   "type": "전필",
+   "year_level": 2,
+   "term": 2,
+   "note": "(A)에 'AI로봇실험2'와 병기; (B)상 정보제어·지능시스템전공 전필"
+  },
+  {
+   "code": "I050-2-5695",
+   "name": "AI로봇실험2",
+   "credits": null,
+   "type": "전필",
+   "year_level": 2,
+   "term": 2,
+   "note": "AI로봇전공 전필"
+  },
+  {
+   "code": null,
+   "name": "로봇프로그래밍",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 3,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "컴퓨터비전",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 3,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "알고리즘",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 3,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "기계학습",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 3,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "컴퓨터네트워크",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 3,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "센서공학",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 3,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "마이크로프로세서",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 3,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "모터제어",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 3,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "로봇요소설계",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 3,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": "7410-3-0476",
+   "name": "로봇제어",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 3,
+   "term": 2,
+   "note": "(B) 2016~2022년 행의 전필 과목(구,로봇공학) 학정번호; 현행 I050 번호 미확인"
+  },
+  {
+   "code": null,
+   "name": "자동제어1",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 3,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "자동제어2",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 3,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "로봇게임세미나25-1",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 3,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "로봇게임세미나25-2",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 3,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "임베디드시스템",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 3,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "제어시스템설계",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 3,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": "I050-3-5481",
+   "name": "로봇운동학",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 3,
+   "term": 1,
+   "note": "구.메카트로닉스"
+  },
+  {
+   "code": "I050-3-6538",
+   "name": "로봇학실험3",
+   "credits": null,
+   "type": "전필",
+   "year_level": 3,
+   "term": 1,
+   "note": "구,센서공학실험; (A)에 'AI로봇실험3'과 병기; 정보제어·지능시스템전공 전필"
+  },
+  {
+   "code": "I050-3-6336",
+   "name": "AI로봇실험3",
+   "credits": null,
+   "type": "전필",
+   "year_level": 3,
+   "term": 1,
+   "note": "AI로봇전공 전필"
+  },
+  {
+   "code": "I050-3-6539",
+   "name": "로봇학실험4",
+   "credits": null,
+   "type": "전필",
+   "year_level": 3,
+   "term": 2,
+   "note": "구,자동제어실험; (A)에 'AI로봇실험4'와 병기; 정보제어·지능시스템전공 전필"
+  },
+  {
+   "code": "I050-3-6337",
+   "name": "AI로봇실험4",
+   "credits": null,
+   "type": "전필",
+   "year_level": 3,
+   "term": 2,
+   "note": "AI로봇전공 전필"
+  },
+  {
+   "code": null,
+   "name": "캡스톤설계",
+   "credits": null,
+   "type": "전선",
+   "year_level": 4,
+   "term": null,
+   "note": "학기 중 택1"
+  },
+  {
+   "code": null,
+   "name": "딥러닝",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 4,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "로봇내비게이션",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 4,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "전자회로",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 4,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "자연어처리",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 4,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "로봇응용시스템",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 4,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "강화학습",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 4,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "온디바이스인공지능",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 4,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "로봇시스템설계1",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 4,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "로봇시스템설계2",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 4,
+   "term": 2,
+   "note": null
+  }
+ ],
+ "sources": [
+  {
+   "title": "로봇학부 교육과정",
+   "url": "https://www.kw.ac.kr/ko/univ/ai04_4.jsp",
+   "checked_at": "2026-11-07"
+  },
+  {
+   "title": "필수과목표 must_2026_10",
+   "url": "https://www.kw.ac.kr/ko/life/must_2026_10.xls",
+   "checked_at": "2026-11-07"
+  }
+ ],
+ "checked_at": "2026-11-07"
+}

@@ -30,8 +30,9 @@ def test_extension_settings_are_trimmed_and_marked(no_keychain, monkeypatch):
 def test_unfilled_extension_fields_count_as_missing(no_keychain, monkeypatch):
     monkeypatch.setenv("KLAS_ID", "${user_config.klas_id}")
     monkeypatch.setenv("KLAS_PASSWORD", "${user_config.klas_password}")
-    with pytest.raises(credentials.MissingCredentials, match="kw-mcp setup"):
+    with pytest.raises(credentials.MissingCredentials, match="웹이랑 폰에서도 쓰게 연결해 줘") as missing:
         credentials.load()
+    assert "확장 설정" in str(missing.value) and "kw-mcp" not in str(missing.value)  # no terminal any more
     monkeypatch.setenv("KLAS_PASSWORD", "pw")
     with pytest.raises(credentials.MissingCredentials, match="확장 프로그램"):
         credentials.load()
@@ -67,7 +68,9 @@ def test_hint_masks_the_id_and_flags_input_slips():
     assert "2022******(10자리)" in hint and "80" not in hint.split("10자리")[0][4:]
     assert "한글" in hint and "확장 프로그램" in hint and "ㅔㅈ" not in hint
     other = credentials.login_hint(credentials.Credentials("kw2022", "pw", credentials.KEYCHAIN))
-    assert "******(6자리)" in other and "숫자가 아닌" in other and "kw-mcp setup" in other and "한글" not in other
+    assert "******(6자리)" in other and "숫자가 아닌" in other and "한글" not in other
+    # the PC agent's keychain copy is fixed in the extension settings, then saved again by connect_other_devices
+    assert "확장 설정" in other and "연결해 줘" in other and "kw-mcp" not in other
     assert "k" not in other.split("(6자리)")[0]
     # a password typed into the ID field shows nothing but its length
     assert "*****************(17자리)" in credentials.login_hint(credentials.Credentials("MyS3cretPassw0rd!", "x"))

@@ -1,0 +1,57 @@
+{
+ "department": "산업심리학과",
+ "admission_year": 2019,
+ "scope": "required_only",
+ "basis": "(B) 대각선 규칙 적용: 1학년은 2019행, 2학년은 2020행, 3학년은 2021행, 4학년은 2022행. 1학년 칸에는 교양 이수체계 안내 문구(2017학번부터 개편된 교양 교과목 이수체계 준수 + 영어회화 필수 해제)만 있고 과목은 없음. 3·4학년 칸은 비어 있음.",
+ "courses": [
+  {
+   "code": "3110-2-3245",
+   "name": "인사심리학",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": 1,
+   "note": "구, 산업심리학"
+  },
+  {
+   "code": "9050-1-0956",
+   "name": "심리통계학",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": "9050-2-1542",
+   "name": "실험심리학",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": "9050-2-0954",
+   "name": "조직심리학",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": 2,
+   "note": null
+  }
+ ],
+ "sources": [
+  {
+   "title": "산업심리학과 교육과정",
+   "url": "https://www.kw.ac.kr/ko/univ/social06_4.jsp",
+   "checked_at": "2026-11-07"
+  },
+  {
+   "title": "필수과목표 must_2026_23",
+   "url": "https://www.kw.ac.kr/ko/life/must_2026_23.xls",
+   "checked_at": "2026-11-07"
+  }
+ ],
+ "checked_at": "2026-11-07"
+}

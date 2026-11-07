@@ -1,0 +1,417 @@
+{
+ "department": "전자공학과",
+ "admission_year": 2026,
+ "scope": "full",
+ "basis": "(A) www 교육과정 표를 현행(2026학번) 교육과정으로 간주. 학정번호는 (B)에 동일 과목명이 있을 때만 기입, 나머지는 빈 값. 이수구분은 (A) 표기대로 기재.",
+ "courses": [
+  {
+   "code": null,
+   "name": "영어읽기와 쓰기",
+   "credits": 3,
+   "type": "교양필수",
+   "year_level": 1,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": "7090-1-1077",
+   "name": "영어회화",
+   "credits": 3,
+   "type": "교양필수",
+   "year_level": 1,
+   "term": 2,
+   "note": "(B)상 2019학번부터 영어회화 필수 해제"
+  },
+  {
+   "code": null,
+   "name": "대학수학 및 연습1",
+   "credits": 3,
+   "type": "교양필수",
+   "year_level": 1,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "대학수학 및 연습2",
+   "credits": 3,
+   "type": "교양필수",
+   "year_level": 1,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "공학설계입문",
+   "credits": 3,
+   "type": "교양필수",
+   "year_level": 1,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "공학설계입문",
+   "credits": 3,
+   "type": "교양필수",
+   "year_level": 1,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": "7060-2-4512",
+   "name": "기초전자회로및실험1",
+   "credits": 3,
+   "type": "전공필수",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": "7060-2-4513",
+   "name": "기초전자회로및실험2",
+   "credits": 3,
+   "type": "전공필수",
+   "year_level": 2,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "물리전자1",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "물리전자2",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "회로이론1",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "회로이론2",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "전자기학1",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "전자기학2",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "디지털공학",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "컴퓨터구조",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "신호및시스템",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "전자회로및실험1",
+   "credits": 3,
+   "type": "전공필수",
+   "year_level": 3,
+   "term": 1,
+   "note": "(B)에서는 전자회로실험의 구 과목명"
+  },
+  {
+   "code": null,
+   "name": "전자회로및실험2",
+   "credits": 3,
+   "type": "전공필수",
+   "year_level": 3,
+   "term": 2,
+   "note": "(B)에서는 전자공학응용실험의 구 과목명"
+  },
+  {
+   "code": null,
+   "name": "전자회로1",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "전자회로2",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "통신이론1",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "통신이론2",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "반도체공정및설계",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "나노전자공학",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "마이크로파공학",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "마이크로파회로설계",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "디지털신호처리",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "전공논술",
+   "credits": 1,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "캡스톤설계1",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "캡스톤설계2",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "광통신공학",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "통신네트워크",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "광전자공학",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "디지털 방송공학",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "데이타통신",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "RFIC설계및실험",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "전자공학세미나",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "디지털신호처리및실험",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "영산신호처리",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "유비쿼터스통신시스템",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "음성및오디오신호처리",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "RF시스템",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "임베디드시스템",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 1,
+   "note": null
+  }
+ ],
+ "sources": [
+  {
+   "title": "전자공학과 교육과정",
+   "url": "https://www.kw.ac.kr/ko/univ/electronic01_4.jsp",
+   "checked_at": "2026-11-07"
+  },
+  {
+   "title": "필수과목표 must_2026_01",
+   "url": "https://www.kw.ac.kr/ko/life/must_2026_01.xls",
+   "checked_at": "2026-11-07"
+  }
+ ],
+ "checked_at": "2026-11-07"
+}

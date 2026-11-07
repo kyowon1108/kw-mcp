@@ -1,0 +1,444 @@
+{
+ "department": "수학과",
+ "admission_year": 2026,
+ "scope": "full",
+ "basis": "(A) www 교육과정 표를 현재 교육과정으로 간주하여 전체 과목 수록. 학정번호는 (B)에 같은 이름이 있는 경우(해석학1, 현대대수학1)만 채움.",
+ "courses": [
+  {
+   "code": null,
+   "name": "대학수학및연습1",
+   "credits": 3,
+   "type": "기초선택",
+   "year_level": 1,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "기초수학및연습",
+   "credits": 3,
+   "type": "기초선택",
+   "year_level": 1,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "대학수학및연습2",
+   "credits": 3,
+   "type": "기초선택",
+   "year_level": 1,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "벡터해석학및연습",
+   "credits": 3,
+   "type": "기초선택",
+   "year_level": 1,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "대학영어",
+   "credits": 3,
+   "type": "교양필수",
+   "year_level": 1,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "컴퓨팅사고",
+   "credits": 3,
+   "type": "교양필수",
+   "year_level": 1,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "영어회화",
+   "credits": 3,
+   "type": "교양필수",
+   "year_level": 1,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "프로그래밍기초",
+   "credits": 3,
+   "type": "교양필수",
+   "year_level": 1,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "수학적읽기와글쓰기",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 1,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "계산수학및프로그래밍",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 1,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": "6030-2-1821",
+   "name": "해석학1",
+   "credits": 3,
+   "type": "전공필수",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "상미분방정식론",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "선형대수학1",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "이산수학",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "집합론",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "선형대수학2",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "수치해석1",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "정수론",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "해석학2",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "다변수해석학",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": "6030-3-1862",
+   "name": "현대대수학1",
+   "credits": 3,
+   "type": "전공필수",
+   "year_level": 3,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "기초통계학",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "보험수학",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "수치해석2",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "위상수학1",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "복소해석학1",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "경력개발과취업전략",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "부호론과암호론",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "위상수학2",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "편미분방정식론",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "현대대수학2",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "복소해석학2",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "조합수학",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "확률론개론",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "빅데이터기계학습",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "대수학특강",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "수리통계학",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "수학사",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "실변수함수론",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "수학적모델설계",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "금융수학개론",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "미분기하학",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "응용수학특강",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "현대수학의이해",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "수론특강",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "금융수학특론",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "조합수학심화세미나",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 2,
+   "note": null
+  }
+ ],
+ "sources": [
+  {
+   "title": "수학과 교육과정",
+   "url": "https://www.kw.ac.kr/ko/univ/science01_4.jsp",
+   "checked_at": "2026-11-07"
+  },
+  {
+   "title": "필수과목표 must_2026_15",
+   "url": "https://www.kw.ac.kr/ko/life/must_2026_15.xls",
+   "checked_at": "2026-11-07"
+  }
+ ],
+ "checked_at": "2026-11-07"
+}

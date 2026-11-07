@@ -1,0 +1,57 @@
+{
+ "department": "행정학과",
+ "admission_year": 2025,
+ "scope": "required_only",
+ "basis": "(B) 대각선 규칙: 1학년=2025행, 2학년=2026행. 3·4학년(2027·2028)은 미래 연도라 없음.",
+ "courses": [
+  {
+   "code": "F020-1-1848",
+   "name": "행정학개론",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 1,
+   "term": 1,
+   "note": "구, 행정학개론1"
+  },
+  {
+   "code": "F020-2-1539",
+   "name": "조직론",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": "F020-1-1508",
+   "name": "정책학",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": "F020-2-5000",
+   "name": "사회과학조사방법론",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": 2,
+   "note": "구, 행정조사방법론"
+  }
+ ],
+ "sources": [
+  {
+   "title": "행정학과 교육과정",
+   "url": "https://www.kw.ac.kr/ko/univ/law01_4.jsp",
+   "checked_at": "2026-11-07"
+  },
+  {
+   "title": "필수과목표 must_2026_25",
+   "url": "https://www.kw.ac.kr/ko/life/must_2026_25.xls",
+   "checked_at": "2026-11-07"
+  }
+ ],
+ "checked_at": "2026-11-07"
+}

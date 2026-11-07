@@ -18,6 +18,10 @@ from keyring.errors import PasswordDeleteError
 
 KEYRING_SERVICE = "kw-mcp"
 KEYRING_ID_KEY = "klas_login_id"
+# Set when connect_other_devices copied the extension's login into the keychain for the PC agent, so
+# disconnect_this_pc deletes only that copy, never a login the student saved themselves (`kw-mcp setup`).
+KEYRING_COPY_KEY = "klas_login_copied_from"
+COPIED_FROM_EXTENSION = "extension"
 
 
 class MissingCredentials(RuntimeError):
@@ -25,9 +29,10 @@ class MissingCredentials(RuntimeError):
 
 
 ENV = "env"  # the Claude Desktop extension's settings, passed in as KLAS_ID / KLAS_PASSWORD
-KEYCHAIN = "keychain"  # saved by `kw-mcp setup`
+KEYCHAIN = "keychain"  # saved by connect_other_devices (from the extension's settings) or `kw-mcp setup`
 FIX_IN_EXTENSION = "Claude 데스크톱 설정 → 확장 프로그램 → 'KW CAMPUS (광운 캠퍼스)' → 구성에서 학번과 비밀번호를 다시 입력하세요"
-FIX_IN_KEYCHAIN = "터미널에서 `kw-mcp setup`을 실행해 학번과 비밀번호를 다시 저장하세요"
+# The PC agent (Claude on the web and phone) reads the keychain copy that connect_other_devices saves.
+FIX_IN_KEYCHAIN = "확장 설정에서 학번·비밀번호를 고치고 Claude 데스크톱에서 '웹이랑 폰에서도 쓰게 연결해 줘'라고 말해 주세요"
 _HANGUL = re.compile(r"[\u3131-\u318e\uac00-\ud7a3]")
 _PLACEHOLDER = re.compile(r"\$\{user_config\.\w+\}")
 
@@ -89,9 +94,23 @@ def save(login_id: str, password: str) -> None:
         _delete_quietly(previous)
     keyring.set_password(KEYRING_SERVICE, KEYRING_ID_KEY, login_id)
     keyring.set_password(KEYRING_SERVICE, login_id, password)
+    _delete_quietly(KEYRING_COPY_KEY)  # saved here: the student's own, until mark_copied() says otherwise
     # Saving again (even the same password, e.g. after changing it back in KLAS) allows that login one
     # new try, also in an MCP server or PC agent that is already running. Other logins' records stay.
     forget_rejected_login(login_id, password)
+
+
+def mark_copied() -> None:
+    """The login just saved is a copy of the extension's settings (connect_other_devices)."""
+    keyring.set_password(KEYRING_SERVICE, KEYRING_COPY_KEY, COPIED_FROM_EXTENSION)
+
+
+def delete_copy() -> bool:
+    """Delete the saved login only if it is the extension's copy. True if it deleted it."""
+    if keyring.get_password(KEYRING_SERVICE, KEYRING_COPY_KEY) != COPIED_FROM_EXTENSION:
+        return False
+    delete()
+    return True
 
 
 def delete() -> None:
@@ -101,6 +120,7 @@ def delete() -> None:
     if login_id:
         _delete_quietly(login_id)
     _delete_quietly(KEYRING_ID_KEY)
+    _delete_quietly(KEYRING_COPY_KEY)
     forget_rejected_login()
 
 

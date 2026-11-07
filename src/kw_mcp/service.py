@@ -19,6 +19,7 @@ from datetime import datetime, timedelta
 from typing import Any
 from zoneinfo import ZoneInfo
 
+from . import simulation
 from .attachments import (
     MAX_DOWNLOAD_BYTES,
     UnreadableAttachment,
@@ -67,9 +68,20 @@ EVAL_COURSES = "/std/cps/inqire/LctreEvlsugangList.do"
 GRADE_TERM = "/std/cps/inqire/AtnlcScreCheckTerm.do"
 STANDING = "/std/cps/inqire/StandStdList.do"
 SCHOLARSHIP_TERM = "/std/cps/inqire/JanghakApplyStdTerm.do"
+SCHOLARSHIP_HISTORY = "/std/cps/inqire/JanghakHistoryStdList.do"  # 장학조회 page (checked 2026-11-07)
 DROP_CREDITS_TERM = "/std/cps/inqire/DelHakjumApplyStdTerm.do"
 GRADUATION_CHECK = "/std/ext/grdtn/SelectGraduateCheck.do"
 COURSE_HOME = "/std/lis/evltn/LctrumHomeStdInfo.do"
+# 학적 and 어학 reads (field names from the page templates, checked 2026-11-07; no live values recorded).
+LEAVE_WINDOWS = "/std/hak/hakjuk/TmpabssklGetHakjuk.do"  # 휴·복학 신청 가능 여부와 기간
+LEAVE_STATUS = "/std/hak/hakjuk/TmpabssklStatu.do"  # 내 휴·복학 신청 내역
+MAJOR_APPLIED = "/std/hak/hakjuk/CompnoApplyResult.do"  # 복수·부·심화전공 신청 결과
+MICRO_APPLIED = "/std/hak/hakjuk/MicroMajorResult.do"
+LINKED_APPLIED = "/std/hak/hakjuk/CntcSbjectResult.do"
+MULTI_MAJOR_APPLIED = (("복수·부·심화", MAJOR_APPLIED), ("마이크로", MICRO_APPLIED), ("연계", LINKED_APPLIED))
+LANGUAGE_REQUIREMENT = "/std/cps/inqire/ToeicInfoStd.do"  # 어학 졸업요건
+COURSE_DROP_PAGE = "/std/cps/atnlc/GiveupStdPage.do"  # 수강포기: an HTML page, not JSON
+NOTE_CHARS = 200
 # Class periods as KLAS's own timetable page prints them (TimetableStdPage.do, 2026-11-06).
 PERIOD_TIMES = {0: ("08:00", "08:50"), 1: ("09:00", "10:15"), 2: ("10:30", "11:45"), 3: ("12:00", "13:15"),
                 4: ("13:30", "14:45"), 5: ("15:00", "16:15"), 6: ("16:30", "17:45"), 7: ("18:00", "18:45"),
@@ -210,6 +222,8 @@ BOARD_TTL = 180.0  # board lists and searches (exam info, class changes)
 ATTENDANCE_TTL = 180.0
 SYLLABUS_TTL = 600.0  # a syllabus rarely changes within a term
 RECORD_TTL = 3600.0  # 학적 (department, year, transfer credits)
+CREDITS_TTL = 300.0  # 교양 이수현황, grade totals and the transcript, shared by the graduation tools
+STATUS_TTL = 300.0  # 휴·복학 and 다전공 신청 내역, shared by academic_status and multi_major_options
 MAX_DEADLINE_DAYS = 180
 # Per-course lists, by the kind names deadlines() and snapshot() use.
 PATH_KIND = {TASKS: "assignment", ONLINE: "online_lecture", QUIZZES: "quiz", PROJECTS: "team_project",
@@ -379,6 +393,15 @@ def period_time(periods: list[int]) -> str | None:
     return f"{min(t[0] for t in known)}~{max(t[1] for t in known)}"
 
 
+def schedule_slots(text: str | None) -> list[dict[str, Any]]:
+    """parse_schedule's slots with each one's clock time from the school's period table (PERIOD_TIMES)."""
+    out = []
+    for slot in parse_schedule(text):
+        time = period_time(slot["periods"])
+        out.append({**slot, **({"time": time} if time else {})})
+    return out
+
+
 def schedule_note(text: str | None) -> str | None:
     """KLAS marks classes without a fixed room/time as '미지정' (often online or irregular)."""
     if not text or "미지정" in text:
@@ -389,6 +412,63 @@ def schedule_note(text: str | None) -> str | None:
 def _yyyymmdd(value: Any) -> str | None:
     text = str(value or "")
     return f"{text[:4]}-{text[4:6]}-{text[6:8]}" if re.fullmatch(r"\d{8}", text) else (text or None)
+
+
+_YMD = r"(\d{4})\s*[.\-/년]\s*(\d{1,2})\s*[.\-/월]\s*(\d{1,2})"
+_PERIOD = re.compile(rf"{_YMD}\s*일?\s*(?:부터|~|∼|-|–)\s*{_YMD}")
+_TIME = re.compile(r"시간\s*:\s*([^\n]+)")
+
+
+def _ymd(year: str, month: str, day: str) -> str | None:
+    try:
+        return datetime(int(year), int(month), int(day)).strftime("%Y-%m-%d")
+    except ValueError:
+        return None
+
+
+def _day(value: Any) -> str | None:
+    """A KLAS date as YYYY-MM-DD when it is 8 digits or dotted ("20260302", "2026.03.02"); other text as
+    it is, None when empty."""
+    text = clean(str(value if value is not None else "")).strip()
+    m = re.fullmatch(r"(\d{4})(\d{2})(\d{2})", text) or re.fullmatch(_YMD + r"\.?", text)
+    return (_ymd(*m.groups()) or text) if m else (text or None)
+
+
+def _label(value: Any) -> str | None:
+    """A short KLAS label (학적 상태, 전공명) as clean text; None when empty."""
+    return clean(str(value if value is not None else "")).strip() or None
+
+
+def _flat(html: Any) -> str:
+    """KLAS HTML as one line of plain text."""
+    return re.sub(r"\s+", " ", html_to_text(str(html or ""))).strip()
+
+
+def leave_window(commit: Any, comment: Any) -> dict[str, Any] | None:
+    """One 휴·복학 칸 of TmpabssklGetHakjuk.do: commitStrN ("<b>일반휴학</b><br>(신청불가)") and commentStrN
+    ("신청기간이 아닙니다! <br>기간 : 2026.03.02부터 2026.03.20까지시간 : …", or a notice). The notice is
+    the school's text, so it comes wrapped like other free text; None for an empty pair."""
+    head, body = _flat(commit), html_to_text(str(comment or ""))
+    if not head and not body:
+        return None
+    marks = " ".join(re.findall(r"\(([^()]*)\)", head)) or head
+    can_apply = False if "불가" in marks else True if "가능" in marks else None
+    kind = re.sub(r"\s+", " ", re.sub(r"\([^()]*\)|신청\s*(?:불가능?|가능)", " ", head)).strip()
+    period = _PERIOD.search(body)
+    time = _TIME.search(body) if period else None
+    note = None if period else _flat(comment)
+    if note and len(note) > NOTE_CHARS:
+        note = note[:NOTE_CHARS].rstrip() + "…"
+    return {"type": kind or None, "can_apply": can_apply,
+            "period": {"from": _ymd(*period.groups()[:3]), "to": _ymd(*period.groups()[3:])} if period else None,
+            "time": (time.group(1).strip()[:60] or None) if time else None,
+            "note": untrusted(note) if note else None}
+
+
+def leave_windows(data: dict[str, Any]) -> list[dict[str, Any]]:
+    """TmpabssklGetHakjuk.do's commitStr01.. / commentStr01.. pairs in order; empty pairs are left out."""
+    keys = sorted((k for k in data if re.fullmatch(r"commitStr\d+", str(k))), key=lambda k: int(k[9:]))
+    return [row for k in keys if (row := leave_window(data.get(k), data.get(f"commentStr{k[9:]}")))]
 
 
 def _int(value: Any) -> int | None:
@@ -428,6 +508,7 @@ def _dict(data: Any, path: str) -> dict[str, Any]:
 
 _SEMESTER = re.compile(r"\d{4},[1-4]")
 _SEASON = {"여름": "3", "하계": "3", "겨울": "4", "동계": "4"}
+_TERM_LABEL = {"1": "1학기", "2": "2학기", "3": "여름학기", "4": "겨울학기"}
 
 
 def _normalize_semester(value: str) -> str | None:
@@ -593,6 +674,7 @@ class KlasService:
                 "course": r.get("subjNm"),
                 "professor": r.get("profNm"),
                 "schedule": r.get("lctrumSchdulInfo"),
+                "slots": schedule_slots(r.get("lctrumSchdulInfo")),
                 "course_id": r.get("subj"),
                 "semester": r.get("yearhakgi"),
                 "label": r.get("subjLabel"),
@@ -1380,52 +1462,74 @@ class KlasService:
         name = str((await self._student_record()).get("hakgwa") or "").split()
         return name[0] if name else None
 
+    async def _gen_ed(self) -> dict[str, Any]:
+        """교양 이수현황 (GyoyangIsuInfo.do) as its page totals it: the 필수교양 column (aa8128) and
+        the balanced areas (BALANCED_AREAS)."""
+        gen = _dict(await self._cached(("gen_ed",), CREDITS_TTL, lambda: self._client.post(GEN_ED)), GEN_ED)
+        return {"required": _int(gen.get("aa8128")) or 0,
+                "balanced_by_area": {name: sum(_int(gen.get(k)) or 0 for k in keys) for name, keys in BALANCED_AREAS}}
+
+    async def _grade_totals(self) -> dict[str, Any]:
+        """취득 학점과 평점 합계 (AtnlcScreSungjukTot.do)."""
+        totals = await self._cached(("grade_totals",), CREDITS_TTL, lambda: self._client.post(GRADE_TOTALS))
+        return _dict(totals, GRADE_TOTALS)
+
+    async def _transcript(self) -> list[dict[str, Any]]:
+        """The transcript's semesters with their courses as _grade_row reads them (category = 이수구분)."""
+        data = await self._cached(("transcript",), CREDITS_TTL, lambda: self._client.post(GRADES))
+        return [{"year": s.get("thisYear"), "term": s.get("hakgi"),
+                 "courses": [_grade_row(g) for g in s.get("sungjukList") or [] if isinstance(g, dict)]}
+                for s in _list(data, GRADES) if isinstance(s, dict)]
+
     async def graduation_progress(self) -> dict[str, Any]:
         """Where I stand on credits and general-education rules (교양 필수·균형 이수현황).
 
         The admission year is read from the first four digits of the student id; the id itself is
-        not returned. Department-specific major requirements are not in KLAS's data, so they are
-        pointed to the department office.
+        not returned. The 교양 rule is the admission year's from rules/graduation.json (2025학번 이하
+        don't need 광운인되기 since 2026-03-01); what KLAS's table can't show is 확인 필요, not a guess.
+        Department-specific major requirements are not in KLAS's data, so they are pointed to the
+        department office.
         """
-        gen, totals, record = await _gather(self._client.post(GEN_ED), self._client.post(GRADE_TOTALS),
-                                            self._student_record())
-        gen, totals = _dict(gen, GEN_ED), _dict(totals, GRADE_TOTALS)
-        areas = {name: sum(_int(gen.get(k)) or 0 for k in keys) for name, keys in BALANCED_AREAS}
-        required = _int(gen.get("aa8128")) or 0
-        general_total = required + sum(areas.values())
-        areas_taken = sum(1 for v in areas.values() if v > 0)
-        hakbun = str(record.get("hakbun") or "")
-        admitted = int(hakbun[:4]) if hakbun[:4].isdigit() else None
+        gen_ed, totals, record = await _gather(self._gen_ed(), self._grade_totals(), self._student_record())
+        areas, required = gen_ed["balanced_by_area"], gen_ed["required"]
+        me = simulation.student(record)
         transfer = {"total": record.get("prevHakjumNum"), "general_education": record.get("cultureHakjum"),
                     "major": record.get("majorHakjum"), "elective": record.get("generalHakjum")}
-        if any((_int(v) or 0) > 0 for v in transfer.values()):
-            # 편입생: the 학번 carries the transfer year and the 교양 rules differ; no firm verdict.
-            rule = "편입생 교양 이수 기준(신입학 기준은 적용하지 않음)"
-            check = {"met": None, "transfer_credits": transfer,
-                     "note": "편입생은 교양 이수 기준이 다릅니다. 편입 인정학점을 포함한 기준은 학과·학사지원팀 졸업기준표를 확인하세요."}
-        elif admitted and admitted >= 2025:
-            rule = "균형교양 8개 영역 중 4개 영역 이상을 포함해 교양 30학점(신입학 기준)"
-            check = {"areas_needed": max(0, 4 - areas_taken), "credits_needed": max(0, 30 - general_total),
-                     "met": areas_taken >= 4 and general_total >= 30}
-        else:
-            rule = "필수교양 '광운인되기' 이수 + 입학 연도별 총 교양 학점(나머지는 균형교양으로 채움)"
-            check = {"kwangwoonin_done": required > 0, "met": None,
-                     "note": "총 교양 이수 학점 기준은 입학 연도·학과 졸업기준표를 확인하세요."}
+        check = simulation.general_education_check(me, gen_ed)
+        rule = check.pop("rule")
+        if me["transfer"]:
+            check["transfer_credits"] = transfer
+        extra, _ = await _gather_some({"check": self.graduation_check(), "language": self.language_requirement()},
+                                      optional=True)
         return {
             "student": {"department": record.get("hakgwa"), "year": record.get("grade"),
-                        "status": record.get("hakjukStatu"), "admission_year": admitted},
+                        "status": record.get("hakjukStatu"), "admission_year": me["admission_year"]},
             "earned_credits": {"total": totals.get("chidukHakjum"), "major": totals.get("majorChidukHakjum"),
                                "general_education": totals.get("cultureChidukHakjum"),
                                "other": totals.get("etcChidukHakjum")},
             "gpa": {"transcript_record": totals.get("hwakinScoresum"), "certificate": totals.get("jaechulScoresum")},
-            "general_education": {"required_kwangwoonin": required, "balanced_by_area": areas,
-                                  "balanced_areas_taken": areas_taken, "total": general_total},
+            "general_education": {"required": required, "balanced_by_area": areas,
+                                  "balanced_areas_taken": sum(1 for v in areas.values() if v > 0),
+                                  "total": required + sum(areas.values())},
             "rule": rule,
             "check": check,
-            "official_check": (await _gather_some({"check": self.graduation_check()}, optional=True))[0].get("check"),
+            "official_check": extra.get("check"),
+            "language_requirement": extra.get("language", "unavailable"),
             "notes": ["성적 처리가 끝난 과목만 합산(F·NP·삭제 학점 제외)", "균형교양은 3·4학점 과목만 인정, e러닝·K-MOOC 등 일부 계열 제외",
-                      "전공 졸업 학점·공학인증 등 학과별 요건은 학과 사무실에 확인하세요"],
+                      "전공 졸업 학점·공학인증 등 학과별 요건은 학과 사무실에 확인하세요",
+                      "어학 요건의 target·passed는 KLAS 코드 그대로예요. 뜻은 KLAS에서 확인해 주세요"],
         }
+
+    async def language_requirement(self) -> dict[str, Any] | None:
+        """어학 졸업요건 (ToeicInfoStd.do), None when KLAS has no row. Only the requirement fields leave: the
+        row also carries my name and student id. The codes are KLAS's own (what Y/N means isn't confirmed)."""
+        rows = _list(await self._client.post(LANGUAGE_REQUIREMENT, {}), LANGUAGE_REQUIREMENT)
+        row = next((r for r in rows if isinstance(r, dict)), None)
+        if row is None:
+            return None
+        return {"target": _free_text(row.get("daesangOpt")), "passed": _free_text(row.get("passOpt")),
+                "test": _label(row.get("langName")), "score": _free_text(row.get("langScore")),
+                "date": _day(row.get("langDate"))}
 
     async def graduation_check(self) -> dict[str, Any]:
         """The school's own 졸업가부 / 불가사유 (GrdtnYnImprtyResnStdPage.do). It answers only for students
@@ -1441,6 +1545,71 @@ class KlasService:
                 "reason": clean(str(data.get("reason") or "")).strip() or None if option == "2" else None,
                 "as_of": data.get("entryDate"), "college": data.get("organName"), "department": data.get("className"),
                 "note": "졸업불가면 대표 홈페이지 공지사항의 졸업불가자 행정사항을 확인하세요."}
+
+    async def graduation_outlook(self) -> dict[str, Any]:
+        """졸업 시뮬레이션 (reference only): every graduation requirement of the published rules for my
+        admission year and department, from the same reads as graduation_progress plus the transcript."""
+        record, totals, transcript, gen_ed = await _gather(self._student_record(), self._grade_totals(),
+                                                           self._transcript(), self._gen_ed())
+        return simulation.graduation_outlook(record, totals, transcript, gen_ed)
+
+    async def multi_major_options(self, track: str | None = None, track_type: str | None = None) -> dict[str, Any]:
+        """다전공 options (reference only) for my admission year and college; with track, one 연계·마이크로
+        전공 or department, with track_type one kind (심화·복수·부·연계·마이크로·학생설계). Without track, the
+        다전공 I applied for come along (my_applications) when KLAS lists any."""
+        mine = {} if track else {kind: self._majors_applied(kind, path) for kind, path in MULTI_MAJOR_APPLIED}
+        (record, transcript), (applied, _) = await _gather(_gather(self._student_record(), self._transcript()),
+                                                           _gather_some(mine, optional=True))
+        out = simulation.multi_major_options(record, transcript, track=track, track_type=track_type)
+        if rows := [row for kind, _ in MULTI_MAJOR_APPLIED for row in applied.get(kind, [])]:
+            out["my_applications"] = rows
+        return out
+
+    # -- 학적: 휴·복학, 다전공 ----------------------------------------------------------
+
+    async def _hakjuk(self, path: str) -> dict[str, Any]:
+        """One 학적 read (POST {}), shared for STATUS_TTL."""
+        return _dict(await self._cached((path,), STATUS_TTL, lambda: self._client.post(path, {})), path)
+
+    async def _leave_windows(self) -> list[dict[str, Any]]:
+        return leave_windows(await self._hakjuk(LEAVE_WINDOWS))
+
+    async def _leave_status(self) -> dict[str, Any]:
+        """My 학적 state and my 휴·복학 applications (TmpabssklStatu.do). 비고 is staff text, wrapped."""
+        data = await self._hakjuk(LEAVE_STATUS)
+        return {
+            "status": {"state": _label(data.get("hakjukName")), "state_date": _day(data.get("hakjukDate")),
+                       "return_date": _day(data.get("combackDate"))},
+            "applications": [{"type": _label(r.get("gubun")), "applied": _day(r.get("applyDate")),
+                              "status": _label(r.get("processName")), "processed": _day(r.get("processDate")),
+                              "note": untrusted(_flat(r.get("bigo"))[:NOTE_CHARS])}
+                             for r in _list(data.get("statu"), LEAVE_STATUS) if isinstance(r, dict)],
+        }
+
+    async def _majors_applied(self, kind: str, path: str) -> list[dict[str, Any]]:
+        """My applications of one 다전공 kind. Only resultList is read: hakjukMap holds my name, student id
+        and my advisor's name and e-mail, and none of it may leave this PC."""
+        data = await self._hakjuk(path)
+        return [{"kind": kind, "track_type": _label(r.get("submajor")), "name": _label(r.get("majorName")),
+                 "college": _label(r.get("organName")), "department": _label(r.get("className")),
+                 "applied": _day(r.get("applyDate")), "finished": _free_text(r.get("finishOpt"))}
+                for r in _list(data.get("resultList"), path) if isinstance(r, dict)]
+
+    async def academic_status(self) -> dict[str, Any]:
+        """휴·복학 (my 학적 state, my applications, the application windows) and the 다전공 I applied for.
+        Each KLAS read fails on its own and shows as "unavailable", never as an empty list. Login
+        trouble still raises, and so does every read failing."""
+        found, failed = await _gather_some({
+            "status": self._leave_status(), "windows": self._leave_windows(),
+            **{kind: self._majors_applied(kind, path) for kind, path in MULTI_MAJOR_APPLIED}})
+        leave = found.get("status") or {"status": "unavailable", "applications": "unavailable"}
+        majors = [row for kind, _ in MULTI_MAJOR_APPLIED
+                  for row in found.get(kind, [{"kind": kind, "status": "unavailable"}])]
+        return {
+            "leave": {**leave, "windows": found.get("windows", "unavailable")},
+            "multi_major": majors,
+            "note": "신청은 KLAS에서 직접 해야 해요." + (" unavailable은 KLAS에서 못 읽은 항목이에요." if failed else ""),
+        }
 
     async def course_overview(self, course: str | None = None) -> list[dict[str, Any]]:
         """Each course's home-page summary (LctrumHomeStdInfo.do): done/total for lectures and every
@@ -1541,6 +1710,30 @@ class KlasService:
                  "percentile": r.get("pcnt"), "academic_warning": r.get("warningOpt") or None}
                 for r in _list(rows, STANDING) if isinstance(r, dict)]
 
+    async def scholarships(self) -> dict[str, Any]:
+        """장학 수혜 내역 (JanghakHistoryStdList.do), as KLAS's 장학조회 page lists it: per term, each
+        scholarship's name and amount. The page's other list (JanghakStdList.do) is only the student
+        header and is not read. KLAS doesn't say whether a scholarship reduced tuition or was paid
+        out separately (생활비 등), so the answer says so instead of guessing."""
+        rows = await self._client.post(SCHOLARSHIP_HISTORY, {}, allow_empty=True)
+        terms: dict[str, dict[str, Any]] = {}
+        for row in _list(rows or [], SCHOLARSHIP_HISTORY):
+            if not isinstance(row, dict):
+                continue
+            raw = str(row.get("yearHakgi") or "")  # "2026-2"
+            key = _normalize_semester(raw) or raw
+            year, _, term = key.partition(",")
+            label = f"{year}학년도 {_TERM_LABEL.get(term, term + '학기')}" if _SEMESTER.fullmatch(key) else raw
+            entry = terms.setdefault(key, {"semester": key, "label": label, "year_level": _int(row.get("grade")),
+                                           "scholarships": [], "total": 0})
+            amount = _int(row.get("janghakAmt")) or 0
+            entry["scholarships"].append({"name": clean(str(row.get("janghakName") or "")) or None, "amount": amount})
+            entry["total"] += amount
+        ordered = sorted(terms.values(), key=lambda t: _semester_order(t["semester"]), reverse=True)
+        return {"terms": ordered, "total_amount": sum(t["total"] for t in ordered),
+                "note": "KLAS 장학조회 화면과 같은 내역입니다(금액은 원). 등록금 감면인지 생활비처럼 따로 받는 장학금인지는 "
+                        "KLAS가 알려 주지 않으니, 다른 장학금과의 중복 여부는 해당 장학 공지나 학생복지팀에 확인하세요."}
+
     async def grade_period(self) -> dict[str, Any]:
         """When this term's grades can be viewed (AtnlcScreCheckTerm.do). The grade page asks with
         the calendar year and 1 for Jan-Aug, 2 for Sep-Dec, so this does the same."""
@@ -1578,12 +1771,22 @@ class KlasService:
             "note": "평가하지 않은 과목은 성적 열람이 제한될 수 있습니다. 평가는 KLAS에서 직접 하세요.",
         }
 
+    async def course_drop(self) -> dict[str, Any]:
+        """수강포기 window from KLAS's 수강포기 page (HTML). The page says "수강포기 기간이 아닙니다" when it
+        is closed; anything else isn't read as open."""
+        page = await self._client.page(COURSE_DROP_PAGE)
+        if "수강포기기간이아닙니다" in re.sub(r"\s+", "", page.replace("&nbsp;", " ")):
+            return {"open": False}
+        return {"open": None, "note": "KLAS 수강포기 신청 메뉴에서 확인해 주세요"}
+
     async def application_windows(self) -> dict[str, Any]:
         """KLAS's own "is it open now" answers for scholarship applications and dropping earned
-        credits (취득학점포기), plus the grade viewing period and the course evaluation window."""
+        credits (취득학점포기), plus the grade viewing period, the course evaluation window and
+        수강포기 (course_drop)."""
         found, missing = await _gather_some({
             "scholarship": self._client.post(SCHOLARSHIP_TERM), "drop_credits": self._client.post(DROP_CREDITS_TERM),
-            "grade_viewing": self.grade_period(), "course_evaluation": self.course_evaluation()})
+            "grade_viewing": self.grade_period(), "course_evaluation": self.course_evaluation(),
+            "course_drop": self.course_drop()})
         out: dict[str, Any] = {}
         scholarship = found.get("scholarship")
         if isinstance(scholarship, dict):
@@ -1602,6 +1805,8 @@ class KlasService:
         if "course_evaluation" in found:
             ev = found["course_evaluation"]
             out["course_evaluation"] = {k: ev.get(k) for k in ("open", "round", "not_evaluated", "message") if k in ev}
+        if "course_drop" in found:
+            out["course_drop"] = found["course_drop"]
         if missing:
             out["incomplete"] = missing
         return out

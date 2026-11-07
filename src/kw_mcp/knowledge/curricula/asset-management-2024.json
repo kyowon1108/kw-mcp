@@ -1,0 +1,25 @@
+{
+ "department": "자산관리학과",
+ "admission_year": 2024,
+ "scope": "required_only",
+ "basis": "(B) 필수과목표, 대각선 규칙: 2학년은 2025행. 3학년(2026행)은 전필 폐지(3학년 교과과정 미편성)로 기재됨. 4학년은 2027년으로 미래 연도라 (B)에 없음. 1학년(2024행)은 기재 없음. (A)는 없음.",
+ "courses": [
+  {
+   "code": "F050-2-0398",
+   "name": "담보물권법",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": 2,
+   "note": null
+  }
+ ],
+ "sources": [
+  {
+   "title": "필수과목표 must_2026_28",
+   "url": "https://www.kw.ac.kr/ko/life/must_2026_28.xls",
+   "checked_at": "2026-11-07"
+  }
+ ],
+ "checked_at": "2026-11-07"
+}

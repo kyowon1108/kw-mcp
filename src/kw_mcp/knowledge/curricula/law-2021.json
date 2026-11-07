@@ -1,0 +1,102 @@
+{
+ "department": "법학부",
+ "admission_year": 2021,
+ "scope": "required_only",
+ "basis": "(B) 대각선 규칙: 1학년은 2021행, 2학년은 2022행, 3학년은 2023행, 4학년은 2024행. 1·4학년은 전공필수 과목이 없음. 모든 전공을 포함하고 태그를 붙임.",
+ "courses": [
+  {
+   "code": "4050-2-1590",
+   "name": "채권총론",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": 1,
+   "note": "일반법학전공"
+  },
+  {
+   "code": "4050-2-1837",
+   "name": "행정구제법",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": 2,
+   "note": "일반법학전공"
+  },
+  {
+   "code": "F030-3-0622",
+   "name": "민사소송법",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 3,
+   "term": 1,
+   "note": "일반법학전공"
+  },
+  {
+   "code": "4050-2-0315",
+   "name": "국제법1",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": 1,
+   "note": "국제법무전공"
+  },
+  {
+   "code": "4050-2-1590",
+   "name": "채권총론",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": 1,
+   "note": "국제법무전공"
+  },
+  {
+   "code": "F030-3-0622",
+   "name": "민사소송법",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 3,
+   "term": 1,
+   "note": "국제법무전공"
+  },
+  {
+   "code": "4050-2-1837",
+   "name": "행정구제법",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": 2,
+   "note": "과학기술법무전공"
+  },
+  {
+   "code": "4050-2-3182",
+   "name": "특허법",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": 2,
+   "note": "과학기술법무전공"
+  },
+  {
+   "code": "F030-3-0622",
+   "name": "민사소송법",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 3,
+   "term": 1,
+   "note": "과학기술법무전공"
+  }
+ ],
+ "sources": [
+  {
+   "title": "법학부 교육과정",
+   "url": "https://www.kw.ac.kr/ko/univ/law02_4.jsp",
+   "checked_at": "2026-11-07"
+  },
+  {
+   "title": "필수과목표 must_2026_26",
+   "url": "https://www.kw.ac.kr/ko/life/must_2026_26.xls",
+   "checked_at": "2026-11-07"
+  }
+ ],
+ "checked_at": "2026-11-07"
+}

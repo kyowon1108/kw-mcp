@@ -1,0 +1,75 @@
+{
+ "department": "국어국문학과",
+ "admission_year": 2019,
+ "scope": "required_only",
+ "basis": "(B) 대각선 규칙: 1학년 2019행, 2학년 2020행, 3학년 2021행, 4학년 2022행(4학년 필수과목 기재 없음).",
+ "courses": [
+  {
+   "code": null,
+   "name": "한국고전문학전공기초",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 1,
+   "term": 1,
+   "note": "외국인만 해당"
+  },
+  {
+   "code": null,
+   "name": "한국어학의기초",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 1,
+   "term": 1,
+   "note": "외국인만 해당"
+  },
+  {
+   "code": null,
+   "name": "한국현대문학전공기초",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 1,
+   "term": 2,
+   "note": "외국인만 해당"
+  },
+  {
+   "code": null,
+   "name": "현대문학사",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "국어학의이해",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": "C020-3-0173",
+   "name": "고전문학사",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 3,
+   "term": 2,
+   "note": null
+  }
+ ],
+ "sources": [
+  {
+   "title": "국어국문학과 교육과정",
+   "url": "https://www.kw.ac.kr/ko/univ/social01_4.jsp",
+   "checked_at": "2026-11-07"
+  },
+  {
+   "title": "필수과목표 must_2026_20",
+   "url": "https://www.kw.ac.kr/ko/life/must_2026_20.xls",
+   "checked_at": "2026-11-07"
+  }
+ ],
+ "checked_at": "2026-11-07"
+}

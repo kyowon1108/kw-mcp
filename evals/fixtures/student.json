@@ -1,0 +1,2637 @@
+{
+ "_about": "Synthetic KLAS answers for one made-up student (정보융합학부 2024학번, 3학년). No real person or data.",
+ "now": "2026-11-07T13:00:00+09:00",
+ "semesters": [
+  {
+   "value": "2026,2",
+   "label": "2026년도 2학기",
+   "subjList": [
+    {
+     "value": "P2026200",
+     "label": "데이터베이스",
+     "name": "데이터베이스"
+    },
+    {
+     "value": "P2026201",
+     "label": "운영체제",
+     "name": "운영체제"
+    },
+    {
+     "value": "P2026202",
+     "label": "머신러닝",
+     "name": "머신러닝"
+    },
+    {
+     "value": "P2026203",
+     "label": "확률과통계",
+     "name": "확률과통계"
+    },
+    {
+     "value": "P2026204",
+     "label": "현대사회와윤리",
+     "name": "현대사회와윤리"
+    },
+    {
+     "value": "P2026205",
+     "label": "AI와 데이터 리터러시",
+     "name": "AI와 데이터 리터러시"
+    }
+   ]
+  },
+  {
+   "value": "2026,1",
+   "label": "2026년도 1학기",
+   "subjList": [
+    {
+     "value": "P2026100",
+     "label": "컴퓨터네트워크",
+     "name": "컴퓨터네트워크"
+    },
+    {
+     "value": "P2026101",
+     "label": "소프트웨어공학",
+     "name": "소프트웨어공학"
+    },
+    {
+     "value": "P2026102",
+     "label": "인공지능",
+     "name": "인공지능"
+    },
+    {
+     "value": "P2026103",
+     "label": "철학과 비판적 사고",
+     "name": "철학과 비판적 사고"
+    },
+    {
+     "value": "P2026104",
+     "label": "컴퓨터구조",
+     "name": "컴퓨터구조"
+    }
+   ]
+  },
+  {
+   "value": "2025,4",
+   "label": "2025년도 겨울학기",
+   "subjList": [
+    {
+     "value": "P2025400",
+     "label": "현대미술의 이해",
+     "name": "현대미술의 이해"
+    }
+   ]
+  },
+  {
+   "value": "2025,2",
+   "label": "2025년도 2학기",
+   "subjList": [
+    {
+     "value": "P2025200",
+     "label": "데이터과학개론",
+     "name": "데이터과학개론"
+    },
+    {
+     "value": "P2025201",
+     "label": "시스템프로그래밍",
+     "name": "시스템프로그래밍"
+    },
+    {
+     "value": "P2025202",
+     "label": "경제학원론",
+     "name": "경제학원론"
+    },
+    {
+     "value": "P2025203",
+     "label": "통계학개론",
+     "name": "통계학개론"
+    },
+    {
+     "value": "P2025204",
+     "label": "웹프로그래밍",
+     "name": "웹프로그래밍"
+    }
+   ]
+  },
+  {
+   "value": "2025,1",
+   "label": "2025년도 1학기",
+   "subjList": [
+    {
+     "value": "P2025100",
+     "label": "알고리즘",
+     "name": "알고리즘"
+    },
+    {
+     "value": "P2025101",
+     "label": "선형대수",
+     "name": "선형대수"
+    },
+    {
+     "value": "P2025102",
+     "label": "컴퓨터구조",
+     "name": "컴퓨터구조"
+    },
+    {
+     "value": "P2025103",
+     "label": "심리학의 이해",
+     "name": "심리학의 이해"
+    },
+    {
+     "value": "P2025104",
+     "label": "객체지향프로그래밍",
+     "name": "객체지향프로그래밍"
+    }
+   ]
+  },
+  {
+   "value": "2024,2",
+   "label": "2024년도 2학기",
+   "subjList": [
+    {
+     "value": "P2024200",
+     "label": "미적분학2",
+     "name": "미적분학2"
+    },
+    {
+     "value": "P2024201",
+     "label": "자료구조",
+     "name": "자료구조"
+    },
+    {
+     "value": "P2024202",
+     "label": "일반물리학2",
+     "name": "일반물리학2"
+    },
+    {
+     "value": "P2024203",
+     "label": "이산수학",
+     "name": "이산수학"
+    },
+    {
+     "value": "P2024204",
+     "label": "글쓰기와 표현",
+     "name": "글쓰기와 표현"
+    }
+   ]
+  },
+  {
+   "value": "2024,1",
+   "label": "2024년도 1학기",
+   "subjList": [
+    {
+     "value": "P2024100",
+     "label": "대학영어",
+     "name": "대학영어"
+    },
+    {
+     "value": "P2024101",
+     "label": "광운인되기",
+     "name": "광운인되기"
+    },
+    {
+     "value": "P2024102",
+     "label": "미적분학1",
+     "name": "미적분학1"
+    },
+    {
+     "value": "P2024103",
+     "label": "프로그래밍기초",
+     "name": "프로그래밍기초"
+    },
+    {
+     "value": "P2024104",
+     "label": "일반물리학1",
+     "name": "일반물리학1"
+    },
+    {
+     "value": "P2024105",
+     "label": "정보융합개론",
+     "name": "정보융합개론"
+    }
+   ]
+  }
+ ],
+ "home": {
+  "2026,2": {
+   "yearhakgi": "2026학년도 2학기",
+   "subjNotiList": [
+    {
+     "subjNm": "확률과통계",
+     "typeNm": "강의 공지사항",
+     "title": "11/12(목) 비대면 수업 전환 안내",
+     "registDt": "2026-11-06T18:00:00.000+09:00"
+    },
+    {
+     "subjNm": "현대사회와윤리",
+     "typeNm": "강의 공지사항",
+     "title": "11/13(금) 수업 장소 변경 (하루만)",
+     "registDt": "2026-11-06T16:00:00.000+09:00"
+    },
+    {
+     "subjNm": "AI와 데이터 리터러시",
+     "typeNm": "강의 공지사항",
+     "title": "11주차 온라인 강의 업로드 지연 안내",
+     "registDt": "2026-11-06T11:00:00.000+09:00"
+    },
+    {
+     "subjNm": "머신러닝",
+     "typeNm": "강의 공지사항",
+     "title": "강의실 변경 안내 (11/11부터)",
+     "registDt": "2026-11-06T09:30:00.000+09:00"
+    },
+    {
+     "subjNm": "데이터베이스",
+     "typeNm": "강의 자료실",
+     "title": "11주차 강의자료: 트랜잭션",
+     "registDt": "2026-11-06T09:00:00.000+09:00"
+    },
+    {
+     "subjNm": "운영체제",
+     "typeNm": "강의 공지사항",
+     "title": "[휴강] 11/10(화) 휴강 및 보강 안내",
+     "registDt": "2026-11-05T10:00:00.000+09:00"
+    },
+    {
+     "subjNm": "데이터베이스",
+     "typeNm": "강의 공지사항",
+     "title": "기말고사 범위 및 일정 공지",
+     "registDt": "2026-11-04T15:00:00.000+09:00"
+    },
+    {
+     "subjNm": "머신러닝",
+     "typeNm": "강의 자료실",
+     "title": "10주차 강의자료 (결정트리)",
+     "registDt": "2026-11-03T20:00:00.000+09:00"
+    }
+   ],
+   "atnlcSbjectList": [
+    {
+     "subj": "U26DB0101",
+     "yearhakgi": "2026,2",
+     "subjNm": "데이터베이스",
+     "profNm": "김교수",
+     "lctrumSchdulInfo": "월 3교시/새빛관 203, 수 3교시/새빛관 203",
+     "subjLabel": "데이터베이스 (H010-1-1001-01)"
+    },
+    {
+     "subj": "U26OS0101",
+     "yearhakgi": "2026,2",
+     "subjNm": "운영체제",
+     "profNm": "이교수",
+     "lctrumSchdulInfo": "화 4교시/새빛관 301, 목 4교시/새빛관 301",
+     "subjLabel": "운영체제 (H020-2-1002-01)"
+    },
+    {
+     "subj": "U26ML0101",
+     "yearhakgi": "2026,2",
+     "subjNm": "머신러닝",
+     "profNm": "박교수",
+     "lctrumSchdulInfo": "수 5,6교시/한울관 B101",
+     "subjLabel": "머신러닝 (H030-3-1003-01)"
+    },
+    {
+     "subj": "U26PS0101",
+     "yearhakgi": "2026,2",
+     "subjNm": "확률과통계",
+     "profNm": "최교수",
+     "lctrumSchdulInfo": "화 2교시/비마관 405, 목 2교시/비마관 405",
+     "subjLabel": "확률과통계 (H040-4-1004-01)"
+    },
+    {
+     "subj": "U26ET0101",
+     "yearhakgi": "2026,2",
+     "subjNm": "현대사회와윤리",
+     "profNm": "정교수",
+     "lctrumSchdulInfo": "금 2,3교시/화도관 301",
+     "subjLabel": "현대사회와윤리 (H050-5-1005-01)"
+    },
+    {
+     "subj": "U26AI0101",
+     "yearhakgi": "2026,2",
+     "subjNm": "AI와 데이터 리터러시",
+     "profNm": "한교수",
+     "lctrumSchdulInfo": "미지정",
+     "subjLabel": "AI와 데이터 리터러시 (H060-6-1006-01)"
+    }
+   ]
+  },
+  "2026,1": {
+   "yearhakgi": "2026학년도 1학기",
+   "subjNotiList": [],
+   "atnlcSbjectList": [
+    {
+     "subj": "P2026100",
+     "yearhakgi": "2026,1",
+     "subjNm": "컴퓨터네트워크",
+     "profNm": "담당교수",
+     "lctrumSchdulInfo": "",
+     "subjLabel": "컴퓨터네트워크"
+    },
+    {
+     "subj": "P2026101",
+     "yearhakgi": "2026,1",
+     "subjNm": "소프트웨어공학",
+     "profNm": "담당교수",
+     "lctrumSchdulInfo": "",
+     "subjLabel": "소프트웨어공학"
+    },
+    {
+     "subj": "P2026102",
+     "yearhakgi": "2026,1",
+     "subjNm": "인공지능",
+     "profNm": "담당교수",
+     "lctrumSchdulInfo": "",
+     "subjLabel": "인공지능"
+    },
+    {
+     "subj": "P2026103",
+     "yearhakgi": "2026,1",
+     "subjNm": "철학과 비판적 사고",
+     "profNm": "담당교수",
+     "lctrumSchdulInfo": "",
+     "subjLabel": "철학과 비판적 사고"
+    },
+    {
+     "subj": "P2026104",
+     "yearhakgi": "2026,1",
+     "subjNm": "컴퓨터구조",
+     "profNm": "담당교수",
+     "lctrumSchdulInfo": "",
+     "subjLabel": "컴퓨터구조"
+    }
+   ]
+  },
+  "2025,1": {
+   "yearhakgi": "2025학년도 1학기",
+   "subjNotiList": [],
+   "atnlcSbjectList": [
+    {
+     "subj": "P2025100",
+     "yearhakgi": "2025,1",
+     "subjNm": "알고리즘",
+     "profNm": "담당교수",
+     "lctrumSchdulInfo": "",
+     "subjLabel": "알고리즘"
+    },
+    {
+     "subj": "P2025101",
+     "yearhakgi": "2025,1",
+     "subjNm": "선형대수",
+     "profNm": "담당교수",
+     "lctrumSchdulInfo": "",
+     "subjLabel": "선형대수"
+    },
+    {
+     "subj": "P2025102",
+     "yearhakgi": "2025,1",
+     "subjNm": "컴퓨터구조",
+     "profNm": "담당교수",
+     "lctrumSchdulInfo": "",
+     "subjLabel": "컴퓨터구조"
+    },
+    {
+     "subj": "P2025103",
+     "yearhakgi": "2025,1",
+     "subjNm": "심리학의 이해",
+     "profNm": "담당교수",
+     "lctrumSchdulInfo": "",
+     "subjLabel": "심리학의 이해"
+    },
+    {
+     "subj": "P2025104",
+     "yearhakgi": "2025,1",
+     "subjNm": "객체지향프로그래밍",
+     "profNm": "담당교수",
+     "lctrumSchdulInfo": "",
+     "subjLabel": "객체지향프로그래밍"
+    }
+   ]
+  },
+  "2024,2": {
+   "yearhakgi": "2024학년도 2학기",
+   "subjNotiList": [],
+   "atnlcSbjectList": [
+    {
+     "subj": "P2024200",
+     "yearhakgi": "2024,2",
+     "subjNm": "미적분학2",
+     "profNm": "담당교수",
+     "lctrumSchdulInfo": "",
+     "subjLabel": "미적분학2"
+    },
+    {
+     "subj": "P2024201",
+     "yearhakgi": "2024,2",
+     "subjNm": "자료구조",
+     "profNm": "담당교수",
+     "lctrumSchdulInfo": "",
+     "subjLabel": "자료구조"
+    },
+    {
+     "subj": "P2024202",
+     "yearhakgi": "2024,2",
+     "subjNm": "일반물리학2",
+     "profNm": "담당교수",
+     "lctrumSchdulInfo": "",
+     "subjLabel": "일반물리학2"
+    },
+    {
+     "subj": "P2024203",
+     "yearhakgi": "2024,2",
+     "subjNm": "이산수학",
+     "profNm": "담당교수",
+     "lctrumSchdulInfo": "",
+     "subjLabel": "이산수학"
+    },
+    {
+     "subj": "P2024204",
+     "yearhakgi": "2024,2",
+     "subjNm": "글쓰기와 표현",
+     "profNm": "담당교수",
+     "lctrumSchdulInfo": "",
+     "subjLabel": "글쓰기와 표현"
+    }
+   ]
+  },
+  "2025,2": {
+   "yearhakgi": "2025학년도 2학기",
+   "subjNotiList": [],
+   "atnlcSbjectList": [
+    {
+     "subj": "P2025200",
+     "yearhakgi": "2025,2",
+     "subjNm": "데이터과학개론",
+     "profNm": "담당교수",
+     "lctrumSchdulInfo": "",
+     "subjLabel": "데이터과학개론"
+    },
+    {
+     "subj": "P2025201",
+     "yearhakgi": "2025,2",
+     "subjNm": "시스템프로그래밍",
+     "profNm": "담당교수",
+     "lctrumSchdulInfo": "",
+     "subjLabel": "시스템프로그래밍"
+    },
+    {
+     "subj": "P2025202",
+     "yearhakgi": "2025,2",
+     "subjNm": "경제학원론",
+     "profNm": "담당교수",
+     "lctrumSchdulInfo": "",
+     "subjLabel": "경제학원론"
+    },
+    {
+     "subj": "P2025203",
+     "yearhakgi": "2025,2",
+     "subjNm": "통계학개론",
+     "profNm": "담당교수",
+     "lctrumSchdulInfo": "",
+     "subjLabel": "통계학개론"
+    },
+    {
+     "subj": "P2025204",
+     "yearhakgi": "2025,2",
+     "subjNm": "웹프로그래밍",
+     "profNm": "담당교수",
+     "lctrumSchdulInfo": "",
+     "subjLabel": "웹프로그래밍"
+    }
+   ]
+  },
+  "2025,4": {
+   "yearhakgi": "2025학년도 4학기",
+   "subjNotiList": [],
+   "atnlcSbjectList": [
+    {
+     "subj": "P2025400",
+     "yearhakgi": "2025,4",
+     "subjNm": "현대미술의 이해",
+     "profNm": "담당교수",
+     "lctrumSchdulInfo": "",
+     "subjLabel": "현대미술의 이해"
+    }
+   ]
+  },
+  "2024,1": {
+   "yearhakgi": "2024학년도 1학기",
+   "subjNotiList": [],
+   "atnlcSbjectList": [
+    {
+     "subj": "P2024100",
+     "yearhakgi": "2024,1",
+     "subjNm": "대학영어",
+     "profNm": "담당교수",
+     "lctrumSchdulInfo": "",
+     "subjLabel": "대학영어"
+    },
+    {
+     "subj": "P2024101",
+     "yearhakgi": "2024,1",
+     "subjNm": "광운인되기",
+     "profNm": "담당교수",
+     "lctrumSchdulInfo": "",
+     "subjLabel": "광운인되기"
+    },
+    {
+     "subj": "P2024102",
+     "yearhakgi": "2024,1",
+     "subjNm": "미적분학1",
+     "profNm": "담당교수",
+     "lctrumSchdulInfo": "",
+     "subjLabel": "미적분학1"
+    },
+    {
+     "subj": "P2024103",
+     "yearhakgi": "2024,1",
+     "subjNm": "프로그래밍기초",
+     "profNm": "담당교수",
+     "lctrumSchdulInfo": "",
+     "subjLabel": "프로그래밍기초"
+    },
+    {
+     "subj": "P2024104",
+     "yearhakgi": "2024,1",
+     "subjNm": "일반물리학1",
+     "profNm": "담당교수",
+     "lctrumSchdulInfo": "",
+     "subjLabel": "일반물리학1"
+    },
+    {
+     "subj": "P2024105",
+     "yearhakgi": "2024,1",
+     "subjNm": "정보융합개론",
+     "profNm": "담당교수",
+     "lctrumSchdulInfo": "",
+     "subjLabel": "정보융합개론"
+    }
+   ]
+  }
+ },
+ "per_course": {
+  "TASKS": {
+   "U26DB0101": [
+    {
+     "ordseq": 1,
+     "title": "과제 1: SQL 기초 질의",
+     "startdate": "2026-09-21 00:00:00",
+     "expiredate": "2026-10-04 23:59:59",
+     "reexpiredate": null,
+     "submityn": "Y",
+     "score": "9"
+    },
+    {
+     "ordseq": 2,
+     "title": "과제 2: 도서관 대출 시스템 ERD 설계",
+     "startdate": "2026-10-28 00:00:00",
+     "expiredate": "2026-11-07 23:59:59",
+     "reexpiredate": "2026-11-09 23:59:59",
+     "submityn": "N",
+     "score": null
+    }
+   ],
+   "U26OS0101": [
+    {
+     "ordseq": 2,
+     "title": "과제 2: 프로세스 동기화(세마포어)",
+     "startdate": "2026-10-15 00:00:00",
+     "expiredate": "2026-11-01 23:59:59",
+     "reexpiredate": "2026-11-08 23:59:59",
+     "submityn": "N",
+     "score": null
+    },
+    {
+     "ordseq": 3,
+     "title": "과제 3: CPU 스케줄링 시뮬레이터",
+     "startdate": "2026-11-02 00:00:00",
+     "expiredate": "2026-11-13 23:59:59",
+     "reexpiredate": null,
+     "submityn": "N",
+     "score": null
+    }
+   ],
+   "U26ML0101": [
+    {
+     "ordseq": 4,
+     "title": "실습 4: 결정트리 구현",
+     "startdate": "2026-11-04 00:00:00",
+     "expiredate": "2026-11-10 23:59:59",
+     "reexpiredate": null,
+     "submityn": "N",
+     "score": null
+    },
+    {
+     "ordseq": 3,
+     "title": "실습 3: 로지스틱 회귀",
+     "startdate": "2026-10-21 00:00:00",
+     "expiredate": "2026-10-27 23:59:59",
+     "reexpiredate": null,
+     "submityn": "Y",
+     "score": "8"
+    }
+   ],
+   "U26PS0101": [
+    {
+     "ordseq": 3,
+     "title": "과제 3: 조건부확률과 베이즈 정리",
+     "startdate": "2026-11-03 00:00:00",
+     "expiredate": "2026-11-12 18:00:59",
+     "reexpiredate": null,
+     "submityn": "N",
+     "score": null
+    }
+   ],
+   "U26ET0101": [
+    {
+     "ordseq": 1,
+     "title": "에세이 1: 기술과 책임",
+     "startdate": "2026-09-14 00:00:00",
+     "expiredate": "2026-10-02 23:59:59",
+     "reexpiredate": null,
+     "submityn": "Y",
+     "score": "18"
+    },
+    {
+     "ordseq": 2,
+     "title": "에세이 2: 데이터 프라이버시",
+     "startdate": "2026-11-06 00:00:00",
+     "expiredate": "2026-11-27 23:59:59",
+     "reexpiredate": null,
+     "submityn": "N",
+     "score": null
+    }
+   ],
+   "U26AI0101": []
+  },
+  "ONLINE": {
+   "U26AI0101": [
+    {
+     "weekNo": 9,
+     "moduletitle": "9주차",
+     "sbjt": "데이터 편향과 공정성",
+     "startDate": "2026-10-26 00:00",
+     "endDate": "2026-11-01 23:59",
+     "prog": 100,
+     "rcognTime": "50",
+     "achivTime": "50"
+    },
+    {
+     "weekNo": 10,
+     "moduletitle": "10주차",
+     "sbjt": "생성형 AI의 원리",
+     "startDate": "2026-11-02 00:00",
+     "endDate": "2026-11-08 23:59",
+     "prog": 35,
+     "rcognTime": "50",
+     "achivTime": "18"
+    },
+    {
+     "weekNo": 11,
+     "moduletitle": "11주차",
+     "sbjt": "AI와 저작권",
+     "startDate": "2026-11-09 00:00",
+     "endDate": "2026-11-15 23:59",
+     "prog": 0,
+     "rcognTime": "50",
+     "achivTime": "0"
+    },
+    {
+     "evltnSe": "quiz",
+     "sbjt": "10주차 확인 퀴즈",
+     "startDate": "2026-11-02 00:00",
+     "endDate": "2026-11-08 23:59",
+     "prog": null
+    }
+   ],
+   "U26ML0101": [
+    {
+     "weekNo": 10,
+     "moduletitle": "10주차",
+     "sbjt": "결정트리 보충 영상",
+     "startDate": "2026-11-04 00:00",
+     "endDate": "2026-11-11 23:59",
+     "prog": 60,
+     "rcognTime": "30",
+     "achivTime": "18"
+    }
+   ]
+  },
+  "PROJECTS": {
+   "U26ML0101": [
+    {
+     "title": "기말 팀 프로젝트 제안서",
+     "purpose": "주제·데이터셋·역할 분담 1쪽",
+     "startdate": "2026-11-02 00:00:00",
+     "expiredate": "2026-11-14 23:59:59",
+     "reexpiredate": null,
+     "submityn": "N",
+     "score": null,
+     "teamno": 4
+    }
+   ]
+  },
+  "QUIZZES": {
+   "U26PS0101": [
+    {
+     "papernm": "8주차 퀴즈: 이산확률분포",
+     "examtypenm": "온라인",
+     "sdt": "2026-11-06 09:00:00",
+     "edt": "2026-11-09 18:00:00",
+     "issubmit": "N",
+     "examtime": "20",
+     "examcnt": 5,
+     "totalscore": 10
+    },
+    {
+     "papernm": "5주차 퀴즈: 확률의 공리",
+     "examtypenm": "온라인",
+     "sdt": "2026-10-05 09:00:00",
+     "edt": "2026-10-08 18:00:00",
+     "issubmit": "Y",
+     "examtime": "20",
+     "examcnt": 5,
+     "totalscore": 10
+    }
+   ],
+   "U26AI0101": [
+    {
+     "papernm": "10주차 확인 퀴즈",
+     "examtypenm": "온라인",
+     "sdt": "2026-11-02 00:00:00",
+     "edt": "2026-11-08 23:59:00",
+     "issubmit": "N",
+     "examtime": "10",
+     "examcnt": 3,
+     "totalscore": 3
+    }
+   ]
+  },
+  "ONLINE_TESTS": {
+   "U26AI0101": [
+    {
+     "papernm": "중간고사(온라인)",
+     "examtypenm": "온라인시험",
+     "sdt": "2026-10-20 10:00:00",
+     "edt": "2026-10-20 11:00:00",
+     "issubmit": "Y",
+     "isretry": "N",
+     "weeklyseq": 8
+    },
+    {
+     "papernm": "기말고사(온라인)",
+     "examtypenm": "온라인시험",
+     "sdt": "2026-12-15 10:00:00",
+     "edt": "2026-12-15 11:00:00",
+     "issubmit": "N",
+     "isretry": "N",
+     "weeklyseq": 15
+    }
+   ]
+  },
+  "SURVEYS": {
+   "U26OS0101": [
+    {
+     "sulpapernm": "중간 강의 설문",
+     "sulstart": "2026-11-02",
+     "sulend": "2026-11-08",
+     "appcnt": 0
+    }
+   ]
+  },
+  "DISCUSSIONS": {
+   "U26ET0101": [
+    {
+     "title": "AI 윤리 토론: 자율주행차의 딜레마",
+     "started": "2026-11-02 00:00:00",
+     "ended": "2026-11-09 23:59:59",
+     "toroncnt": 12
+    }
+   ]
+  },
+  "SYLLABUS": {
+   "U26DB0101": [
+    {
+     "gwamokKname": "데이터베이스",
+     "codeName1": "전필",
+     "hakjumNum": 3,
+     "memberName": "김교수",
+     "jikgeubName": "교수",
+     "email": "prof-db@example.invalid",
+     "telNo": "02-000-0001",
+     "summary": "관계형 데이터베이스 설계와 SQL",
+     "purpose": "ER 모델링, 정규화, 트랜잭션 이해",
+     "week1Lecture": "소개",
+     "week2Lecture": "관계 모델",
+     "week3Lecture": "SQL 1",
+     "week4Lecture": "SQL 2",
+     "week5Lecture": "ER 모델",
+     "week6Lecture": "ERD 실습",
+     "week7Lecture": "정규화 1",
+     "week8Lecture": "중간고사",
+     "week9Lecture": "정규화 2",
+     "week10Lecture": "트랜잭션",
+     "week11Lecture": "동시성 제어",
+     "week12Lecture": "회복",
+     "week13Lecture": "인덱스",
+     "week14Lecture": "질의 최적화",
+     "week15Lecture": "기말고사",
+     "week16Lecture": "보강 주간",
+     "attendBiyul": 10,
+     "middleBiyul": 30,
+     "lastBiyul": 35,
+     "reportBiyul": 25,
+     "quizBiyul": null,
+     "bookName": "Database System Concepts",
+     "writeName": "Silberschatz",
+     "companyName": "McGraw-Hill",
+     "printYear": "2019"
+    }
+   ],
+   "U26OS0101": [
+    {
+     "gwamokKname": "운영체제",
+     "codeName1": "전필",
+     "hakjumNum": 3,
+     "memberName": "이교수",
+     "jikgeubName": "교수",
+     "email": "prof-os@example.invalid",
+     "telNo": "02-000-0002",
+     "summary": "프로세스, 스케줄링, 메모리, 파일 시스템",
+     "week8Lecture": "중간고사",
+     "week15Lecture": "기말고사",
+     "week10Lecture": "CPU 스케줄링",
+     "attendBiyul": 10,
+     "middleBiyul": 30,
+     "lastBiyul": 30,
+     "reportBiyul": 30,
+     "bigo": "결석이 수업시간의 1/4 이상이면 F",
+     "bookName": "Operating System Concepts"
+    }
+   ],
+   "U26ML0101": [
+    {
+     "gwamokKname": "머신러닝",
+     "codeName1": "전선",
+     "hakjumNum": 3,
+     "memberName": "박교수",
+     "jikgeubName": "부교수",
+     "email": "prof-ml@example.invalid",
+     "telNo": "02-000-0003",
+     "summary": "지도학습과 비지도학습의 기초",
+     "week8Lecture": "중간 대체 과제",
+     "week15Lecture": "기말 프로젝트 발표",
+     "attendBiyul": 10,
+     "middleBiyul": 20,
+     "lastBiyul": null,
+     "reportBiyul": 30,
+     "presentationBiyul": 20,
+     "gitaBiyul": 20,
+     "gitaDetail": "기말 프로젝트 보고서",
+     "bookName": "Hands-On Machine Learning"
+    }
+   ],
+   "U26PS0101": [
+    {
+     "gwamokKname": "확률과통계",
+     "codeName1": "전선",
+     "hakjumNum": 3,
+     "memberName": "최교수",
+     "jikgeubName": "교수",
+     "email": "prof-ps@example.invalid",
+     "telNo": "02-000-0004",
+     "summary": "확률 모형과 통계적 추론",
+     "week8Lecture": "중간고사",
+     "week15Lecture": "기말고사",
+     "attendBiyul": 10,
+     "middleBiyul": 35,
+     "lastBiyul": 35,
+     "reportBiyul": null,
+     "quizBiyul": 20,
+     "bookName": "확률과 통계"
+    }
+   ],
+   "U26ET0101": [
+    {
+     "gwamokKname": "현대사회와윤리",
+     "codeName1": "교선",
+     "hakjumNum": 3,
+     "memberName": "정교수",
+     "jikgeubName": "조교수",
+     "email": "prof-et@example.invalid",
+     "telNo": "02-000-0005",
+     "summary": "기술 사회의 윤리 쟁점 토론",
+     "week15Lecture": "기말 에세이 발표",
+     "attendBiyul": 20,
+     "middleBiyul": null,
+     "lastBiyul": 30,
+     "reportBiyul": 30,
+     "discussionBiyul": 20
+    }
+   ],
+   "U26AI0101": [
+    {
+     "gwamokKname": "AI와 데이터 리터러시",
+     "codeName1": "교선",
+     "hakjumNum": 3,
+     "memberName": "한교수",
+     "jikgeubName": "교수",
+     "email": "prof-ai@example.invalid",
+     "summary": "100% 온라인 교양 강의",
+     "week8Lecture": "중간고사(온라인)",
+     "week15Lecture": "기말고사(온라인)",
+     "attendBiyul": 0,
+     "middleBiyul": 40,
+     "lastBiyul": 40,
+     "quizBiyul": 20
+    }
+   ]
+  },
+  "COURSE_HOME": {
+   "U26DB0101": {
+    "taskCnt": 2,
+    "taskPrsntCnt": 1,
+    "taskNewCnt": 0,
+    "quizCnt": 0,
+    "quizPrsntCnt": 0,
+    "quizNewCnt": 0,
+    "examCnt": 0,
+    "examPrsntCnt": 0,
+    "examNewCnt": 0,
+    "prjctCnt": 0,
+    "prjctPrsntCnt": 0,
+    "prjctNewCnt": 0,
+    "surveyCnt": 0,
+    "surveyPrsntCnt": 0,
+    "surveyNewCnt": 0,
+    "dscsnCnt": 0,
+    "dscsnJoinCnt": 0,
+    "dscsnNewCnt": 0,
+    "pdsCnt": 1,
+    "pdsNewCnt": 0,
+    "cntntCmpltCnt": 0,
+    "cntntList": [],
+    "atendList": [
+     {
+      "attendancediv": "AT"
+     },
+     {
+      "attendancediv": "AT"
+     },
+     {
+      "attendancediv": "AT"
+     },
+     {
+      "attendancediv": "AT"
+     },
+     {
+      "attendancediv": "AT"
+     },
+     {
+      "attendancediv": "AT"
+     },
+     {
+      "attendancediv": "AT"
+     },
+     {
+      "attendancediv": "AT"
+     },
+     {
+      "attendancediv": "AT"
+     },
+     {
+      "attendancediv": "OA"
+     },
+     {
+      "attendancediv": "AT"
+     },
+     {
+      "attendancediv": "AT"
+     },
+     {
+      "attendancediv": "AT"
+     },
+     {
+      "attendancediv": "AT"
+     },
+     {
+      "attendancediv": "AT"
+     },
+     {
+      "attendancediv": "AT"
+     },
+     {
+      "attendancediv": "AT"
+     },
+     {
+      "attendancediv": "AT"
+     },
+     {
+      "attendancediv": "AT"
+     }
+    ]
+   },
+   "U26OS0101": {
+    "taskCnt": 2,
+    "taskPrsntCnt": 0,
+    "taskNewCnt": 0,
+    "quizCnt": 0,
+    "quizPrsntCnt": 0,
+    "quizNewCnt": 0,
+    "examCnt": 0,
+    "examPrsntCnt": 0,
+    "examNewCnt": 0,
+    "prjctCnt": 0,
+    "prjctPrsntCnt": 0,
+    "prjctNewCnt": 0,
+    "surveyCnt": 1,
+    "surveyPrsntCnt": 0,
+    "surveyNewCnt": 0,
+    "dscsnCnt": 0,
+    "dscsnJoinCnt": 0,
+    "dscsnNewCnt": 0,
+    "pdsCnt": 0,
+    "pdsNewCnt": 0,
+    "cntntCmpltCnt": 0,
+    "cntntList": [],
+    "atendList": [
+     {
+      "attendancediv": "AT"
+     },
+     {
+      "attendancediv": "AT"
+     },
+     {
+      "attendancediv": "AT"
+     },
+     {
+      "attendancediv": "AT"
+     },
+     {
+      "attendancediv": "AB"
+     },
+     {
+      "attendancediv": "AT"
+     },
+     {
+      "attendancediv": "AT"
+     },
+     {
+      "attendancediv": "AT"
+     },
+     {
+      "attendancediv": "AT"
+     },
+     {
+      "attendancediv": "AT"
+     },
+     {
+      "attendancediv": "AT"
+     },
+     {
+      "attendancediv": "AT"
+     },
+     {
+      "attendancediv": "LT"
+     },
+     {
+      "attendancediv": "AT"
+     },
+     {
+      "attendancediv": "AT"
+     },
+     {
+      "attendancediv": "AB"
+     },
+     {
+      "attendancediv": "AT"
+     },
+     {
+      "attendancediv": "AT"
+     },
+     {
+      "attendancediv": "AT"
+     }
+    ]
+   },
+   "U26ML0101": {
+    "taskCnt": 2,
+    "taskPrsntCnt": 1,
+    "taskNewCnt": 0,
+    "quizCnt": 0,
+    "quizPrsntCnt": 0,
+    "quizNewCnt": 0,
+    "examCnt": 0,
+    "examPrsntCnt": 0,
+    "examNewCnt": 0,
+    "prjctCnt": 1,
+    "prjctPrsntCnt": 0,
+    "prjctNewCnt": 0,
+    "surveyCnt": 0,
+    "surveyPrsntCnt": 0,
+    "surveyNewCnt": 0,
+    "dscsnCnt": 0,
+    "dscsnJoinCnt": 0,
+    "dscsnNewCnt": 0,
+    "pdsCnt": 1,
+    "pdsNewCnt": 0,
+    "cntntCmpltCnt": 0,
+    "cntntList": [
+     {}
+    ],
+    "atendList": [
+     {
+      "attendancediv": "AT"
+     },
+     {
+      "attendancediv": "AT"
+     },
+     {
+      "attendancediv": "AT"
+     },
+     {
+      "attendancediv": "AT"
+     },
+     {
+      "attendancediv": "AT"
+     },
+     {
+      "attendancediv": "AT"
+     },
+     {
+      "attendancediv": "LE"
+     },
+     {
+      "attendancediv": "LE"
+     },
+     {
+      "attendancediv": "AT"
+     },
+     {
+      "attendancediv": "AT"
+     },
+     {
+      "attendancediv": "AT"
+     },
+     {
+      "attendancediv": "AT"
+     },
+     {
+      "attendancediv": "AT"
+     },
+     {
+      "attendancediv": "AT"
+     },
+     {
+      "attendancediv": "AT"
+     },
+     {
+      "attendancediv": "AT"
+     },
+     {
+      "attendancediv": "AT"
+     },
+     {
+      "attendancediv": "AT"
+     },
+     {
+      "attendancediv": "AT"
+     },
+     {
+      "attendancediv": "AT"
+     }
+    ]
+   },
+   "U26PS0101": {
+    "taskCnt": 1,
+    "taskPrsntCnt": 0,
+    "taskNewCnt": 0,
+    "quizCnt": 2,
+    "quizPrsntCnt": 1,
+    "quizNewCnt": 0,
+    "examCnt": 0,
+    "examPrsntCnt": 0,
+    "examNewCnt": 0,
+    "prjctCnt": 0,
+    "prjctPrsntCnt": 0,
+    "prjctNewCnt": 0,
+    "surveyCnt": 0,
+    "surveyPrsntCnt": 0,
+    "surveyNewCnt": 0,
+    "dscsnCnt": 0,
+    "dscsnJoinCnt": 0,
+    "dscsnNewCnt": 0,
+    "pdsCnt": 0,
+    "pdsNewCnt": 0,
+    "cntntCmpltCnt": 0,
+    "cntntList": [],
+    "atendList": [
+     {
+      "attendancediv": "AT"
+     },
+     {
+      "attendancediv": "AT"
+     },
+     {
+      "attendancediv": "AT"
+     },
+     {
+      "attendancediv": "AB"
+     },
+     {
+      "attendancediv": "AT"
+     },
+     {
+      "attendancediv": "AT"
+     },
+     {
+      "attendancediv": "LT"
+     },
+     {
+      "attendancediv": "AT"
+     },
+     {
+      "attendancediv": "AB"
+     },
+     {
+      "attendancediv": "AT"
+     },
+     {
+      "attendancediv": "AT"
+     },
+     {
+      "attendancediv": "AT"
+     },
+     {
+      "attendancediv": "AT"
+     },
+     {
+      "attendancediv": "AT"
+     },
+     {
+      "attendancediv": "AB"
+     },
+     {
+      "attendancediv": "AT"
+     },
+     {
+      "attendancediv": "AT"
+     },
+     {
+      "attendancediv": "LT"
+     },
+     {
+      "attendancediv": "AT"
+     }
+    ]
+   },
+   "U26ET0101": {
+    "taskCnt": 2,
+    "taskPrsntCnt": 1,
+    "taskNewCnt": 0,
+    "quizCnt": 0,
+    "quizPrsntCnt": 0,
+    "quizNewCnt": 0,
+    "examCnt": 0,
+    "examPrsntCnt": 0,
+    "examNewCnt": 0,
+    "prjctCnt": 0,
+    "prjctPrsntCnt": 0,
+    "prjctNewCnt": 0,
+    "surveyCnt": 0,
+    "surveyPrsntCnt": 0,
+    "surveyNewCnt": 0,
+    "dscsnCnt": 1,
+    "dscsnJoinCnt": 0,
+    "dscsnNewCnt": 0,
+    "pdsCnt": 0,
+    "pdsNewCnt": 0,
+    "cntntCmpltCnt": 0,
+    "cntntList": [],
+    "atendList": [
+     {
+      "attendancediv": "AT"
+     },
+     {
+      "attendancediv": "AT"
+     },
+     {
+      "attendancediv": "AT"
+     },
+     {
+      "attendancediv": "AT"
+     },
+     {
+      "attendancediv": "AT"
+     },
+     {
+      "attendancediv": "AT"
+     },
+     {
+      "attendancediv": "AB"
+     },
+     {
+      "attendancediv": "AB"
+     },
+     {
+      "attendancediv": "AT"
+     },
+     {
+      "attendancediv": "AT"
+     },
+     {
+      "attendancediv": "AT"
+     },
+     {
+      "attendancediv": "AT"
+     },
+     {
+      "attendancediv": "AT"
+     },
+     {
+      "attendancediv": "AT"
+     },
+     {
+      "attendancediv": "AT"
+     },
+     {
+      "attendancediv": "AT"
+     }
+    ]
+   },
+   "U26AI0101": {
+    "taskCnt": 0,
+    "taskPrsntCnt": 0,
+    "taskNewCnt": 0,
+    "quizCnt": 1,
+    "quizPrsntCnt": 0,
+    "quizNewCnt": 0,
+    "examCnt": 2,
+    "examPrsntCnt": 1,
+    "examNewCnt": 0,
+    "prjctCnt": 0,
+    "prjctPrsntCnt": 0,
+    "prjctNewCnt": 0,
+    "surveyCnt": 0,
+    "surveyPrsntCnt": 0,
+    "surveyNewCnt": 0,
+    "dscsnCnt": 0,
+    "dscsnJoinCnt": 0,
+    "dscsnNewCnt": 0,
+    "pdsCnt": 0,
+    "pdsNewCnt": 0,
+    "cntntCmpltCnt": 1,
+    "cntntList": [
+     {},
+     {},
+     {}
+    ]
+   }
+  },
+  "ATTENDANCE": {
+   "U26DB0101": [
+    {
+     "weeklyseq": 1,
+     "attendancediv1": null,
+     "attendancedate1": null,
+     "attendancediv2": "AT",
+     "attendancedate2": "20260902",
+     "attendancediv3": null,
+     "attendancediv4": null
+    },
+    {
+     "weeklyseq": 2,
+     "attendancediv1": "AT",
+     "attendancedate1": "20260907",
+     "attendancediv2": "AT",
+     "attendancedate2": "20260909",
+     "attendancediv3": null,
+     "attendancediv4": null
+    },
+    {
+     "weeklyseq": 3,
+     "attendancediv1": "AT",
+     "attendancedate1": "20260914",
+     "attendancediv2": "AT",
+     "attendancedate2": "20260916",
+     "attendancediv3": null,
+     "attendancediv4": null
+    },
+    {
+     "weeklyseq": 4,
+     "attendancediv1": "AT",
+     "attendancedate1": "20260921",
+     "attendancediv2": "AT",
+     "attendancedate2": "20260923",
+     "attendancediv3": null,
+     "attendancediv4": null
+    },
+    {
+     "weeklyseq": 5,
+     "attendancediv1": "AT",
+     "attendancedate1": "20260928",
+     "attendancediv2": "AT",
+     "attendancedate2": "20260930",
+     "attendancediv3": null,
+     "attendancediv4": null
+    },
+    {
+     "weeklyseq": 6,
+     "attendancediv1": "OA",
+     "attendancedate1": "20261005",
+     "attendancediv2": "AT",
+     "attendancedate2": "20261007",
+     "attendancediv3": null,
+     "attendancediv4": null
+    },
+    {
+     "weeklyseq": 7,
+     "attendancediv1": "AT",
+     "attendancedate1": "20261012",
+     "attendancediv2": "AT",
+     "attendancedate2": "20261014",
+     "attendancediv3": null,
+     "attendancediv4": null
+    },
+    {
+     "weeklyseq": 8,
+     "attendancediv1": "AT",
+     "attendancedate1": "20261019",
+     "attendancediv2": "AT",
+     "attendancedate2": "20261021",
+     "attendancediv3": null,
+     "attendancediv4": null
+    },
+    {
+     "weeklyseq": 9,
+     "attendancediv1": "AT",
+     "attendancedate1": "20261026",
+     "attendancediv2": "AT",
+     "attendancedate2": "20261028",
+     "attendancediv3": null,
+     "attendancediv4": null
+    },
+    {
+     "weeklyseq": 10,
+     "attendancediv1": "AT",
+     "attendancedate1": "20261102",
+     "attendancediv2": "AT",
+     "attendancedate2": "20261104",
+     "attendancediv3": null,
+     "attendancediv4": null
+    },
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+   ],
+   "U26OS0101": [
+    {
+     "weeklyseq": 1,
+     "attendancediv1": "AT",
+     "attendancedate1": "20260901",
+     "attendancediv2": "AT",
+     "attendancedate2": "20260903",
+     "attendancediv3": null,
+     "attendancediv4": null
+    },
+    {
+     "weeklyseq": 2,
+     "attendancediv1": "AT",
+     "attendancedate1": "20260908",
+     "attendancediv2": "AT",
+     "attendancedate2": "20260910",
+     "attendancediv3": null,
+     "attendancediv4": null
+    },
+    {
+     "weeklyseq": 3,
+     "attendancediv1": "AB",
+     "attendancedate1": "20260915",
+     "attendancediv2": "AT",
+     "attendancedate2": "20260917",
+     "attendancediv3": null,
+     "attendancediv4": null
+    },
+    {
+     "weeklyseq": 4,
+     "attendancediv1": "AT",
+     "attendancedate1": "20260922",
+     "attendancediv2": null,
+     "attendancedate2": null,
+     "attendancediv3": null,
+     "attendancediv4": null
+    },
+    {
+     "weeklyseq": 5,
+     "attendancediv1": "AT",
+     "attendancedate1": "20260929",
+     "attendancediv2": "AT",
+     "attendancedate2": "20261001",
+     "attendancediv3": null,
+     "attendancediv4": null
+    },
+    {
+     "weeklyseq": 6,
+     "attendancediv1": "AT",
+     "attendancedate1": "20261006",
+     "attendancediv2": "AT",
+     "attendancedate2": "20261008",
+     "attendancediv3": null,
+     "attendancediv4": null
+    },
+    {
+     "weeklyseq": 7,
+     "attendancediv1": "AT",
+     "attendancedate1": "20261013",
+     "attendancediv2": "LT",
+     "attendancedate2": "20261015",
+     "attendancediv3": null,
+     "attendancediv4": null
+    },
+    {
+     "weeklyseq": 8,
+     "attendancediv1": "AT",
+     "attendancedate1": "20261020",
+     "attendancediv2": "AT",
+     "attendancedate2": "20261022",
+     "attendancediv3": null,
+     "attendancediv4": null
+    },
+    {
+     "weeklyseq": 9,
+     "attendancediv1": "AB",
+     "attendancedate1": "20261027",
+     "attendancediv2": "AT",
+     "attendancedate2": "20261029",
+     "attendancediv3": null,
+     "attendancediv4": null
+    },
+    {
+     "weeklyseq": 10,
+     "attendancediv1": "AT",
+     "attendancedate1": "20261103",
+     "attendancediv2": "AT",
+     "attendancedate2": "20261105",
+     "attendancediv3": null,
+     "attendancediv4": null
+    },
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+   ],
+   "U26ML0101": [
+    {
+     "weeklyseq": 1,
+     "attendancediv1": "AT",
+     "attendancedate1": "20260902",
+     "attendancediv2": "AT",
+     "attendancedate2": "20260902",
+     "attendancediv3": null,
+     "attendancediv4": null
+    },
+    {
+     "weeklyseq": 2,
+     "attendancediv1": "AT",
+     "attendancedate1": "20260909",
+     "attendancediv2": "AT",
+     "attendancedate2": "20260909",
+     "attendancediv3": null,
+     "attendancediv4": null
+    },
+    {
+     "weeklyseq": 3,
+     "attendancediv1": "AT",
+     "attendancedate1": "20260916",
+     "attendancediv2": "AT",
+     "attendancedate2": "20260916",
+     "attendancediv3": null,
+     "attendancediv4": null
+    },
+    {
+     "weeklyseq": 4,
+     "attendancediv1": "LE",
+     "attendancedate1": "20260923",
+     "attendancediv2": "LE",
+     "attendancedate2": "20260923",
+     "attendancediv3": null,
+     "attendancediv4": null
+    },
+    {
+     "weeklyseq": 5,
+     "attendancediv1": "AT",
+     "attendancedate1": "20260930",
+     "attendancediv2": "AT",
+     "attendancedate2": "20260930",
+     "attendancediv3": null,
+     "attendancediv4": null
+    },
+    {
+     "weeklyseq": 6,
+     "attendancediv1": "AT",
+     "attendancedate1": "20261007",
+     "attendancediv2": "AT",
+     "attendancedate2": "20261007",
+     "attendancediv3": null,
+     "attendancediv4": null
+    },
+    {
+     "weeklyseq": 7,
+     "attendancediv1": "AT",
+     "attendancedate1": "20261014",
+     "attendancediv2": "AT",
+     "attendancedate2": "20261014",
+     "attendancediv3": null,
+     "attendancediv4": null
+    },
+    {
+     "weeklyseq": 8,
+     "attendancediv1": "AT",
+     "attendancedate1": "20261021",
+     "attendancediv2": "AT",
+     "attendancedate2": "20261021",
+     "attendancediv3": null,
+     "attendancediv4": null
+    },
+    {
+     "weeklyseq": 9,
+     "attendancediv1": "AT",
+     "attendancedate1": "20261028",
+     "attendancediv2": "AT",
+     "attendancedate2": "20261028",
+     "attendancediv3": null,
+     "attendancediv4": null
+    },
+    {
+     "weeklyseq": 10,
+     "attendancediv1": "AT",
+     "attendancedate1": "20261104",
+     "attendancediv2": "AT",
+     "attendancedate2": "20261104",
+     "attendancediv3": null,
+     "attendancediv4": null
+    },
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+   ],
+   "U26PS0101": [
+    {
+     "weeklyseq": 1,
+     "attendancediv1": "AT",
+     "attendancedate1": "20260901",
+     "attendancediv2": "AT",
+     "attendancedate2": "20260903",
+     "attendancediv3": null,
+     "attendancediv4": null
+    },
+    {
+     "weeklyseq": 2,
+     "attendancediv1": "AT",
+     "attendancedate1": "20260908",
+     "attendancediv2": "AB",
+     "attendancedate2": "20260910",
+     "attendancediv3": null,
+     "attendancediv4": null
+    },
+    {
+     "weeklyseq": 3,
+     "attendancediv1": "AT",
+     "attendancedate1": "20260915",
+     "attendancediv2": "AT",
+     "attendancedate2": "20260917",
+     "attendancediv3": null,
+     "attendancediv4": null
+    },
+    {
+     "weeklyseq": 4,
+     "attendancediv1": "LT",
+     "attendancedate1": "20260922",
+     "attendancediv2": null,
+     "attendancedate2": null,
+     "attendancediv3": null,
+     "attendancediv4": null
+    },
+    {
+     "weeklyseq": 5,
+     "attendancediv1": "AT",
+     "attendancedate1": "20260929",
+     "attendancediv2": "AB",
+     "attendancedate2": "20261001",
+     "attendancediv3": null,
+     "attendancediv4": null
+    },
+    {
+     "weeklyseq": 6,
+     "attendancediv1": "AT",
+     "attendancedate1": "20261006",
+     "attendancediv2": "AT",
+     "attendancedate2": "20261008",
+     "attendancediv3": null,
+     "attendancediv4": null
+    },
+    {
+     "weeklyseq": 7,
+     "attendancediv1": "AT",
+     "attendancedate1": "20261013",
+     "attendancediv2": "AT",
+     "attendancedate2": "20261015",
+     "attendancediv3": null,
+     "attendancediv4": null
+    },
+    {
+     "weeklyseq": 8,
+     "attendancediv1": "AT",
+     "attendancedate1": "20261020",
+     "attendancediv2": "AB",
+     "attendancedate2": "20261022",
+     "attendancediv3": null,
+     "attendancediv4": null
+    },
+    {
+     "weeklyseq": 9,
+     "attendancediv1": "AT",
+     "attendancedate1": "20261027",
+     "attendancediv2": "AT",
+     "attendancedate2": "20261029",
+     "attendancediv3": null,
+     "attendancediv4": null
+    },
+    {
+     "weeklyseq": 10,
+     "attendancediv1": "LT",
+     "attendancedate1": "20261103",
+     "attendancediv2": "AT",
+     "attendancedate2": "20261105",
+     "attendancediv3": null,
+     "attendancediv4": null
+    },
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+   ],
+   "U26ET0101": [
+    {
+     "weeklyseq": 1,
+     "attendancediv1": "AT",
+     "attendancedate1": "20260904",
+     "attendancediv2": "AT",
+     "attendancedate2": "20260904",
+     "attendancediv3": null,
+     "attendancediv4": null
+    },
+    {
+     "weeklyseq": 2,
+     "attendancediv1": "AT",
+     "attendancedate1": "20260911",
+     "attendancediv2": "AT",
+     "attendancedate2": "20260911",
+     "attendancediv3": null,
+     "attendancediv4": null
+    },
+    {
+     "weeklyseq": 3,
+     "attendancediv1": "AT",
+     "attendancedate1": "20260918",
+     "attendancediv2": "AT",
+     "attendancedate2": "20260918",
+     "attendancediv3": null,
+     "attendancediv4": null
+    },
+    {
+     "weeklyseq": 4,
+     "attendancediv1": null,
+     "attendancedate1": null,
+     "attendancediv2": null,
+     "attendancedate2": null,
+     "attendancediv3": null,
+     "attendancediv4": null
+    },
+    {
+     "weeklyseq": 5,
+     "attendancediv1": "AB",
+     "attendancedate1": "20261002",
+     "attendancediv2": "AB",
+     "attendancedate2": "20261002",
+     "attendancediv3": null,
+     "attendancediv4": null
+    },
+    {
+     "weeklyseq": 6,
+     "attendancediv1": null,
+     "attendancedate1": null,
+     "attendancediv2": null,
+     "attendancedate2": null,
+     "attendancediv3": null,
+     "attendancediv4": null
+    },
+    {
+     "weeklyseq": 7,
+     "attendancediv1": "AT",
+     "attendancedate1": "20261016",
+     "attendancediv2": "AT",
+     "attendancedate2": "20261016",
+     "attendancediv3": null,
+     "attendancediv4": null
+    },
+    {
+     "weeklyseq": 8,
+     "attendancediv1": "AT",
+     "attendancedate1": "20261023",
+     "attendancediv2": "AT",
+     "attendancedate2": "20261023",
+     "attendancediv3": null,
+     "attendancediv4": null
+    },
+    {
+     "weeklyseq": 9,
+     "attendancediv1": "AT",
+     "attendancedate1": "20261030",
+     "attendancediv2": "AT",
+     "attendancedate2": "20261030",
+     "attendancediv3": null,
+     "attendancediv4": null
+    },
+    {
+     "weeklyseq": 10,
+     "attendancediv1": "AT",
+     "attendancedate1": "20261106",
+     "attendancediv2": "AT",
+     "attendancedate2": "20261106",
+     "attendancediv3": null,
+     "attendancediv4": null
+    },
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+   ]
+  }
+ },
+ "task_view": {
+  "U26DB0101": {
+   "2": {
+    "rpt": {
+     "title": "과제 2: 도서관 대출 시스템 ERD 설계",
+     "contents": "<p>도서관 대출 시스템의 요구사항(첨부 가이드)을 읽고 ERD를 설계하세요.</p><p>- 엔터티 6개 이상, 관계의 카디널리티 표기</p><p>- 제출: PDF 1개, 파일명 학번_이름.pdf</p><p>- 지각 제출은 11/9(월) 23:59까지 받으며 하루에 10% 감점합니다.</p>",
+     "submitfiletype": "PDF",
+     "filelimit": "20",
+     "reptype": "P",
+     "submityn": "N",
+     "indate": "Y",
+     "adddate": "N",
+     "isopenscore": "N",
+     "attachopen": "Y",
+     "atchFileId": "F-DB-T2",
+     "ordseq": 2
+    },
+    "smt": null
+   },
+   "1": {
+    "rpt": {
+     "title": "과제 1: SQL 기초 질의",
+     "contents": "<p>첨부한 스키마로 SELECT 질의 10개를 작성하세요.</p>",
+     "submitfiletype": "SQL",
+     "filelimit": "5",
+     "reptype": "P",
+     "submityn": "Y",
+     "indate": "N",
+     "adddate": "N",
+     "isopenscore": "Y",
+     "attachopen": "Y",
+     "atchFileId": null,
+     "ordseq": 1
+    },
+    "smt": {
+     "registDt": "2026-10-04T13:20:00.000+00:00",
+     "finalscore": 9,
+     "tutordate": "2026-10-12",
+     "tutorcontents": "<p>JOIN 조건 하나 누락(-1)</p>"
+    }
+   }
+  },
+  "U26OS0101": {
+   "2": {
+    "rpt": {
+     "title": "과제 2: 프로세스 동기화(세마포어)",
+     "contents": "<p>생산자-소비자 문제를 세마포어로 구현하세요(C, pthread). 보고서 2쪽 이내.</p><p>마감 후 1주일(11/8)까지 지각 제출 가능, 감점 20%.</p>",
+     "submitfiletype": "ZIP",
+     "filelimit": "30",
+     "reptype": "P",
+     "submityn": "N",
+     "indate": "N",
+     "adddate": "Y",
+     "isopenscore": "N",
+     "attachopen": "Y",
+     "atchFileId": null,
+     "ordseq": 2
+    },
+    "smt": null
+   },
+   "3": {
+    "rpt": {
+     "title": "과제 3: CPU 스케줄링 시뮬레이터",
+     "contents": "<p>FCFS, SJF, RR(q=4) 스케줄러를 구현하고 평균 대기시간을 비교하세요.</p>",
+     "submitfiletype": "ZIP",
+     "filelimit": "30",
+     "reptype": "P",
+     "submityn": "N",
+     "indate": "Y",
+     "adddate": "N",
+     "isopenscore": "N",
+     "attachopen": "Y",
+     "atchFileId": null,
+     "ordseq": 3
+    },
+    "smt": null
+   }
+  },
+  "U26PS0101": {
+   "3": {
+    "rpt": {
+     "title": "과제 3: 조건부확률과 베이즈 정리",
+     "contents": "<p>교재 5장 연습문제 3, 7, 12번. 손글씨 스캔 PDF 가능.</p><p>11/12(목) 18:00 마감, 지각 제출 없음.</p>",
+     "submitfiletype": "PDF",
+     "filelimit": "20",
+     "reptype": "P",
+     "submityn": "N",
+     "indate": "Y",
+     "adddate": "N",
+     "isopenscore": "N",
+     "attachopen": "Y",
+     "atchFileId": null,
+     "ordseq": 3
+    },
+    "smt": null
+   }
+  },
+  "U26ML0101": {
+   "4": {
+    "rpt": {
+     "title": "실습 4: 결정트리 구현",
+     "contents": "<p>scikit-learn 없이 ID3 결정트리를 구현하고 ipynb로 제출하세요.</p>",
+     "submitfiletype": "IPYNB",
+     "filelimit": "10",
+     "reptype": "P",
+     "submityn": "N",
+     "indate": "Y",
+     "adddate": "N",
+     "isopenscore": "N",
+     "attachopen": "Y",
+     "atchFileId": null,
+     "ordseq": 4
+    },
+    "smt": null
+   }
+  }
+ },
+ "boards": {
+  "U26DB0101": {
+   "notice": [
+    {
+     "boardNo": 210,
+     "title": "기말고사 범위 및 일정 공지",
+     "registDt": "2026-11-04T15:00:00.000+09:00",
+     "topAt": "N",
+     "fileCnt": 0,
+     "atchFileId": null,
+     "content": "<p>기말고사: 12월 14일(월) 3교시(12:00~13:15), 새빛관 203.</p><p>범위: 9주차~14주차 (정규화, 트랜잭션, 동시성 제어, 회복, 인덱스). 오픈북 아님, 계산기 불필요. 학생증 지참.</p>",
+     "updtDt": null
+    },
+    {
+     "boardNo": 205,
+     "title": "과제 2 제출 형식 안내",
+     "registDt": "2026-10-28T11:00:00.000+09:00",
+     "topAt": "N",
+     "fileCnt": 1,
+     "atchFileId": "F-DB-P205",
+     "content": "<p>과제 2는 PDF 한 파일로 KLAS 과제 메뉴에 제출합니다. 자세한 형식은 첨부 파일을 보세요.</p>",
+     "updtDt": null
+    },
+    {
+     "boardNo": 198,
+     "title": "중간고사 성적 공개 및 열람 안내",
+     "registDt": "2026-10-27T17:00:00.000+09:00",
+     "topAt": "N",
+     "fileCnt": 0,
+     "atchFileId": null,
+     "content": "<p>중간고사 점수는 KLAS 성적 메뉴가 아니라 이 글의 댓글 기간(10/29~10/30)에 연구실(새빛관 512)에서 열람합니다. 평균 61점.</p>",
+     "updtDt": null
+    }
+   ],
+   "library": [
+    {
+     "boardNo": 211,
+     "title": "11주차 강의자료: 트랜잭션",
+     "registDt": "2026-11-06T09:00:00.000+09:00",
+     "topAt": "N",
+     "fileCnt": 0,
+     "atchFileId": null,
+     "content": "<p>11주차 슬라이드입니다.</p>",
+     "updtDt": null
+    }
+   ]
+  },
+  "U26OS0101": {
+   "notice": [
+    {
+     "boardNo": 101,
+     "title": "[휴강] 11/10(화) 휴강 및 보강 안내",
+     "registDt": "2026-11-05T10:00:00.000+09:00",
+     "topAt": "N",
+     "fileCnt": 0,
+     "atchFileId": null,
+     "content": "<p>11월 10일(화) 4교시 수업은 교수 학회 참석으로 휴강합니다.</p><p>보강: 11월 24일(화) 18:00~19:15, 새빛관 301. 출석은 보강 때 부릅니다.</p>",
+     "updtDt": null
+    },
+    {
+     "boardNo": 95,
+     "title": "중간고사 점수 공개 및 이의신청",
+     "registDt": "2026-10-30T14:00:00.000+09:00",
+     "topAt": "N",
+     "fileCnt": 0,
+     "atchFileId": null,
+     "content": "<p>중간고사 점수를 KLAS 공지 첨부로 올렸습니다. 이의신청은 11/3(화)까지 메일로 받습니다.</p>",
+     "updtDt": null
+    },
+    {
+     "boardNo": 90,
+     "title": "결석 처리 기준 안내",
+     "registDt": "2026-09-03T09:00:00.000+09:00",
+     "topAt": "Y",
+     "fileCnt": 0,
+     "atchFileId": null,
+     "content": "<p>이 과목은 학칙에 따라 수업시간의 1/4 이상 결석하면 성적을 F로 처리합니다. 지각 3회는 결석 1회로 봅니다.</p>",
+     "updtDt": null
+    }
+   ],
+   "library": []
+  },
+  "U26ML0101": {
+   "notice": [
+    {
+     "boardNo": 330,
+     "title": "강의실 변경 안내 (11/11부터)",
+     "registDt": "2026-11-06T09:30:00.000+09:00",
+     "topAt": "N",
+     "fileCnt": 0,
+     "atchFileId": null,
+     "content": "<p>11월 11일(수) 수업부터 강의실이 한울관 B101에서 새빛관 B105로 바뀝니다. 학기 끝까지 적용됩니다.</p>",
+     "updtDt": null
+    },
+    {
+     "boardNo": 325,
+     "title": "중간 대체 과제 및 기말 프로젝트 안내",
+     "registDt": "2026-10-20T13:00:00.000+09:00",
+     "topAt": "N",
+     "fileCnt": 0,
+     "atchFileId": null,
+     "content": "<p>이 과목은 기말고사를 보지 않고 기말 팀 프로젝트로 대체합니다. 제안서 마감 11/14, 최종 발표 12/9(수) 수업 시간.</p>",
+     "updtDt": null
+    }
+   ],
+   "library": [
+    {
+     "boardNo": 331,
+     "title": "10주차 강의자료 (결정트리)",
+     "registDt": "2026-11-03T20:00:00.000+09:00",
+     "topAt": "N",
+     "fileCnt": 1,
+     "atchFileId": "F-ML-P331",
+     "content": "<p>10주차 슬라이드와 실습 코드 안내입니다.</p>",
+     "updtDt": null
+    }
+   ]
+  },
+  "U26PS0101": {
+   "notice": [
+    {
+     "boardNo": 412,
+     "title": "11/12(목) 비대면 수업 전환 안내",
+     "registDt": "2026-11-06T18:00:00.000+09:00",
+     "topAt": "N",
+     "fileCnt": 0,
+     "atchFileId": null,
+     "content": "<p>11/12(목) 2교시 수업은 Zoom 실시간 비대면으로 진행합니다. 접속 링크는 수업 30분 전에 이 게시판에 올립니다. 출석은 Zoom 접속 기록으로 확인합니다.</p>",
+     "updtDt": null
+    },
+    {
+     "boardNo": 405,
+     "title": "중간고사 결과 및 기말고사 범위",
+     "registDt": "2026-11-02T10:00:00.000+09:00",
+     "topAt": "N",
+     "fileCnt": 0,
+     "atchFileId": null,
+     "content": "<p>기말고사: 12월 17일(목) 2교시(10:30~11:45), 비마관 405. 범위: 7장~11장. 공학용 계산기 허용.</p>",
+     "updtDt": null
+    }
+   ],
+   "library": []
+  },
+  "U26ET0101": {
+   "notice": [
+    {
+     "boardNo": 515,
+     "title": "11/13(금) 수업 장소 변경 (하루만)",
+     "registDt": "2026-11-06T16:00:00.000+09:00",
+     "topAt": "N",
+     "fileCnt": 0,
+     "atchFileId": null,
+     "content": "<p>11/13(금) 수업은 화도관 301 대신 화도관 104에서 합니다. 그 다음 주부터는 다시 301입니다.</p>",
+     "updtDt": null
+    },
+    {
+     "boardNo": 510,
+     "title": "공결(출석 인정) 신청 방법",
+     "registDt": "2026-10-15T09:00:00.000+09:00",
+     "topAt": "N",
+     "fileCnt": 0,
+     "atchFileId": null,
+     "content": "<p>질병·예비군 등 공결은 증빙서류를 사유 발생 후 1주일 안에 학과 사무실에 제출하세요. KLAS에 반영되기까지 1~2주 걸립니다.</p>",
+     "updtDt": null
+    }
+   ],
+   "library": []
+  },
+  "U26AI0101": {
+   "notice": [
+    {
+     "boardNo": 610,
+     "title": "11주차 온라인 강의 업로드 지연 안내",
+     "registDt": "2026-11-06T11:00:00.000+09:00",
+     "topAt": "N",
+     "fileCnt": 0,
+     "atchFileId": null,
+     "content": "<p>11주차 강의는 11/10(화)에 올라갑니다. 수강 기간은 11/16(월) 23:59까지로 하루 늘렸습니다(KLAS 표시는 곧 수정).</p>",
+     "updtDt": null
+    }
+   ],
+   "library": []
+  }
+ },
+ "files": {
+  "F-DB-T2": [
+   {
+    "fileName": "과제2_ERD_가이드.docx",
+    "kind": "docx",
+    "text": [
+     "도서관 대출 시스템 요구사항",
+     "회원은 최대 5권까지 14일간 대출할 수 있다.",
+     "연체 시 연체일수만큼 대출이 정지된다.",
+     "도서는 ISBN, 제목, 저자, 출판사, 소장 위치를 가진다.",
+     "평가: 엔터티 식별 40%, 관계·카디널리티 40%, 표기법 20%"
+    ]
+   }
+  ],
+  "F-DB-P205": [
+   {
+    "fileName": "과제2_제출형식.docx",
+    "kind": "docx",
+    "text": [
+     "과제 2 제출 형식",
+     "PDF 1개, 20MB 이하, 파일명 학번_이름.pdf",
+     "ERD 도구는 자유(draw.io, ERDCloud 등). 손그림 스캔은 받지 않음.",
+     "표지 없이 1쪽부터 ERD, 2쪽에 가정(assumption) 목록."
+    ]
+   }
+  ],
+  "F-ML-P331": [
+   {
+    "fileName": "10주차_결정트리.pptx",
+    "kind": "pptx",
+    "text": [
+     "결정트리 (Decision Tree)",
+     "엔트로피와 정보 이득",
+     "ID3 / C4.5 / CART 비교",
+     "가지치기(pruning)로 과적합 줄이기",
+     "실습 4: ID3 직접 구현 (11/10 마감)"
+    ]
+   }
+  ]
+ },
+ "fixed": {
+  "GRADES": [
+   {
+    "thisYear": "2024",
+    "hakgi": "1",
+    "sungjukList": [
+     {
+      "gwamokKname": "대학영어",
+      "codeName1": "교필",
+      "hakjumNum": 3,
+      "getGrade": "A0",
+      "retakeOpt": "N"
+     },
+     {
+      "gwamokKname": "광운인되기",
+      "codeName1": "교필",
+      "hakjumNum": 1,
+      "getGrade": "P",
+      "retakeOpt": "N"
+     },
+     {
+      "gwamokKname": "미적분학1",
+      "codeName1": "교선",
+      "hakjumNum": 3,
+      "getGrade": "B+",
+      "retakeOpt": "N"
+     },
+     {
+      "gwamokKname": "프로그래밍기초",
+      "codeName1": "전필",
+      "hakjumNum": 3,
+      "getGrade": "A+",
+      "retakeOpt": "N"
+     },
+     {
+      "gwamokKname": "일반물리학1",
+      "codeName1": "교선",
+      "hakjumNum": 3,
+      "getGrade": "C+",
+      "retakeOpt": "N"
+     },
+     {
+      "gwamokKname": "정보융합개론",
+      "codeName1": "전필",
+      "hakjumNum": 3,
+      "getGrade": "A0",
+      "retakeOpt": "N"
+     }
+    ]
+   },
+   {
+    "thisYear": "2024",
+    "hakgi": "2",
+    "sungjukList": [
+     {
+      "gwamokKname": "미적분학2",
+      "codeName1": "교선",
+      "hakjumNum": 3,
+      "getGrade": "B0",
+      "retakeOpt": "N"
+     },
+     {
+      "gwamokKname": "자료구조",
+      "codeName1": "전필",
+      "hakjumNum": 3,
+      "getGrade": "B+",
+      "retakeOpt": "N"
+     },
+     {
+      "gwamokKname": "일반물리학2",
+      "codeName1": "교선",
+      "hakjumNum": 3,
+      "getGrade": "F",
+      "retakeOpt": "N"
+     },
+     {
+      "gwamokKname": "이산수학",
+      "codeName1": "전필",
+      "hakjumNum": 3,
+      "getGrade": "A0",
+      "retakeOpt": "N"
+     },
+     {
+      "gwamokKname": "글쓰기와 표현",
+      "codeName1": "교선",
+      "hakjumNum": 3,
+      "getGrade": "A+",
+      "retakeOpt": "N"
+     }
+    ]
+   },
+   {
+    "thisYear": "2025",
+    "hakgi": "1",
+    "sungjukList": [
+     {
+      "gwamokKname": "알고리즘",
+      "codeName1": "전필",
+      "hakjumNum": 3,
+      "getGrade": "B0",
+      "retakeOpt": "N"
+     },
+     {
+      "gwamokKname": "선형대수",
+      "codeName1": "전선",
+      "hakjumNum": 3,
+      "getGrade": "A0",
+      "retakeOpt": "N"
+     },
+     {
+      "gwamokKname": "컴퓨터구조",
+      "codeName1": "전필",
+      "hakjumNum": 3,
+      "getGrade": "C+",
+      "retakeOpt": "N"
+     },
+     {
+      "gwamokKname": "심리학의 이해",
+      "codeName1": "교선",
+      "hakjumNum": 3,
+      "getGrade": "A+",
+      "retakeOpt": "N"
+     },
+     {
+      "gwamokKname": "객체지향프로그래밍",
+      "codeName1": "전필",
+      "hakjumNum": 3,
+      "getGrade": "B+",
+      "retakeOpt": "N"
+     }
+    ]
+   },
+   {
+    "thisYear": "2025",
+    "hakgi": "2",
+    "sungjukList": [
+     {
+      "gwamokKname": "데이터과학개론",
+      "codeName1": "전선",
+      "hakjumNum": 3,
+      "getGrade": "A+",
+      "retakeOpt": "N"
+     },
+     {
+      "gwamokKname": "시스템프로그래밍",
+      "codeName1": "전선",
+      "hakjumNum": 3,
+      "getGrade": "B0",
+      "retakeOpt": "N"
+     },
+     {
+      "gwamokKname": "경제학원론",
+      "codeName1": "교선",
+      "hakjumNum": 3,
+      "getGrade": "B+",
+      "retakeOpt": "N"
+     },
+     {
+      "gwamokKname": "통계학개론",
+      "codeName1": "전선",
+      "hakjumNum": 3,
+      "getGrade": "D+",
+      "retakeOpt": "N"
+     },
+     {
+      "gwamokKname": "웹프로그래밍",
+      "codeName1": "전선",
+      "hakjumNum": 3,
+      "getGrade": "A0",
+      "retakeOpt": "N"
+     }
+    ]
+   },
+   {
+    "thisYear": "2025",
+    "hakgi": "4",
+    "sungjukList": [
+     {
+      "gwamokKname": "현대미술의 이해",
+      "codeName1": "교선",
+      "hakjumNum": 3,
+      "getGrade": "A0",
+      "retakeOpt": "N"
+     }
+    ]
+   },
+   {
+    "thisYear": "2026",
+    "hakgi": "1",
+    "sungjukList": [
+     {
+      "gwamokKname": "컴퓨터네트워크",
+      "codeName1": "전필",
+      "hakjumNum": 3,
+      "getGrade": "B+",
+      "retakeOpt": "N"
+     },
+     {
+      "gwamokKname": "소프트웨어공학",
+      "codeName1": "전선",
+      "hakjumNum": 3,
+      "getGrade": "A0",
+      "retakeOpt": "N"
+     },
+     {
+      "gwamokKname": "인공지능",
+      "codeName1": "전선",
+      "hakjumNum": 3,
+      "getGrade": "A+",
+      "retakeOpt": "N"
+     },
+     {
+      "gwamokKname": "철학과 비판적 사고",
+      "codeName1": "교선",
+      "hakjumNum": 3,
+      "getGrade": "B+",
+      "retakeOpt": "N"
+     },
+     {
+      "gwamokKname": "컴퓨터구조",
+      "codeName1": "전필",
+      "hakjumNum": 3,
+      "getGrade": "B+",
+      "retakeOpt": "Y"
+     }
+    ]
+   },
+   {
+    "thisYear": "2026",
+    "hakgi": "2",
+    "sungjukList": [
+     {
+      "gwamokKname": "데이터베이스",
+      "codeName1": "전필",
+      "hakjumNum": 3,
+      "getGrade": "",
+      "retakeOpt": "N"
+     },
+     {
+      "gwamokKname": "운영체제",
+      "codeName1": "전필",
+      "hakjumNum": 3,
+      "getGrade": "",
+      "retakeOpt": "N"
+     },
+     {
+      "gwamokKname": "머신러닝",
+      "codeName1": "전선",
+      "hakjumNum": 3,
+      "getGrade": "",
+      "retakeOpt": "N"
+     },
+     {
+      "gwamokKname": "확률과통계",
+      "codeName1": "전선",
+      "hakjumNum": 3,
+      "getGrade": "",
+      "retakeOpt": "N"
+     },
+     {
+      "gwamokKname": "현대사회와윤리",
+      "codeName1": "교선",
+      "hakjumNum": 3,
+      "getGrade": "",
+      "retakeOpt": "N"
+     },
+     {
+      "gwamokKname": "AI와 데이터 리터러시",
+      "codeName1": "교선",
+      "hakjumNum": 3,
+      "getGrade": "",
+      "retakeOpt": "N"
+     }
+    ]
+   }
+  ],
+  "GRADE_TOTALS": {
+   "applyHakjum": 94,
+   "majorApplyHakjum": 57,
+   "cultureApplyHakjum": 37,
+   "etcApplyHakjum": 0,
+   "chidukHakjum": 73,
+   "majorChidukHakjum": 45,
+   "cultureChidukHakjum": 28,
+   "etcChidukHakjum": 0,
+   "delHakjum": 0,
+   "majorDelHakjum": 0,
+   "cultureDelHakjum": 0,
+   "etcDelHakjum": 0,
+   "hwakinScoresum": 3.52,
+   "jaechulScoresum": 3.52
+  },
+  "STANDING": [
+   {
+    "thisYear": "2024",
+    "hakgi": "1",
+    "applyHakjum": 16,
+    "applyPoint": 3.7,
+    "classOrder": 21,
+    "manNum": 88,
+    "warningOpt": null,
+    "pcnt": 23.9
+   },
+   {
+    "thisYear": "2024",
+    "hakgi": "2",
+    "applyHakjum": 15,
+    "applyPoint": 3.0,
+    "classOrder": 47,
+    "manNum": 85,
+    "warningOpt": null,
+    "pcnt": 55.3
+   },
+   {
+    "thisYear": "2025",
+    "hakgi": "1",
+    "applyHakjum": 15,
+    "applyPoint": 3.5,
+    "classOrder": 39,
+    "manNum": 83,
+    "warningOpt": null,
+    "pcnt": 47.0
+   },
+   {
+    "thisYear": "2025",
+    "hakgi": "2",
+    "applyHakjum": 15,
+    "applyPoint": 3.3,
+    "classOrder": 30,
+    "manNum": 80,
+    "warningOpt": null,
+    "pcnt": 37.5
+   },
+   {
+    "thisYear": "2026",
+    "hakgi": "1",
+    "applyHakjum": 15,
+    "applyPoint": 3.8,
+    "classOrder": 25,
+    "manNum": 82,
+    "warningOpt": null,
+    "pcnt": 30.5
+   }
+  ],
+  "STUDENT_RECORD": {
+   "hakgwa": "정보융합학부",
+   "hakbun": "2024000123",
+   "grade": 3,
+   "hakjukStatu": "재학",
+   "majorHakjum": 0,
+   "cultureHakjum": 0,
+   "generalHakjum": 0,
+   "prevHakjumNum": 0
+  },
+  "GEN_ED": {
+   "aa8128": 1,
+   "aa62": 3,
+   "aa64": 3,
+   "aa63": 3,
+   "aa76": 0,
+   "aa65": 3,
+   "aa66": 3,
+   "aa67": 0,
+   "aa68": 3,
+   "aa7881": 6
+  },
+  "GRADUATION_CHECK": null,
+  "GRADE_TERM": {
+   "termMap": null
+  },
+  "EVAL_TERM": null,
+  "EVAL_COURSES": [],
+  "SCHOLARSHIP_TERM": {
+   "stats": false,
+   "returnMsg": "장학금 신청 기간이 아닙니다.",
+   "janghakApplyTerm": null
+  },
+  "DROP_CREDITS_TERM": {
+   "stats": "N",
+   "returnMsg": "취득학점포기 신청 기간이 아닙니다."
+  },
+  "SCHOLARSHIP_HISTORY": [
+   {
+    "yearHakgi": "2026-2",
+    "grade": 3,
+    "janghakName": "국가장학금(Ⅰ유형)",
+    "janghakAmt": 1750000
+   },
+   {
+    "yearHakgi": "2026-1",
+    "grade": 3,
+    "janghakName": "성적우수장학금(B)",
+    "janghakAmt": 1000000
+   },
+   {
+    "yearHakgi": "2026-1",
+    "grade": 3,
+    "janghakName": "국가장학금(Ⅰ유형)",
+    "janghakAmt": 1750000
+   },
+   {
+    "yearHakgi": "2025-2",
+    "grade": 2,
+    "janghakName": "교내근로장학금",
+    "janghakAmt": 1200000
+   },
+   {
+    "yearHakgi": "2025-2",
+    "grade": 2,
+    "janghakName": "국가장학금(Ⅰ유형)",
+    "janghakAmt": 1750000
+   }
+  ]
+ }
+}

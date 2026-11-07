@@ -1,0 +1,120 @@
+{
+ "department": "국제통상학부",
+ "admission_year": 2025,
+ "scope": "required_only",
+ "basis": "(B) 1학년=2025행, 2학년=2026행. 3·4학년(2027·2028)은 미래라 없음.",
+ "courses": [
+  {
+   "code": "5100-1-4449",
+   "name": "국제통상학개론",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 1,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": "5100-1-4488",
+   "name": "경제경영통계",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 1,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": "5100-1-9214",
+   "name": "일본어기초1",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 1,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": "5100-1-9215",
+   "name": "중국어기초1",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 1,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": "5100-1-9216",
+   "name": "일본어기초2",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 1,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": "5100-1-9217",
+   "name": "중국어기초2",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 1,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": "5100-2-0048",
+   "name": "거시경제학",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": "5100-2-0613",
+   "name": "미시경제학",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": "5100-2-5576",
+   "name": "무역상무",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": "5100-2-5775",
+   "name": "경제경영데이터분석",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": 1,
+   "note": "구.경제계량분석"
+  },
+  {
+   "code": "5100-2-4355",
+   "name": "글로벌경영",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": 2,
+   "note": null
+  }
+ ],
+ "sources": [
+  {
+   "title": "국제통상학부 교육과정",
+   "url": "https://www.kw.ac.kr/ko/univ/business02_4.jsp",
+   "checked_at": "2026-11-07"
+  },
+  {
+   "title": "필수과목표 must_2026_30",
+   "url": "https://www.kw.ac.kr/ko/life/must_2026_30.xls",
+   "checked_at": "2026-11-07"
+  }
+ ],
+ "checked_at": "2026-11-07"
+}

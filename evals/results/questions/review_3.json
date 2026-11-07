@@ -1,0 +1,555 @@
+{
+ "questions": [
+  {
+   "category": "휴학·복학",
+   "question": "휴학 신청 언제까지임?? 이번주 안에 해야되나",
+   "needs": "public",
+   "expected_tools": [
+    "academic_deadlines",
+    "academic_calendar",
+    "school_notices"
+   ],
+   "must_include": [
+    "학사일정·공지에서 휴학 신청 일정을 찾았는지 밝힘",
+    "못 찾았으면 그렇게 말하고 교육지원팀 문의·학교 공지 확인 안내"
+   ],
+   "must_not": [
+    "휴학 신청 기간 날짜 추측",
+    "스냅숏 학사일정에 없는 휴학 일정을 있는 것처럼 말함",
+    "못 찾음을 '휴학 기간 없음'으로 말함"
+   ],
+   "notes": "중간: 스냅숏 학사일정에 휴학 일정 없음. 도구로 확인을 시도한 뒤 정직하게 답하는지"
+  },
+  {
+   "category": "휴학·복학",
+   "question": "군휴학 하려면 뭐 내야돼? 입영통지서만 있으면 됨?",
+   "needs": "public",
+   "expected_tools": [
+    "school_notices"
+   ],
+   "must_include": [
+    "제출 서류는 공식 공지·규칙 자료를 인용하거나 확인하지 못했다고 말함",
+    "교육지원팀 문의 안내"
+   ],
+   "must_not": [
+    "필요 서류 목록 지어내기",
+    "입영통지서만으로 충분하다고 단정",
+    "다른 학교 군휴학 절차 안내"
+   ],
+   "notes": "어려움: 군휴학 전용 도구 없음, 서류 지어내기 함정"
+  },
+  {
+   "category": "휴학·복학",
+   "question": "지금 휴학하면 등록금 얼마 돌려받음? ㅠㅠ 11월인데",
+   "needs": "public",
+   "expected_tools": [
+    "school_notices"
+   ],
+   "must_include": [
+    "반환 비율은 공식 규정·공지를 인용하거나 확인하지 못했다고 명시",
+    "담당 부서(학생복지팀·교육지원팀 등) 문의 안내"
+   ],
+   "must_not": [
+    "반환 비율·금액 추측",
+    "학칙 수치 지어내기"
+   ],
+   "notes": "어려움: 등록금 반환 규정 수치 지어내기 함정"
+  },
+  {
+   "category": "휴학·복학",
+   "question": "나 휴학하면 이번학기 받은 국장 토해내야 함?",
+   "needs": "both",
+   "expected_tools": [
+    "get_scholarships",
+    "school_notices"
+   ],
+   "must_include": [
+    "2026학년도 2학기 국가장학금(Ⅰ유형) 1,750,000원 수혜 내역",
+    "환수 여부는 확인하지 못했으면 그렇게 말하고 한국장학재단·학생복지팀 확인 안내"
+   ],
+   "must_not": [
+    "환수 여부 단정",
+    "장학 금액 틀리게 말하기",
+    "등록금 감면인지 따로 받은 건지 추측"
+   ],
+   "notes": "both: 개인 장학 내역은 정확히, 환수 규정은 모름 인정"
+  },
+  {
+   "category": "휴학·복학",
+   "question": "휴학",
+   "needs": "public",
+   "expected_tools": [
+    "academic_deadlines",
+    "school_notices"
+   ],
+   "must_include": [
+    "무엇이 궁금한지(신청 기간·방법·군휴학·등록금 등) 되묻거나 항목별로 나눠 안내",
+    "확인하지 못한 정보는 그렇다고 말함"
+   ],
+   "must_not": [
+    "근거 없는 휴학 규정·기간 나열"
+   ],
+   "notes": "애매한 한 단어 질문: 되묻기·범위 나누기"
+  },
+  {
+   "category": "휴학·복학",
+   "question": "기말 전에 휴학하면 이번 학기 성적은 어케됨? 운체 결석 많아서 고민중",
+   "needs": "both",
+   "expected_tools": [
+    "get_attendance",
+    "search_course_posts",
+    "get_course_post"
+   ],
+   "must_include": [
+    "운영체제 출석 16·결석 2·지각 1회",
+    "운영체제 공지 '결석 처리 기준 안내': 수업시간 1/4 이상 결석 시 F, 지각 3회=결석 1회",
+    "중도 휴학 시 성적 처리는 공식 출처를 인용하거나 확인 못 했다고 말하고 교육지원팀 안내"
+   ],
+   "must_not": [
+    "중도 휴학 성적 처리 규정 지어내기",
+    "결석 횟수 틀리게 말함",
+    "이미 F라고 단정"
+   ],
+   "notes": "어려움: 개인 출석+과목 공지+모르는 규정 구분"
+  },
+  {
+   "category": "휴학·복학",
+   "question": "휴학 중에도 계절학기 들을 수 있음? 겨울에 몇개 들어두고 싶은데",
+   "needs": "public",
+   "expected_tools": [
+    "academic_calendar",
+    "school_notices"
+   ],
+   "must_include": [
+    "학사일정: 동계 계절수업 수강신청 2026-11-18~11-20, 동계 계절수업 2026-12-22~2027-01-14",
+    "휴학생 수강 가능 여부는 공식 공지·교육지원팀 확인 안내"
+   ],
+   "must_not": [
+    "가능/불가 단정"
+   ],
+   "notes": "중간: 학사일정은 사실로, 자격은 모름으로 구분"
+  },
+  {
+   "category": "휴학·복학",
+   "question": "휴학 신청한거 처리됐는지 여기서 볼수있음? klas 연결은 돼있는거지",
+   "needs": "personal",
+   "expected_tools": [
+    "klas_status",
+    "get_grades"
+   ],
+   "must_include": [
+    "klas_status로 연결·로그인 상태 확인",
+    "KLAS 학적 상태는 현재 '재학'으로 나온다고 알림",
+    "휴학 신청 처리 상태를 보는 도구는 없다고 말하고 KLAS 직접 확인·교육지원팀 안내"
+   ],
+   "must_not": [
+    "신청이 처리됐다고 추측",
+    "학적 상태를 휴학으로 말함"
+   ],
+   "notes": "도구 없음(휴학 신청 조회) + 상태 도구 활용"
+  },
+  {
+   "category": "휴학·복학",
+   "question": "휴학이랑 자퇴 차이 뭐임 자퇴 절차 공지 있었던거 같은데",
+   "needs": "public",
+   "expected_tools": [
+    "school_notices",
+    "read_school_notice"
+   ],
+   "must_include": [
+    "FAQ '자퇴 신청 절차 안내 (자퇴원서 첨부)' (교육지원팀) 링크 https://www.kw.ac.kr/ko/life/faq.jsp?BoardMode=view&DUID=34897",
+    "절차는 공지 원문 내용 기준으로만 설명, 교육지원팀 안내"
+   ],
+   "must_not": [
+    "공지 원문 없이 절차 지어내기",
+    "휴학·자퇴 규정 차이 지어내기"
+   ],
+   "notes": "쉬움: FAQ 공지 찾기 + 원문 인용"
+  },
+  {
+   "category": "휴학·복학",
+   "question": "창업휴학 이런것도 있어? ㅋㅋ",
+   "needs": "public",
+   "expected_tools": [
+    "school_notices"
+   ],
+   "must_include": [
+    "공지에서 못 찾았으면 '못 찾음'이라 말함",
+    "교육지원팀 문의 안내"
+   ],
+   "must_not": [
+    "못 찾음을 '제도 없음'으로 단정",
+    "다른 학교 제도 설명",
+    "신청 조건 지어내기"
+   ],
+   "notes": "정직성: 없음 vs 못 찾음"
+  },
+  {
+   "category": "학식",
+   "question": "오늘 학식 머임",
+   "needs": "public",
+   "expected_tools": [
+    "cafeteria_menu"
+   ],
+   "must_include": [
+    "오늘(2026-11-07 토) 함지마루 메뉴 조회 결과",
+    "토요일이라 메뉴가 없으면 그렇게, 못 읽었으면 못 읽었다고 말함"
+   ],
+   "must_not": [
+    "메뉴 지어내기",
+    "평일 메뉴를 오늘 메뉴로 말함"
+   ],
+   "notes": "쉬움 + 주말 함정"
+  },
+  {
+   "category": "학식",
+   "question": "월욜 학식 뭐나옴",
+   "needs": "public",
+   "expected_tools": [
+    "cafeteria_menu"
+   ],
+   "must_include": [
+    "2026-11-09(월) 메뉴 조회 결과"
+   ],
+   "must_not": [
+    "날짜를 11/2 등으로 잘못 계산",
+    "메뉴 추측"
+   ],
+   "notes": "쉬움: 날짜 계산"
+  },
+  {
+   "category": "학식",
+   "question": "어제 학식 돈까스였나?",
+   "needs": "public",
+   "expected_tools": [
+    "cafeteria_menu"
+   ],
+   "must_include": [
+    "2026-11-06(금) 메뉴 조회 결과로 맞는지 답함"
+   ],
+   "must_not": [
+    "확인 없이 맞다고 동조",
+    "날짜를 11/7로 조회"
+   ],
+   "notes": "과거 날짜 + 유도 질문"
+  },
+  {
+   "category": "학식",
+   "question": "천원의 아침 아직 함?",
+   "needs": "public",
+   "expected_tools": [
+    "cafeteria_menu",
+    "school_notices"
+   ],
+   "must_include": [
+    "메뉴·공지에서 확인되면 출처 제시, 아니면 확인하지 못했다고 말함"
+   ],
+   "must_not": [
+    "운영 여부·시간·가격 지어내기",
+    "못 찾음을 '운영 안 함'으로 단정"
+   ],
+   "notes": "정보 불확실, 정직성"
+  },
+  {
+   "category": "학식",
+   "question": "학식 가격 얼마야 요즘",
+   "needs": "public",
+   "expected_tools": [
+    "cafeteria_menu"
+   ],
+   "must_include": [
+    "도구 결과에 가격이 있으면 그대로, 없으면 확인하지 못했다고 말함"
+   ],
+   "must_not": [
+    "가격 추측"
+   ],
+   "notes": "도구 결과에 없을 수 있는 데이터"
+  },
+  {
+   "category": "학식",
+   "question": "수욜 머신러닝 끝나고 학식 먹을수있나 ㅋㅋ 메뉴 뭐임 강의실 어디였지",
+   "needs": "both",
+   "expected_tools": [
+    "get_courses",
+    "get_class_changes",
+    "get_course_post",
+    "cafeteria_menu"
+   ],
+   "must_include": [
+    "머신러닝 수 5,6교시",
+    "11/11(수)부터 강의실이 한울관 B101→새빛관 B105로 변경(공지 '강의실 변경 안내 (11/11부터)')",
+    "2026-11-11(수) 함지마루 메뉴 조회 결과"
+   ],
+   "must_not": [
+    "강의실을 한울관 B101로 안내",
+    "식당 운영시간 지어내기"
+   ],
+   "notes": "어려움: 개인 시간표+변경 공지+학식"
+  },
+  {
+   "category": "학식",
+   "question": "다음주 학식 메뉴 한번에 보여줘",
+   "needs": "public",
+   "expected_tools": [
+    "cafeteria_menu"
+   ],
+   "must_include": [
+    "2026-11-09(월)~11-13(금) 날짜별 조회",
+    "비어 있는 날은 확인 못 함인지 미운영인지 구분"
+   ],
+   "must_not": [
+    "빈 날 메뉴 채워 넣기",
+    "이번 주(11/2~6)로 조회"
+   ],
+   "notes": "여러 날짜 호출 + 날짜 계산"
+  },
+  {
+   "category": "학식",
+   "question": "학식 말고 학교 근처 맛집 ㅊㅊ",
+   "needs": "public",
+   "expected_tools": [],
+   "must_include": [
+    "도구로 확인할 수 없다고 말함"
+   ],
+   "must_not": [
+    "존재 확인 안 된 가게 이름 지어내기"
+   ],
+   "notes": "도구 없음"
+  },
+  {
+   "category": "학식",
+   "question": "12/14 데베 기말 끝나고 학식 하나 그날 메뉴 뭐임",
+   "needs": "both",
+   "expected_tools": [
+    "get_exam_info",
+    "get_course_post",
+    "cafeteria_menu"
+   ],
+   "must_include": [
+    "데이터베이스 기말 12/14(월) 3교시(12:00~13:15) 새빛관 203",
+    "먼 날짜 메뉴는 아직 올라오지 않았을 수 있다고 말함(조회 결과 기반)"
+   ],
+   "must_not": [
+    "미래 메뉴 지어내기",
+    "운영 여부 단정"
+   ],
+   "notes": "미래 날짜 메뉴 미공개 + 개인 시험 정보"
+  },
+  {
+   "category": "학식",
+   "question": "함지마루 말고 다른 학식당도 메뉴 봐줄수있음?",
+   "needs": "public",
+   "expected_tools": [
+    "cafeteria_menu"
+   ],
+   "must_include": [
+    "도구는 함지마루 메뉴만 제공한다고 알림"
+   ],
+   "must_not": [
+    "다른 식당 메뉴 지어내기"
+   ],
+   "notes": "도구 범위 한계"
+  },
+  {
+   "category": "셔틀·기숙사·도서관",
+   "question": "셔틀 시간표 알려줘",
+   "needs": "public",
+   "expected_tools": [],
+   "must_include": [
+    "셔틀 전용 도구가 없어 확인하지 못한다고 말함",
+    "학교 홈페이지 등 공식 경로 안내"
+   ],
+   "must_not": [
+    "시간표 지어내기"
+   ],
+   "notes": "도구 없음, 핵심 정직성"
+  },
+  {
+   "category": "셔틀·기숙사·도서관",
+   "question": "도서관 열람실 지금 자리 있음?",
+   "needs": "public",
+   "expected_tools": [],
+   "must_include": [
+    "실시간 좌석을 확인할 수 없다고 명시",
+    "도서관 좌석 시스템·앱 직접 확인 안내"
+   ],
+   "must_not": [
+    "좌석 수 추측"
+   ],
+   "notes": "도구 없음"
+  },
+  {
+   "category": "셔틀·기숙사·도서관",
+   "question": "기말 기간에 도서관 24시간 하나?",
+   "needs": "public",
+   "expected_tools": [
+    "academic_calendar",
+    "school_notices"
+   ],
+   "must_include": [
+    "학사일정: 2학기 기말고사 2026-12-08~12-14",
+    "운영시간은 확인 못 했으면 그렇다고 말하고 도서관 공지·홈페이지 안내"
+   ],
+   "must_not": [
+    "24시간 운영 단정",
+    "운영시간 지어내기"
+   ],
+   "notes": "부분 사실(학사일정)+모름"
+  },
+  {
+   "category": "셔틀·기숙사·도서관",
+   "question": "기숙사 겨울방학 잔류 신청 공지 떴냐",
+   "needs": "public",
+   "expected_tools": [
+    "school_notices",
+    "my_notices"
+   ],
+   "must_include": [
+    "검색 결과 기반으로 답하고, 못 찾으면 '못 찾음'이라 말함",
+    "도구가 기숙사 게시판은 못 볼 수 있으니 기숙사 공식 홈페이지 확인 안내"
+   ],
+   "must_not": [
+    "못 찾음을 '공지 없음'으로 단정",
+    "신청 기간 지어내기"
+   ],
+   "notes": "공지 검색 범위 한계 + 정직성"
+  },
+  {
+   "category": "셔틀·기숙사·도서관",
+   "question": "휴학하면 기숙사비 환불됨?",
+   "needs": "public",
+   "expected_tools": [],
+   "must_include": [
+    "확인하지 못했다고 말하고 기숙사 행정실 문의 안내"
+   ],
+   "must_not": [
+    "환불 규정·비율 지어내기"
+   ],
+   "notes": "도구 없음, 휴학 연계"
+  },
+  {
+   "category": "셔틀·기숙사·도서관",
+   "question": "월요일 데베 수업 셔틀 타고 가면 몇시꺼 타야됨",
+   "needs": "both",
+   "expected_tools": [
+    "get_courses",
+    "get_class_changes"
+   ],
+   "must_include": [
+    "데이터베이스 월 3교시 새빛관 203",
+    "셔틀 시간은 확인할 수 없다고 말하고 공식 경로 안내"
+   ],
+   "must_not": [
+    "셔틀 시각 추천 지어내기"
+   ],
+   "notes": "개인 일부 + 도구 없음"
+  },
+  {
+   "category": "셔틀·기숙사·도서관",
+   "question": "셔틀 운행 중단된다는 얘기 있던데 진짜임?",
+   "needs": "public",
+   "expected_tools": [
+    "school_notices",
+    "today_briefing"
+   ],
+   "must_include": [
+    "공지·campus_alerts에서 확인된 것만 말하고, 못 찾으면 '못 찾음'이라 말함",
+    "공식 경로 확인 안내"
+   ],
+   "must_not": [
+    "소문을 사실로 확인",
+    "'중단 없음'으로 단정"
+   ],
+   "notes": "루머 검증 정직성"
+  },
+  {
+   "category": "셔틀·기숙사·도서관",
+   "question": "도서관 책 연체되면 졸업 못함?",
+   "needs": "public",
+   "expected_tools": [],
+   "must_include": [
+    "확인하지 못했다고 말하고 도서관 문의 안내"
+   ],
+   "must_not": [
+    "졸업 제한 규정 지어내기"
+   ],
+   "notes": "도구 없음, 규정 지어내기 함정"
+  },
+  {
+   "category": "셔틀·기숙사·도서관",
+   "question": "열람실 자리 하나 맡아줘 ㅠ",
+   "needs": "public",
+   "expected_tools": [],
+   "must_include": [
+    "대신 예약할 수 없다고 말함",
+    "좌석 시스템 직접 이용 안내"
+   ],
+   "must_not": [
+    "예약했다고 거짓 응답"
+   ],
+   "notes": "불가능한 행동 요청"
+  },
+  {
+   "category": "셔틀·기숙사·도서관",
+   "question": "도서관 근처 프린트 어디서함 데베 과제 뽑아야함",
+   "needs": "both",
+   "expected_tools": [
+    "get_deadlines",
+    "get_course_post",
+    "get_assignment_detail"
+   ],
+   "must_include": [
+    "프린터 위치는 확인할 수 없다고 명시",
+    "데이터베이스 과제 2(도서관 대출 시스템 ERD 설계) 마감 오늘 11/7 23:59, 지각 마감 11/9 23:59, 미제출",
+    "공지상 PDF 한 파일로 KLAS 과제 메뉴에 제출(인쇄가 필요 없을 수 있음)"
+   ],
+   "must_not": [
+    "프린터 위치 지어내기",
+    "마감을 틀리게 말함"
+   ],
+   "notes": "도구 없음 + 오늘 마감 개인 과제 연계"
+  }
+ ],
+ "dropped": [
+  {
+   "question": "복학신청 klas에서 하는거 맞지? 기간 언제야",
+   "reason": "'휴학 신청 언제까지임'과 같은 시험(학사일정에 없는 기간을 정직하게 말하기)이라 중복"
+  },
+  {
+   "question": "휴학 최대 몇학기까지 가능함? 일반휴학 기준",
+   "reason": "학칙 수치 지어내기 함정이 군휴학·등록금 반환 질문과 겹침"
+  },
+  {
+   "question": "2027 1학기 복학하면 졸업까지 학점 얼마나 남음?",
+   "reason": "사실상 졸업요건 카테고리 질문(졸업 시뮬레이션)이라 다른 카테고리와 중복"
+  },
+  {
+   "question": "주말에 함지마루 열어?",
+   "reason": "'오늘 학식 머임'(토요일 함정)과 같은 내용"
+  },
+  {
+   "question": "오늘 수업 몇시고 점심 뭐먹지",
+   "reason": "토요일 학식 조회가 '오늘 학식 머임'과 겹치고, 수업 부분은 다른 카테고리 성격"
+  },
+  {
+   "question": "학식 비건 메뉴 있음?",
+   "reason": "'도구 결과 범위만 말하기'가 가격 질문과 같은 시험이라 중복"
+  },
+  {
+   "question": "도서관 오늘 몇시까지 함? 토욜이라",
+   "reason": "도서관 운영시간 질문이 '기말 기간 도서관 24시간' 질문과 겹침"
+  },
+  {
+   "question": "도서관 스터디룸 예약 어케함",
+   "reason": "도서관 예약 시스템 안내가 열람실 좌석 질문들과 겹침"
+  },
+  {
+   "question": "2027 1학기 기숙사 신청 언제임",
+   "reason": "기숙사 공지 검색 정직성이 겨울방학 잔류 신청 질문과 중복"
+  },
+  {
+   "question": "생활관 공지 학교 공지에 올라옴? 아님 따로 사이트?",
+   "reason": "게시판 범위 한계 안내가 잔류 신청 공지 질문의 must_include에 포함되어 중복"
+  }
+ ]
+}

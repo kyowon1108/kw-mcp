@@ -1,0 +1,75 @@
+{
+ "department": "스마트전기전자학과",
+ "admission_year": 2024,
+ "scope": "required_only",
+ "basis": "(B) 대각선 규칙: 1학년은 2024년 행, 2학년은 2025년 행, 3학년은 2026년 행. 4학년(2027년)은 미래 연도라 없음.",
+ "courses": [
+  {
+   "code": "J040-1-4972",
+   "name": "전기전자개론",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 1,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": "J040-1-0444",
+   "name": "디지털공학",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 1,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": "J040-2-5756",
+   "name": "기초전기전자실험1",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": "J040-2-5757",
+   "name": "기초전기전자실험2",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": "J040-3-6440",
+   "name": "응용전기전자실험1",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 3,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": "J040-3-6440",
+   "name": "응용전기전자실험2",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 3,
+   "term": 2,
+   "note": "학정번호가 응용전기전자실험1과 동일"
+  }
+ ],
+ "sources": [
+  {
+   "title": "스마트전기전자학과 교육과정",
+   "url": "https://www.kw.ac.kr/ko/univ/chambit03_4.jsp",
+   "checked_at": "2026-11-07"
+  },
+  {
+   "title": "필수과목표 must_2026_32",
+   "url": "https://www.kw.ac.kr/ko/life/must_2026_32.xls",
+   "checked_at": "2026-11-07"
+  }
+ ],
+ "checked_at": "2026-11-07"
+}

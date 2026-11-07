@@ -1,0 +1,34 @@
+{
+ "department": "정보콘텐츠학과",
+ "admission_year": 2024,
+ "scope": "required_only",
+ "basis": "(B) 필수과목표, 대각선 규칙: 1학년은 2024행. 2학년(2025행)과 3학년(2026행)은 필수과목 없음(교과과정 미편성으로 전필 폐지). 4학년(2027행)은 미래 연도라 없음. (A)는 없음.",
+ "courses": [
+  {
+   "code": "6120-1-6961",
+   "name": "문화콘텐츠의이해",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 1,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": "6120-2-7735",
+   "name": "프로그램의이해",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 1,
+   "term": 2,
+   "note": "구, 정보보안개론, 정보학개론, 정보보호개론"
+  }
+ ],
+ "sources": [
+  {
+   "title": "필수과목표 must_2026_19",
+   "url": "https://www.kw.ac.kr/ko/life/must_2026_19.xls",
+   "checked_at": "2026-11-07"
+  }
+ ],
+ "checked_at": "2026-11-07"
+}

@@ -131,7 +131,8 @@ def commit_time(root: Path) -> datetime:
 
 
 def stage_bundle(src: Path, dest: Path) -> list[str]:
-    """Copy the files the extension needs (release.BUNDLE_FILES and src/kw_mcp) into dest."""
+    """Copy the files the extension needs (release.BUNDLE_FILES and src/kw_mcp, with its rules and
+    knowledge data folders) into dest."""
     from kw_mcp import release
 
     dest.mkdir(parents=True, exist_ok=True)
@@ -141,9 +142,10 @@ def stage_bundle(src: Path, dest: Path) -> list[str]:
             shutil.copy2(src / name, dest / name)
             copied.append(name)
     (dest / "src" / "kw_mcp").mkdir(parents=True, exist_ok=True)
-    for path in sorted((src / "src" / "kw_mcp").iterdir()):
-        name = f"src/kw_mcp/{path.name}"
+    for path in sorted((src / "src" / "kw_mcp").rglob("*")):
+        name = path.relative_to(src).as_posix()
         if path.is_file() and not release.bundle_extras([name]):
+            (dest / name).parent.mkdir(parents=True, exist_ok=True)
             shutil.copy2(path, dest / name)
             copied.append(name)
     missing = {"manifest.json", "pyproject.toml", "uv.lock", "LICENSE", "src/kw_mcp/server.py"} - set(copied)

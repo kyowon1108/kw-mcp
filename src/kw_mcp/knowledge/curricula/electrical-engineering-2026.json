@@ -1,0 +1,381 @@
+{
+ "department": "전기공학과",
+ "admission_year": 2026,
+ "scope": "full",
+ "basis": "문서 (A) www.kw.ac.kr 교육과정 페이지를 현재 교육과정으로 간주함. 학정번호는 (B)에 동일한 현재 과목명이 있는 경우에만 기입했고, 그 외에는 빈 값으로 둠.",
+ "courses": [
+  {
+   "code": null,
+   "name": "공학설계입문",
+   "credits": 3,
+   "type": "교양필수",
+   "year_level": 1,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "대학수학 및 연습1",
+   "credits": 3,
+   "type": "교양필수",
+   "year_level": 1,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "대학수학 및 연습2",
+   "credits": 3,
+   "type": "교양필수",
+   "year_level": 1,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "영어읽기와쓰기",
+   "credits": 3,
+   "type": "교양필수",
+   "year_level": 1,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": "7300-1-1077",
+   "name": "영어회화",
+   "credits": 3,
+   "type": "교양필수",
+   "year_level": 1,
+   "term": 2,
+   "note": "학정번호는 (B) 2015행 기준"
+  },
+  {
+   "code": null,
+   "name": "전기전자회로실험1",
+   "credits": 1,
+   "type": "전공필수",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "전기전자회로실험2",
+   "credits": 1,
+   "type": "전공필수",
+   "year_level": 2,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": "7320-2-1995",
+   "name": "회로이론1",
+   "credits": 1,
+   "type": "전공필수",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "전자회로1",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "전자회로2",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": "7320-2-1411",
+   "name": "전자기학1",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "전자기학2",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": "7320-52-1996",
+   "name": "회로이론2",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "회로해석및논리회로실험",
+   "credits": 3,
+   "type": "전공필수",
+   "year_level": 3,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": "7320-3-4053",
+   "name": "전력기기실험",
+   "credits": 3,
+   "type": "전공필수",
+   "year_level": 3,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "실시간시스템설계",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "유비쿼터스응용설계",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "전기기계1",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "전기기계2",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "전기설계공학",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "전기설비공학",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "디지털논리회로설계",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "마이크로프로세서응용설계",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "제어공학1",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "제어공학2",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "아날로그시스템설계",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "캡스톤설계1",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "캡스톤설계2",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "전기전자재료1",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "전기전자재료2",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "전기응용공학1",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "전기응용공학2",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "전력시스템공학1",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "전력시스템공학2",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "전력전자공학",
+   "credits": 2,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "전력전자시스템설계",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "신호처리및시스템1",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "신호처리및시스템2",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "디지털제어",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "컴퓨터통신과계측",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 2,
+   "note": null
+  }
+ ],
+ "sources": [
+  {
+   "title": "전기공학과 교육과정",
+   "url": "https://www.kw.ac.kr/ko/univ/electronic06_4.jsp",
+   "checked_at": "2026-11-07"
+  },
+  {
+   "title": "필수과목표 must_2026_04",
+   "url": "https://www.kw.ac.kr/ko/life/must_2026_04.xls",
+   "checked_at": "2026-11-07"
+  }
+ ],
+ "checked_at": "2026-11-07"
+}

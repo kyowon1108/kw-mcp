@@ -1,0 +1,39 @@
+{
+ "department": "전자바이오물리학과",
+ "admission_year": 2025,
+ "scope": "required_only",
+ "basis": "(B) 대각선 규칙: 1학년은 2025행(교선만 있어 필수과목 없음), 2학년은 2026행. 3~4학년(2027~2028행)은 미래 연도라 없음.",
+ "courses": [
+  {
+   "code": "6060-2-4564",
+   "name": "역학",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": 1,
+   "note": "구,역학1,기초역학"
+  },
+  {
+   "code": "6060-2-1411",
+   "name": "전자기학1",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": 2,
+   "note": null
+  }
+ ],
+ "sources": [
+  {
+   "title": "전자바이오물리학과 교육과정",
+   "url": "https://www.kw.ac.kr/ko/univ/science02_4.jsp",
+   "checked_at": "2026-11-07"
+  },
+  {
+   "title": "필수과목표 must_2026_16",
+   "url": "https://www.kw.ac.kr/ko/life/must_2026_16.xls",
+   "checked_at": "2026-11-07"
+  }
+ ],
+ "checked_at": "2026-11-07"
+}

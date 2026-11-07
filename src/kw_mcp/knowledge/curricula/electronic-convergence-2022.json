@@ -1,0 +1,84 @@
+{
+ "department": "전자융합공학과",
+ "admission_year": 2022,
+ "scope": "required_only",
+ "basis": "(B) 대각선 규칙: 1학년=2022행(교양 안내만), 2학년=2023행, 3학년=2024행, 4학년=2025행(필수과목 없음).",
+ "courses": [
+  {
+   "code": "7420-2-0444",
+   "name": "디지털공학",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": "7420-2-1411",
+   "name": "전자기학1",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": "7420-2-1995",
+   "name": "회로이론1",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "기초회로실험2",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": 2,
+   "note": "구,기초전자회로및실험2; (B) 학정번호 불완전 표기(7420-2-)"
+  },
+  {
+   "code": "7420-3-1463",
+   "name": "전자회로1",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 3,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": "7420-3-2004",
+   "name": "신호및시스템",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 3,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "전자회로실험2",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 3,
+   "term": 2,
+   "note": "구,전자회로및실험; (B) 학정번호 불완전 표기(7420-3-)"
+  }
+ ],
+ "sources": [
+  {
+   "title": "전자융합공학과 교육과정",
+   "url": "https://www.kw.ac.kr/ko/univ/electronic03_4.jsp",
+   "checked_at": "2026-11-07"
+  },
+  {
+   "title": "필수과목표 must_2026_03",
+   "url": "https://www.kw.ac.kr/ko/life/must_2026_03.xls",
+   "checked_at": "2026-11-07"
+  }
+ ],
+ "checked_at": "2026-11-07"
+}

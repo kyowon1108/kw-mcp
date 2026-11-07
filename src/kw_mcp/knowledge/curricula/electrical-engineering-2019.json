@@ -1,0 +1,84 @@
+{
+ "department": "전기공학과",
+ "admission_year": 2019,
+ "scope": "required_only",
+ "basis": "(B) 대각선 규칙 적용: 2학년은 2020행, 3학년은 2021행에서 가져옴. 1학년(2019행)은 교양 이수체계 안내문만 있음(2018학번부터 개편된 교양 이수체계 준수, 영어회화 필수 해제). 4학년 블록은 비어 있음.",
+ "courses": [
+  {
+   "code": "7320-2-1995",
+   "name": "회로이론1",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": "7320-2-1411",
+   "name": "전자기학1",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": "7320-2-6900",
+   "name": "전기및디지털회로실험",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": 1,
+   "note": "구,전기전자회로실험1"
+  },
+  {
+   "code": "7320-2-6901",
+   "name": "교류및전자회로실험",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": 2,
+   "note": "구,전기전자회로실험2"
+  },
+  {
+   "code": "7320-52-1996",
+   "name": "회로이론2",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": "7320-3-6902",
+   "name": "전자회로응용및물성실험",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 3,
+   "term": 1,
+   "note": "구,회로해석및논리회로실험"
+  },
+  {
+   "code": "7320-3-4053",
+   "name": "전력기기실험",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 3,
+   "term": 2,
+   "note": null
+  }
+ ],
+ "sources": [
+  {
+   "title": "전기공학과 교육과정",
+   "url": "https://www.kw.ac.kr/ko/univ/electronic06_4.jsp",
+   "checked_at": "2026-11-07"
+  },
+  {
+   "title": "필수과목표 must_2026_04",
+   "url": "https://www.kw.ac.kr/ko/life/must_2026_04.xls",
+   "checked_at": "2026-11-07"
+  }
+ ],
+ "checked_at": "2026-11-07"
+}

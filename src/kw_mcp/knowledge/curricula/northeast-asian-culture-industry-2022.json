@@ -1,0 +1,57 @@
+{
+ "department": "동북아문화산업학부",
+ "admission_year": 2022,
+ "scope": "required_only",
+ "basis": "(B) 대각선 규칙: 1학년은 2022행, 2학년은 2023행, 3학년은 2024행, 4학년은 2025행. (B)는 1학년 칸에만 과목을 기재하므로 2~4학년 과목이 없음.",
+ "courses": [
+  {
+   "code": null,
+   "name": "일본어기초1",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 1,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "중국어기초1",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 1,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "일본어기초2",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 1,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "중국어기초2",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 1,
+   "term": 2,
+   "note": null
+  }
+ ],
+ "sources": [
+  {
+   "title": "동북아문화산업학부 교육과정",
+   "url": "https://www.kw.ac.kr/ko/univ/social07_4.jsp",
+   "checked_at": "2026-11-07"
+  },
+  {
+   "title": "필수과목표 must_2026_24",
+   "url": "https://www.kw.ac.kr/ko/life/must_2026_24.xls",
+   "checked_at": "2026-11-07"
+  }
+ ],
+ "checked_at": "2026-11-07"
+}

@@ -1,0 +1,416 @@
+{
+ "department": "국제학부",
+ "admission_year": 2026,
+ "scope": "full",
+ "basis": "(A) www 교육과정 페이지를 현행 교육과정으로 간주함(2026학번에 적용). (A)는 학년, 학기, 과목명만 제공하고 학점과 이수구분이 없어 학점과 이수구분은 비워 둠. 학정번호는 (B)에 같은 과목명이 있을 때만 채움.",
+ "courses": [
+  {
+   "code": "F040-1-5553",
+   "name": "국제정치의이해",
+   "credits": null,
+   "type": "",
+   "year_level": 1,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": "F040-1-7400",
+   "name": "동북아관계사",
+   "credits": null,
+   "type": "",
+   "year_level": 1,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "동북아국제관계",
+   "credits": null,
+   "type": "",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "동북아도시와지역",
+   "credits": null,
+   "type": "",
+   "year_level": 2,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": "F041-2-7401",
+   "name": "전공진로탐색",
+   "credits": null,
+   "type": "",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "글로벌이슈와쟁점",
+   "credits": null,
+   "type": "",
+   "year_level": 2,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": "D000-2-5554",
+   "name": "국제경제의이해",
+   "credits": null,
+   "type": "",
+   "year_level": 2,
+   "term": 1,
+   "note": "code from (B) 2015/2016 rows"
+  },
+  {
+   "code": null,
+   "name": "일본정치외교론",
+   "credits": null,
+   "type": "",
+   "year_level": 2,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "외교정책론",
+   "credits": null,
+   "type": "",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "일본인과일본문화",
+   "credits": null,
+   "type": "",
+   "year_level": 2,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "현대일본지역과사회",
+   "credits": null,
+   "type": "",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "일본경제개론",
+   "credits": null,
+   "type": "",
+   "year_level": 2,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "중국경제개론",
+   "credits": null,
+   "type": "",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "중국정치외교론",
+   "credits": null,
+   "type": "",
+   "year_level": 2,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "중국학개론",
+   "credits": null,
+   "type": "",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "일본학개론",
+   "credits": null,
+   "type": "",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "동아시아환경과에너지정책",
+   "credits": null,
+   "type": "",
+   "year_level": 3,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "경력개발과취업전략",
+   "credits": null,
+   "type": "",
+   "year_level": 3,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "한일관계론",
+   "credits": null,
+   "type": "",
+   "year_level": 3,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "합중관계론",
+   "credits": null,
+   "type": "",
+   "year_level": 3,
+   "term": 2,
+   "note": "as written; possibly 한중관계론"
+  },
+  {
+   "code": null,
+   "name": "한국정치론",
+   "credits": null,
+   "type": "",
+   "year_level": 3,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "캡스톤디자인세미나:글로벌협력",
+   "credits": null,
+   "type": "",
+   "year_level": 3,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "중국의사회와문화",
+   "credits": null,
+   "type": "",
+   "year_level": 3,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "국제협상",
+   "credits": null,
+   "type": "",
+   "year_level": 3,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "통일북한특강",
+   "credits": null,
+   "type": "",
+   "year_level": 3,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "현대중국사회론",
+   "credits": null,
+   "type": "",
+   "year_level": 3,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "일본산업경제론",
+   "credits": null,
+   "type": "",
+   "year_level": 3,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "일본시민운동론",
+   "credits": null,
+   "type": "",
+   "year_level": 3,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "중국연구세미나",
+   "credits": null,
+   "type": "",
+   "year_level": 3,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "미국정치론",
+   "credits": null,
+   "type": "",
+   "year_level": 3,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "중국기업경영",
+   "credits": null,
+   "type": "",
+   "year_level": 3,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "중미관계론",
+   "credits": null,
+   "type": "",
+   "year_level": 4,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "국제학특강",
+   "credits": null,
+   "type": "",
+   "year_level": 4,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "캡스톤디자인세미나:국제관계",
+   "credits": null,
+   "type": "",
+   "year_level": 4,
+   "term": 1,
+   "note": "(B) lists Capstone Design Seminar:국제관계 F040-4-8578 (2025 row)"
+  },
+  {
+   "code": null,
+   "name": "국제위기관리론",
+   "credits": null,
+   "type": "",
+   "year_level": 4,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "지구화와동아시아사회",
+   "credits": null,
+   "type": "",
+   "year_level": 4,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "신안보문제세미나",
+   "credits": null,
+   "type": "",
+   "year_level": 4,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "일본연구세미나",
+   "credits": null,
+   "type": "",
+   "year_level": 4,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "중국마케팅전략",
+   "credits": null,
+   "type": "",
+   "year_level": 4,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "캡스톤디자인세미나:중국",
+   "credits": null,
+   "type": "",
+   "year_level": 4,
+   "term": 1,
+   "note": "(B) lists Capstone Design Seminar:중국 F040-4-8579"
+  },
+  {
+   "code": null,
+   "name": "캡스톤디자인세미나:일본",
+   "credits": null,
+   "type": "",
+   "year_level": 4,
+   "term": 2,
+   "note": "(B) lists Capstone Design Seminar : 일본 F040-4-8299"
+  }
+ ],
+ "also": [
+  {
+   "scope": "required_only",
+   "basis": "(B) 대각선 규칙: 1학년은 2026행. 2~4학년(2027~2029)은 미래 연도라 없음.",
+   "courses": [
+    {
+     "code": "F040-1-5553",
+     "name": "국제정치의이해",
+     "credits": 3,
+     "type": "전필",
+     "year_level": 1,
+     "term": 1,
+     "note": "구.국제정치론2"
+    },
+    {
+     "code": "F040-1-7400",
+     "name": "동북아관계사",
+     "credits": 3,
+     "type": "전필",
+     "year_level": 1,
+     "term": 2,
+     "note": "구.동아시아역사2"
+    }
+   ]
+  }
+ ],
+ "sources": [
+  {
+   "title": "국제학부 교육과정",
+   "url": "https://www.kw.ac.kr/ko/univ/law05_4.jsp",
+   "checked_at": "2026-11-07"
+  },
+  {
+   "title": "필수과목표 must_2026_34",
+   "url": "https://www.kw.ac.kr/ko/life/must_2026_34.xls",
+   "checked_at": "2026-11-07"
+  }
+ ],
+ "checked_at": "2026-11-07"
+}

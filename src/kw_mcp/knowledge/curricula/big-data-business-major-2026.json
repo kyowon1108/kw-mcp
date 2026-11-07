@@ -1,0 +1,183 @@
+{
+ "department": "빅데이터경영전공",
+ "admission_year": 2026,
+ "scope": "full",
+ "basis": "(A) www 교육과정 페이지의 현재 교육과정 표를 현행(2026학번) 교육과정으로 간주함. 학정번호는 (B) 경영학부 필수과목표에서 동일 과목명(구명칭 제외)이 있는 경우에만 채움.",
+ "courses": [
+  {
+   "code": "5080-2-4906",
+   "name": "MIS개론",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 1,
+   "term": 1,
+   "note": "구,정보시스템과e비즈니스; (B)에서는 2학년 과목으로 표기"
+  },
+  {
+   "code": "5080-1-1970",
+   "name": "회계원리",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 1,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "AI경영수학",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 1,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": "5080-2-1277",
+   "name": "재무관리",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": "5080-2-0508",
+   "name": "마케팅",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "AI프로그래밍1",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "AI프로그래밍2",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 2,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "빅데이터와경영데이터베이스",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "비쥬얼애널리틱스",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 2,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": "5080-2-4900",
+   "name": "생산운영관리",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 3,
+   "term": 1,
+   "note": "(B)에서는 2학년 과목으로 표기"
+  },
+  {
+   "code": "5080-2-1539",
+   "name": "조직행동",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 3,
+   "term": 2,
+   "note": "구,조직론; (B)에서는 2학년 과목으로 표기"
+  },
+  {
+   "code": null,
+   "name": "데이터사이언스론1",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 3,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "데이터사이언스론2",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 3,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "빅데이터분석과R",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 3,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "빅데이터기반기술",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 3,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "딥러닝",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 4,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "디지털전환과 비즈니스모델",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 4,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "스마트비즈니스",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 4,
+   "term": 2,
+   "note": null
+  }
+ ],
+ "sources": [
+  {
+   "title": "빅데이터경영전공 교육과정",
+   "url": "https://www.kw.ac.kr/ko/univ/business03_4.jsp",
+   "checked_at": "2026-11-07"
+  },
+  {
+   "title": "필수과목표 must_2026_29",
+   "url": "https://www.kw.ac.kr/ko/life/must_2026_29.xls",
+   "checked_at": "2026-11-07"
+  }
+ ],
+ "checked_at": "2026-11-07"
+}

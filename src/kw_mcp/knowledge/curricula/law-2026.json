@@ -1,0 +1,569 @@
+{
+ "department": "법학부",
+ "admission_year": 2026,
+ "scope": "full",
+ "basis": "www.kw.ac.kr의 (A) 법학부 일반법학전공 교육과정 페이지를 현행 교육과정으로 간주함. 학정번호는 (B)에 같은 과목명이 있으면 가져오고, 없으면 비워 둠. 이수구분은 (A)에 기재된 대로 옮김.",
+ "courses": [
+  {
+   "code": null,
+   "name": "헌법1",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 1,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "헌법2",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 1,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "민법총칙1",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 1,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "민법총칙2",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 1,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": "F030-1-4219",
+   "name": "형법총론1",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 1,
+   "term": 2,
+   "note": "(B) 2026 row lists as 전필"
+  },
+  {
+   "code": "4050-2-1590",
+   "name": "채권총론",
+   "credits": 3,
+   "type": "전공필수",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": "4050-2-1837",
+   "name": "행정구제법",
+   "credits": 3,
+   "type": "전공필수",
+   "year_level": 2,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": "4050-2-0378",
+   "name": "개별적근로관계법",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 1,
+   "note": "구,노동법1,노동법"
+  },
+  {
+   "code": "4050-2-4220",
+   "name": "형법총론2",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": "4050-2-3824",
+   "name": "회사법",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": "4050-2-0315",
+   "name": "국제법1",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": "4050-2-3182",
+   "name": "특허법",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "행정법총론",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "형법각론",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "상법총론",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": "F030-2-1587",
+   "name": "채권각론",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 2,
+   "note": "(B) 2026 row lists as 전필"
+  },
+  {
+   "code": null,
+   "name": "과학기술법제론",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "국제법2",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "지적재산법",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "법정보학",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": "F030-2-7697",
+   "name": "기본권론",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 1,
+   "note": "구,헌법판례세미나; (B) 2026 row lists as 전필"
+  },
+  {
+   "code": null,
+   "name": "미디어와법",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "집단적노사관계법",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 2,
+   "note": "구,노동법2"
+  },
+  {
+   "code": "F030-3-0622",
+   "name": "민사소송법",
+   "credits": 3,
+   "type": "전공필수",
+   "year_level": 3,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": "4050-3-5564",
+   "name": "정보통신법개론",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": "4050-3-5539",
+   "name": "영문계약실무크리닉",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "물권법",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "헌법재판론",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 2,
+   "note": "구,헌법소송법 (old name had code 4050-3-3867 in (B))"
+  },
+  {
+   "code": null,
+   "name": "어음수표법",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "가족법",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "형사소송법",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "보험법",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 2,
+   "note": "구,해상보험법"
+  },
+  {
+   "code": "4050-3-2655",
+   "name": "국제계약법",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "행정법각론",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "상표법",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "세법",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "민사집행법",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "디자인보호법",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "부동산공법",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 1,
+   "note": "구,토지공법"
+  },
+  {
+   "code": null,
+   "name": "인공지능과법",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 2,
+   "note": "구,인터넷법이론과 실무"
+  },
+  {
+   "code": null,
+   "name": "금융법",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "민사소송실무",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "사회보장법",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "형사정책",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "저작권법",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "노동법판례연구",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "경제법",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "국제조직법",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 2,
+   "note": "구,상사판례세미나"
+  },
+  {
+   "code": null,
+   "name": "형사소송실무",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "데이터법이론과실무",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 2,
+   "note": "구,정보보호법이론과 실무"
+  },
+  {
+   "code": null,
+   "name": "국제경제법",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "담보물권법",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "형사법판례세미나",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "동물법",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "디지털법률행위론",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 1,
+   "note": "구,전자거래법"
+  },
+  {
+   "code": null,
+   "name": "국제거래법",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "특허심판과 소송실무",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "노동관계법실무",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "행정법판례세미나",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 1,
+   "note": "구,행정법연습"
+  }
+ ],
+ "also": [
+  {
+   "scope": "required_only",
+   "basis": "(B) 대각선 규칙: 1학년은 2026행. 2~4학년(2027~2029)은 미래 연도임.",
+   "courses": [
+    {
+     "code": "F030-1-4219",
+     "name": "형법총론1",
+     "credits": 3,
+     "type": "전필",
+     "year_level": 1,
+     "term": 2,
+     "note": null
+    }
+   ]
+  }
+ ],
+ "sources": [
+  {
+   "title": "법학부 교육과정",
+   "url": "https://www.kw.ac.kr/ko/univ/law02_4.jsp",
+   "checked_at": "2026-11-07"
+  },
+  {
+   "title": "필수과목표 must_2026_26",
+   "url": "https://www.kw.ac.kr/ko/life/must_2026_26.xls",
+   "checked_at": "2026-11-07"
+  }
+ ],
+ "checked_at": "2026-11-07"
+}

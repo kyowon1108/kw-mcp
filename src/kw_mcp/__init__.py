@@ -41,11 +41,17 @@ def main() -> None:
     agent = sub.add_parser("agent", help="중계 요청에 응답하는 백그라운드 에이전트 (자동 실행이 씀)")
     agent.add_argument("--log-file")
     agent.add_argument("--replace", action="store_true", help=argparse.SUPPRESS)
+    # Set by the autostart the extension installs: that agent never installs releases itself.
+    agent.add_argument("--from-extension", action="store_true", help=argparse.SUPPRESS)
     args = parser.parse_args()
 
     if args.version:
         sys.exit(_version(args.expect))
     if args.command == "agent":
+        if args.from_extension:
+            from .agent import EXTENSION
+
+            os.environ["KW_MCP_DISTRIBUTION"] = EXTENSION  # agent.from_extension(), also for what it starts
         _agent(args.log_file, args.replace)
     elif args.command in (None, "serve"):
         from .server import run
@@ -96,7 +102,8 @@ def _command(args: argparse.Namespace) -> int:
 
 
 def friendly_error(e: BaseException) -> str:
-    """One line for an error a command can hit (network, keychain, clock, ...)."""
+    """One line for an error linking can hit (network, keychain, clock, ...), in the command line and in
+    the extension's connect_other_devices alike: what didn't work, why, and what to do."""
     import subprocess
 
     import httpx
@@ -106,18 +113,19 @@ def friendly_error(e: BaseException) -> str:
 
     name = e.__class__.__name__
     if isinstance(e, KeyringError):
-        return (f"OS 키체인(macOS 키체인·Windows 자격 증명 관리자)에 접근하지 못했습니다({name}). "
-                "접근 허용 창이 뜨면 '허용'을 누르고 다시 실행하세요.")
+        return "키체인을 열지 못했어요. 허용 창이 뜨면 '허용'을 눌러 주세요."
+    if isinstance(e, httpx.HTTPStatusError) and e.response.status_code == 429:  # throttled, not refused
+        return "요청이 많아요. 잠시 뒤에 다시 해 주세요."
     if isinstance(e, httpx.HTTPStatusError):
-        return f"중계 서버가 오류로 답했습니다(HTTP {e.response.status_code}). 잠시 뒤 다시 실행하세요."
+        return f"연결 서버에 문제가 있어요(HTTP {e.response.status_code}). 잠시 뒤 다시 해 주세요."
     if isinstance(e, httpx.HTTPError):
-        return f"중계 서버나 KLAS에 연결하지 못했습니다({name}). 인터넷 연결을 확인하고(VPN은 끄기) 다시 실행하세요."
+        return "서버에 연결하지 못했어요. 인터넷을 확인하고 VPN은 꺼 주세요."
     if isinstance(e, subprocess.CalledProcessError):
-        return f"자동 실행을 등록하지 못했습니다({' '.join(map(str, e.cmd[:2]))}: {e.returncode}). 잠시 뒤 다시 실행하세요."
+        return "자동 실행 등록이 안 됐어요. 잠시 뒤 다시 해 주세요."
     if isinstance(e, (agent.ClockSkew, agent.NotLinked, agent.UnlinkFailed, agent.DeviceRefused, credentials.MissingCredentials,
                       ValueError, LookupError, NotImplementedError, OSError)):
         return str(e) or name
-    return f"예상하지 못한 오류가 났습니다({name}: {e}). KW_MCP_DEBUG=1을 붙여 다시 실행하면 자세한 내용이 나옵니다."
+    return f"예상하지 못한 오류가 났어요({name}: {e}). KW_MCP_DEBUG=1을 붙여 다시 실행하면 자세한 내용이 나와요."
 
 
 def _version(expect: str | None) -> int:
@@ -135,10 +143,10 @@ def _version(expect: str | None) -> int:
 def _link(invite: str, autostart: bool, server: str | None = None, relink: bool = False) -> int:
     import subprocess
 
-    from . import agent, credentials
+    from . import agent, credentials, webconnect
 
     try:
-        invite_server, _ = agent.parse_invite(invite)
+        invite_server, _ = agent.official_invite(invite)  # only the KW CAMPUS bridge
         if server and invite_server != server.rstrip("/"):
             raise ValueError(f"초대 코드의 서버({invite_server})가 설치한 곳({server})과 다릅니다. 받은 링크를 다시 확인하세요.")
     except ValueError as e:
@@ -154,13 +162,11 @@ def _link(invite: str, autostart: bool, server: str | None = None, relink: bool 
         _setup()
     if asyncio.run(_login_ok()) != 0:
         return 1
-    if not relink and agent.linked_to(invite_server):
-        # Re-running the installer is how people update: keep the device (and the Claude/ChatGPT
-        # connections bound to it), just restart the agent on the new version.
+    # Re-running the installer is how people updated: an already linked PC keeps its device (and the
+    # Claude/ChatGPT connections bound to it), and only the agent restarts on the new version.
+    mcp_url = webconnect.ensure_device(invite, relink=relink, expected_server=server)
+    if mcp_url is None:
         print("이미 연결된 PC입니다. 에이전트만 새 버전으로 다시 시작합니다.")
-        mcp_url = None
-    else:
-        _, mcp_url = agent.register(invite, server)
     if autostart:
         try:
             print(f"자동 실행 등록: {agent.install_autostart()}")
@@ -338,13 +344,12 @@ def _agent(log_file: str | None, replace: bool) -> None:
 async def _login_ok(retry: bool = True) -> int:
     import httpx
 
-    from . import credentials
-    from .klas import KlasBadPassword, KlasClient, KlasError
+    from . import credentials, webconnect
+    from .klas import KlasBadPassword, KlasError
 
     creds = credentials.load()
     try:
-        async with KlasClient(creds.login_id, creds.password, login_hint=credentials.login_hint(creds)) as client:
-            await client.login()
+        await webconnect.check_login(creds)
     except KlasBadPassword as e:
         print(f"KLAS 로그인 실패: {e}")
         # The saved pair would fail again on every installer run: offer to fix it now, once.

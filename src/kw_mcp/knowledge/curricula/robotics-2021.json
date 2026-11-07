@@ -1,0 +1,66 @@
+{
+ "department": "로봇학부",
+ "admission_year": 2021,
+ "scope": "required_only",
+ "basis": "(B) 대각선 규칙: 1학년=2021행(교양 문구만), 2학년=2022행, 3학년=2023행, 4학년=2024행(필수 없음).",
+ "courses": [
+  {
+   "code": "7410-2-6154",
+   "name": "로봇학실험1",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": "7410-2-6246",
+   "name": "로봇학실험2",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": "7410-3-5481",
+   "name": "로봇운동학",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 3,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": "7410-3-6538",
+   "name": "로봇학실험3",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 3,
+   "term": 1,
+   "note": "구,센서공학실험"
+  },
+  {
+   "code": "7410-3-6539",
+   "name": "로봇학실험4",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 3,
+   "term": 2,
+   "note": "구,자동제어실험"
+  }
+ ],
+ "sources": [
+  {
+   "title": "로봇학부 교육과정",
+   "url": "https://www.kw.ac.kr/ko/univ/ai04_4.jsp",
+   "checked_at": "2026-11-07"
+  },
+  {
+   "title": "필수과목표 must_2026_10",
+   "url": "https://www.kw.ac.kr/ko/life/must_2026_10.xls",
+   "checked_at": "2026-11-07"
+  }
+ ],
+ "checked_at": "2026-11-07"
+}

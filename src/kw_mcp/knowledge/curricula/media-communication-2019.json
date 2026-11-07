@@ -1,0 +1,39 @@
+{
+ "department": "미디어커뮤니케이션학부",
+ "admission_year": 2019,
+ "scope": "required_only",
+ "basis": "(B)에서 대각선 규칙으로 가져옴. 1학년은 2019행, 2학년은 2020행, 3학년은 2021행, 4학년은 2022행. 2021·2022행에는 3·4학년 필수과목이 없음.",
+ "courses": [
+  {
+   "code": "3170-1-9603",
+   "name": "미디어커뮤니케이션의이해",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 1,
+   "term": 1,
+   "note": "구,커뮤니케이션이론"
+  },
+  {
+   "code": "3170-2-9687",
+   "name": "커뮤니케이션탐구방법",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": 2,
+   "note": "구,커뮤니케이션연구방법론"
+  }
+ ],
+ "sources": [
+  {
+   "title": "미디어커뮤니케이션학부 교육과정",
+   "url": "https://www.kw.ac.kr/ko/univ/social03_4.jsp",
+   "checked_at": "2026-11-07"
+  },
+  {
+   "title": "필수과목표 must_2026_22",
+   "url": "https://www.kw.ac.kr/ko/life/must_2026_22.xls",
+   "checked_at": "2026-11-07"
+  }
+ ],
+ "checked_at": "2026-11-07"
+}

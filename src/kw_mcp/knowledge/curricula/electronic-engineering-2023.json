@@ -1,0 +1,57 @@
+{
+ "department": "전자공학과",
+ "admission_year": 2023,
+ "scope": "required_only",
+ "basis": "(B) 대각선 규칙: 1학년 2023행(2020학번 교양 이수체계 준수), 2학년 2024행, 3학년 2025행, 4학년 2026행(필수과목 없음).",
+ "courses": [
+  {
+   "code": "7060-2-4512",
+   "name": "기초전자회로및실험1",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": "7060-2-4513",
+   "name": "기초전자회로및실험2",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "전자회로실험",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 3,
+   "term": 1,
+   "note": "구, 전자회로및실험1"
+  },
+  {
+   "code": null,
+   "name": "전자공학응용실험",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 3,
+   "term": 2,
+   "note": "구, 전자회로및실험2"
+  }
+ ],
+ "sources": [
+  {
+   "title": "전자공학과 교육과정",
+   "url": "https://www.kw.ac.kr/ko/univ/electronic01_4.jsp",
+   "checked_at": "2026-11-07"
+  },
+  {
+   "title": "필수과목표 must_2026_01",
+   "url": "https://www.kw.ac.kr/ko/life/must_2026_01.xls",
+   "checked_at": "2026-11-07"
+  }
+ ],
+ "checked_at": "2026-11-07"
+}

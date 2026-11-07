@@ -1,0 +1,300 @@
+{
+ "department": "영어산업학과",
+ "admission_year": 2026,
+ "scope": "full",
+ "basis": "(A) www 교육과정 페이지를 현행 교육과정으로 간주함. 학정번호는 (B)에 같은 과목명이 있을 때만 채우고, 없으면 비워 둠. (A)에서 여러 행에 반복된 과목은 한 번만 기재함.",
+ "courses": [
+  {
+   "code": null,
+   "name": "영어산업입문",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 1,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "영미문학과 사회읽기",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 1,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": "3050-2-1031",
+   "name": "영문법1",
+   "credits": 3,
+   "type": "전공필수",
+   "year_level": 2,
+   "term": 1,
+   "note": "Code from (B) row 2019 (영문법1). From 2020 (B) lists it as 영문법 with code 3220-2-1030."
+  },
+  {
+   "code": "3050-2-2795",
+   "name": "영문학개론",
+   "credits": 3,
+   "type": "전공필수",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": "3220-2-5236",
+   "name": "영어학입문",
+   "credits": 3,
+   "type": "전공필수",
+   "year_level": 2,
+   "term": 1,
+   "note": "구,영어학개론. (B) 2025-2026 places it in 2학기."
+  },
+  {
+   "code": null,
+   "name": "영어발표와 토론",
+   "credits": 3,
+   "type": "전공필수",
+   "year_level": 2,
+   "term": 2,
+   "note": "(B) 영어발표와토론 (구,영어스피치및프리젠테이션) has no code."
+  },
+  {
+   "code": null,
+   "name": "미국문학과 대중문화",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "음성학과 발음지도",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "영문법2",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "어휘형태론과 어휘지도",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "영화와 영미문화",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "언어습득과 영어교육",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "마케팅 내러티브",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "번역실습",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "언어정보와 의미",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "영어교육프로그램 개발",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "디지털 에디팅",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "문장구조분석",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "에세이영작문과 작문지도",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "영한대조분석",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "영미드라마와 실용영어",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "영어교재론",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "코퍼스 영어학",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "영문학과 스토리텔링",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "셰익스피어 산업",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "영어교육과 사회봉사",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "영어산업 캡스톤 프로젝트",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "영어의 역사",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "영어산업과 경영",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "영어평가와 통계",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 2,
+   "note": "(B) lists it as the old name of the required course 영어와통계/영어학통계입문 (3220-2-3741)."
+  },
+  {
+   "code": null,
+   "name": "미디어 영어번역",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 2,
+   "note": null
+  }
+ ],
+ "sources": [
+  {
+   "title": "영어산업학과 교육과정",
+   "url": "https://www.kw.ac.kr/ko/univ/social02_4.jsp",
+   "checked_at": "2026-11-07"
+  },
+  {
+   "title": "필수과목표 must_2026_21",
+   "url": "https://www.kw.ac.kr/ko/life/must_2026_21.xls",
+   "checked_at": "2026-11-07"
+  }
+ ],
+ "checked_at": "2026-11-07"
+}

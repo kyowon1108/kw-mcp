@@ -6,3 +6,7 @@ __pycache__/
 .env
 dist/
 .playwright-mcp/
+
+# eval run transcripts and raw answers stay local (summaries and results.jsonl are kept)
+evals/results/*/traces/
+evals/results/*/answers/

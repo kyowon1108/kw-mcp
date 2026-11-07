@@ -26,6 +26,7 @@ from __future__ import annotations
 import base64
 import hashlib
 import json
+import os
 import re
 import sys
 import tomllib
@@ -41,6 +42,15 @@ from cryptography.hazmat.primitives.asymmetric.ed25519 import (
 )
 
 PUBLIC_KEY = "QwRJgXfphlR4iZ1gKTfeAZlC5occZx7bgxaVHeAztw0="  # base64 raw Ed25519 public key (`keygen` prints it)
+# The KW CAMPUS bridge (kw-campus), the one place it is written down. Invites, the PC agent's link,
+# public school data and update checks use only this origin, so a look-alike invite can't point a PC
+# at someone else's server. Moving the bridge takes a release (manifest.json's privacy URL too).
+BRIDGE_ORIGIN = "https://l9doaodgw6.execute-api.ap-northeast-2.amazonaws.com"
+BRIDGE_WS_URL = "wss://dyhc58k3rj.execute-api.ap-northeast-2.amazonaws.com/prod"  # where the PC agent connects
+DEV_BRIDGE_ENV = "KW_CAMPUS_DEV_BRIDGE"  # development only: a bridge on this PC instead
+DEV_BRIDGE_WS_ENV = "KW_CAMPUS_DEV_BRIDGE_WS"  # and its WebSocket URL
+_LOCAL_ORIGIN = re.compile(r"http://(?:localhost|127\.0\.0\.1)(?::\d{1,5})?")
+_LOCAL_WS = re.compile(r"ws://(?:localhost|127\.0\.0\.1)(?::\d{1,5})?(?:/[\w.-]+)*")
 KEYRING_SERVICE = "kw-campus-release"
 KEYRING_USER = "signing-key"
 MANIFEST_NAME = "latest.json"
@@ -54,7 +64,26 @@ _RELEASE_VERSION = re.compile(r"\d+(\.\d+){1,3}")  # plain numbers only: no rc/d
 # makes signing refuse the bundle.
 BUNDLE_FILES = frozenset({"manifest.json", "icon.png", "pyproject.toml", "uv.lock", ".python-version", "README.md",
                           "LICENSE"})
-_BUNDLE_SOURCE = re.compile(r"^src/kw_mcp/(\w+\.py|py\.typed)$")
+# The package's code, and its data: the graduation/다전공 rules (rules/*.json) and the knowledge base
+# (knowledge/**/*.json). Folder names without dots, so no entry can climb out of src/kw_mcp.
+_BUNDLE_SOURCE = re.compile(r"^src/kw_mcp/(\w+\.py|py\.typed|rules/[\w-]+\.json|knowledge/(?:[\w-]+/)*[\w-]+\.json)$")
+# Files the wheel and the extension must carry byte for byte alike (the package's code and data).
+_PACKAGE_FILES = (".py", ".json")
+
+
+def bridge_origin() -> str:
+    """The only bridge this copy talks to: BRIDGE_ORIGIN, or for development a bridge on this PC named
+    by KW_CAMPUS_DEV_BRIDGE (http://localhost or http://127.0.0.1, optionally with a port). Any other
+    value of that variable is ignored."""
+    dev = (os.environ.get(DEV_BRIDGE_ENV) or "").strip().rstrip("/")
+    return dev if _LOCAL_ORIGIN.fullmatch(dev) else BRIDGE_ORIGIN
+
+
+def bridge_ws_url() -> str:
+    """The only WebSocket URL the PC agent connects to: BRIDGE_WS_URL, or for development a ws:// URL on
+    this PC named by KW_CAMPUS_DEV_BRIDGE_WS. Any other value of that variable is ignored."""
+    dev = (os.environ.get(DEV_BRIDGE_WS_ENV) or "").strip().rstrip("/")
+    return dev if _LOCAL_WS.fullmatch(dev) else BRIDGE_WS_URL
 
 
 def message(version: str, wheel: str, sha256: str) -> bytes:
@@ -195,7 +224,7 @@ def bundle_extras(names: list[str]) -> list[str]:
 def sign_mcpb(mcpb_path: Path, private_key: Ed25519PrivateKey, wheel_path: Path | None = None,
               project_dir: Path | None = None) -> dict[str, str]:
     """Sign a packed extension. Refuse a bundle with files outside the allow-list. With wheel_path
-    (and project_dir), refuse unless it carries exactly the wheel's code (and the project's lockfile
+    (and project_dir), refuse unless it carries exactly the wheel's code and data (and the project's lockfile
     and manifest), so a stale or experimental bundle can't go out as a verified update."""
     with zipfile.ZipFile(mcpb_path) as bundle:
         if extras := bundle_extras(bundle.namelist()):
@@ -203,7 +232,7 @@ def sign_mcpb(mcpb_path: Path, private_key: Ed25519PrivateKey, wheel_path: Path 
         version = tomllib.loads(bundle.read("pyproject.toml").decode())["project"]["version"]
         shown = json.loads(bundle.read("manifest.json"))["version"]
         sources = {n.removeprefix("src/"): bundle.read(n) for n in bundle.namelist()
-                   if n.startswith("src/kw_mcp/") and n.endswith(".py")}
+                   if n.startswith("src/kw_mcp/") and n.endswith(_PACKAGE_FILES)}
         packed_project = {n: bundle.read(n) for n in PACKED_PROJECT_FILES} if project_dir is not None else {}
     if any((project_dir / n).read_bytes() != b for n, b in packed_project.items()):
         raise ValueError(f"{mcpb_path.name} has an older pyproject.toml, uv.lock or manifest.json; repack it")
@@ -213,7 +242,7 @@ def sign_mcpb(mcpb_path: Path, private_key: Ed25519PrivateKey, wheel_path: Path 
         raise ValueError(f"release versions are plain numbers: {version}")
     if wheel_path is not None:
         with zipfile.ZipFile(wheel_path) as wheel:
-            packed = {n: wheel.read(n) for n in wheel.namelist() if n.startswith("kw_mcp/") and n.endswith(".py")}
+            packed = {n: wheel.read(n) for n in wheel.namelist() if n.startswith("kw_mcp/") and n.endswith(_PACKAGE_FILES)}
         if _WHEEL.match(wheel_path.name)["version"] != version or packed != sources:
             raise ValueError(f"{mcpb_path.name} was not packed from the same code as {wheel_path.name}; repack it")
     sha256 = _sha256(mcpb_path)

@@ -1,0 +1,147 @@
+{
+ "department": "국제통상학부",
+ "admission_year": 2022,
+ "scope": "required_only",
+ "basis": "(B) 1학년=2022행, 2학년=2023행, 3학년=2024행, 4학년=2025행. 2024·2025행에는 3·4학년 필수과목 없음.",
+ "courses": [
+  {
+   "code": "5100-1-3363",
+   "name": "글로벌경제의이해",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 1,
+   "term": 1,
+   "note": "구,세계경제의이해/국제경제의이해"
+  },
+  {
+   "code": null,
+   "name": "일본어기초1",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 1,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "중국어기초1",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 1,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "일본어기초2",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 1,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "중국어기초2",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 1,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "거시경제학",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "미시경제학",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "중국어청취연습(한중통상전공)",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": 1,
+   "note": "한중통상전공"
+  },
+  {
+   "code": null,
+   "name": "중급일본어연습(한일통상전공)",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": 1,
+   "note": "한일통상전공"
+  },
+  {
+   "code": null,
+   "name": "무역상무",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "비즈니스영어",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "중국어비즈니스작문(한중통상전공)",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": 2,
+   "note": "한중통상전공"
+  },
+  {
+   "code": null,
+   "name": "시사일본어연습(한일통상전공)",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": 2,
+   "note": "구,고급일본어연습; 한일통상전공"
+  },
+  {
+   "code": null,
+   "name": "국제회의영어",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": 2,
+   "note": null
+  }
+ ],
+ "sources": [
+  {
+   "title": "국제통상학부 교육과정",
+   "url": "https://www.kw.ac.kr/ko/univ/business02_4.jsp",
+   "checked_at": "2026-11-07"
+  },
+  {
+   "title": "필수과목표 must_2026_30",
+   "url": "https://www.kw.ac.kr/ko/life/must_2026_30.xls",
+   "checked_at": "2026-11-07"
+  }
+ ],
+ "checked_at": "2026-11-07"
+}

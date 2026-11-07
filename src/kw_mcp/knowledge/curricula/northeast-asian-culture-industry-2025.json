@@ -1,0 +1,57 @@
+{
+ "department": "동북아문화산업학부",
+ "admission_year": 2025,
+ "scope": "required_only",
+ "basis": "(B) 대각선 규칙: 1학년은 2025행, 2학년은 2026행. 3~4학년은 해당 연도(2027~2028)가 미래라 없음. (B) 2026행에는 2학년 과목이 없음.",
+ "courses": [
+  {
+   "code": "3210-1-9214",
+   "name": "일본어기초1",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 1,
+   "term": 1,
+   "note": "외국인학생 면제"
+  },
+  {
+   "code": "3210-1-9215",
+   "name": "중국어기초1",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 1,
+   "term": 1,
+   "note": "외국인학생 면제"
+  },
+  {
+   "code": "3210-1-9216",
+   "name": "일본어기초2",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 1,
+   "term": 2,
+   "note": "외국인학생 면제"
+  },
+  {
+   "code": "3210-1-9217",
+   "name": "중국어기초2",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 1,
+   "term": 2,
+   "note": "외국인학생 면제"
+  }
+ ],
+ "sources": [
+  {
+   "title": "동북아문화산업학부 교육과정",
+   "url": "https://www.kw.ac.kr/ko/univ/social07_4.jsp",
+   "checked_at": "2026-11-07"
+  },
+  {
+   "title": "필수과목표 must_2026_24",
+   "url": "https://www.kw.ac.kr/ko/life/must_2026_24.xls",
+   "checked_at": "2026-11-07"
+  }
+ ],
+ "checked_at": "2026-11-07"
+}

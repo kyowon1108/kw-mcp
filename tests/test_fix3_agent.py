@@ -468,9 +468,9 @@ def test_a_hostile_grant_id_or_host_never_becomes_a_command(monkeypatch):
                    "app": "Claude", "client_name": "Claude"})
     agent._paired({"grant_id": GRANT, "redirect_host": "Evil.Example", "app": "Claude"})
     agent._paired({"grant_id": GRANT, "redirect_host": "chatgpt.com"})
-    assert shown[0].startswith("새 연결: 알 수 없는 앱.") and "kw-mcp revoke <ID>" in shown[0]
-    assert "curl" not in shown[0] and "touch" not in shown[0] and "kw-mcp connections" in shown[0]
-    assert shown[1].startswith("새 연결: evil.example.") and f"kw-mcp revoke {GRANT}`" in shown[1]  # never "Claude"
+    assert shown[0].startswith("새 연결: 알 수 없는 앱.") and "연결된 앱 끊어 줘" in shown[0]
+    assert "curl" not in shown[0] and "touch" not in shown[0] and "연결 ID" not in shown[0] and "kw-mcp" not in shown[0]
+    assert shown[1].startswith("새 연결: evil.example.") and GRANT not in shown[1]  # never "Claude"
     assert shown[2].startswith("새 연결: ChatGPT (chatgpt.com).")
 
 

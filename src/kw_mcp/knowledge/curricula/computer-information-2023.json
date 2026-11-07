@@ -1,0 +1,84 @@
+{
+ "department": "컴퓨터정보공학부",
+ "admission_year": 2023,
+ "scope": "required_only",
+ "basis": "(B)에서 대각선 규칙으로 가져옴: 2학년은 2024행, 3학년은 2025행. 1학년 칸에는 과목이 없음. 4학년은 2026행에서 가져와야 하나 해당 4학년 칸이 비어 있음.",
+ "courses": [
+  {
+   "code": "I020-2-0453",
+   "name": "디지털논리회로1",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": "I020-2-8481",
+   "name": "객체지향프로그래밍설계",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": 1,
+   "note": "구,고급프로그래밍설계"
+  },
+  {
+   "code": "I020-2-0454",
+   "name": "디지털논리회로2",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": "I020-2-3703",
+   "name": "데이터구조설계",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": "I020-3-1647",
+   "name": "컴퓨터구조",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 3,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": "I020-3-0922",
+   "name": "시스템프로그래밍",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 3,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": "I020-3-1110",
+   "name": "운영체제",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 3,
+   "term": 2,
+   "note": null
+  }
+ ],
+ "sources": [
+  {
+   "title": "컴퓨터정보공학부 교육과정",
+   "url": "https://www.kw.ac.kr/ko/univ/ai01_4.jsp",
+   "checked_at": "2026-11-07"
+  },
+  {
+   "title": "필수과목표 must_2026_07",
+   "url": "https://www.kw.ac.kr/ko/life/must_2026_07.xls",
+   "checked_at": "2026-11-07"
+  }
+ ],
+ "checked_at": "2026-11-07"
+}

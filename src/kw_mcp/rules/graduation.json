@@ -1,0 +1,3926 @@
+{
+ "version": {
+  "built_at": "2026-11-07",
+  "basis": "2026학년도 기준: 광운대학교 학칙(2026.10.28. 개정·시행), 학칙 시행세칙(2026.02.11.), 다전공 이수에 관한 내규(2026.05.12.), 다전공 운영에 관한 내규(2025.04.23.)와 학사안내 페이지(2026-11-07 확인)",
+  "sources": [
+   {
+    "id": "reg-damajor-isu",
+    "title": "4-3-8 다전공 이수에 관한 내규",
+    "url": "https://rule.kw.ac.kr/lmxsrv/law/lawFullContent.do?SEQ=95&SEQ_HISTORY=672",
+    "regulation": "다전공 이수에 관한 내규 (2026.05.12. 개정, SEQ_HISTORY=672)",
+    "article": "제2조~제15조, [별표1](미열람)",
+    "effective_date": "2026-05-12",
+    "checked_at": "2026-11-07",
+    "publisher": "교육지원팀"
+   },
+   {
+    "id": "reg-early-grad",
+    "title": "4-3-2 조기졸업에 관한 규정",
+    "url": "https://rule.kw.ac.kr/lmxsrv/law/lawFullContent.do?SEQ=216&SEQ_HISTORY=422",
+    "regulation": "조기졸업에 관한 규정 (2016.11.23. 개정, SEQ_HISTORY=422)",
+    "article": "제2조~제5조",
+    "effective_date": "2016-11-23",
+    "checked_at": "2026-11-07",
+    "publisher": "교육지원팀"
+   },
+   {
+    "id": "reg-gyoyang",
+    "title": "4-3-1 교양교육 운영 규정",
+    "url": "https://rule.kw.ac.kr/lmxsrv/law/lawFullContent.do?SEQ=77&SEQ_HISTORY=509",
+    "regulation": "교양교육 운영 규정 (2025.02.01. 개정, SEQ_HISTORY=509)",
+    "article": "제1조~제23조 (조직·위원회 규정. 교양 이수학점은 정하지 않음)",
+    "effective_date": "2025-02-01",
+    "checked_at": "2026-11-07",
+    "publisher": "인제니움대학"
+   },
+   {
+    "id": "reg-hakchik",
+    "title": "2-0-1 광운대학교 학칙",
+    "url": "https://rule.kw.ac.kr/lmxsrv/law/lawFullContent.do?SEQ=21&SEQ_HISTORY=675",
+    "regulation": "광운대학교 학칙 (2026.10.28. 개정, SEQ_HISTORY=675)",
+    "article": "제5조, 제39조의2, 제46조, 제46조의3·4, 제48조의2, 제49조~제52조, 제61조, 제63조~제65조, 부칙<2025.12.17.> 제2조, [별표 6]",
+    "effective_date": "2026-10-28",
+    "checked_at": "2026-11-07",
+    "publisher": "교육지원팀"
+   },
+   {
+    "id": "reg-sihaeng",
+    "title": "2-0-2 광운대학교 학칙 시행세칙",
+    "url": "https://rule.kw.ac.kr/lmxsrv/law/lawFullContent.do?SEQ=22&SEQ_HISTORY=614",
+    "regulation": "광운대학교 학칙 시행세칙 (2026.02.11. 개정, SEQ_HISTORY=614)",
+    "article": "제16조, 제20조, 제30조, 제30조의2, 제32조, 제33조, 제33조의2, 제34조, 부칙<2014.4.18.>",
+    "effective_date": "2026-02-11",
+    "checked_at": "2026-11-07",
+    "publisher": "교육지원팀"
+   },
+   {
+    "id": "web-info07",
+    "title": "학사안내 > 수료/졸업요건 안내",
+    "url": "https://www.kw.ac.kr/ko/life/bachelor_info07.jsp",
+    "regulation": null,
+    "article": null,
+    "effective_date": null,
+    "checked_at": "2026-11-07",
+    "publisher": "교육지원팀",
+    "note": "수료 기준, 조기졸업·졸업연기, 편입생 졸업요건, 졸업논문, 필수과목 안내"
+   },
+   {
+    "id": "web-info11",
+    "title": "학사안내 > 다전공 이수제도 안내",
+    "url": "https://www.kw.ac.kr/ko/life/bachelor_info11.jsp",
+    "regulation": null,
+    "article": null,
+    "effective_date": null,
+    "checked_at": "2026-11-07",
+    "publisher": "교육지원팀",
+    "note": "심화·복수·부전공, 연계전공(26개), 마이크로전공(64개), 학생설계융합전공 안내와 입학연도별 다전공 이수학점"
+   },
+   {
+    "id": "web-info12",
+    "title": "학사안내 > 입학연도별 졸업학점 안내",
+    "url": "https://www.kw.ac.kr/ko/life/bachelor_info12.jsp",
+    "regulation": null,
+    "article": null,
+    "effective_date": null,
+    "checked_at": "2026-11-07",
+    "publisher": "교육지원팀",
+    "note": "입학연도(2026~1995 이전)별 교양 이수체계와 단과대학(학과)별 이수학점 표. 학칙 [별표 6]의 웹 게시본으로 보임"
+   }
+  ],
+  "unread_sources": [
+   {
+    "id": "unread-hakchik-annex6",
+    "title": "학칙 [별표 6] 입학년도별 단과대학(학과)별 이수학점 안내.hwp",
+    "url": "https://rule.kw.ac.kr/lmxsrv/law/lawFullContent.do?SEQ=21&SEQ_HISTORY=675 (페이지 안 fileDown('3092','attach'))",
+    "reason": "HWP 첨부. 이 환경에 HWP 해석기가 없고 직접 다운로드 주소도 확인하지 못함. 같은 내용으로 보이는 web-info12 표를 대신 사용"
+   },
+   {
+    "id": "unread-hakchik-annex5",
+    "title": "학칙 [별표 5] 2017학년도 신입생 졸업이수 학점 및 전공이수학점 표.hwp",
+    "url": "https://rule.kw.ac.kr/lmxsrv/law/lawFullContent.do?SEQ=21&SEQ_HISTORY=675 (fileDown('3091','attach'))",
+    "reason": "HWP 첨부, 위와 같음"
+   },
+   {
+    "id": "unread-damajor-annex1",
+    "title": "다전공 이수에 관한 내규 [별표1] 연계전공별 이수학점 및 학위명.hwp",
+    "url": "https://rule.kw.ac.kr/lmxsrv/law/lawFullContent.do?SEQ=95&SEQ_HISTORY=672 (fileDown('3086','attach'))",
+    "reason": "HWP 첨부. 연계전공별 학위명은 이 별표에만 있어 확인하지 못함"
+   },
+   {
+    "id": "unread-gyoyang-annex2",
+    "title": "교양교육 운영 규정 [별표2] 교양교과목 분류.hwp",
+    "url": "https://rule.kw.ac.kr/lmxsrv/law/lawFullContent.do?SEQ=77&SEQ_HISTORY=509",
+    "reason": "HWP 첨부. 균형교양 영역 분류 원문(기초학문융합 영역 포함 여부 등)을 확인하지 못함"
+   },
+   {
+    "id": "unread-notice-53468",
+    "title": "www 공지 DUID=53468 (2026학년도 4차 다전공 신청 안내 원문)",
+    "url": "https://www.kw.ac.kr/ko/life/notice.jsp?BoardMode=view&DUID=53468",
+    "reason": "비로그인 GET에서 본문 없이 홈으로 이동(location.href). 학과 재게시본(notice-4cha)으로 대신 읽음"
+   },
+   {
+    "id": "unread-notice-attachments",
+    "title": "공지 53468의 나머지 첨부: 다전공 이수제도 안내(fuid 35408), 2026학년도 2학기 학과(전공)표(35405), 학생설계융합전공 신청 양식(35409), 마이크로전공 신청 유의사항(비슷한 교과과정).pdf",
+    "url": "https://www.kw.ac.kr/include/Download.jsp?fuid=35408&ano=53468",
+    "reason": "요청 수를 줄이려고 받지 않음. 35408은 web-info11과 같은 내용으로 보이고, 유의사항 PDF 내용은 att-micro-guide 1~2쪽에 들어 있음"
+   }
+  ]
+ },
+ "disclaimer": "참고용 시뮬레이션 데이터입니다. 공개된 학사안내·규정·공지에서 옮긴 것으로, 실제 졸업·다전공 사정은 소속 학과 사무실과 교육지원팀(02-940-5021·5022) 확인이 우선입니다.",
+ "total_credits": [
+  {
+   "admission_years": "2017-",
+   "source_ids": [
+    "reg-hakchik",
+    "reg-sihaeng",
+    "web-info12"
+   ],
+   "articles": {
+    "reg-hakchik": "제63조",
+    "reg-sihaeng": "제33조 제16호"
+   },
+   "by_group": [
+    {
+     "group": "이공계열",
+     "colleges": [
+      "전자정보공과대학",
+      "인공지능융합대학(구 소프트웨어융합대학)",
+      "공과대학",
+      "자연과학대학"
+     ],
+     "credits": 133
+    },
+    {
+     "group": "건축학과(5년제)",
+     "colleges": [
+      "공과대학 건축학과"
+     ],
+     "credits": 163
+    },
+    {
+     "group": "인문계열",
+     "colleges": [
+      "인문사회과학대학",
+      "정책법학대학",
+      "경영대학"
+     ],
+     "credits": 130
+    },
+    {
+     "group": "재직자전형학과(120학점제)",
+     "colleges": [
+      "참빛인재대학",
+      "정보콘텐츠학과(야간)",
+      "자산관리학과(야간)"
+     ],
+     "credits": 120
+    }
+   ],
+   "notes": [
+    "2017학년도 신입생(2018 2학년·2019 3학년 편입생)부터 적용",
+    "학과별 주전공·다전공 학점은 학칙 [별표 6](credit_tables)에 따름",
+    "전체 졸업학점을 원격수업으로 이수할 수 없음(학칙 제63조 단서)",
+    "자율전공학부는 선택한 주전공 기준"
+   ]
+  },
+  {
+   "admission_years": "-2016",
+   "source_ids": [
+    "reg-hakchik",
+    "web-info12"
+   ],
+   "articles": {
+    "reg-hakchik": "제63조"
+   },
+   "by_group": [
+    {
+     "group": "일반",
+     "credits": 140
+    },
+    {
+     "group": "건축학과(5년제)",
+     "credits": 170
+    },
+    {
+     "group": "120학점제(정보콘텐츠학과(야), 자산관리학과(야), 국제학부 글로벌코리아전공 등 2013~2016 야간)",
+     "credits": 120
+    },
+    {
+     "group": "동북아대학 3개학부(2003~2011 입학)",
+     "credits": 150
+    }
+   ],
+   "notes": [
+    "세부는 credit_tables의 연도별 표"
+   ]
+  }
+ ],
+ "major_credits": {
+  "description": "주전공 이수학점: 단일전공 vs 다전공 이수 시",
+  "rules": [
+   {
+    "admission_years": "2017-2024",
+    "rule": "다전공 이수 시 일부 학과는 주전공 이수학점이 하향(표의 '다전공 이수시' 칸). 하향이 적용되는 다전공은 복수전공·연계전공뿐이고 부전공·마이크로전공·학생설계융합전공은 제외",
+    "examples": "공학계열 60→54, 국어국문학과 51→45, 산업심리학과 51→45, 수학과 48→45(2017~2018은 54→45), 법학부 45→36, 경영학부 54→45(2020~), 국제통상학부 57→45, 동북아문화산업학부 66/60→45, 참빛인재대학·야간 45→39",
+    "source_ids": [
+     "web-info12",
+     "web-info11"
+    ]
+   },
+   {
+    "admission_years": "2025-2026",
+    "rule": "주전공 45학점(건축학과 120)에 다전공 하나를 더 이수하거나, 심화전공으로 주전공 70학점(참빛인재대학 60)을 이수. 참빛인재대학만 다전공(복수·연계·부·마이크로·학생설계융합) 이수 시 주전공 45→39",
+    "source_ids": [
+     "web-info12",
+     "web-info11",
+     "reg-damajor-isu"
+    ],
+    "articles": {
+     "reg-damajor-isu": "제3조 제2항, 제5조"
+    }
+   },
+   {
+    "admission_years": "all",
+    "rule": "다전공을 이수해도 주전공 졸업학점과 소속 학과 전공필수는 반드시 이수",
+    "source_ids": [
+     "reg-damajor-isu",
+     "web-info11",
+     "web-info07"
+    ],
+    "articles": {
+     "reg-damajor-isu": "제5조 제2항"
+    }
+   },
+   {
+    "admission_years": "2025-",
+    "rule": "다전공 의무 예외(외국인전형, 특성화고 졸업 재직자전형, 체육특기자, 편입생, 건축학과)는 주전공 학점만 이수",
+    "source_ids": [
+     "web-info12",
+     "reg-damajor-isu"
+    ],
+    "articles": {
+     "reg-damajor-isu": "제3조 제2항"
+    }
+   }
+  ]
+ },
+ "credit_tables": [
+  {
+   "admission_years": "2026",
+   "label": "2026학년도 신입생 단과대학별 이수학점(2027학년도 2학년 편입생, 2028학년도 3학년 편입생 포함)",
+   "source_ids": [
+    "web-info12",
+    "web-info11"
+   ],
+   "columns": "교양(필수·균형), 심화전공(필수포함), [심화전공 미이수 시] 주전공·복수·부·연계·학생설계융합·마이크로, 졸업이수",
+   "rows": [
+    {
+     "college": "전자정보공과대학",
+     "department": null,
+     "general_education": {
+      "required": 3,
+      "balanced": 30,
+      "total": 33
+     },
+     "advanced_major_total": 70,
+     "major": {
+      "without_advanced": 45,
+      "with_multi_major": 45
+     },
+     "double_major": 45,
+     "minor": 21,
+     "linked_major": {
+      "min": 30,
+      "max": 51
+     },
+     "student_designed_major": 24,
+     "micro_major": 15,
+     "graduation_total": 133
+    },
+    {
+     "college": "인공지능융합대학",
+     "department": null,
+     "general_education": {
+      "required": 3,
+      "balanced": 30,
+      "total": 33
+     },
+     "advanced_major_total": 70,
+     "major": {
+      "without_advanced": 45,
+      "with_multi_major": 45
+     },
+     "double_major": 45,
+     "minor": 21,
+     "linked_major": {
+      "min": 30,
+      "max": 51
+     },
+     "student_designed_major": 24,
+     "micro_major": 15,
+     "graduation_total": 133
+    },
+    {
+     "college": "공과대학",
+     "department": "건축공,화공,환경",
+     "general_education": {
+      "required": 3,
+      "balanced": 30,
+      "total": 33
+     },
+     "advanced_major_total": 70,
+     "major": {
+      "without_advanced": 45,
+      "with_multi_major": 45
+     },
+     "double_major": 45,
+     "minor": 21,
+     "linked_major": {
+      "min": 30,
+      "max": 51
+     },
+     "student_designed_major": 24,
+     "micro_major": 15,
+     "graduation_total": 133
+    },
+    {
+     "college": "공과대학",
+     "department": "건축학과(5년제)",
+     "general_education": {
+      "required": 3,
+      "balanced": 30,
+      "total": 33
+     },
+     "advanced_major_total": null,
+     "major": {
+      "without_advanced": 120,
+      "with_multi_major": 120
+     },
+     "double_major": 99,
+     "minor": 45,
+     "linked_major": {
+      "min": 30,
+      "max": 51
+     },
+     "student_designed_major": 24,
+     "micro_major": 15,
+     "graduation_total": 163,
+     "advanced_major_total_note": "심화전공 없음(표에 '-')"
+    },
+    {
+     "college": "자연과학대학",
+     "department": null,
+     "general_education": {
+      "required": 3,
+      "balanced": 30,
+      "total": 33
+     },
+     "advanced_major_total": 70,
+     "major": {
+      "without_advanced": 45,
+      "with_multi_major": 45
+     },
+     "double_major": 45,
+     "minor": 21,
+     "linked_major": {
+      "min": 30,
+      "max": 51
+     },
+     "student_designed_major": 24,
+     "micro_major": 15,
+     "graduation_total": 133
+    },
+    {
+     "college": "인문사회과학대학",
+     "department": null,
+     "general_education": {
+      "required": 3,
+      "balanced": 30,
+      "total": 33
+     },
+     "advanced_major_total": 70,
+     "major": {
+      "without_advanced": 45,
+      "with_multi_major": 45
+     },
+     "double_major": 45,
+     "minor": 21,
+     "linked_major": {
+      "min": 30,
+      "max": 51
+     },
+     "student_designed_major": 24,
+     "micro_major": 15,
+     "graduation_total": 130
+    },
+    {
+     "college": "정책법학대학",
+     "department": null,
+     "general_education": {
+      "required": 3,
+      "balanced": 30,
+      "total": 33
+     },
+     "advanced_major_total": 70,
+     "major": {
+      "without_advanced": 45,
+      "with_multi_major": 45
+     },
+     "double_major": 45,
+     "minor": 21,
+     "linked_major": {
+      "min": 30,
+      "max": 51
+     },
+     "student_designed_major": 24,
+     "micro_major": 15,
+     "graduation_total": 130
+    },
+    {
+     "college": "경영대학",
+     "department": null,
+     "general_education": {
+      "required": 3,
+      "balanced": 30,
+      "total": 33
+     },
+     "advanced_major_total": 70,
+     "major": {
+      "without_advanced": 45,
+      "with_multi_major": 45
+     },
+     "double_major": 45,
+     "minor": 21,
+     "linked_major": {
+      "min": 30,
+      "max": 51
+     },
+     "student_designed_major": 24,
+     "micro_major": 15,
+     "graduation_total": 130
+    },
+    {
+     "college": "참빛인재대학",
+     "department": null,
+     "general_education": {
+      "required": null,
+      "balanced": null,
+      "total": 30,
+      "note": "필수·균형 구분 없이 교양 30학점(표의 한 칸)"
+     },
+     "advanced_major_total": 60,
+     "major": {
+      "without_advanced": 45,
+      "with_multi_major": 39,
+      "note": "다전공(복수·연계·부·마이크로·학생설계융합) 이수 시 주전공 39학점으로 하향(표의 '45(39*)')"
+     },
+     "double_major": 39,
+     "minor": 21,
+     "linked_major": {
+      "min": 30,
+      "max": 51
+     },
+     "student_designed_major": 24,
+     "micro_major": 15,
+     "graduation_total": 120
+    },
+    {
+     "college": "인제니움대학",
+     "department": "자율전공학부",
+     "general_education": {
+      "required": 3,
+      "balanced": 30,
+      "total": 33
+     },
+     "major": null,
+     "note": "본인이 선택한 주전공 기준에 따름. 단, 심화전공 선택 불가."
+    }
+   ]
+  },
+  {
+   "admission_years": "2025",
+   "label": "2025학년도 신입생 단과대학별 이수학점(2026학년도 2학년 편입생, 2027학년도 3학년 편입생 포함)",
+   "source_ids": [
+    "web-info12",
+    "web-info11"
+   ],
+   "columns": "교양(필수·균형), 심화전공(필수포함), [심화전공 미이수 시] 주전공·복수·부·연계·학생설계융합·마이크로, 졸업이수",
+   "rows": [
+    {
+     "college": "전자정보공과대학",
+     "department": null,
+     "general_education": {
+      "required": 1,
+      "balanced": 30,
+      "total": 31
+     },
+     "advanced_major_total": 70,
+     "major": {
+      "without_advanced": 45,
+      "with_multi_major": 45
+     },
+     "double_major": 45,
+     "minor": 21,
+     "linked_major": {
+      "min": 30,
+      "max": 51
+     },
+     "student_designed_major": 24,
+     "micro_major": 15,
+     "graduation_total": 133
+    },
+    {
+     "college": "인공지능융합대학",
+     "department": null,
+     "general_education": {
+      "required": 1,
+      "balanced": 30,
+      "total": 31
+     },
+     "advanced_major_total": 70,
+     "major": {
+      "without_advanced": 45,
+      "with_multi_major": 45
+     },
+     "double_major": 45,
+     "minor": 21,
+     "linked_major": {
+      "min": 30,
+      "max": 51
+     },
+     "student_designed_major": 24,
+     "micro_major": 15,
+     "graduation_total": 133
+    },
+    {
+     "college": "공과대학",
+     "department": "건축공,화공,환경",
+     "general_education": {
+      "required": 1,
+      "balanced": 30,
+      "total": 31
+     },
+     "advanced_major_total": 70,
+     "major": {
+      "without_advanced": 45,
+      "with_multi_major": 45
+     },
+     "double_major": 45,
+     "minor": 21,
+     "linked_major": {
+      "min": 30,
+      "max": 51
+     },
+     "student_designed_major": 24,
+     "micro_major": 15,
+     "graduation_total": 133
+    },
+    {
+     "college": "공과대학",
+     "department": "건축학과(5년제)",
+     "general_education": {
+      "required": 1,
+      "balanced": 30,
+      "total": 31
+     },
+     "advanced_major_total": null,
+     "major": {
+      "without_advanced": 120,
+      "with_multi_major": 120
+     },
+     "double_major": 99,
+     "minor": 45,
+     "linked_major": {
+      "min": 30,
+      "max": 51
+     },
+     "student_designed_major": 24,
+     "micro_major": 15,
+     "graduation_total": 163,
+     "advanced_major_total_note": "심화전공 없음(표에 '-')"
+    },
+    {
+     "college": "자연과학대학",
+     "department": null,
+     "general_education": {
+      "required": 1,
+      "balanced": 30,
+      "total": 31
+     },
+     "advanced_major_total": 70,
+     "major": {
+      "without_advanced": 45,
+      "with_multi_major": 45
+     },
+     "double_major": 45,
+     "minor": 21,
+     "linked_major": {
+      "min": 30,
+      "max": 51
+     },
+     "student_designed_major": 24,
+     "micro_major": 15,
+     "graduation_total": 133
+    },
+    {
+     "college": "인문사회과학대학",
+     "department": null,
+     "general_education": {
+      "required": 1,
+      "balanced": 30,
+      "total": 31
+     },
+     "advanced_major_total": 70,
+     "major": {
+      "without_advanced": 45,
+      "with_multi_major": 45
+     },
+     "double_major": 45,
+     "minor": 21,
+     "linked_major": {
+      "min": 30,
+      "max": 51
+     },
+     "student_designed_major": 24,
+     "micro_major": 15,
+     "graduation_total": 130
+    },
+    {
+     "college": "정책법학대학",
+     "department": null,
+     "general_education": {
+      "required": 1,
+      "balanced": 30,
+      "total": 31
+     },
+     "advanced_major_total": 70,
+     "major": {
+      "without_advanced": 45,
+      "with_multi_major": 45
+     },
+     "double_major": 45,
+     "minor": 21,
+     "linked_major": {
+      "min": 30,
+      "max": 51
+     },
+     "student_designed_major": 24,
+     "micro_major": 15,
+     "graduation_total": 130
+    },
+    {
+     "college": "경영대학",
+     "department": null,
+     "general_education": {
+      "required": 1,
+      "balanced": 30,
+      "total": 31
+     },
+     "advanced_major_total": 70,
+     "major": {
+      "without_advanced": 45,
+      "with_multi_major": 45
+     },
+     "double_major": 45,
+     "minor": 21,
+     "linked_major": {
+      "min": 30,
+      "max": 51
+     },
+     "student_designed_major": 24,
+     "micro_major": 15,
+     "graduation_total": 130
+    },
+    {
+     "college": "참빛인재대학",
+     "department": null,
+     "general_education": {
+      "required": null,
+      "balanced": null,
+      "total": 30,
+      "note": "필수·균형 구분 없이 교양 30학점(표의 한 칸)"
+     },
+     "advanced_major_total": 60,
+     "major": {
+      "without_advanced": 45,
+      "with_multi_major": 39,
+      "note": "다전공(복수·연계·부·마이크로·학생설계융합) 이수 시 주전공 39학점으로 하향(표의 '45(39*)')"
+     },
+     "double_major": 39,
+     "minor": 21,
+     "linked_major": {
+      "min": 30,
+      "max": 51
+     },
+     "student_designed_major": 24,
+     "micro_major": 15,
+     "graduation_total": 120
+    },
+    {
+     "college": "인제니움대학",
+     "department": "자율전공학부",
+     "general_education": {
+      "required": 1,
+      "balanced": 30,
+      "total": 31
+     },
+     "major": null,
+     "note": "본인이 선택한 주전공 기준에 따름. 단, 심화전공 선택 불가."
+    }
+   ]
+  },
+  {
+   "admission_years": "2024",
+   "label": "2024학년도 신입생 단과대학별 이수학점(2025학년도 2학년 편입생, 2026학년도 3학년 편입생 포함)",
+   "source_ids": [
+    "web-info12",
+    "web-info11"
+   ],
+   "columns": "교양(필수·균형), 주전공(단일전공시·다전공 이수시), 심화, 복수, 부, 졸업이수",
+   "rows": [
+    {
+     "college": "전자정보공과대학",
+     "department": null,
+     "general_education": {
+      "required": 13,
+      "balanced": 18,
+      "total": 31,
+      "note": "표의 필수 13·균형 18은 같은 페이지 교양 이수체계(필수 1 + 균형 30)와 다름. 합계 31은 같음"
+     },
+     "major": {
+      "single": 60,
+      "with_multi_major": 54
+     },
+     "advanced_major_total": null,
+     "double_major": 54,
+     "minor": 21,
+     "graduation_total": 133
+    },
+    {
+     "college": "인공지능융합대학",
+     "department": null,
+     "general_education": {
+      "required": 13,
+      "balanced": 18,
+      "total": 31,
+      "note": "표의 필수 13·균형 18은 같은 페이지 교양 이수체계(필수 1 + 균형 30)와 다름. 합계 31은 같음"
+     },
+     "major": {
+      "single": 60,
+      "with_multi_major": 54
+     },
+     "advanced_major_total": null,
+     "double_major": 54,
+     "minor": 21,
+     "graduation_total": 133
+    },
+    {
+     "college": "공과대학",
+     "department": "건축공,화공,환경",
+     "general_education": {
+      "required": 13,
+      "balanced": 18,
+      "total": 31,
+      "note": "표의 필수 13·균형 18은 같은 페이지 교양 이수체계(필수 1 + 균형 30)와 다름. 합계 31은 같음"
+     },
+     "major": {
+      "single": 60,
+      "with_multi_major": 54
+     },
+     "advanced_major_total": null,
+     "double_major": 54,
+     "minor": 21,
+     "graduation_total": 133
+    },
+    {
+     "college": "공과대학",
+     "department": "건축학과(5년제)",
+     "general_education": {
+      "required": 13,
+      "balanced": 18,
+      "total": 31,
+      "note": "표의 필수 13·균형 18은 같은 페이지 교양 이수체계(필수 1 + 균형 30)와 다름. 합계 31은 같음"
+     },
+     "major": {
+      "single": 120,
+      "with_multi_major": 120
+     },
+     "advanced_major_total": null,
+     "double_major": 99,
+     "minor": 45,
+     "graduation_total": 163
+    },
+    {
+     "college": "자연과학대학",
+     "department": "수학과",
+     "general_education": {
+      "required": 13,
+      "balanced": 18,
+      "total": 31,
+      "note": "표의 필수 13·균형 18은 같은 페이지 교양 이수체계(필수 1 + 균형 30)와 다름. 합계 31은 같음"
+     },
+     "major": {
+      "single": 48,
+      "with_multi_major": 45
+     },
+     "advanced_major_total": 70,
+     "double_major": 45,
+     "minor": 21,
+     "graduation_total": 133
+    },
+    {
+     "college": "자연과학대학",
+     "department": "전자바이오물리학과,화학과, 스포츠융합과학과",
+     "general_education": {
+      "required": 13,
+      "balanced": 18,
+      "total": 31,
+      "note": "표의 필수 13·균형 18은 같은 페이지 교양 이수체계(필수 1 + 균형 30)와 다름. 합계 31은 같음"
+     },
+     "major": {
+      "single": 60,
+      "with_multi_major": 54
+     },
+     "advanced_major_total": 70,
+     "double_major": 54,
+     "minor": 21,
+     "graduation_total": 133
+    },
+    {
+     "college": "인문사회과학대학",
+     "department": "국어국문학과",
+     "general_education": {
+      "required": 13,
+      "balanced": 18,
+      "total": 31,
+      "note": "표의 필수 13·균형 18은 같은 페이지 교양 이수체계(필수 1 + 균형 30)와 다름. 합계 31은 같음"
+     },
+     "major": {
+      "single": 51,
+      "with_multi_major": 45
+     },
+     "advanced_major_total": 70,
+     "double_major": 45,
+     "minor": 21,
+     "graduation_total": 130
+    },
+    {
+     "college": "인문사회과학대학",
+     "department": "영어산업학과",
+     "general_education": {
+      "required": 13,
+      "balanced": 18,
+      "total": 31,
+      "note": "표의 필수 13·균형 18은 같은 페이지 교양 이수체계(필수 1 + 균형 30)와 다름. 합계 31은 같음"
+     },
+     "major": {
+      "single": 45,
+      "with_multi_major": 45
+     },
+     "advanced_major_total": 70,
+     "double_major": 45,
+     "minor": 21,
+     "graduation_total": 130
+    },
+    {
+     "college": "인문사회과학대학",
+     "department": "산업심리학과",
+     "general_education": {
+      "required": 13,
+      "balanced": 18,
+      "total": 31,
+      "note": "표의 필수 13·균형 18은 같은 페이지 교양 이수체계(필수 1 + 균형 30)와 다름. 합계 31은 같음"
+     },
+     "major": {
+      "single": 51,
+      "with_multi_major": 45
+     },
+     "advanced_major_total": 66,
+     "double_major": 45,
+     "minor": 21,
+     "graduation_total": 130
+    },
+    {
+     "college": "인문사회과학대학",
+     "department": "미디어커뮤니케이션학부",
+     "general_education": {
+      "required": 13,
+      "balanced": 18,
+      "total": 31,
+      "note": "표의 필수 13·균형 18은 같은 페이지 교양 이수체계(필수 1 + 균형 30)와 다름. 합계 31은 같음"
+     },
+     "major": {
+      "single": 45,
+      "with_multi_major": 45
+     },
+     "advanced_major_total": 70,
+     "double_major": 45,
+     "minor": 21,
+     "graduation_total": 130
+    },
+    {
+     "college": "인문사회과학대학",
+     "department": "동북아문화산업학부",
+     "general_education": {
+      "required": 13,
+      "balanced": 18,
+      "total": 31,
+      "note": "표의 필수 13·균형 18은 같은 페이지 교양 이수체계(필수 1 + 균형 30)와 다름. 합계 31은 같음"
+     },
+     "major": {
+      "single": 66,
+      "with_multi_major": 45
+     },
+     "advanced_major_total": null,
+     "double_major": 45,
+     "minor": 21,
+     "graduation_total": 130
+    },
+    {
+     "college": "정책법학대학",
+     "department": "행정학과",
+     "general_education": {
+      "required": 13,
+      "balanced": 18,
+      "total": 31,
+      "note": "표의 필수 13·균형 18은 같은 페이지 교양 이수체계(필수 1 + 균형 30)와 다름. 합계 31은 같음"
+     },
+     "major": {
+      "single": 45,
+      "with_multi_major": 45
+     },
+     "advanced_major_total": 60,
+     "double_major": 45,
+     "minor": 30,
+     "graduation_total": 130
+    },
+    {
+     "college": "정책법학대학",
+     "department": "법학부",
+     "general_education": {
+      "required": 13,
+      "balanced": 18,
+      "total": 31,
+      "note": "표의 필수 13·균형 18은 같은 페이지 교양 이수체계(필수 1 + 균형 30)와 다름. 합계 31은 같음"
+     },
+     "major": {
+      "single": 45,
+      "with_multi_major": 36
+     },
+     "advanced_major_total": 60,
+     "double_major": 36,
+     "minor": 21,
+     "graduation_total": 130
+    },
+    {
+     "college": "정책법학대학",
+     "department": "국제학부",
+     "general_education": {
+      "required": 13,
+      "balanced": 18,
+      "total": 31,
+      "note": "표의 필수 13·균형 18은 같은 페이지 교양 이수체계(필수 1 + 균형 30)와 다름. 합계 31은 같음"
+     },
+     "major": {
+      "single": 45,
+      "with_multi_major": 45
+     },
+     "advanced_major_total": 60,
+     "double_major": 45,
+     "minor": 21,
+     "graduation_total": 130
+    },
+    {
+     "college": "경영대학",
+     "department": "경영학부",
+     "general_education": {
+      "required": 13,
+      "balanced": 18,
+      "total": 31,
+      "note": "표의 필수 13·균형 18은 같은 페이지 교양 이수체계(필수 1 + 균형 30)와 다름. 합계 31은 같음"
+     },
+     "major": {
+      "single": 54,
+      "with_multi_major": 45
+     },
+     "advanced_major_total": 70,
+     "double_major": 45,
+     "minor": 21,
+     "graduation_total": 130
+    },
+    {
+     "college": "경영대학",
+     "department": "국제통상학부",
+     "general_education": {
+      "required": 13,
+      "balanced": 18,
+      "total": 31,
+      "note": "표의 필수 13·균형 18은 같은 페이지 교양 이수체계(필수 1 + 균형 30)와 다름. 합계 31은 같음"
+     },
+     "major": {
+      "single": 57,
+      "with_multi_major": 45
+     },
+     "advanced_major_total": null,
+     "double_major": 45,
+     "minor": 21,
+     "graduation_total": 130
+    },
+    {
+     "college": "참빛인재대학",
+     "department": "금융부동산법무학과",
+     "general_education": {
+      "required": null,
+      "balanced": null,
+      "total": 30,
+      "note": "필수·균형 구분 없이 교양 30학점(표의 한 칸)"
+     },
+     "major": {
+      "single": 45,
+      "with_multi_major": 39
+     },
+     "advanced_major_total": 60,
+     "double_major": 39,
+     "minor": 21,
+     "graduation_total": 120
+    },
+    {
+     "college": "참빛인재대학",
+     "department": "게임콘텐츠학과",
+     "general_education": {
+      "required": null,
+      "balanced": null,
+      "total": 30,
+      "note": "필수·균형 구분 없이 교양 30학점(표의 한 칸)"
+     },
+     "major": {
+      "single": 45,
+      "with_multi_major": 39
+     },
+     "advanced_major_total": 60,
+     "double_major": 39,
+     "minor": 21,
+     "graduation_total": 120
+    },
+    {
+     "college": "참빛인재대학",
+     "department": "스마트전기전자학과",
+     "general_education": {
+      "required": null,
+      "balanced": null,
+      "total": 30,
+      "note": "필수·균형 구분 없이 교양 30학점(표의 한 칸)"
+     },
+     "major": {
+      "single": 45,
+      "with_multi_major": 39
+     },
+     "advanced_major_total": 60,
+     "double_major": 39,
+     "minor": 21,
+     "graduation_total": 120
+    },
+    {
+     "college": "참빛인재대학",
+     "department": "스포츠상담재활학과",
+     "general_education": {
+      "required": null,
+      "balanced": null,
+      "total": 30,
+      "note": "필수·균형 구분 없이 교양 30학점(표의 한 칸)"
+     },
+     "major": {
+      "single": 45,
+      "with_multi_major": 39
+     },
+     "advanced_major_total": 60,
+     "double_major": 39,
+     "minor": 21,
+     "graduation_total": 120
+    }
+   ]
+  },
+  {
+   "admission_years": "2020-2023",
+   "label": "2020학년도~2023학년도 신입생 단과대학별 이수학점(2021학년도~2024학년도 2학년 편입생, 2022학년도~2025학년도 3학년 편입생 포함)",
+   "source_ids": [
+    "web-info12",
+    "web-info11"
+   ],
+   "columns": "교양(교양이수 체계 참조), 주전공(단일·다전공 이수시, 부전공 제외), 심화, 복수, 부, 졸업이수",
+   "rows": [
+    {
+     "college": "전자정보공과대학",
+     "department": "전자공학과, 전자통신공학과, 전자융합공학과, 전기공학과, 전자재료공학과, 로봇학부",
+     "general_education": {
+      "total": null,
+      "note": "교양이수 체계 참조 (교양 이수체계: 인문 22, 자연 22~38, 공학 22~46, 학과별 상이)"
+     },
+     "major": {
+      "single": 60,
+      "with_multi_major": 54
+     },
+     "advanced_major_total": null,
+     "double_major": 54,
+     "minor": 21,
+     "graduation_total": 133
+    },
+    {
+     "college": "전자정보공과대학",
+     "department": "지능형로봇학과(2022학번∼)",
+     "general_education": {
+      "total": null,
+      "note": "교양이수 체계 참조 (교양 이수체계: 인문 22, 자연 22~38, 공학 22~46, 학과별 상이)"
+     },
+     "major": {
+      "single": 60,
+      "with_multi_major": 54
+     },
+     "advanced_major_total": null,
+     "double_major": 54,
+     "minor": 24,
+     "graduation_total": 133
+    },
+    {
+     "college": "소프트웨어 융합대학",
+     "department": "컴퓨터정보공학부",
+     "general_education": {
+      "total": null,
+      "note": "교양이수 체계 참조 (교양 이수체계: 인문 22, 자연 22~38, 공학 22~46, 학과별 상이)"
+     },
+     "major": {
+      "single": 60,
+      "with_multi_major": 54
+     },
+     "advanced_major_total": null,
+     "double_major": 54,
+     "minor": 21,
+     "graduation_total": 133
+    },
+    {
+     "college": "소프트웨어 융합대학",
+     "department": "소프트웨어학부",
+     "general_education": {
+      "total": null,
+      "note": "교양이수 체계 참조 (교양 이수체계: 인문 22, 자연 22~38, 공학 22~46, 학과별 상이)"
+     },
+     "major": {
+      "single": 60,
+      "with_multi_major": 54
+     },
+     "advanced_major_total": null,
+     "double_major": 54,
+     "minor": 21,
+     "graduation_total": 133
+    },
+    {
+     "college": "소프트웨어 융합대학",
+     "department": "정보융합학부",
+     "general_education": {
+      "total": null,
+      "note": "교양이수 체계 참조 (교양 이수체계: 인문 22, 자연 22~38, 공학 22~46, 학과별 상이)"
+     },
+     "major": {
+      "single": 60,
+      "with_multi_major": 54
+     },
+     "advanced_major_total": null,
+     "double_major": 54,
+     "minor": 21,
+     "graduation_total": 133
+    },
+    {
+     "college": "공과대학",
+     "department": "건축공,화공,환경",
+     "general_education": {
+      "total": null,
+      "note": "교양이수 체계 참조 (교양 이수체계: 인문 22, 자연 22~38, 공학 22~46, 학과별 상이)"
+     },
+     "major": {
+      "single": 60,
+      "with_multi_major": 54
+     },
+     "advanced_major_total": null,
+     "double_major": 54,
+     "minor": 21,
+     "graduation_total": 133
+    },
+    {
+     "college": "공과대학",
+     "department": "건축학과(5년제)",
+     "general_education": {
+      "total": null,
+      "note": "교양이수 체계 참조 (교양 이수체계: 인문 22, 자연 22~38, 공학 22~46, 학과별 상이)"
+     },
+     "major": {
+      "single": 120,
+      "with_multi_major": 120
+     },
+     "advanced_major_total": null,
+     "double_major": 99,
+     "minor": 45,
+     "graduation_total": 163
+    },
+    {
+     "college": "자연과학대학",
+     "department": "수학과",
+     "general_education": {
+      "total": null,
+      "note": "교양이수 체계 참조 (교양 이수체계: 인문 22, 자연 22~38, 공학 22~46, 학과별 상이)"
+     },
+     "major": {
+      "single": 48,
+      "with_multi_major": 45
+     },
+     "advanced_major_total": 70,
+     "double_major": 45,
+     "minor": 21,
+     "graduation_total": 133
+    },
+    {
+     "college": "자연과학대학",
+     "department": "전자바이오물리학과,화학과,스포츠융합과학과",
+     "general_education": {
+      "total": null,
+      "note": "교양이수 체계 참조 (교양 이수체계: 인문 22, 자연 22~38, 공학 22~46, 학과별 상이)"
+     },
+     "major": {
+      "single": 60,
+      "with_multi_major": 54
+     },
+     "advanced_major_total": 70,
+     "double_major": 54,
+     "minor": 21,
+     "graduation_total": 133
+    },
+    {
+     "college": "자연과학대학",
+     "department": "정보콘텐츠학과(야간)",
+     "general_education": {
+      "total": null,
+      "note": "교양이수 체계 참조 (교양 이수체계: 인문 22, 자연 22~38, 공학 22~46, 학과별 상이)"
+     },
+     "major": {
+      "single": 45,
+      "with_multi_major": 39
+     },
+     "advanced_major_total": 60,
+     "double_major": 39,
+     "minor": 21,
+     "graduation_total": 120
+    },
+    {
+     "college": "인문사회과학대학",
+     "department": "국어국문학과",
+     "general_education": {
+      "total": null,
+      "note": "교양이수 체계 참조 (교양 이수체계: 인문 22, 자연 22~38, 공학 22~46, 학과별 상이)"
+     },
+     "major": {
+      "single": 51,
+      "with_multi_major": 45
+     },
+     "advanced_major_total": 70,
+     "double_major": 45,
+     "minor": 21,
+     "graduation_total": 130
+    },
+    {
+     "college": "인문사회과학대학",
+     "department": "영어산업학과",
+     "general_education": {
+      "total": null,
+      "note": "교양이수 체계 참조 (교양 이수체계: 인문 22, 자연 22~38, 공학 22~46, 학과별 상이)"
+     },
+     "major": {
+      "single": 45,
+      "with_multi_major": 45
+     },
+     "advanced_major_total": 70,
+     "double_major": 45,
+     "minor": 21,
+     "graduation_total": 130
+    },
+    {
+     "college": "인문사회과학대학",
+     "department": "산업심리학과",
+     "general_education": {
+      "total": null,
+      "note": "교양이수 체계 참조 (교양 이수체계: 인문 22, 자연 22~38, 공학 22~46, 학과별 상이)"
+     },
+     "major": {
+      "single": 51,
+      "with_multi_major": 45
+     },
+     "advanced_major_total": 66,
+     "double_major": 45,
+     "minor": 21,
+     "graduation_total": 130
+    },
+    {
+     "college": "인문사회과학대학",
+     "department": "미디어커뮤니케이션학부",
+     "general_education": {
+      "total": null,
+      "note": "교양이수 체계 참조 (교양 이수체계: 인문 22, 자연 22~38, 공학 22~46, 학과별 상이)"
+     },
+     "major": {
+      "single": 45,
+      "with_multi_major": 45
+     },
+     "advanced_major_total": 70,
+     "double_major": 45,
+     "minor": 21,
+     "graduation_total": 130
+    },
+    {
+     "college": "인문사회과학대학",
+     "department": "동북아문화산업학부",
+     "general_education": {
+      "total": null,
+      "note": "교양이수 체계 참조 (교양 이수체계: 인문 22, 자연 22~38, 공학 22~46, 학과별 상이)"
+     },
+     "major": {
+      "single": 66,
+      "with_multi_major": 45
+     },
+     "advanced_major_total": null,
+     "double_major": 45,
+     "minor": 21,
+     "graduation_total": 130,
+     "cohort": "2020학번"
+    },
+    {
+     "college": "인문사회과학대학",
+     "department": "동북아문화산업학부",
+     "general_education": {
+      "total": null,
+      "note": "교양이수 체계 참조 (교양 이수체계: 인문 22, 자연 22~38, 공학 22~46, 학과별 상이)"
+     },
+     "major": {
+      "single": 60,
+      "with_multi_major": 45
+     },
+     "advanced_major_total": null,
+     "double_major": 45,
+     "minor": 21,
+     "graduation_total": 130,
+     "cohort": "2021학번~"
+    },
+    {
+     "college": "정책법학대학",
+     "department": "행정학과",
+     "general_education": {
+      "total": null,
+      "note": "교양이수 체계 참조 (교양 이수체계: 인문 22, 자연 22~38, 공학 22~46, 학과별 상이)"
+     },
+     "major": {
+      "single": 45,
+      "with_multi_major": 45
+     },
+     "advanced_major_total": 60,
+     "double_major": 45,
+     "minor": 30,
+     "graduation_total": 130
+    },
+    {
+     "college": "정책법학대학",
+     "department": "법학부",
+     "general_education": {
+      "total": null,
+      "note": "교양이수 체계 참조 (교양 이수체계: 인문 22, 자연 22~38, 공학 22~46, 학과별 상이)"
+     },
+     "major": {
+      "single": 45,
+      "with_multi_major": 36
+     },
+     "advanced_major_total": 60,
+     "double_major": 36,
+     "minor": 21,
+     "graduation_total": 130
+    },
+    {
+     "college": "정책법학대학",
+     "department": "자산관리학과(야간)",
+     "general_education": {
+      "total": null,
+      "note": "교양이수 체계 참조 (교양 이수체계: 인문 22, 자연 22~38, 공학 22~46, 학과별 상이)"
+     },
+     "major": {
+      "single": 45,
+      "with_multi_major": 39
+     },
+     "advanced_major_total": 60,
+     "double_major": 39,
+     "minor": 21,
+     "graduation_total": 120
+    },
+    {
+     "college": "정책법학대학",
+     "department": "국제학부*",
+     "general_education": {
+      "total": null,
+      "note": "교양이수 체계 참조 (교양 이수체계: 인문 22, 자연 22~38, 공학 22~46, 학과별 상이)"
+     },
+     "major": {
+      "single": 45,
+      "with_multi_major": 45
+     },
+     "advanced_major_total": 60,
+     "double_major": 45,
+     "minor": 21,
+     "graduation_total": 130
+    },
+    {
+     "college": "경영대학",
+     "department": "경영학부",
+     "general_education": {
+      "total": null,
+      "note": "교양이수 체계 참조 (교양 이수체계: 인문 22, 자연 22~38, 공학 22~46, 학과별 상이)"
+     },
+     "major": {
+      "single": 54,
+      "with_multi_major": 45
+     },
+     "advanced_major_total": 70,
+     "double_major": 45,
+     "minor": 21,
+     "graduation_total": 130
+    },
+    {
+     "college": "경영대학",
+     "department": "국제통상학부",
+     "general_education": {
+      "total": null,
+      "note": "교양이수 체계 참조 (교양 이수체계: 인문 22, 자연 22~38, 공학 22~46, 학과별 상이)"
+     },
+     "major": {
+      "single": 57,
+      "with_multi_major": 45
+     },
+     "advanced_major_total": null,
+     "double_major": 45,
+     "minor": 21,
+     "graduation_total": 130
+    }
+   ]
+  },
+  {
+   "admission_years": "2019",
+   "label": "2019학년도 신입생 단과대학별 이수학점(2020학년도 2학년 편입생, 2021학년도 3학년 편입생 포함)",
+   "source_ids": [
+    "web-info12",
+    "web-info11"
+   ],
+   "columns": "교양(필수+균형, 기초), 주전공(단일·다전공 이수시), 심화, 복수, 부, 졸업이수",
+   "rows": [
+    {
+     "college": "전자정보공과대학",
+     "department": null,
+     "general_education": {
+      "required_plus_balanced": 22,
+      "basic": 24
+     },
+     "major": {
+      "single": 60,
+      "with_multi_major": 54
+     },
+     "advanced_major_total": null,
+     "double_major": 54,
+     "minor": 21,
+     "graduation_total": 133
+    },
+    {
+     "college": "인공지능융합대학 (구. 소프트웨어 융합대학)",
+     "department": "컴퓨터정보공학부",
+     "general_education": {
+      "required_plus_balanced": 22,
+      "basic": 24
+     },
+     "major": {
+      "single": 60,
+      "with_multi_major": 54
+     },
+     "advanced_major_total": null,
+     "double_major": 54,
+     "minor": 21,
+     "graduation_total": 133
+    },
+    {
+     "college": "인공지능융합대학 (구. 소프트웨어 융합대학)",
+     "department": "소프트웨어학부",
+     "general_education": {
+      "required_plus_balanced": 22,
+      "basic": 21
+     },
+     "major": {
+      "single": 60,
+      "with_multi_major": 54
+     },
+     "advanced_major_total": null,
+     "double_major": 54,
+     "minor": 21,
+     "graduation_total": 133
+    },
+    {
+     "college": "인공지능융합대학 (구. 소프트웨어 융합대학)",
+     "department": "정보융합학부",
+     "general_education": {
+      "required_plus_balanced": 22,
+      "basic": 9
+     },
+     "major": {
+      "single": 60,
+      "with_multi_major": 54
+     },
+     "advanced_major_total": null,
+     "double_major": 54,
+     "minor": 21,
+     "graduation_total": 133
+    },
+    {
+     "college": "공과대학",
+     "department": "건축공,화공,환경",
+     "general_education": {
+      "required_plus_balanced": 22,
+      "basic": 24
+     },
+     "major": {
+      "single": 60,
+      "with_multi_major": 54
+     },
+     "advanced_major_total": null,
+     "double_major": 54,
+     "minor": 21,
+     "graduation_total": 133
+    },
+    {
+     "college": "공과대학",
+     "department": "건축학과(5년제)",
+     "general_education": {
+      "required_plus_balanced": 22,
+      "basic": null
+     },
+     "major": {
+      "single": 120,
+      "with_multi_major": 120
+     },
+     "advanced_major_total": null,
+     "double_major": 99,
+     "minor": 45,
+     "graduation_total": 163
+    },
+    {
+     "college": "자연과학대학",
+     "department": "수학과",
+     "general_education": {
+      "required_plus_balanced": 16,
+      "basic": null
+     },
+     "major": {
+      "single": 48,
+      "with_multi_major": 45
+     },
+     "advanced_major_total": 70,
+     "double_major": 45,
+     "minor": 21,
+     "graduation_total": 133
+    },
+    {
+     "college": "자연과학대학",
+     "department": "전자바이오물리학과",
+     "general_education": {
+      "required_plus_balanced": 22,
+      "basic": 16
+     },
+     "major": {
+      "single": 60,
+      "with_multi_major": 54
+     },
+     "advanced_major_total": 70,
+     "double_major": 54,
+     "minor": 21,
+     "graduation_total": 133
+    },
+    {
+     "college": "자연과학대학",
+     "department": "화학과, 생활체육학과",
+     "general_education": {
+      "required_plus_balanced": 22,
+      "basic": null
+     },
+     "major": {
+      "single": 60,
+      "with_multi_major": 54
+     },
+     "advanced_major_total": 70,
+     "double_major": 54,
+     "minor": 21,
+     "graduation_total": 133
+    },
+    {
+     "college": "자연과학대학",
+     "department": "정보콘텐츠학과(야간)",
+     "general_education": {
+      "required_plus_balanced": 30,
+      "basic": null
+     },
+     "major": {
+      "single": 45,
+      "with_multi_major": 39
+     },
+     "advanced_major_total": 60,
+     "double_major": 39,
+     "minor": 21,
+     "graduation_total": 120
+    },
+    {
+     "college": "인문사회과학대학",
+     "department": "국어국문학과",
+     "general_education": {
+      "required_plus_balanced": 22,
+      "basic": null
+     },
+     "major": {
+      "single": 51,
+      "with_multi_major": 45
+     },
+     "advanced_major_total": 70,
+     "double_major": 45,
+     "minor": 21,
+     "graduation_total": 130
+    },
+    {
+     "college": "인문사회과학대학",
+     "department": "영어산업학과",
+     "general_education": {
+      "required_plus_balanced": 22,
+      "basic": null
+     },
+     "major": {
+      "single": 45,
+      "with_multi_major": 45
+     },
+     "advanced_major_total": 70,
+     "double_major": 45,
+     "minor": 21,
+     "graduation_total": 130
+    },
+    {
+     "college": "인문사회과학대학",
+     "department": "산업심리학과",
+     "general_education": {
+      "required_plus_balanced": 22,
+      "basic": null
+     },
+     "major": {
+      "single": 51,
+      "with_multi_major": 45
+     },
+     "advanced_major_total": 66,
+     "double_major": 45,
+     "minor": 21,
+     "graduation_total": 130
+    },
+    {
+     "college": "인문사회과학대학",
+     "department": "미디어커뮤니케이션학부",
+     "general_education": {
+      "required_plus_balanced": 22,
+      "basic": null
+     },
+     "major": {
+      "single": 45,
+      "with_multi_major": 45
+     },
+     "advanced_major_total": 70,
+     "double_major": 45,
+     "minor": 21,
+     "graduation_total": 130
+    },
+    {
+     "college": "인문사회과학대학",
+     "department": "동북아문화산업학부",
+     "general_education": {
+      "required_plus_balanced": 22,
+      "basic": null
+     },
+     "major": {
+      "single": 66,
+      "with_multi_major": 45
+     },
+     "advanced_major_total": null,
+     "double_major": 45,
+     "minor": 21,
+     "graduation_total": 130
+    },
+    {
+     "college": "정책법학대학",
+     "department": "행정학과",
+     "general_education": {
+      "required_plus_balanced": 22,
+      "basic": null
+     },
+     "major": {
+      "single": 45,
+      "with_multi_major": 45
+     },
+     "advanced_major_total": 60,
+     "double_major": 45,
+     "minor": 30,
+     "graduation_total": 130
+    },
+    {
+     "college": "정책법학대학",
+     "department": "법학부",
+     "general_education": {
+      "required_plus_balanced": 22,
+      "basic": null
+     },
+     "major": {
+      "single": 45,
+      "with_multi_major": 36
+     },
+     "advanced_major_total": 60,
+     "double_major": 36,
+     "minor": 21,
+     "graduation_total": 130
+    },
+    {
+     "college": "정책법학대학",
+     "department": "자산관리학과(야간)",
+     "general_education": {
+      "required_plus_balanced": 30,
+      "basic": null
+     },
+     "major": {
+      "single": 45,
+      "with_multi_major": 39
+     },
+     "advanced_major_total": 60,
+     "double_major": 39,
+     "minor": 21,
+     "graduation_total": 120
+    },
+    {
+     "college": "정책법학대학",
+     "department": "국제학부",
+     "general_education": {
+      "required_plus_balanced": 22,
+      "basic": null
+     },
+     "major": {
+      "single": 45,
+      "with_multi_major": 45
+     },
+     "advanced_major_total": 60,
+     "double_major": 45,
+     "minor": 21,
+     "graduation_total": 130
+    },
+    {
+     "college": "경영대학",
+     "department": "경영학부",
+     "general_education": {
+      "required_plus_balanced": 22,
+      "basic": null
+     },
+     "major": {
+      "single": 45,
+      "with_multi_major": 45
+     },
+     "advanced_major_total": 70,
+     "double_major": 45,
+     "minor": 21,
+     "graduation_total": 130
+    },
+    {
+     "college": "경영대학",
+     "department": "국제통상학부",
+     "general_education": {
+      "required_plus_balanced": 22,
+      "basic": null
+     },
+     "major": {
+      "single": 57,
+      "with_multi_major": 45
+     },
+     "advanced_major_total": null,
+     "double_major": 45,
+     "minor": 21,
+     "graduation_total": 130
+    }
+   ]
+  },
+  {
+   "admission_years": "2017-2018",
+   "label": "2017학년도~2018학년도 신입생 단과대학별 이수학점(2018학년도~2019학년도 2학년 편입생, 2019학년도~2020학년도 3학년 편입생 포함)",
+   "source_ids": [
+    "web-info12",
+    "web-info11"
+   ],
+   "columns": "교양(필수+균형, 기초), 주전공(단일·다전공 이수시), 심화, 복수, 부, 졸업이수",
+   "rows": [
+    {
+     "college": "전자정보공과대학",
+     "department": null,
+     "general_education": {
+      "required_plus_balanced": {
+       "min": 19,
+       "max": 22
+      },
+      "basic": 24
+     },
+     "major": {
+      "single": 60,
+      "with_multi_major": 54
+     },
+     "advanced_major_total": null,
+     "double_major": 54,
+     "minor": 21,
+     "graduation_total": 133
+    },
+    {
+     "college": "인공지능융합대학 (구. 소프트웨어 융합대학)",
+     "department": "컴퓨터정보공학부",
+     "general_education": {
+      "required_plus_balanced": {
+       "min": 19,
+       "max": 22
+      },
+      "basic": 24
+     },
+     "major": {
+      "single": 60,
+      "with_multi_major": 54
+     },
+     "advanced_major_total": null,
+     "double_major": 54,
+     "minor": 21,
+     "graduation_total": 133
+    },
+    {
+     "college": "인공지능융합대학 (구. 소프트웨어 융합대학)",
+     "department": "소프트웨어학부",
+     "general_education": {
+      "required_plus_balanced": {
+       "min": 19,
+       "max": 22
+      },
+      "basic": 21
+     },
+     "major": {
+      "single": 60,
+      "with_multi_major": 54
+     },
+     "advanced_major_total": null,
+     "double_major": 54,
+     "minor": 21,
+     "graduation_total": 133
+    },
+    {
+     "college": "인공지능융합대학 (구. 소프트웨어 융합대학)",
+     "department": "정보융합학부",
+     "general_education": {
+      "required_plus_balanced": {
+       "min": 19,
+       "max": 22
+      },
+      "basic": 9
+     },
+     "major": {
+      "single": 60,
+      "with_multi_major": 54
+     },
+     "advanced_major_total": null,
+     "double_major": 54,
+     "minor": 21,
+     "graduation_total": 133
+    },
+    {
+     "college": "공과대학",
+     "department": "건축공,화공,환경",
+     "general_education": {
+      "required_plus_balanced": {
+       "min": 19,
+       "max": 22
+      },
+      "basic": 24
+     },
+     "major": {
+      "single": 60,
+      "with_multi_major": 54
+     },
+     "advanced_major_total": null,
+     "double_major": 54,
+     "minor": 21,
+     "graduation_total": 133
+    },
+    {
+     "college": "공과대학",
+     "department": "건축학과(5년제)",
+     "general_education": {
+      "required_plus_balanced": {
+       "min": 19,
+       "max": 22
+      },
+      "basic": null
+     },
+     "major": {
+      "single": 120,
+      "with_multi_major": 120
+     },
+     "advanced_major_total": null,
+     "double_major": 99,
+     "minor": 45,
+     "graduation_total": 163
+    },
+    {
+     "college": "자연과학대학",
+     "department": "수학과",
+     "general_education": {
+      "required_plus_balanced": {
+       "min": 13,
+       "max": 16
+      },
+      "basic": null
+     },
+     "major": {
+      "single": 54,
+      "with_multi_major": 45
+     },
+     "advanced_major_total": 70,
+     "double_major": 45,
+     "minor": 21,
+     "graduation_total": 133
+    },
+    {
+     "college": "자연과학대학",
+     "department": "전자바이오물리학과",
+     "general_education": {
+      "required_plus_balanced": {
+       "min": 19,
+       "max": 22
+      },
+      "basic": null
+     },
+     "major": {
+      "single": 60,
+      "with_multi_major": 54
+     },
+     "advanced_major_total": 70,
+     "double_major": 54,
+     "minor": 21,
+     "graduation_total": 133,
+     "cohort": "2017학번"
+    },
+    {
+     "college": "자연과학대학",
+     "department": "전자바이오물리학과",
+     "general_education": {
+      "required_plus_balanced": {
+       "min": 19,
+       "max": 22
+      },
+      "basic": 16
+     },
+     "major": {
+      "single": 60,
+      "with_multi_major": 54
+     },
+     "advanced_major_total": 70,
+     "double_major": 54,
+     "minor": 21,
+     "graduation_total": 133,
+     "cohort": "2018학번"
+    },
+    {
+     "college": "자연과학대학",
+     "department": "화학과, 생활체육학과",
+     "general_education": {
+      "required_plus_balanced": {
+       "min": 19,
+       "max": 22
+      },
+      "basic": null
+     },
+     "major": {
+      "single": 60,
+      "with_multi_major": 54
+     },
+     "advanced_major_total": 70,
+     "double_major": 54,
+     "minor": 21,
+     "graduation_total": 133
+    },
+    {
+     "college": "자연과학대학",
+     "department": "정보콘텐츠학과(야간)",
+     "general_education": {
+      "required_plus_balanced": 30,
+      "basic": null
+     },
+     "major": {
+      "single": 45,
+      "with_multi_major": 39
+     },
+     "advanced_major_total": 60,
+     "double_major": 39,
+     "minor": 21,
+     "graduation_total": 120
+    },
+    {
+     "college": "인문사회과학대학",
+     "department": "국어국문학과",
+     "general_education": {
+      "required_plus_balanced": {
+       "min": 19,
+       "max": 22
+      },
+      "basic": null
+     },
+     "major": {
+      "single": 51,
+      "with_multi_major": 45
+     },
+     "advanced_major_total": 70,
+     "double_major": 45,
+     "minor": 21,
+     "graduation_total": 130
+    },
+    {
+     "college": "인문사회과학대학",
+     "department": "영어영문학과",
+     "general_education": {
+      "required_plus_balanced": {
+       "min": 19,
+       "max": 22
+      },
+      "basic": null
+     },
+     "major": {
+      "single": 45,
+      "with_multi_major": 45
+     },
+     "advanced_major_total": 70,
+     "double_major": 45,
+     "minor": 21,
+     "graduation_total": 130
+    },
+    {
+     "college": "인문사회과학대학",
+     "department": "산업심리학과",
+     "general_education": {
+      "required_plus_balanced": {
+       "min": 19,
+       "max": 22
+      },
+      "basic": null
+     },
+     "major": {
+      "single": 51,
+      "with_multi_major": 45
+     },
+     "advanced_major_total": 66,
+     "double_major": 45,
+     "minor": 21,
+     "graduation_total": 130
+    },
+    {
+     "college": "인문사회과학대학",
+     "department": "미디어영상학부",
+     "general_education": {
+      "required_plus_balanced": {
+       "min": 19,
+       "max": 22
+      },
+      "basic": null
+     },
+     "major": {
+      "single": 45,
+      "with_multi_major": 45
+     },
+     "advanced_major_total": 70,
+     "double_major": 45,
+     "minor": 21,
+     "graduation_total": 130
+    },
+    {
+     "college": "인문사회과학대학",
+     "department": "동북아문화산업학부",
+     "general_education": {
+      "required_plus_balanced": {
+       "min": 19,
+       "max": 22
+      },
+      "basic": null
+     },
+     "major": {
+      "single": 66,
+      "with_multi_major": 45
+     },
+     "advanced_major_total": null,
+     "double_major": 45,
+     "minor": 21,
+     "graduation_total": 130
+    },
+    {
+     "college": "정책법학대학",
+     "department": "행정학과",
+     "general_education": {
+      "required_plus_balanced": {
+       "min": 19,
+       "max": 22
+      },
+      "basic": null
+     },
+     "major": {
+      "single": 45,
+      "with_multi_major": 45
+     },
+     "advanced_major_total": 60,
+     "double_major": 45,
+     "minor": 30,
+     "graduation_total": 130
+    },
+    {
+     "college": "정책법학대학",
+     "department": "법학부",
+     "general_education": {
+      "required_plus_balanced": {
+       "min": 19,
+       "max": 22
+      },
+      "basic": null
+     },
+     "major": {
+      "single": 45,
+      "with_multi_major": 36
+     },
+     "advanced_major_total": 60,
+     "double_major": 36,
+     "minor": 21,
+     "graduation_total": 130
+    },
+    {
+     "college": "정책법학대학",
+     "department": "자산관리학과(야간)",
+     "general_education": {
+      "required_plus_balanced": 30,
+      "basic": null
+     },
+     "major": {
+      "single": 45,
+      "with_multi_major": 39
+     },
+     "advanced_major_total": 60,
+     "double_major": 39,
+     "minor": 21,
+     "graduation_total": 120
+    },
+    {
+     "college": "정책법학대학",
+     "department": "국제학부",
+     "general_education": {
+      "required_plus_balanced": {
+       "min": 19,
+       "max": 22
+      },
+      "basic": null
+     },
+     "major": {
+      "single": 45,
+      "with_multi_major": 45
+     },
+     "advanced_major_total": 60,
+     "double_major": 45,
+     "minor": 21,
+     "graduation_total": 130
+    },
+    {
+     "college": "경영대학",
+     "department": "경영학부",
+     "general_education": {
+      "required_plus_balanced": {
+       "min": 19,
+       "max": 22
+      },
+      "basic": null
+     },
+     "major": {
+      "single": 45,
+      "with_multi_major": 45
+     },
+     "advanced_major_total": 70,
+     "double_major": 45,
+     "minor": 21,
+     "graduation_total": 130
+    },
+    {
+     "college": "경영대학",
+     "department": "국제통상학부",
+     "general_education": {
+      "required_plus_balanced": {
+       "min": 19,
+       "max": 22
+      },
+      "basic": null
+     },
+     "major": {
+      "single": 57,
+      "with_multi_major": 45
+     },
+     "advanced_major_total": null,
+     "double_major": 45,
+     "minor": 21,
+     "graduation_total": 130
+    }
+   ]
+  },
+  {
+   "admission_years": "2016",
+   "label": "2016학년도 신입생 단과대학별 이수학점(2017학년도 2학년 편입생, 2018학년도 3학년 편입생 포함)",
+   "source_ids": [
+    "web-info12"
+   ],
+   "columns": "교양(필수+균형, 기초), 전공(필수포함), 졸업이수",
+   "rows": [
+    {
+     "college": "전정공대, 공과대",
+     "department": null,
+     "general_education": {
+      "required_plus_balanced": {
+       "min": 13,
+       "max": 16
+      },
+      "basic": {
+       "min": 24,
+       "max": 30
+      }
+     },
+     "major": {
+      "single": 60
+     },
+     "graduation_total": 140
+    },
+    {
+     "college": "건축학과(5년제)",
+     "department": null,
+     "general_education": {
+      "required_plus_balanced": {
+       "min": 13,
+       "max": 16
+      },
+      "basic": null
+     },
+     "major": {
+      "single": 120
+     },
+     "graduation_total": 170
+    },
+    {
+     "college": "자연과학대학",
+     "department": "수학과",
+     "general_education": {
+      "required_plus_balanced": {
+       "min": 7,
+       "max": 10
+      },
+      "basic": null
+     },
+     "major": {
+      "single": 54
+     },
+     "graduation_total": 140
+    },
+    {
+     "college": "자연과학대학",
+     "department": "전자바이오물리학과, 화학과, 생활체육학과",
+     "general_education": {
+      "required_plus_balanced": {
+       "min": 13,
+       "max": 16
+      },
+      "basic": null
+     },
+     "major": {
+      "single": 60
+     },
+     "graduation_total": 140
+    },
+    {
+     "college": "자연과학대학",
+     "department": "정보콘텐츠학과(사이버정보보안학과)",
+     "general_education": {
+      "required_plus_balanced": 30,
+      "basic": null
+     },
+     "major": {
+      "single": 45
+     },
+     "graduation_total": 120
+    },
+    {
+     "college": "인문사회과학대학",
+     "department": "국어국문학과",
+     "general_education": {
+      "required_plus_balanced": {
+       "min": 16,
+       "max": 19
+      },
+      "basic": null
+     },
+     "major": {
+      "single": 51
+     },
+     "graduation_total": 140
+    },
+    {
+     "college": "인문사회과학대학",
+     "department": "영어영문학과",
+     "general_education": {
+      "required_plus_balanced": {
+       "min": 16,
+       "max": 19
+      },
+      "basic": null
+     },
+     "major": {
+      "single": 45
+     },
+     "graduation_total": 140
+    },
+    {
+     "college": "인문사회과학대학",
+     "department": "산업심리학과",
+     "general_education": {
+      "required_plus_balanced": {
+       "min": 16,
+       "max": 19
+      },
+      "basic": null
+     },
+     "major": {
+      "single": 51
+     },
+     "graduation_total": 140
+    },
+    {
+     "college": "인문사회과학대학",
+     "department": "미디어영상학부",
+     "general_education": {
+      "required_plus_balanced": {
+       "min": 16,
+       "max": 19
+      },
+      "basic": null
+     },
+     "major": {
+      "single": 45
+     },
+     "graduation_total": 140
+    },
+    {
+     "college": "인문사회과학대학",
+     "department": "동북아문화산업학부",
+     "general_education": {
+      "required_plus_balanced": {
+       "min": 16,
+       "max": 19
+      },
+      "basic": null
+     },
+     "major": {
+      "single": 66
+     },
+     "graduation_total": 140
+    },
+    {
+     "college": "정책법학대학",
+     "department": "행정학과",
+     "general_education": {
+      "required_plus_balanced": {
+       "min": 16,
+       "max": 19
+      },
+      "basic": null
+     },
+     "major": {
+      "single": 51
+     },
+     "graduation_total": 140
+    },
+    {
+     "college": "정책법학대학",
+     "department": "법학부",
+     "general_education": {
+      "required_plus_balanced": {
+       "min": 16,
+       "max": 19
+      },
+      "basic": null
+     },
+     "major": {
+      "single": 45
+     },
+     "graduation_total": 140
+    },
+    {
+     "college": "정책법학대학",
+     "department": "자산관리학과(부동산법무학과)",
+     "general_education": {
+      "required_plus_balanced": 30,
+      "basic": null
+     },
+     "major": {
+      "single": 45
+     },
+     "graduation_total": 120
+    },
+    {
+     "college": "정책법학대학",
+     "department": "국제학부",
+     "general_education": {
+      "required_plus_balanced": {
+       "min": 16,
+       "max": 19
+      },
+      "basic": null
+     },
+     "major": {
+      "single": 45
+     },
+     "graduation_total": 140
+    },
+    {
+     "college": "경영대학",
+     "department": "경영학부",
+     "general_education": {
+      "required_plus_balanced": {
+       "min": 16,
+       "max": 19
+      },
+      "basic": null
+     },
+     "major": {
+      "single": 45
+     },
+     "graduation_total": 140
+    },
+    {
+     "college": "경영대학",
+     "department": "국제통상학부",
+     "general_education": {
+      "required_plus_balanced": {
+       "min": 16,
+       "max": 19
+      },
+      "basic": null
+     },
+     "major": {
+      "single": 57
+     },
+     "graduation_total": 140
+    }
+   ],
+   "multi_major_note": "2016학년도 이전 입학자: 심화 70, 복수 45~66(복수전공 학과의 졸업전공학점 이상), 부전공 21. 건축학과 복수 99·부전공 45"
+  },
+  {
+   "admission_years": "2014-2015",
+   "label": "2014학년도~2015학년도 신입생(2015학년도~2016학년도 2학년 편입생, 2016학년도~2017학년도 3학년 편입생 포함)",
+   "source_ids": [
+    "web-info12"
+   ],
+   "columns": "교양(필수포함), 전공(필수포함), 본인자유선택, 졸업이수",
+   "rows": [
+    {
+     "college": "전정공대,공과대",
+     "department": null,
+     "general_education": {
+      "total": 30
+     },
+     "major": {
+      "single": 60
+     },
+     "free_elective": 50,
+     "graduation_total": 140
+    },
+    {
+     "college": "건축학과(5년제)",
+     "department": null,
+     "general_education": {
+      "total": 30
+     },
+     "major": {
+      "single": 120
+     },
+     "free_elective": 20,
+     "graduation_total": 170
+    },
+    {
+     "college": "자연대",
+     "department": "수학과",
+     "general_education": {
+      "total": 30
+     },
+     "major": {
+      "single": 54
+     },
+     "free_elective": 56,
+     "graduation_total": 140
+    },
+    {
+     "college": "자연대",
+     "department": "전자바이오물리학과, 화학과, 생활체육학과",
+     "general_education": {
+      "total": 30
+     },
+     "major": {
+      "single": 60
+     },
+     "free_elective": 50,
+     "graduation_total": 140
+    },
+    {
+     "college": "자연대",
+     "department": "사이버정보보안학과",
+     "general_education": {
+      "total": 30
+     },
+     "major": {
+      "single": 45
+     },
+     "free_elective": 45,
+     "graduation_total": 120
+    },
+    {
+     "college": "인문대학",
+     "department": "국어국문학과",
+     "general_education": {
+      "total": 30
+     },
+     "major": {
+      "single": 51
+     },
+     "free_elective": 59,
+     "graduation_total": 140
+    },
+    {
+     "college": "인문대학",
+     "department": "영어영문학과",
+     "general_education": {
+      "total": 30
+     },
+     "major": {
+      "single": 45
+     },
+     "free_elective": 65,
+     "graduation_total": 140
+    },
+    {
+     "college": "법과대",
+     "department": "법학부",
+     "general_education": {
+      "total": 30
+     },
+     "major": {
+      "single": 45
+     },
+     "free_elective": 65,
+     "graduation_total": 140
+    },
+    {
+     "college": "법과대",
+     "department": "부동산법무학과",
+     "general_education": {
+      "total": 30
+     },
+     "major": {
+      "single": 45
+     },
+     "free_elective": 45,
+     "graduation_total": 120
+    },
+    {
+     "college": "경영대, 사과대(미디어영상학부)",
+     "department": null,
+     "general_education": {
+      "total": 30
+     },
+     "major": {
+      "single": 45
+     },
+     "free_elective": 65,
+     "graduation_total": 140
+    },
+    {
+     "college": "사과대(행정학과, 산업심리학과)",
+     "department": null,
+     "general_education": {
+      "total": 30
+     },
+     "major": {
+      "single": 51
+     },
+     "free_elective": 59,
+     "graduation_total": 140
+    },
+    {
+     "college": "동북아대학",
+     "department": "동북아통상학부",
+     "general_education": {
+      "total": 30
+     },
+     "major": {
+      "single": 72
+     },
+     "free_elective": 38,
+     "graduation_total": 140
+    },
+    {
+     "college": "동북아대학",
+     "department": "동북아문화산업학부",
+     "general_education": {
+      "total": 24
+     },
+     "major": {
+      "single": 66
+     },
+     "free_elective": 50,
+     "graduation_total": 140
+    },
+    {
+     "college": "동북아대학",
+     "department": "국제학부",
+     "general_education": {
+      "total": 24
+     },
+     "major": {
+      "single": 54
+     },
+     "free_elective": 62,
+     "graduation_total": 140
+    },
+    {
+     "college": "동북아대학",
+     "department": "국제학부 글로벌코리아전공",
+     "general_education": {
+      "total": 30
+     },
+     "major": {
+      "single": 45
+     },
+     "free_elective": 45,
+     "graduation_total": 120
+    }
+   ]
+  },
+  {
+   "admission_years": "2013",
+   "label": "2013학년도 신입생(2014학년도 2학년 편입생, 2015학년도 3학년 편입생 포함)",
+   "source_ids": [
+    "web-info12"
+   ],
+   "columns": "교양(필수포함), 전공(필수포함), 본인자유선택, 졸업이수",
+   "rows": [
+    {
+     "college": "전정공대,공과대",
+     "department": null,
+     "general_education": {
+      "total": 30
+     },
+     "major": {
+      "single": 60
+     },
+     "free_elective": 50,
+     "graduation_total": 140
+    },
+    {
+     "college": "건축학과(5년제)",
+     "department": null,
+     "general_education": {
+      "total": 30
+     },
+     "major": {
+      "single": 120
+     },
+     "free_elective": 20,
+     "graduation_total": 170
+    },
+    {
+     "college": "자연대",
+     "department": "수학과",
+     "general_education": {
+      "total": 30
+     },
+     "major": {
+      "single": 54
+     },
+     "free_elective": 56,
+     "graduation_total": 140
+    },
+    {
+     "college": "자연대",
+     "department": "전자바이오물리학과, 화학과, 생활체육학과",
+     "general_education": {
+      "total": 30
+     },
+     "major": {
+      "single": 60
+     },
+     "free_elective": 50,
+     "graduation_total": 140
+    },
+    {
+     "college": "자연대",
+     "department": "사이버정보보안학과",
+     "general_education": {
+      "total": 30
+     },
+     "major": {
+      "single": 45
+     },
+     "free_elective": 45,
+     "graduation_total": 120
+    },
+    {
+     "college": "인문대학",
+     "department": "국어국문학과",
+     "general_education": {
+      "total": 30
+     },
+     "major": {
+      "single": 51
+     },
+     "free_elective": 59,
+     "graduation_total": 140
+    },
+    {
+     "college": "인문대학",
+     "department": "영어영문학과",
+     "general_education": {
+      "total": 30
+     },
+     "major": {
+      "single": 45
+     },
+     "free_elective": 65,
+     "graduation_total": 140
+    },
+    {
+     "college": "법과대",
+     "department": "법학부",
+     "general_education": {
+      "total": 30
+     },
+     "major": {
+      "single": 45
+     },
+     "free_elective": 65,
+     "graduation_total": 140
+    },
+    {
+     "college": "법과대",
+     "department": "부동산법무학과",
+     "general_education": {
+      "total": 30
+     },
+     "major": {
+      "single": 45
+     },
+     "free_elective": 45,
+     "graduation_total": 120
+    },
+    {
+     "college": "경영대, 사과대(미디어영상학부)",
+     "department": null,
+     "general_education": {
+      "total": 30
+     },
+     "major": {
+      "single": 45
+     },
+     "free_elective": 65,
+     "graduation_total": 140
+    },
+    {
+     "college": "사과대(행정학과, 산업심리학과)",
+     "department": null,
+     "general_education": {
+      "total": 30
+     },
+     "major": {
+      "single": 51
+     },
+     "free_elective": 59,
+     "graduation_total": 140
+    },
+    {
+     "college": "동북아대학",
+     "department": "동북아통상학부",
+     "general_education": {
+      "total": 30
+     },
+     "major": {
+      "single": 72
+     },
+     "free_elective": 38,
+     "graduation_total": 140
+    },
+    {
+     "college": "동북아대학",
+     "department": "동북아문화산업학부. 국제학부",
+     "general_education": {
+      "total": 24
+     },
+     "major": {
+      "single": 66
+     },
+     "free_elective": 50,
+     "graduation_total": 140
+    },
+    {
+     "college": "동북아대학",
+     "department": "국제학부 글로벌코리아전공",
+     "general_education": {
+      "total": 30
+     },
+     "major": {
+      "single": 45
+     },
+     "free_elective": 45,
+     "graduation_total": 120
+    }
+   ]
+  },
+  {
+   "admission_years": "2012",
+   "label": "2012학년도 신입생(2013학년도 2학년 편입생, 2014학년도 3학년 편입생 포함)",
+   "source_ids": [
+    "web-info12"
+   ],
+   "columns": "교양(필수포함), 전공(필수포함), 본인자유선택, 졸업이수",
+   "rows": [
+    {
+     "college": "전정공대,공과대",
+     "department": null,
+     "general_education": {
+      "total": 30
+     },
+     "major": {
+      "single": 60
+     },
+     "free_elective": 50,
+     "graduation_total": 140
+    },
+    {
+     "college": "건축학과(5년제)",
+     "department": null,
+     "general_education": {
+      "total": 30
+     },
+     "major": {
+      "single": 120
+     },
+     "free_elective": 20,
+     "graduation_total": 170
+    },
+    {
+     "college": "경영대, 법과대, 인문대학, 사과대(미디어영상학부)",
+     "department": null,
+     "general_education": {
+      "total": 30
+     },
+     "major": {
+      "single": 45
+     },
+     "free_elective": 65,
+     "graduation_total": 140
+    },
+    {
+     "college": "자연대",
+     "department": "수학과",
+     "general_education": {
+      "total": 30
+     },
+     "major": {
+      "single": 54
+     },
+     "free_elective": 56,
+     "graduation_total": 140
+    },
+    {
+     "college": "자연대",
+     "department": "전자물리학과, 화학과, 생활체육학과",
+     "general_education": {
+      "total": 30
+     },
+     "major": {
+      "single": 60
+     },
+     "free_elective": 50,
+     "graduation_total": 140
+    },
+    {
+     "college": "사과대(행정학과, 산업심리학과)",
+     "department": null,
+     "general_education": {
+      "total": 30
+     },
+     "major": {
+      "single": 51
+     },
+     "free_elective": 59,
+     "graduation_total": 140
+    },
+    {
+     "college": "동북아대학(동북아문화산업학부, 국제협력학부)",
+     "department": null,
+     "general_education": {
+      "total": 24
+     },
+     "major": {
+      "single": 66
+     },
+     "free_elective": 50,
+     "graduation_total": 140
+    },
+    {
+     "college": "동북아대학(동북아통상학부)",
+     "department": null,
+     "general_education": {
+      "total": 30
+     },
+     "major": {
+      "single": 72
+     },
+     "free_elective": 38,
+     "graduation_total": 140
+    }
+   ]
+  },
+  {
+   "admission_years": "2011",
+   "label": "2011학년도 신입생(2012학년도 2학년 편입생, 2013학년도 3학년 편입생 포함)",
+   "source_ids": [
+    "web-info12"
+   ],
+   "columns": "교양(필수포함), 전공(필수포함), 본인자유선택, 졸업이수",
+   "rows": [
+    {
+     "college": "전정공대,공과대",
+     "department": null,
+     "general_education": {
+      "total": 30
+     },
+     "major": {
+      "single": 60
+     },
+     "free_elective": 50,
+     "graduation_total": 140
+    },
+    {
+     "college": "건축학과(5년제)",
+     "department": null,
+     "general_education": {
+      "total": 30
+     },
+     "major": {
+      "single": 120
+     },
+     "free_elective": 20,
+     "graduation_total": 170
+    },
+    {
+     "college": "경영대, 법과대, 인문대학, 사과대(미디어영상학부)",
+     "department": null,
+     "general_education": {
+      "total": 30
+     },
+     "major": {
+      "single": 45
+     },
+     "free_elective": 65,
+     "graduation_total": 140
+    },
+    {
+     "college": "자연대",
+     "department": "수학과",
+     "general_education": {
+      "total": 30
+     },
+     "major": {
+      "single": 54
+     },
+     "free_elective": 56,
+     "graduation_total": 140
+    },
+    {
+     "college": "자연대",
+     "department": "전자물리학과, 화학과, 생활체육학과",
+     "general_education": {
+      "total": 30
+     },
+     "major": {
+      "single": 60
+     },
+     "free_elective": 50,
+     "graduation_total": 140
+    },
+    {
+     "college": "사과대(행정학과, 산업심리학과)",
+     "department": null,
+     "general_education": {
+      "total": 30
+     },
+     "major": {
+      "single": 51
+     },
+     "free_elective": 59,
+     "graduation_total": 140
+    },
+    {
+     "college": "동북아대학 3개학부",
+     "department": null,
+     "general_education": {
+      "total": 42
+     },
+     "major": {
+      "single": 84
+     },
+     "free_elective": 24,
+     "graduation_total": 150
+    }
+   ]
+  },
+  {
+   "admission_years": "2010",
+   "label": "2010년 신입생(2011학년도 2학년 편입생, 2012학년도 3학년 편입생 포함)",
+   "source_ids": [
+    "web-info12"
+   ],
+   "columns": "교양(필수포함), 전공(필수포함), 본인자유선택, 졸업이수",
+   "rows": [
+    {
+     "college": "전정공대,공과대",
+     "department": null,
+     "general_education": {
+      "total": 30
+     },
+     "major": {
+      "single": 60
+     },
+     "free_elective": 50,
+     "graduation_total": 140
+    },
+    {
+     "college": "건축학과(5년제)",
+     "department": null,
+     "general_education": {
+      "total": 30
+     },
+     "major": {
+      "single": 120
+     },
+     "free_elective": 20,
+     "graduation_total": 170
+    },
+    {
+     "college": "자연대, 사과대, 경영대, 법과대, 국어국문학부",
+     "department": null,
+     "general_education": {
+      "total": 30
+     },
+     "major": {
+      "single": 45
+     },
+     "free_elective": 65,
+     "graduation_total": 140
+    },
+    {
+     "college": "동북아대학 3개학부",
+     "department": null,
+     "general_education": {
+      "total": 42
+     },
+     "major": {
+      "single": 84
+     },
+     "free_elective": 24,
+     "graduation_total": 150
+    }
+   ]
+  },
+  {
+   "admission_years": "2003-2009",
+   "label": "2003학년도~2009학년도 신입생(2004~2010학년도 2학년 편입생, 2005~2011학년도 3학년 편입생 포함)",
+   "source_ids": [
+    "web-info12",
+    "reg-sihaeng"
+   ],
+   "articles": {
+    "reg-sihaeng": "제33조 제5호"
+   },
+   "columns": "교양(필수포함), 전공(필수포함), 본인자유선택, 졸업이수",
+   "rows": [
+    {
+     "college": "전정공대, 공과대, 자연대, 사과대, 경영대, 법과대, 인지대, 인사대, 국어국문학부",
+     "department": null,
+     "general_education": {
+      "total": 30
+     },
+     "major": {
+      "single": 45
+     },
+     "free_elective": 65,
+     "graduation_total": 140
+    },
+    {
+     "college": "건축학과(5년제)",
+     "department": null,
+     "general_education": {
+      "total": 30
+     },
+     "major": {
+      "single": 120
+     },
+     "free_elective": 20,
+     "graduation_total": 170
+    },
+    {
+     "college": "동북아대학 3개학부",
+     "department": null,
+     "general_education": {
+      "total": 42
+     },
+     "major": {
+      "single": 84
+     },
+     "free_elective": 24,
+     "graduation_total": 150
+    }
+   ]
+  },
+  {
+   "admission_years": "1996-2002",
+   "label": "96학년도~2002학년도 신입생(97~2003학년도 2학년, 98~2004학년도 3학년 편입생 포함)",
+   "source_ids": [
+    "web-info12",
+    "reg-sihaeng"
+   ],
+   "articles": {
+    "reg-sihaeng": "제33조 제4호"
+   },
+   "rule": "교양 30학점(교필 포함)과 전공 35학점(전필 포함) 이상을 포함해 140학점 이상(복수전공 35학점 이상)",
+   "rows": []
+  },
+  {
+   "admission_years": "-1995",
+   "label": "95학년도 이전 신입생(96학년도 2학년, 97학년도 3학년 편입생 포함)",
+   "source_ids": [
+    "web-info12",
+    "reg-sihaeng"
+   ],
+   "articles": {
+    "reg-sihaeng": "제33조 제6호"
+   },
+   "rule": "교양필수와 전공 55학점 이상을 포함해 140학점 이상, 또는 교양 30학점·전공 35학점 이상을 포함해 140학점 이상",
+   "rows": []
+  }
+ ],
+ "general_education": {
+  "by_admission_year": [
+   {
+    "admission_years": "2026",
+    "source_ids": [
+     "web-info12"
+    ],
+    "required": [
+     {
+      "course": "AI리터러시",
+      "credits": 3
+     }
+    ],
+    "balanced": {
+     "credits": 30,
+     "areas": [
+      "대학실용영어",
+      "언어와표현",
+      "과학과기술",
+      "인간과철학",
+      "사회와경제",
+      "글로벌문화와제2외국어",
+      "예술과체육",
+      "수리와자연",
+      "기초학문융합"
+     ],
+     "min_areas": 4,
+     "must_include": {
+      "인문사회계열(인문사회과학대학, 정책법학대학, 경영대학)": [
+       "과학과기술",
+       "수리와자연"
+      ],
+      "이공계열(전자정보공과대학, 인공지능융합대학, 공과대학, 자연과학대학)": [
+       "인간과철학",
+       "사회와경제"
+      ]
+     },
+     "must_include_rule": "계열별로 둘 중 하나 이상 포함"
+    },
+    "total": 33,
+    "notes": [
+     "인제니움대학 자율전공학부 학생은 본인이 선택한 주전공 계열을 적용",
+     "참빛인재대학은 단과대학별 이수학점 표에서 교양 30(필수·균형 구분 없음)",
+     "AI리터러시가 KLAS 교양 이수현황의 어느 칸(aa8128 등)에 잡히는지, 기초학문융합 영역 코드는 공개 자료로 확인하지 못함"
+    ]
+   },
+   {
+    "admission_years": "2025",
+    "source_ids": [
+     "web-info12",
+     "reg-hakchik"
+    ],
+    "required": [
+     {
+      "course": "광운인되기",
+      "credits": 1,
+      "waived": true,
+      "waiver": "필수교양에서 폐지. 이수하지 않아도 되나 총 교양 31학점은 채워야 함"
+     }
+    ],
+    "balanced": {
+     "credits": 30,
+     "areas": [
+      "대학실용영어",
+      "언어와표현",
+      "과학과기술",
+      "인간과철학",
+      "사회와경제",
+      "글로벌문화와제2외국어",
+      "예술과체육",
+      "수리와자연"
+     ],
+     "min_areas": 4,
+     "rule": "8영역 중 4영역 포함 10과목 × 3학점",
+     "source_ids": [
+      "web-info12",
+      "reg-hakchik"
+     ]
+    },
+    "total": 31
+   },
+   {
+    "admission_years": "2024",
+    "source_ids": [
+     "web-info12",
+     "reg-hakchik"
+    ],
+    "required": [
+     {
+      "course": "광운인되기",
+      "credits": 1,
+      "waived": true,
+      "waiver": "필수교양에서 폐지. 이수하지 않아도 되나 총 교양 31학점은 채워야 함"
+     }
+    ],
+    "balanced": {
+     "credits": 30,
+     "areas": [
+      "대학실용영어",
+      "언어와표현",
+      "과학과기술",
+      "인간과철학",
+      "사회와경제",
+      "글로벌문화와제2외국어",
+      "예술과체육",
+      "수리와자연"
+     ],
+     "min_areas": null,
+     "rule": "10과목 × 3학점, 영역별 의무이수요건 없음",
+     "source_ids": [
+      "web-info12",
+      "reg-hakchik"
+     ]
+    },
+    "total": 31,
+    "notes": [
+     "같은 페이지의 2024 단과대학별 표는 교양을 필수 13·균형 18로 적음(합계 31은 같음). uncertain 참조"
+    ]
+   },
+   {
+    "admission_years": "2020-2023",
+    "source_ids": [
+     "web-info12",
+     "reg-hakchik"
+    ],
+    "required": [
+     {
+      "course": "광운인되기",
+      "credits": 1,
+      "waived": true,
+      "waiver": "이수하지 않아도 되나 총 교양학점은 채워야 함"
+     }
+    ],
+    "balanced": {
+     "credits": 21,
+     "areas": [
+      "대학실용영어",
+      "언어와표현",
+      "과학과기술",
+      "인간과철학",
+      "사회와경제",
+      "글로벌문화와제2외국어",
+      "예술과체육"
+     ],
+     "min_areas": null,
+     "rule": "7과목 × 3학점, 영역별 의무이수요건 없음",
+     "source_ids": [
+      "web-info12",
+      "reg-hakchik"
+     ]
+    },
+    "basic_msc": {
+     "인문": null,
+     "자연": "물리/화학·생물/수학 25학점 이하",
+     "공학": "물리/화학·생물/수학/컴퓨터/공학기초 24학점 이하"
+    },
+    "total": {
+     "인문(인문사회과학대학·정책법학대학·경영대학)": 22,
+     "자연(자연과학대학)": {
+      "min": 22,
+      "max": 38
+     },
+     "공학(전자정보공과대학·인공지능융합대학·공과대학)": {
+      "min": 22,
+      "max": 46
+     }
+    },
+    "notes": [
+     "자연·공학 합계는 학과별로 다름(기초교양 포함). 학과 졸업기준표 확인 필요"
+    ]
+   },
+   {
+    "admission_years": "2019",
+    "source_ids": [
+     "web-info12",
+     "reg-hakchik"
+    ],
+    "required": [
+     {
+      "course": "광운인되기",
+      "credits": 1,
+      "waived": true,
+      "waiver": "이수하지 않아도 되나 총 교양학점은 채워야 함"
+     }
+    ],
+    "balanced": {
+     "credits": 21,
+     "areas": [
+      "대학실용영어",
+      "언어와표현",
+      "과학과기술",
+      "인간과철학",
+      "사회와경제",
+      "글로벌문화와제2외국어",
+      "예술과체육"
+     ],
+     "rule": "7과목 × 3학점(수학과는 5과목 15학점), 영역별 의무이수요건 없음",
+     "source_ids": [
+      "web-info12",
+      "reg-hakchik"
+     ]
+    },
+    "total": {
+     "인문": 22,
+     "자연": {
+      "min": 16,
+      "max": 38
+     },
+     "공학": {
+      "min": 22,
+      "max": 46
+     }
+    },
+    "notes": [
+     "단과대학별 표의 교양은 '필수+균형'과 '기초' 두 칸(credit_tables 2019 참조)"
+    ]
+   },
+   {
+    "admission_years": "2017-2018",
+    "source_ids": [
+     "web-info12",
+     "reg-hakchik"
+    ],
+    "required": [
+     {
+      "course": "광운인되기",
+      "credits": 1,
+      "waived": true,
+      "waiver": "이수하지 않아도 되나 총 교양학점은 채워야 함"
+     }
+    ],
+    "balanced": {
+     "credits": 18,
+     "rule": "7영역 중 6과목 × 3학점(수학과 4과목 12학점). 대학영어 0~3학점 별도",
+     "source_ids": [
+      "web-info12",
+      "reg-hakchik"
+     ]
+    },
+    "english": "대학영어: 신입생 영어레벨테스트 통과자는 필수에서 제외, 미통과자는 균형교양 3학점 대체 가능",
+    "total": {
+     "인문": {
+      "min": 19,
+      "max": 22
+     },
+     "자연": {
+      "min": 13,
+      "max": 38
+     },
+     "공학": {
+      "min": 19,
+      "max": 46
+     }
+    },
+    "notes": [
+     "같은 페이지의 '(2) 균형교양(21학점) 7과목×3학점' 문구는 표의 18학점(6과목)과 다름. uncertain 참조"
+    ]
+   },
+   {
+    "admission_years": "2016",
+    "source_ids": [
+     "web-info12",
+     "reg-hakchik"
+    ],
+    "required": [
+     {
+      "course": "광운인되기",
+      "credits": 1,
+      "waived": true,
+      "waiver": "이수하지 않아도 되나 총 교양학점은 채워야 함"
+     }
+    ],
+    "balanced": {
+     "rule": "표: 인문 5과목 15학점, 자연·공학 4과목 12학점(수학과 2과목 6학점), 대학영어 0~3학점 별도. 본문: 인문 6과목 18, 자연 5과목 15(수학과 3과목 9), 공학 5과목 15",
+     "source_ids": [
+      "web-info12",
+      "reg-hakchik"
+     ]
+    },
+    "total": {
+     "인문": {
+      "min": 16,
+      "max": 19
+     },
+     "자연": {
+      "min": 7,
+      "max": 16
+     },
+     "공학": {
+      "min": 13,
+      "max": 46
+     }
+    },
+    "notes": [
+     "페이지 안 표와 본문 문구가 과목 수에서 다름. uncertain 참조"
+    ]
+   },
+   {
+    "admission_years": "2003-2015",
+    "source_ids": [
+     "web-info12",
+     "reg-sihaeng"
+    ],
+    "total": 30,
+    "notes": [
+     "동북아대학 일부는 24 또는 42(credit_tables 참조)"
+    ],
+    "articles": {
+     "reg-sihaeng": "제33조 제5·10·12·14호"
+    }
+   },
+   {
+    "admission_years": "1996-2002",
+    "source_ids": [
+     "web-info12",
+     "reg-sihaeng"
+    ],
+    "total": 30,
+    "articles": {
+     "reg-sihaeng": "제33조 제4호"
+    }
+   }
+  ],
+  "common_rules": [
+   {
+    "rule": "균형교양은 3·4학점 과목만 인정. 체육실기·음악실기·미술실기 과목은 3학점이어도 제외",
+    "source_ids": [
+     "web-info12"
+    ]
+   },
+   {
+    "rule": "균형교양에 서울권역 e러닝, K-MOOC, 매치업, 외국어로서의 한국어 계열 강좌는 포함하지 않음",
+    "source_ids": [
+     "web-info12"
+    ]
+   },
+   {
+    "rule": "2025학년도 이전 입학자는 필수교양 '광운인되기'를 이수하지 않아도 되지만 입학 학년도별 총 교양이수학점은 채워야 함 (빈 학점은 균형교양 영역의 교양선택으로 채움). 2026-03-01부터 적용",
+    "source_ids": [
+     "reg-hakchik",
+     "web-info12"
+    ],
+    "articles": {
+     "reg-hakchik": "부칙<2025.12.17.> 제1조 단서·제2조"
+    }
+   },
+   {
+    "rule": "만학도 전형, 외국인전형, 특성화고를 졸업한 재직자전형, 체육특기자, 편입생은 교양이수체계 적용을 면제: 교양필수 면제, 교양 30학점 이수",
+    "source_ids": [
+     "web-info12"
+    ],
+    "applies_to_admission_years": "2016~2026 표의 각주(연도별 문구 거의 같음)"
+   },
+   {
+    "rule": "영어특기자전형(2006학년도~) 입학자는 실용영어계열 교양필수 면제·수강 제한 가능하나 졸업 교양 30학점은 줄지 않음",
+    "source_ids": [
+     "reg-hakchik"
+    ],
+    "articles": {
+     "reg-hakchik": "제48조의2"
+    }
+   },
+   {
+    "rule": "공학계열 학과는 공학인증제에 따라 기초교양(수학·기초과학·컴퓨터·공학기초, MSC)을 이수. 정보융합학부는 학과가 정한 기초교양 필수, 소프트웨어학부는 수학 6학점·기초과학 3학점 포함 12학점 이상, 전자바이오물리학과는 2018학년도 신입학자부터 학과 지정 기초교양필수",
+    "source_ids": [
+     "web-info12"
+    ],
+    "applies_to_admission_years": "2016~2023 표 각주"
+   },
+   {
+    "rule": "2023학년도 2학기까지 MSC 기초교양선택이던 '수치해석'·'이산수학'은 2024학년도부터 인공지능융합대학 공통 전공선택. 2023-2 이전 수강분은 MSC 기초교양필수·선택으로 인정 가능",
+    "source_ids": [
+     "web-info12"
+    ]
+   },
+   {
+    "rule": "공학교육인증 졸업요건은 학과(부)·학번별로 다르므로 학과 확인",
+    "source_ids": [
+     "web-info12"
+    ]
+   },
+   {
+    "rule": "교양교육 운영 규정은 인제니움대학 조직·위원회와 교과과정 편성 원칙만 정하고 교양 이수학점은 정하지 않음. 교양교과목 분류는 [별표2](HWP, 미열람)",
+    "source_ids": [
+     "reg-gyoyang"
+    ],
+    "articles": {
+     "reg-gyoyang": "제2조 제3항, 제21조"
+    }
+   }
+  ],
+  "code_crosscheck": [
+   {
+    "code": "service.py BALANCED_AREAS (8개 영역, 과학과기술 = aa63 + aa76)",
+    "official": "2020~2025 균형교양 8개 영역 이름과 같음. '과학과기술(정보영역 통합)' 표기가 두 코드를 합치는 근거",
+    "status": "agrees",
+    "source_ids": [
+     "web-info12"
+    ]
+   },
+   {
+    "code": "service.py 2025학년도 이상: '균형교양 8개 영역 중 4개 영역 이상을 포함해 교양 30학점', check: areas_taken >= 4 and general_total >= 30",
+    "official": "2025: 균형 30(8영역 중 4영역 포함) + 필수 1(광운인되기 폐지분은 균형교양 선택으로 채움) = 총 교양 31. 2026: AI리터러시 3 + 균형 30(9영역 중 4영역 이상, 계열별 지정 영역 1개 이상 포함) = 33",
+    "status": "disagrees",
+    "detail": "2025는 총 교양 기준이 31(코드는 30). 2026은 AI리터러시 3학점 필수, 기초학문융합 영역 추가(BALANCED_AREAS에 없음), 계열별 필수 포함 영역이 있어 같은 규칙을 쓰면 안 됨",
+    "source_ids": [
+     "web-info12"
+    ]
+   },
+   {
+    "code": "service.py 2024학년도 이하: '필수교양 광운인되기 이수 + 입학 연도별 총 교양 학점', kwangwoonin_done 표시",
+    "official": "2025학년도 이전 입학자는 광운인되기를 이수하지 않아도 됨(총 교양학점만 충족). 2026-03-01부터 적용",
+    "status": "disagrees",
+    "source_ids": [
+     "reg-hakchik",
+     "web-info12"
+    ],
+    "articles": {
+     "reg-hakchik": "부칙<2025.12.17.> 제2조"
+    }
+   },
+   {
+    "code": "service.py notes: '균형교양은 3·4학점 과목만 인정, e러닝·K-MOOC 등 일부 계열 제외'",
+    "official": "같음. 추가로 체육·음악·미술 실기 과목은 3학점이어도 제외, 매치업·외국어로서의 한국어도 제외",
+    "status": "agrees",
+    "source_ids": [
+     "web-info12"
+    ]
+   },
+   {
+    "code": "service.py 편입생: 교양 기준이 다르다고만 안내(met: null)",
+    "official": "편입생은 교양이수체계 면제, 교양필수 면제, 교양 30학점. 만학도·외국인·특성화고 재직자·체육특기자 전형도 같음",
+    "status": "agrees (코드는 판정을 미룸)",
+    "source_ids": [
+     "web-info12"
+    ]
+   }
+  ]
+ },
+ "other_conditions": [
+  {
+   "id": "semesters",
+   "rule": "신입학생 8학기(건축학과 10학기) 이상, 편입생 4학기 또는 6학기 이상 등록. 조기졸업자는 예외",
+   "source_ids": [
+    "reg-sihaeng",
+    "web-info07"
+   ],
+   "articles": {
+    "reg-sihaeng": "제33조 제1호"
+   }
+  },
+  {
+   "id": "required_courses",
+   "rule": "1학년 교양(공통)필수 과목 외에 학과별·학년별 전공필수를 졸업 전 반드시 이수. 편입생은 학과장이 지정한 편입생 이수요망 과목도 이수(하나라도 빠지면 졸업 불가)",
+   "source_ids": [
+    "web-info07",
+    "reg-sihaeng"
+   ],
+   "articles": {
+    "reg-sihaeng": "제20조 제1호"
+   }
+  },
+  {
+   "id": "thesis",
+   "rule": "졸업논문 제출을 요구하는 학부(과)는 7학기(건축 9학기) 이상 등록한 졸업예정자가 졸업논문 또는 학과가 정한 대체 요건(특별실험실습 보고서, 종합설계 결과물, 졸업종합시험, 전공 관련 자격증, 공모전 결과물 등)을 통과해야 학위 수여. 불합격 시 수료증만 수여",
+   "source_ids": [
+    "reg-hakchik",
+    "web-info07"
+   ],
+   "articles": {
+    "reg-hakchik": "제64조, 제65조 제1호"
+   },
+   "notes": [
+    "학과별 응시유형·기준은 공개 자료에 없음. 학과 사무실 확인"
+   ]
+  },
+  {
+   "id": "multi_major_mandatory",
+   "rule": "2025학년도 신입생부터 주전공 외 다전공(심화·복수·부·연계·학생설계융합·마이크로) 하나를 반드시 이수",
+   "exceptions": [
+    "외국인전형",
+    "특성화고를 졸업한 재직자전형",
+    "체육특기자",
+    "편입생",
+    "건축학과"
+   ],
+   "source_ids": [
+    "reg-hakchik",
+    "reg-sihaeng",
+    "reg-damajor-isu",
+    "web-info12"
+   ],
+   "articles": {
+    "reg-hakchik": "제65조 제10호",
+    "reg-sihaeng": "제33조 제19호",
+    "reg-damajor-isu": "제3조 제2항"
+   }
+  },
+  {
+   "id": "engineering_accreditation",
+   "rule": "공학프로그램(전자정보공과대학·인공지능융합대학·공과대학) 이수 학생: 수학·과학·전산학 30학점 이상(2024학년도 신입생부터 24), 컴퓨터·정보기술 인증기준은 수학·과학 18학점 이상(2024학년도부터 12), 전공 60학점 이상(설계 12학점 이상, 학과 지정 교과목 포함)",
+   "source_ids": [
+    "reg-hakchik",
+    "reg-sihaeng"
+   ],
+   "articles": {
+    "reg-hakchik": "제39조의2, 제49조 제2항",
+    "reg-sihaeng": "제33조 제8호"
+   },
+   "notes": [
+    "일반프로그램 학생에게는 적용하지 않음. 학과별 세부 기준은 학과 확인"
+   ]
+  },
+  {
+   "id": "topik",
+   "rule": "외국인 학생(2020학년도 2학기 신·편입학자부터)은 TOPIK 4급 이상 인증서 제출",
+   "source_ids": [
+    "reg-hakchik",
+    "reg-sihaeng"
+   ],
+   "articles": {
+    "reg-hakchik": "제65조 제9호",
+    "reg-sihaeng": "제33조 제18호"
+   }
+  },
+  {
+   "id": "english_certification",
+   "rule": "영어졸업인증제는 폐지(학칙 제65조 해당 호 삭제, 2014-04-18 시행 시행세칙 부칙). 현재 졸업요건 아님",
+   "source_ids": [
+    "reg-sihaeng",
+    "reg-hakchik"
+   ],
+   "articles": {
+    "reg-sihaeng": "부칙<2014.4.18.> ②③",
+    "reg-hakchik": "제65조 제2~4호(삭제)"
+   },
+   "notes": [
+    "web-info07의 정규학기 초과 등록금 안내에는 '영어졸업인증제' 문구가 아직 남아 있음"
+   ]
+  },
+  {
+   "id": "remote_limit",
+   "rule": "전체 졸업학점을 원격수업으로 이수할 수 없음",
+   "source_ids": [
+    "reg-hakchik"
+   ],
+   "articles": {
+    "reg-hakchik": "제63조"
+   }
+  },
+  {
+   "id": "registration_load",
+   "rule": "정규학기 수강신청 12~21학점(2017학년도 신입생부터 12~19학점). 계절수업은 학기당 6학점까지. 2017학년도 1학기부터 졸업예정학기(8학기, 건축 10학기)는 6학점 이상 신청",
+   "source_ids": [
+    "reg-hakchik"
+   ],
+   "articles": {
+    "reg-hakchik": "제46조"
+   }
+  },
+  {
+   "id": "retake",
+   "rule": "C+ 이하 과목만 재수강, 같은 과목 2회까지, 재학 중 최대 8과목. 폐지·3개 학기 연속 미개설로 재수강이 불가한 과목만 취득학점 포기 가능",
+   "source_ids": [
+    "reg-hakchik"
+   ],
+   "articles": {
+    "reg-hakchik": "제46조 제5항, 제46조의4"
+   }
+  },
+  {
+   "id": "military_remote",
+   "rule": "군 복무 중 원격강좌로 취득한 학점은 최대 12학점까지 인정",
+   "source_ids": [
+    "reg-hakchik"
+   ],
+   "articles": {
+    "reg-hakchik": "제46조의3"
+   }
+  },
+  {
+   "id": "transfer_credit",
+   "rule": "편입생 전적대학 인정학점 범위: 2학년 편입(재외국민·외국인) 20~35, 3학년 편입 55~73, 4학년 편입 80~103. 인정 학점(교양·전공·일선)은 학과장 면담으로 확정",
+   "source_ids": [
+    "reg-sihaeng",
+    "web-info07"
+   ],
+   "articles": {
+    "reg-sihaeng": "제20조"
+   }
+  },
+  {
+   "id": "early_graduation",
+   "rule": "조기졸업: 7개 학기(건축 9개 학기) 이상 이수, 총 평점평균 4.30 이상, 졸업요건 모두 충족. 신청 자격: 6학기말까지 정규학기 취득학점 이공 114 / 인문 111 / 건축 8학기말 144 / 야간 101(2017학번부터; 2016학번까지는 119 / 건축 149 / 동북아 126 / 야간 99), 전 과목 B0 이상. 교환학생 다녀온 자, 학사경고·징계자, 편입·재입학자는 제외. 졸업 희망학기 개강 후 수업일수 1/4 이내 신청",
+   "source_ids": [
+    "reg-hakchik",
+    "reg-early-grad",
+    "web-info07"
+   ],
+   "articles": {
+    "reg-hakchik": "제5조 제2항",
+    "reg-early-grad": "제2조, 제4조, 제5조, 제6조"
+   }
+  },
+  {
+   "id": "graduation_deferral",
+   "rule": "졸업요건을 갖춘 학생은 다전공 과목 미이수 또는 외국대학 교환학생 수학기간 중이면 졸업을 유보할 수 있음(졸업학기 개강 후~중간고사 전 신청)",
+   "source_ids": [
+    "reg-sihaeng",
+    "web-info07"
+   ],
+   "articles": {
+    "reg-sihaeng": "제33조의2"
+   },
+   "notes": [
+    "web-info07은 '교직과목을 이수하지 못한 자'도 사유로 적지만, 그 호는 2026-02-11 삭제됨(학칙 제47조 교직과정도 삭제)"
+   ]
+  },
+  {
+   "id": "grading_scale",
+   "rule": "성적: A+ 4.5, A0 4.0, B+ 3.5, B0 3.0, C+ 2.5, C0 2.0, D+ 1.5, D0 1.0, F 0. 졸업예정자 평점평균 = 4개년 평점합계 / 재학 중 총 수강신청 학점",
+   "source_ids": [
+    "reg-sihaeng"
+   ],
+   "articles": {
+    "reg-sihaeng": "제16조"
+   }
+  },
+  {
+   "id": "completion",
+   "rule": "학년별 수료: 2017학년도 신입생부터 1학년 2학기·이공 34/인문 33, 2학년 4학기·67/65, 3학년 6학기·100/98, 4학년 8학기·133/130(120학점제는 30/60/90/120), 5학년(건축) 10학기·163. 2016 이전은 35/70/105/140(동북아 150, 120학점제 30/60/90/120), 건축 5학년 170",
+   "source_ids": [
+    "reg-hakchik",
+    "web-info07"
+   ],
+   "articles": {
+    "reg-hakchik": "제61조"
+   }
+  }
+ ],
+ "uncertain": [
+  {
+   "item": "2024학년도 교양 필수/균형 구분",
+   "seen": "web-info12의 2024 교양 이수체계는 필수 1(광운인되기) + 균형 30 = 31인데, 같은 페이지 2024 단과대학별 표는 필수 13 · 균형 18(합계 31)",
+   "use": "합계 31만 확정값으로 씀",
+   "source_ids": [
+    "web-info12"
+   ]
+  },
+  {
+   "item": "2026학년도 AI리터러시 면제 여부와 KLAS 표시",
+   "seen": "필수교양 AI리터러시 3학점만 적혀 있고 광운인되기 같은 폐지·면제 문구 없음. 특별전형·편입생은 교양필수 면제(각주). KLAS 교양 이수현황에서 AI리터러시·기초학문융합이 어느 코드로 잡히는지 공개 자료 없음",
+   "source_ids": [
+    "web-info12"
+   ]
+  },
+  {
+   "item": "2020~2023학년도 자연·공학계열 학과별 총 교양학점",
+   "seen": "표에 '교양이수 체계 참조'만 있고 이수체계는 22~38(자연), 22~46(공학) 범위만 제시. 2017~2019 표에는 학과별 '기초' 학점이 있음(전정대 24, 소프트웨어학부 21, 정보융합학부 9 등)",
+   "source_ids": [
+    "web-info12"
+   ]
+  },
+  {
+   "item": "2016·2017~2018 균형교양 과목 수",
+   "seen": "표(2017~2018: 7영역 중 6과목 18학점, 2016 인문 5과목 15학점·자연·공학 4과목 12학점)와 본문 문구(2017~2018: 7과목 21학점, 2016 인문 6과목 18·자연·공학 5과목 15)가 다름. 본문 값은 대학영어 3학점을 균형교양에 넣은 값으로 보이며, 표의 계(합계)와는 맞음",
+   "source_ids": [
+    "web-info12"
+   ]
+  },
+  {
+   "item": "2024학년도 동북아문화산업학부 단일전공 주전공 학점",
+   "seen": "web-info12 표 66, web-info11 표 60 (2020~2023은 2020학번 66, 2021학번~ 60)",
+   "source_ids": [
+    "web-info12",
+    "web-info11"
+   ]
+  },
+  {
+   "item": "2019학년도 행정학과 부전공 학점",
+   "seen": "web-info12 표 30, web-info11 표 21 (2017~2018·2020~2024는 두 페이지 모두 30)",
+   "source_ids": [
+    "web-info12",
+    "web-info11"
+   ]
+  },
+  {
+   "item": "2020~2023 표의 '국제학부*' 별표",
+   "seen": "별표에 대응하는 각주가 페이지에 없음",
+   "source_ids": [
+    "web-info12"
+   ]
+  },
+  {
+   "item": "학칙 [별표 6] 원문",
+   "seen": "학칙이 학과별 이수학점을 [별표 6](HWP)에 맡기는데 열지 못함. web-info12를 같은 내용으로 보고 사용",
+   "source_ids": [
+    "reg-hakchik"
+   ]
+  },
+  {
+   "item": "졸업 최저 평점",
+   "seen": "학칙·시행세칙에서 졸업 최저 평점 요건을 찾지 못함(조기졸업 4.30만 있음)",
+   "source_ids": [
+    "reg-hakchik",
+    "reg-sihaeng"
+   ]
+  },
+  {
+   "item": "학과별 졸업논문·졸업종합시험·공학인증 세부 기준과 전공필수 목록",
+   "seen": "학과 사무실·필수과목 개설안내(bachelor_info02, 이번에 읽지 않음) 소관",
+   "source_ids": [
+    "web-info07"
+   ]
+  },
+  {
+   "item": "조기졸업 이수 학기 표현",
+   "seen": "학칙 제5조 ②는 '7학기에 이수한 자', 조기졸업 규정 제2조와 web-info07은 '7개 학기 이상 이수자'",
+   "source_ids": [
+    "reg-hakchik",
+    "reg-early-grad",
+    "web-info07"
+   ]
+  },
+  {
+   "item": "학과 명칭 변경 예정",
+   "seen": "영어산업학과→영어영문학과(2027-03-01 경과조치), 정보융합학부→데이터사이언스학부·동북아문화산업학부→문화산업학부·참빛인재대학→산업융합대학(2028학년도 신입생부터). 새 이름의 표는 아직 없음",
+   "source_ids": [
+    "reg-hakchik"
+   ],
+   "articles": {
+    "reg-hakchik": "부칙<2025.6.25.>, 부칙<2026.8.12.>"
+   }
+  }
+ ]
+}

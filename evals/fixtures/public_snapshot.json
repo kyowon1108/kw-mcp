@@ -1,0 +1,622 @@
+{
+ "_about": "Public school data seen through the kw-campus public API on 2026-11-07 (titles, dates, links only). Context for writing questions; answers come from the live API at run time.",
+ "notices": {
+  "학사": [
+   {
+    "post_id": "53557",
+    "title": "2026학년도 동계계절수업 타대학 학점교류 안내 (본교→타교)",
+    "category": "학사",
+    "department": "교육지원팀",
+    "posted_date": "2026-10-26",
+    "url": "https://www.kw.ac.kr/ko/life/notice.jsp?BoardMode=view&DUID=53557"
+   },
+   {
+    "post_id": "53481",
+    "title": "재학생 모집단위 내 세부전공 변경 시행 공고",
+    "category": "학사",
+    "department": "교육지원팀",
+    "posted_date": "2026-10-14",
+    "url": "https://www.kw.ac.kr/ko/life/notice.jsp?BoardMode=view&DUID=53481"
+   },
+   {
+    "post_id": "53478",
+    "title": "2026학년도 학부제 입학생 세부전공 선택 안내",
+    "category": "학사",
+    "department": "교육지원팀",
+    "posted_date": "2026-10-14",
+    "url": "https://www.kw.ac.kr/ko/life/notice.jsp?BoardMode=view&DUID=53478"
+   },
+   {
+    "post_id": "53154",
+    "title": "2026학년도 2학기 1:1 영어클리닉 프로그램 안내",
+    "category": "학사",
+    "department": "인제니움대학",
+    "posted_date": "2026-08-21",
+    "url": "https://www.kw.ac.kr/ko/life/notice.jsp?BoardMode=view&DUID=53154"
+   }
+  ],
+  "장학": [
+   {
+    "post_id": "53624",
+    "title": "2026학년도 2학기 국가장학금 지급 (예정)안내(1차)",
+    "category": "등록/장학",
+    "department": "학생복지팀",
+    "posted_date": "2026-11-06",
+    "url": "https://www.kw.ac.kr/ko/life/notice.jsp?BoardMode=view&DUID=53624"
+   },
+   {
+    "post_id": "53614",
+    "title": "2027년도 1학기 제7회 보림선원 서울선원 장학생 선발 공고",
+    "category": "등록/장학",
+    "department": "학생복지팀",
+    "posted_date": "2026-11-05",
+    "url": "https://www.kw.ac.kr/ko/life/notice.jsp?BoardMode=view&DUID=53614"
+   },
+   {
+    "post_id": "53596",
+    "title": "대한주택건설협회 서울특별시회 2026학년도 장학생 선발 안내(생활비성)",
+    "category": "등록/장학",
+    "department": "학생복지팀",
+    "posted_date": "2026-11-02",
+    "url": "https://www.kw.ac.kr/ko/life/notice.jsp?BoardMode=view&DUID=53596"
+   },
+   {
+    "post_id": "53581",
+    "title": "2026년도 통영시 저소득 대학생 장학금 지원대상자 선발 안내",
+    "category": "등록/장학",
+    "department": "학생복지팀",
+    "posted_date": "2026-10-29",
+    "url": "https://www.kw.ac.kr/ko/life/notice.jsp?BoardMode=view&DUID=53581"
+   },
+   {
+    "post_id": "53561",
+    "title": "2026학년도 2학기 화도 및 동해장학금 2차 신청 안내",
+    "category": "등록/장학",
+    "department": "학생복지팀",
+    "posted_date": "2026-10-27",
+    "url": "https://www.kw.ac.kr/ko/life/notice.jsp?BoardMode=view&DUID=53561"
+   },
+   {
+    "post_id": "53560",
+    "title": "[강화군] 2026년도 하반기 강화군 대학생 등록금 지원사업 안내",
+    "category": "등록/장학",
+    "department": "학생복지팀",
+    "posted_date": "2026-10-26",
+    "url": "https://www.kw.ac.kr/ko/life/notice.jsp?BoardMode=view&DUID=53560"
+   },
+   {
+    "post_id": "53497",
+    "title": "2027년도 한국지도자육성장학재단 신규장학생 모집 안내",
+    "category": "등록/장학",
+    "department": "학생복지팀",
+    "posted_date": "2026-10-16",
+    "url": "https://www.kw.ac.kr/ko/life/notice.jsp?BoardMode=view&DUID=53497"
+   }
+  ],
+  "정보융합학부": [],
+  "인공지능융합대학": [
+   {
+    "post_id": "aicon-3526",
+    "title": "[산학연계] 2026학년도 광운대 인공지능융합대학 AI 교육 성과 공유확산 전시회 스탬프 투어",
+    "category": "인공지능융합대학",
+    "department": "컴퓨터정보공학부",
+    "posted_date": "2026-11-06",
+    "url": "https://aicon.kw.ac.kr/administration/notice.php?admin_mode=read&no=3526"
+   },
+   {
+    "post_id": "aicon-3525",
+    "title": "[공지] 2026학년도 컴퓨터정보공학부 졸업작품 전시회 안내",
+    "category": "인공지능융합대학",
+    "department": "컴퓨터정보공학부",
+    "posted_date": "2026-11-06",
+    "url": "https://aicon.kw.ac.kr/administration/notice.php?admin_mode=read&no=3525"
+   },
+   {
+    "post_id": "aicon-3524",
+    "title": "[재학생 참여 안내] AI 작품 구경하고, 커피 쿠폰 받자! AI 성과 전시회 스탬프 투어",
+    "category": "인공지능융합대학",
+    "department": "인공지능융합대학",
+    "posted_date": "2026-11-06",
+    "url": "https://aicon.kw.ac.kr/administration/notice.php?admin_mode=read&no=3524"
+   },
+   {
+    "post_id": "aicon-3523",
+    "title": "[재학생 참여 안내] AI 작품 구경하고, 커피 쿠폰 받자! AI 성과 전시회 스탬프 투어",
+    "category": "인공지능융합대학",
+    "department": "소프트웨어학부",
+    "posted_date": "2026-11-06",
+    "url": "https://aicon.kw.ac.kr/administration/notice.php?admin_mode=read&no=3523"
+   },
+   {
+    "post_id": "aicon-3522",
+    "title": "[재학생 참여 안내] AI 작품 구경하고, 커피 쿠폰 받자! AI 성과 전시회 스탬프 투어",
+    "category": "인공지능융합대학",
+    "department": "정보융합학부",
+    "posted_date": "2026-11-06",
+    "url": "https://aicon.kw.ac.kr/administration/notice.php?admin_mode=read&no=3522"
+   },
+   {
+    "post_id": "aicon-3521",
+    "title": "[2026학년도 소프트웨어학부 졸업작품전시회 안내]",
+    "category": "인공지능융합대학",
+    "department": "소프트웨어학부",
+    "posted_date": "2026-11-06",
+    "url": "https://aicon.kw.ac.kr/administration/notice.php?admin_mode=read&no=3521"
+   },
+   {
+    "post_id": "aicon-3516",
+    "title": "[공지] 2026년 졸업작품/논문 프로젝트 최종보고서 제출 안내",
+    "category": "인공지능융합대학",
+    "department": "컴퓨터정보공학부",
+    "posted_date": "2026-11-05",
+    "url": "https://aicon.kw.ac.kr/administration/notice.php?admin_mode=read&no=3516"
+   },
+   {
+    "post_id": "aicon-3515",
+    "title": "제 1회 하나증권 청년 금융 아이디어 공모전(~11.30(월))",
+    "category": "인공지능융합대학",
+    "department": "정보융합학부",
+    "posted_date": "2026-11-05",
+    "url": "https://aicon.kw.ac.kr/administration/notice.php?admin_mode=read&no=3515"
+   },
+   {
+    "post_id": "aicon-3514",
+    "title": "[고영테크놀러지] 2026 하반기 신입사원 채용 (~11/18)",
+    "category": "인공지능융합대학",
+    "department": "정보융합학부",
+    "posted_date": "2026-11-05",
+    "url": "https://aicon.kw.ac.kr/administration/notice.php?admin_mode=read&no=3514"
+   },
+   {
+    "post_id": "aicon-3513",
+    "title": "2026학년도 광운 취업박람회 행사 안내",
+    "category": "인공지능융합대학",
+    "department": "소프트웨어학부",
+    "posted_date": "2026-11-04",
+    "url": "https://aicon.kw.ac.kr/administration/notice.php?admin_mode=read&no=3513"
+   }
+  ],
+  "FAQ": [
+   {
+    "post_id": "kw-faq-53053",
+    "title": "군 복무 e-러닝 수강신청 및 학점 인정 안내",
+    "category": "FAQ",
+    "department": "교육지원팀",
+    "posted_date": "2026-08-11",
+    "url": "https://www.kw.ac.kr/ko/life/faq.jsp?BoardMode=view&DUID=53053"
+   },
+   {
+    "post_id": "kw-faq-52716",
+    "title": "물품관리(불용 및 위치이동등) 처리 절차 안내",
+    "category": "FAQ",
+    "department": "시설안전관리팀",
+    "posted_date": "2026-06-15",
+    "url": "https://www.kw.ac.kr/ko/life/faq.jsp?BoardMode=view&DUID=52716"
+   },
+   {
+    "post_id": "kw-faq-52309",
+    "title": "학적부 정정 신청 안내",
+    "category": "FAQ",
+    "department": "교육지원팀",
+    "posted_date": "2026-04-13",
+    "url": "https://www.kw.ac.kr/ko/life/faq.jsp?BoardMode=view&DUID=52309"
+   },
+   {
+    "post_id": "kw-faq-49939",
+    "title": "출석부•학생증 사진 변경 방법 안내",
+    "category": "FAQ",
+    "department": "교육지원팀",
+    "posted_date": "2025-04-29",
+    "url": "https://www.kw.ac.kr/ko/life/faq.jsp?BoardMode=view&DUID=49939"
+   },
+   {
+    "post_id": "kw-faq-34897",
+    "title": "자퇴 신청 절차 안내 (자퇴원서 첨부)",
+    "category": "FAQ",
+    "department": "교육지원팀",
+    "posted_date": "2020-12-29",
+    "url": "https://www.kw.ac.kr/ko/life/faq.jsp?BoardMode=view&DUID=34897"
+   },
+   {
+    "post_id": "kw-faq-34581",
+    "title": "수강신청 프로그램 설치방법 및 이용방법 안내(2020학년도 리뉴얼)",
+    "category": "FAQ",
+    "department": "교육지원팀",
+    "posted_date": "2020-11-20",
+    "url": "https://www.kw.ac.kr/ko/life/faq.jsp?BoardMode=view&DUID=34581"
+   },
+   {
+    "post_id": "kw-faq-833",
+    "title": "2018학년도 하반기 대사증후군 프로그램 안내",
+    "category": "FAQ",
+    "department": "학생복지팀",
+    "posted_date": "2018-11-15",
+    "url": "https://www.kw.ac.kr/ko/life/faq.jsp?BoardMode=view&DUID=833"
+   },
+   {
+    "post_id": "kw-faq-832",
+    "title": "이미지가 포함된 게시물 작성 시 대체텍스트(수정시에는 풍선도움말) 입력 안내",
+    "category": "FAQ",
+    "department": "정보운영팀",
+    "posted_date": "2018-10-19",
+    "url": "https://www.kw.ac.kr/ko/life/faq.jsp?BoardMode=view&DUID=832"
+   },
+   {
+    "post_id": "kw-faq-830",
+    "title": "교육조교 등록방법",
+    "category": "FAQ",
+    "department": "교수지원팀",
+    "posted_date": "2018-04-25",
+    "url": "https://www.kw.ac.kr/ko/life/faq.jsp?BoardMode=view&DUID=830"
+   },
+   {
+    "post_id": "kw-faq-829",
+    "title": "졸업연기 및 조기졸업 신청방법",
+    "category": "FAQ",
+    "department": "교육지원팀",
+    "posted_date": "2018-04-24",
+    "url": "https://www.kw.ac.kr/ko/life/faq.jsp?BoardMode=view&DUID=829"
+   }
+  ],
+  "취업": [
+   {
+    "post_id": "kw-job-53606",
+    "title": "[대학혁신지원사업] 2026 광운대학교 취업박람회 개최 안내",
+    "category": "취업",
+    "department": "경력개발팀",
+    "posted_date": "2026-11-04",
+    "url": "https://www.kw.ac.kr/ko/life/job.jsp?BoardMode=view&DUID=53606"
+   },
+   {
+    "post_id": "kw-job-53592",
+    "title": "[대학혁신지원사업] 현직자 직무특강_빅데이터 분석/직무트렌드세터(11/10~11)",
+    "category": "취업",
+    "department": "경력개발팀",
+    "posted_date": "2026-11-02",
+    "url": "https://www.kw.ac.kr/ko/life/job.jsp?BoardMode=view&DUID=53592"
+   },
+   {
+    "post_id": "kw-job-53591",
+    "title": "[대학혁신지원사업] 현직자 릴레이 직무특강(11/10~11/26)",
+    "category": "취업",
+    "department": "경력개발팀",
+    "posted_date": "2026-11-02",
+    "url": "https://www.kw.ac.kr/ko/life/job.jsp?BoardMode=view&DUID=53591"
+   },
+   {
+    "post_id": "kw-job-53586",
+    "title": "[대학혁신지원사업] 2026 취업역량강화 캠프(1박2일) 참가자 모집",
+    "category": "취업",
+    "department": "경력개발팀",
+    "posted_date": "2026-10-30",
+    "url": "https://www.kw.ac.kr/ko/life/job.jsp?BoardMode=view&DUID=53586"
+   },
+   {
+    "post_id": "kw-job-53583",
+    "title": "2026학년도 SK하이닉스 하프데이 면접 대비 특강 및 컨설팅 신청",
+    "category": "취업",
+    "department": "경력개발팀",
+    "posted_date": "2026-10-29",
+    "url": "https://www.kw.ac.kr/ko/life/job.jsp?BoardMode=view&DUID=53583"
+   },
+   {
+    "post_id": "kw-job-53571",
+    "title": "[대한상공회의소 서울기술교육센터] 온디바이스 AI SW 개발 2기 교육생 모집",
+    "category": "취업",
+    "department": "경력개발팀",
+    "posted_date": "2026-10-28",
+    "url": "https://www.kw.ac.kr/ko/life/job.jsp?BoardMode=view&DUID=53571"
+   },
+   {
+    "post_id": "kw-job-53507",
+    "title": "[대학혁신지원사업]2026 하반기 실전 모의면접_10월28일/29일",
+    "category": "취업",
+    "department": "경력개발팀",
+    "posted_date": "2026-10-16",
+    "url": "https://www.kw.ac.kr/ko/life/job.jsp?BoardMode=view&DUID=53507"
+   },
+   {
+    "post_id": "kw-job-53501",
+    "title": "[공모전 안내] 2026 광운대학교 취업성공수기 공모전 (~11/30)",
+    "category": "취업",
+    "department": "경력개발팀",
+    "posted_date": "2026-10-16",
+    "url": "https://www.kw.ac.kr/ko/life/job.jsp?BoardMode=view&DUID=53501"
+   }
+  ],
+  "국제": [
+   {
+    "post_id": "53626",
+    "title": "2027학년도 1학기 학부 외국인 신·편입생 1차 모집 합격자 발표",
+    "category": "국제학생",
+    "department": "글로벌전략팀",
+    "posted_date": "2026-11-06",
+    "url": "https://www.kw.ac.kr/ko/life/notice.jsp?BoardMode=view&DUID=53626"
+   },
+   {
+    "post_id": "53622",
+    "title": "외국인 유학생 시간제 취업 금지 분야 불법취업 적발시 처리기준 개정 알림",
+    "category": "국제학생",
+    "department": "글로벌전략팀",
+    "posted_date": "2026-11-06",
+    "url": "https://www.kw.ac.kr/ko/life/notice.jsp?BoardMode=view&DUID=53622"
+   },
+   {
+    "post_id": "53620",
+    "title": "[글로벌전략팀] 글로벌 외국인 유학생 잡페어 안내",
+    "category": "국제학생",
+    "department": "글로벌전략팀",
+    "posted_date": "2026-11-06",
+    "url": "https://www.kw.ac.kr/ko/life/notice.jsp?BoardMode=view&DUID=53620"
+   },
+   {
+    "post_id": "53609",
+    "title": "[대학혁신사업] 2026학년도 Global Challenger 최종선발팀 및 유의사항 안내",
+    "category": "국제교류",
+    "department": "글로벌전략팀",
+    "posted_date": "2026-11-04",
+    "url": "https://www.kw.ac.kr/ko/life/notice.jsp?BoardMode=view&DUID=53609"
+   },
+   {
+    "post_id": "53578",
+    "title": "2027학년도 SAF 교환학생 설명회 안내",
+    "category": "국제교류",
+    "department": "글로벌전략팀",
+    "posted_date": "2026-10-28",
+    "url": "https://www.kw.ac.kr/ko/life/notice.jsp?BoardMode=view&DUID=53578"
+   },
+   {
+    "post_id": "53567",
+    "title": "2027 가을학기 SAF 방문학생/IES 해외 인턴십 대면 설명회",
+    "category": "국제교류",
+    "department": "글로벌전략팀",
+    "posted_date": "2026-10-27",
+    "url": "https://www.kw.ac.kr/ko/life/notice.jsp?BoardMode=view&DUID=53567"
+   }
+  ],
+  "latest": [
+   {
+    "post_id": "aicon-3526",
+    "title": "[산학연계] 2026학년도 광운대 인공지능융합대학 AI 교육 성과 공유확산 전시회 스탬프 투어",
+    "category": "인공지능융합대학",
+    "department": "컴퓨터정보공학부",
+    "posted_date": "2026-11-06",
+    "url": "https://aicon.kw.ac.kr/administration/notice.php?admin_mode=read&no=3526"
+   },
+   {
+    "post_id": "aicon-3525",
+    "title": "[공지] 2026학년도 컴퓨터정보공학부 졸업작품 전시회 안내",
+    "category": "인공지능융합대학",
+    "department": "컴퓨터정보공학부",
+    "posted_date": "2026-11-06",
+    "url": "https://aicon.kw.ac.kr/administration/notice.php?admin_mode=read&no=3525"
+   },
+   {
+    "post_id": "53626",
+    "title": "2027학년도 1학기 학부 외국인 신·편입생 1차 모집 합격자 발표",
+    "category": "국제학생",
+    "department": "글로벌전략팀",
+    "posted_date": "2026-11-06",
+    "url": "https://www.kw.ac.kr/ko/life/notice.jsp?BoardMode=view&DUID=53626"
+   },
+   {
+    "post_id": "aicon-3524",
+    "title": "[재학생 참여 안내] AI 작품 구경하고, 커피 쿠폰 받자! AI 성과 전시회 스탬프 투어",
+    "category": "인공지능융합대학",
+    "department": "인공지능융합대학",
+    "posted_date": "2026-11-06",
+    "url": "https://aicon.kw.ac.kr/administration/notice.php?admin_mode=read&no=3524"
+   },
+   {
+    "post_id": "aicon-3523",
+    "title": "[재학생 참여 안내] AI 작품 구경하고, 커피 쿠폰 받자! AI 성과 전시회 스탬프 투어",
+    "category": "인공지능융합대학",
+    "department": "소프트웨어학부",
+    "posted_date": "2026-11-06",
+    "url": "https://aicon.kw.ac.kr/administration/notice.php?admin_mode=read&no=3523"
+   },
+   {
+    "post_id": "aicon-3522",
+    "title": "[재학생 참여 안내] AI 작품 구경하고, 커피 쿠폰 받자! AI 성과 전시회 스탬프 투어",
+    "category": "인공지능융합대학",
+    "department": "정보융합학부",
+    "posted_date": "2026-11-06",
+    "url": "https://aicon.kw.ac.kr/administration/notice.php?admin_mode=read&no=3522"
+   },
+   {
+    "post_id": "53624",
+    "title": "2026학년도 2학기 국가장학금 지급 (예정)안내(1차)",
+    "category": "등록/장학",
+    "department": "학생복지팀",
+    "posted_date": "2026-11-06",
+    "url": "https://www.kw.ac.kr/ko/life/notice.jsp?BoardMode=view&DUID=53624"
+   },
+   {
+    "post_id": "53623",
+    "title": "[광운대캠퍼스타운]「Quantum AI 인재 양성 교육」 참가자 모집",
+    "category": "일반",
+    "department": "캠퍼스타운사업단",
+    "posted_date": "2026-11-06",
+    "url": "https://www.kw.ac.kr/ko/life/notice.jsp?BoardMode=view&DUID=53623"
+   },
+   {
+    "post_id": "aicon-3521",
+    "title": "[2026학년도 소프트웨어학부 졸업작품전시회 안내]",
+    "category": "인공지능융합대학",
+    "department": "소프트웨어학부",
+    "posted_date": "2026-11-06",
+    "url": "https://aicon.kw.ac.kr/administration/notice.php?admin_mode=read&no=3521"
+   },
+   {
+    "post_id": "53622",
+    "title": "외국인 유학생 시간제 취업 금지 분야 불법취업 적발시 처리기준 개정 알림",
+    "category": "국제학생",
+    "department": "글로벌전략팀",
+    "posted_date": "2026-11-06",
+    "url": "https://www.kw.ac.kr/ko/life/notice.jsp?BoardMode=view&DUID=53622"
+   },
+   {
+    "post_id": "53621",
+    "title": "[굿네이버스 서울북부사업본부] 온라인 해외봉사 역량강화 프로그램 2기 모집",
+    "category": "봉사",
+    "department": "학생복지팀",
+    "posted_date": "2026-11-06",
+    "url": "https://www.kw.ac.kr/ko/life/notice.jsp?BoardMode=view&DUID=53621"
+   },
+   {
+    "post_id": "53620",
+    "title": "[글로벌전략팀] 글로벌 외국인 유학생 잡페어 안내",
+    "category": "국제학생",
+    "department": "글로벌전략팀",
+    "posted_date": "2026-11-06",
+    "url": "https://www.kw.ac.kr/ko/life/notice.jsp?BoardMode=view&DUID=53620"
+   },
+   {
+    "post_id": "53619",
+    "title": "2026년도 광운대학교 사회봉사단 「사랑의 김장 나누기 봉사」 참가자 모집",
+    "category": "봉사",
+    "department": "학생복지팀",
+    "posted_date": "2026-11-06",
+    "url": "https://www.kw.ac.kr/ko/life/notice.jsp?BoardMode=view&DUID=53619"
+   },
+   {
+    "post_id": "dept-electric-903",
+    "title": "「Physical AI, 로봇은 어떻게 보고 생각하고 행동할까?」 단기강좌",
+    "category": "전기공학과",
+    "department": "전기공학과",
+    "posted_date": "2026-11-05",
+    "url": "https://electric.kw.ac.kr/community/s_notice.php?BoardMode=view&UID=903"
+   },
+   {
+    "post_id": "aicon-3516",
+    "title": "[공지] 2026년 졸업작품/논문 프로젝트 최종보고서 제출 안내",
+    "category": "인공지능융합대학",
+    "department": "컴퓨터정보공학부",
+    "posted_date": "2026-11-05",
+    "url": "https://aicon.kw.ac.kr/administration/notice.php?admin_mode=read&no=3516"
+   },
+   {
+    "post_id": "aicon-3515",
+    "title": "제 1회 하나증권 청년 금융 아이디어 공모전(~11.30(월))",
+    "category": "인공지능융합대학",
+    "department": "정보융합학부",
+    "posted_date": "2026-11-05",
+    "url": "https://aicon.kw.ac.kr/administration/notice.php?admin_mode=read&no=3515"
+   },
+   {
+    "post_id": "aicon-3514",
+    "title": "[고영테크놀러지] 2026 하반기 신입사원 채용 (~11/18)",
+    "category": "인공지능융합대학",
+    "department": "정보융합학부",
+    "posted_date": "2026-11-05",
+    "url": "https://aicon.kw.ac.kr/administration/notice.php?admin_mode=read&no=3514"
+   },
+   {
+    "post_id": "53614",
+    "title": "2027년도 1학기 제7회 보림선원 서울선원 장학생 선발 공고",
+    "category": "등록/장학",
+    "department": "학생복지팀",
+    "posted_date": "2026-11-05",
+    "url": "https://www.kw.ac.kr/ko/life/notice.jsp?BoardMode=view&DUID=53614"
+   },
+   {
+    "post_id": "53613",
+    "title": "[원격교육지원센터] 광운대학교 2026년 매치업 X+AI (바이오헬스 분야) 요구도 조사",
+    "category": "일반",
+    "department": "원격교육지원센터",
+    "posted_date": "2026-11-05",
+    "url": "https://www.kw.ac.kr/ko/life/notice.jsp?BoardMode=view&DUID=53613"
+   },
+   {
+    "post_id": "dept-snme-4744",
+    "title": "[공지] ★ 2026학년도 광운 취업박람회 행사 안내",
+    "category": "전자재료공학과",
+    "department": "전자재료공학과",
+    "posted_date": "2026-11-04",
+    "url": "https://snme.kw.ac.kr/college/college_notice.php?BoardMode=view&UID=4744"
+   },
+   {
+    "post_id": "dept-electric-900",
+    "title": "2026 광운대학교 취업박람회 개최 안내",
+    "category": "전기공학과",
+    "department": "전기공학과",
+    "posted_date": "2026-11-04",
+    "url": "https://electric.kw.ac.kr/community/s_notice.php?BoardMode=view&UID=900"
+   },
+   {
+    "post_id": "dept-radiowave-1406",
+    "title": "[학부] 2026 광운대학교 취업박람회 개최 안내(11/9~11/10)",
+    "category": "전자융합공학과",
+    "department": "전자융합공학과",
+    "posted_date": "2026-11-04",
+    "url": "https://radiowave.kw.ac.kr/community/s_notice.php?BoardMode=view&UID=1406"
+   },
+   {
+    "post_id": "dept-ee-646",
+    "title": "[대학혁신지원사업] 2026 광운대학교 취업박람회 개최 안내",
+    "category": "전자공학과",
+    "department": "전자공학과",
+    "posted_date": "2026-11-04",
+    "url": "https://ee.kw.ac.kr/HTML/department/undergrad_info.php?BoardMode=view&UID=646"
+   },
+   {
+    "post_id": "aicon-3513",
+    "title": "2026학년도 광운 취업박람회 행사 안내",
+    "category": "인공지능융합대학",
+    "department": "소프트웨어학부",
+    "posted_date": "2026-11-04",
+    "url": "https://aicon.kw.ac.kr/administration/notice.php?admin_mode=read&no=3513"
+   },
+   {
+    "post_id": "aicon-3512",
+    "title": "2026학년도 광운 취업박람회 행사 안내 (11/9~10)",
+    "category": "인공지능융합대학",
+    "department": "정보융합학부",
+    "posted_date": "2026-11-04",
+    "url": "https://aicon.kw.ac.kr/administration/notice.php?admin_mode=read&no=3512"
+   }
+  ]
+ },
+ "calendar": [
+  {
+   "start": "2026-10-20",
+   "end": "2026-11-02",
+   "title": "2학기 강의 중간 평가"
+  },
+  {
+   "start": "2026-11-02",
+   "end": "2026-11-13",
+   "title": "졸업종합시험"
+  },
+  {
+   "start": "2026-11-18",
+   "end": "2026-11-20",
+   "title": "동계 계절수업 수강신청"
+  },
+  {
+   "start": "2026-11-29",
+   "end": "2026-11-29",
+   "title": "2학기 수업일수 90일"
+  },
+  {
+   "start": "2026-12-01",
+   "end": "2026-12-14",
+   "title": "2학기 강의평가/장학금 신청기간"
+  },
+  {
+   "start": "2026-12-08",
+   "end": "2026-12-14",
+   "title": "2학기 기말고사"
+  },
+  {
+   "start": "2026-12-15",
+   "end": "2026-12-21",
+   "title": "2학기 보강(기말고사)"
+  },
+  {
+   "start": "2026-12-22",
+   "end": "2027-01-14",
+   "title": "동계 계절수업"
+  }
+ ]
+}

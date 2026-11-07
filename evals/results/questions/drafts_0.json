@@ -1,0 +1,682 @@
+[
+ {
+  "category": "마감·할 일",
+  "question": "이번주 할거 뭐뭐 남음?? 정리좀ㅠㅠ",
+  "needs": "personal",
+  "expected_tools": [
+   "this_week"
+  ],
+  "must_include": [
+   "DB 과제 2 ERD 오늘(11/7) 23:59 마감, 지각 11/9 23:59",
+   "운영체제 과제 2 세마포어는 지각 제출 기간(11/8 23:59까지)",
+   "AI와 데이터 리터러시 10주차 강의 진도 35%·10주차 퀴즈 11/8 마감",
+   "운영체제 중간 강의 설문 11/8",
+   "확통 8주차 퀴즈 11/9 18:00",
+   "현대사회와윤리 토론 11/9 23:59(0/1 참여)"
+  ],
+  "must_not": [
+   "제출한 과제(SQL 기초 질의, 로지스틱 회귀, 에세이 1)를 남은 일로 넣기",
+   "마감 날짜 추측"
+  ],
+  "notes": "쉬움: 기본 주간 할 일 요약, 지각 제출 항목 포함 여부"
+ },
+ {
+  "category": "마감·할 일",
+  "question": "오늘 마감인거 있냐",
+  "needs": "personal",
+  "expected_tools": [
+   "get_deadlines"
+  ],
+  "must_include": [
+   "데이터베이스 과제 2: 도서관 대출 시스템 ERD 설계 오늘 23:59 마감",
+   "지각 마감 11/9 23:59도 함께 안내"
+  ],
+  "must_not": [
+   "내일 마감 항목을 오늘 마감으로 말하기",
+   "없다고 단정"
+  ],
+  "notes": "쉬움: days=0 범위"
+ },
+ {
+  "category": "마감·할 일",
+  "question": "내일까지 해야되는거 다 알려줘 일요일인데 몰아서 하게",
+  "needs": "personal",
+  "expected_tools": [
+   "get_deadlines"
+  ],
+  "must_include": [
+   "DB 과제 2 (오늘 23:59)",
+   "운영체제 과제 2 지각 제출 11/8 23:59",
+   "AI와 데이터 리터러시 10주차 온라인 강의(35%)·10주차 확인 퀴즈 11/8 23:59",
+   "운영체제 중간 강의 설문 11/8 23:59"
+  ],
+  "must_not": [
+   "11/9 이후 마감을 내일까지로 포함",
+   "제출 완료 과제 포함"
+  ],
+  "notes": "보통: days=1 경계"
+ },
+ {
+  "category": "마감·할 일",
+  "question": "운체 세마포어 과제 마감 지났는데 아직 낼 수 있음?",
+  "needs": "personal",
+  "expected_tools": [
+   "get_assignments",
+   "get_assignment_detail"
+  ],
+  "must_include": [
+   "원래 마감 11/1 23:59는 지났음",
+   "지각 마감 11/8(일) 23:59까지 제출 가능",
+   "미제출 상태"
+  ],
+  "must_not": [
+   "지각 감점 비율 지어내기",
+   "이미 못 낸다고 말하기"
+  ],
+  "notes": "함정: 지각 제출 기간 인식"
+ },
+ {
+  "category": "마감·할 일",
+  "question": "디비 과제2 pdf로 내는거 맞나? 형식 뭐였더라",
+  "needs": "personal",
+  "expected_tools": [
+   "get_assignment_detail",
+   "get_course_post",
+   "get_attachment_text"
+  ],
+  "must_include": [
+   "'과제 2 제출 형식 안내' 공지: PDF 한 파일로 KLAS 과제 메뉴에 제출",
+   "자세한 형식은 첨부 과제2_제출형식.docx 확인(읽어서 요약)"
+  ],
+  "must_not": [
+   "첨부를 읽지 않고 세부 형식 지어내기"
+  ],
+  "notes": "보통: 과제 상세+게시판 첨부 읽기"
+ },
+ {
+  "category": "마감·할 일",
+  "question": "ai리터러시 인강 진도 얼마나 남았지",
+  "needs": "personal",
+  "expected_tools": [
+   "get_online_lectures"
+  ],
+  "must_include": [
+   "10주차 '생성형 AI의 원리' 진도 35%(18/50분), 11/8 23:59까지",
+   "11주차 'AI와 저작권'은 0%"
+  ],
+  "must_not": [
+   "진도율 추측"
+  ],
+  "notes": "쉬움: 온라인 강의 진도"
+ },
+ {
+  "category": "마감·할 일",
+  "question": "ai리터러시 11주차 인강 언제까지 들으면 됨? klas엔 15일로 돼있던데",
+  "needs": "personal",
+  "expected_tools": [
+   "get_online_lectures",
+   "search_course_posts",
+   "get_course_post"
+  ],
+  "must_include": [
+   "KLAS 표시는 11/15 23:59",
+   "과목 공지 '11주차 온라인 강의 업로드 지연 안내': 11/10(화) 업로드, 수강 기간 11/16(월) 23:59까지 연장",
+   "KLAS 표시는 곧 수정된다고 함"
+  ],
+  "must_not": [
+   "공지 확인 없이 11/15만 답하기"
+  ],
+  "notes": "어려움: KLAS 값과 공지 충돌"
+ },
+ {
+  "category": "마감·할 일",
+  "question": "머신러닝 팀플 제안서 언제까지고 뭐 써야돼?",
+  "needs": "personal",
+  "expected_tools": [
+   "get_team_projects"
+  ],
+  "must_include": [
+   "기말 팀 프로젝트 제안서 11/14 23:59 마감, 지각 마감 없음",
+   "주제·데이터셋·역할 분담 1쪽",
+   "팀 번호 4"
+  ],
+  "must_not": [
+   "팀원 이름 지어내기"
+  ],
+  "notes": "쉬움: 팀플 조회, 팀원 정보 없음"
+ },
+ {
+  "category": "마감·할 일",
+  "question": "다음주 화요일 전에 끝내야 되는거만",
+  "needs": "personal",
+  "expected_tools": [
+   "get_deadlines"
+  ],
+  "must_include": [
+   "다음주 화요일=11/10 기준으로 범위 명시",
+   "DB 과제 2, OS 과제 2(지각), AI 리터러시 10주차 강의·퀴즈, OS 설문, 확통 퀴즈(11/9 18:00), 윤리 토론(11/9)",
+   "11/10 당일 마감인 머신러닝 실습 4는 경계로 따로 언급"
+  ],
+  "must_not": [
+   "날짜 계산 틀리기"
+  ],
+  "notes": "애매함: '전에' 경계 해석"
+ },
+ {
+  "category": "마감·할 일",
+  "question": "윤리 토론 나 참여했나? 안했으면 언제까지임",
+  "needs": "personal",
+  "expected_tools": [
+   "get_discussions",
+   "get_course_overview"
+  ],
+  "must_include": [
+   "'AI 윤리 토론: 자율주행차의 딜레마' 11/9 23:59 종료",
+   "과목 토론 참여 0/1",
+   "주제별 참여 여부는 토론실에서 확인"
+  ],
+  "must_not": [
+   "참여했다고 단정"
+  ],
+  "notes": "보통: 참여 여부 제한 안내"
+ },
+ {
+  "category": "마감·할 일",
+  "question": "확통 퀴즈 몇문제임? 시간제한 있어?",
+  "needs": "personal",
+  "expected_tools": [
+   "get_quizzes"
+  ],
+  "must_include": [
+   "8주차 퀴즈: 이산확률분포 5문항, 20분, 10점",
+   "11/9 18:00 마감, 미제출"
+  ],
+  "must_not": [
+   "23:59 마감으로 말하기"
+  ],
+  "notes": "쉬움: 18:00 마감 함정"
+ },
+ {
+  "category": "마감·할 일",
+  "question": "이번 학기 과제 다 낸거 맞지? 밀린거 있나 ㅋㅋ",
+  "needs": "personal",
+  "expected_tools": [
+   "get_assignments"
+  ],
+  "must_include": [
+   "미제출: OS 과제 2(지각 기간), DB 과제 2, ML 실습 4, 확통 과제 3, OS 과제 3, 윤리 에세이 2(11/27)",
+   "제출 완료: 에세이 1, SQL 기초 질의, 로지스틱 회귀"
+  ],
+  "must_not": [
+   "다 냈다고 말하기"
+  ],
+  "notes": "보통: 14일 밖 과제(에세이 2) 포함"
+ },
+ {
+  "category": "마감·할 일",
+  "question": "수업평가 지금 해야됨? 안하면 성적 못본다던데",
+  "needs": "both",
+  "expected_tools": [
+   "get_course_evaluation",
+   "academic_deadlines"
+  ],
+  "must_include": [
+   "지금은 수업평가 기간 아님",
+   "학사일정상 2학기 강의평가/장학금 신청기간 12/1~12/14",
+   "평가 미실시 시 불이익은 공식 출처로 확인"
+  ],
+  "must_not": [
+   "성적 조회 불가 규칙 지어내기"
+  ],
+  "notes": "애매함: 규칙은 확인 필요"
+ },
+ {
+  "category": "휴강·강의실 변경",
+  "question": "다음주 화요일 운체 휴강임?",
+  "needs": "personal",
+  "expected_tools": [
+   "get_class_changes",
+   "get_course_post"
+  ],
+  "must_include": [
+   "11/10(화) 4교시 휴강(교수 학회)",
+   "보강 11/24(화) 18:00~19:15 새빛관 301",
+   "출석은 보강 때"
+  ],
+  "must_not": [
+   "보강 일정 추측"
+  ],
+  "notes": "쉬움: 휴강 공지 본문"
+ },
+ {
+  "category": "휴강·강의실 변경",
+  "question": "머신러닝 강의실 바뀐다며 어디로감",
+  "needs": "personal",
+  "expected_tools": [
+   "get_class_changes",
+   "get_course_post"
+  ],
+  "must_include": [
+   "11/11(수)부터 한울관 B101→새빛관 B105",
+   "학기 끝까지 적용"
+  ],
+  "must_not": [
+   "KLAS 시간표의 B101을 그대로 안내"
+  ],
+  "notes": "함정: 시간표와 공지 불일치"
+ },
+ {
+  "category": "휴강·강의실 변경",
+  "question": "다음주 목욜 확통 학교 가야됨?",
+  "needs": "personal",
+  "expected_tools": [
+   "get_class_changes",
+   "get_course_post"
+  ],
+  "must_include": [
+   "11/12(목) 2교시 Zoom 실시간 비대면",
+   "링크는 수업 30분 전 게시판에",
+   "출석은 Zoom 접속 기록"
+  ],
+  "must_not": [
+   "휴강이라고 말하기"
+  ],
+  "notes": "보통: 비대면 전환≠휴강"
+ },
+ {
+  "category": "휴강·강의실 변경",
+  "question": "13일 윤리 어디서 함",
+  "needs": "personal",
+  "expected_tools": [
+   "get_class_changes",
+   "get_course_post"
+  ],
+  "must_include": [
+   "11/13(금)만 화도관 104",
+   "다음 주부터 다시 화도관 301"
+  ],
+  "must_not": [
+   "영구 변경으로 말하기"
+  ],
+  "notes": "쉬움: 하루만 변경"
+ },
+ {
+  "category": "휴강·강의실 변경",
+  "question": "다음주 시간표 변동사항 싹 정리해줘",
+  "needs": "personal",
+  "expected_tools": [
+   "get_class_changes",
+   "get_courses"
+  ],
+  "must_include": [
+   "화 11/10 운체 휴강(보강 11/24 18:00)",
+   "수 11/11 ML 새빛관 B105",
+   "목 11/12 확통 Zoom",
+   "금 11/13 윤리 화도관 104",
+   "여기 없다고 휴강 아님은 아니라는 단서"
+  ],
+  "must_not": [
+   "누락된 변경",
+   "변경 없음 과목에 대한 단정"
+  ],
+  "notes": "어려움: 여러 공지 종합"
+ },
+ {
+  "category": "휴강·강의실 변경",
+  "question": "월요일 디비 휴강 공지 있었나",
+  "needs": "personal",
+  "expected_tools": [
+   "get_class_changes",
+   "search_course_posts"
+  ],
+  "must_include": [
+   "데이터베이스 휴강 관련 공지는 찾지 못함",
+   "문자·메일 등으로만 알릴 수 있으니 확인 권장",
+   "월 3교시 새빛관 203"
+  ],
+  "must_not": [
+   "'휴강 없음'으로 단정"
+  ],
+  "notes": "함정: 못 찾음≠없음"
+ },
+ {
+  "category": "휴강·강의실 변경",
+  "question": "ai리터러시는 강의실이 어디임? 시간표에 안뜸",
+  "needs": "personal",
+  "expected_tools": [
+   "get_courses",
+   "get_course_notices"
+  ],
+  "must_include": [
+   "KLAS에 강의 시간·강의실 미지정",
+   "온라인·비정기 수업일 수 있으니 과목 공지 확인"
+  ],
+  "must_not": [
+   "강의실 지어내기"
+  ],
+  "notes": "애매함: 미지정 데이터"
+ },
+ {
+  "category": "휴강·강의실 변경",
+  "question": "운체 보강 몇시야 나 6시에 알바있는데",
+  "needs": "personal",
+  "expected_tools": [
+   "get_course_post"
+  ],
+  "must_include": [
+   "보강 11/24(화) 18:00~19:15 새빛관 301",
+   "보강 때 출석 부름",
+   "불참 시 교수께 문의 권장"
+  ],
+  "must_not": [
+   "출석 대체 방법 지어내기"
+  ],
+  "notes": "보통: 출석 연계"
+ },
+ {
+  "category": "휴강·강의실 변경",
+  "question": "오늘 수업 있음?",
+  "needs": "personal",
+  "expected_tools": [
+   "today_briefing"
+  ],
+  "must_include": [
+   "오늘은 토요일, 수강 과목 중 토요일 수업 없음"
+  ],
+  "must_not": [
+   "평일 수업 나열"
+  ],
+  "notes": "쉬움: 요일 인식"
+ },
+ {
+  "category": "휴강·강의실 변경",
+  "question": "확통 줌 링크 어디서 봐",
+  "needs": "personal",
+  "expected_tools": [
+   "get_course_post",
+   "search_course_posts"
+  ],
+  "must_include": [
+   "수업 30분 전 확통 강의 공지사항 게시판에 올라옴(11/12 2교시)",
+   "아직 안 올라왔을 수 있음"
+  ],
+  "must_not": [
+   "링크 지어내기"
+  ],
+  "notes": "보통: 아직 없는 정보"
+ },
+ {
+  "category": "휴강·강의실 변경",
+  "question": "학교 전체 휴강하는 날 이번달에 있음? 축제같은거",
+  "needs": "public",
+  "expected_tools": [
+   "academic_calendar",
+   "school_notices"
+  ],
+  "must_include": [
+   "스냅숏 학사일정에 11월 전체 휴강 일정 없음(졸업종합시험, 계절수업 수강신청 등만)",
+   "확인 못 한 범위는 그렇게 말함"
+  ],
+  "must_not": [
+   "축제 휴강 날짜 지어내기",
+   "다른 학교 정보"
+  ],
+  "notes": "애매함: 공개 정보 한계"
+ },
+ {
+  "category": "휴강·강의실 변경",
+  "question": "수요일 머신러닝 5교시 맞지? 몇시부터임",
+  "needs": "personal",
+  "expected_tools": [
+   "get_courses",
+   "get_class_changes"
+  ],
+  "must_include": [
+   "수 5,6교시",
+   "11/11부터 새빛관 B105",
+   "교시 시간은 확인된 출처로만"
+  ],
+  "must_not": [
+   "교시 시각 추측"
+  ],
+  "notes": "보통: 교시-시각 매핑 지어내기 함정"
+ },
+ {
+  "category": "휴강·강의실 변경",
+  "question": "운체 휴강날 결석처리 되는거 아니지?",
+  "needs": "personal",
+  "expected_tools": [
+   "get_course_post",
+   "get_attendance"
+  ],
+  "must_include": [
+   "11/10 휴강, 출석은 보강(11/24) 때 부름",
+   "현재 운영체제 결석 2·지각 1"
+  ],
+  "must_not": [
+   "결석 규정 지어내기"
+  ],
+  "notes": "보통: 휴강+출석 결합"
+ },
+ {
+  "category": "시험",
+  "question": "디비 기말 언제 어디서",
+  "needs": "personal",
+  "expected_tools": [
+   "get_exam_info",
+   "get_course_post"
+  ],
+  "must_include": [
+   "12/14(월) 3교시(12:00~13:15) 새빛관 203",
+   "학생증 지참"
+  ],
+  "must_not": [
+   "날짜 추측"
+  ],
+  "notes": "쉬움"
+ },
+ {
+  "category": "시험",
+  "question": "디비 기말범위 어디까지임",
+  "needs": "personal",
+  "expected_tools": [
+   "get_exam_info",
+   "get_course_post"
+  ],
+  "must_include": [
+   "9~14주차: 정규화, 트랜잭션, 동시성 제어, 회복, 인덱스",
+   "오픈북 아님, 계산기 불필요"
+  ],
+  "must_not": [
+   "범위 지어내기"
+  ],
+  "notes": "쉬움: 공지 본문"
+ },
+ {
+  "category": "시험",
+  "question": "확통 기말 계산기 들고가도 됨?",
+  "needs": "personal",
+  "expected_tools": [
+   "get_exam_info",
+   "get_course_post"
+  ],
+  "must_include": [
+   "공학용 계산기 허용",
+   "12/17(목) 2교시 10:30~11:45 비마관 405, 범위 7~11장"
+  ],
+  "must_not": [
+   "허용 안 된다고 말하기"
+  ],
+  "notes": "쉬움"
+ },
+ {
+  "category": "시험",
+  "question": "머신러닝 기말 언제봄??",
+  "needs": "personal",
+  "expected_tools": [
+   "get_exam_info",
+   "search_course_posts"
+  ],
+  "must_include": [
+   "기말고사 없음, 기말 팀 프로젝트로 대체",
+   "최종 발표 12/9(수) 수업 시간, 제안서 11/14"
+  ],
+  "must_not": [
+   "학교 기말기간 날짜를 ML 시험일로 말하기"
+  ],
+  "notes": "함정: 시험 없음"
+ },
+ {
+  "category": "시험",
+  "question": "운체 기말 범위 공지 떴냐",
+  "needs": "personal",
+  "expected_tools": [
+   "get_exam_info",
+   "search_course_posts"
+  ],
+  "must_include": [
+   "운영체제 기말 범위 공지는 찾지 못함",
+   "강의계획서 평가 비율(기말 30%) 참고 가능",
+   "교수/게시판 확인 권장"
+  ],
+  "must_not": [
+   "범위 지어내기",
+   "공지 없다고 단정"
+  ],
+  "notes": "함정: 못 찾음"
+ },
+ {
+  "category": "시험",
+  "question": "학교 기말고사 기간 언제부터야",
+  "needs": "public",
+  "expected_tools": [
+   "academic_calendar"
+  ],
+  "must_include": [
+   "2학기 기말고사 12/8~12/14",
+   "보강(기말고사) 12/15~12/21"
+  ],
+  "must_not": [
+   "다른 날짜"
+  ],
+  "notes": "쉬움: 학사일정"
+ },
+ {
+  "category": "시험",
+  "question": "확통 중간 망했는데 기말 비중 얼마나 됨",
+  "needs": "personal",
+  "expected_tools": [
+   "get_syllabus"
+  ],
+  "must_include": [
+   "출석 10, 중간 35, 기말 35, 퀴즈 20"
+  ],
+  "must_not": [
+   "비율 지어내기"
+  ],
+  "notes": "쉬움: 평가 비율"
+ },
+ {
+  "category": "시험",
+  "question": "윤리 시험 있나? 중간 안봤던거 같은데",
+  "needs": "personal",
+  "expected_tools": [
+   "get_syllabus",
+   "get_exam_info"
+  ],
+  "must_include": [
+   "중간 비율 없음, 기말 30%, 출석 20, 레포트 30, 토론 20",
+   "기말 일정은 공지 확인 필요"
+  ],
+  "must_not": [
+   "기말 날짜 추측"
+  ],
+  "notes": "보통"
+ },
+ {
+  "category": "시험",
+  "question": "ai리터러시 시험은 온라인으로 봄?",
+  "needs": "personal",
+  "expected_tools": [
+   "get_online_tests",
+   "get_exam_info",
+   "get_syllabus"
+  ],
+  "must_include": [
+   "중간 40, 기말 40, 퀴즈 20",
+   "시험 방식·일정은 확인된 공지가 없으면 그렇게 말하고 공지 확인 안내"
+  ],
+  "must_not": [
+   "온라인 시험이라고 단정"
+  ],
+  "notes": "애매함: 방식 미확인"
+ },
+ {
+  "category": "시험",
+  "question": "디비 중간 점수 어디서 봄? klas엔 없던데",
+  "needs": "personal",
+  "expected_tools": [
+   "search_course_posts",
+   "get_course_post"
+  ],
+  "must_include": [
+   "KLAS 성적 메뉴가 아니라 연구실(새빛관 512)에서 열람, 기간 10/29~10/30(이미 지남)",
+   "평균 61점",
+   "교수께 문의 권장"
+  ],
+  "must_not": [
+   "KLAS에서 확인 가능하다고 말하기"
+  ],
+  "notes": "보통: 지난 기간"
+ },
+ {
+  "category": "시험",
+  "question": "기말 시험 겹치는거 있나 확인좀",
+  "needs": "personal",
+  "expected_tools": [
+   "get_exam_info"
+  ],
+  "must_include": [
+   "DB 12/14(월) 3교시, 확통 12/17(목) 2교시로 겹치지 않음",
+   "ML은 시험 없음, 운체·윤리·AI리터러시는 일정 미확인"
+  ],
+  "must_not": [
+   "미확인 과목 일정 추측"
+  ],
+  "notes": "어려움: 종합+미확인 표시"
+ },
+ {
+  "category": "시험",
+  "question": "졸업종합시험 이거 나도 봐야됨?",
+  "needs": "public",
+  "expected_tools": [
+   "academic_calendar",
+   "school_notices"
+  ],
+  "must_include": [
+   "학사일정상 11/2~11/13 졸업종합시험",
+   "대상 여부는 학과사무실/공지 확인"
+  ],
+  "must_not": [
+   "응시 대상 규칙 지어내기"
+  ],
+  "notes": "애매함: 학과 요건"
+ },
+ {
+  "category": "시험",
+  "question": "운체 중간 이의신청 아직 됨?",
+  "needs": "personal",
+  "expected_tools": [
+   "search_course_posts",
+   "get_course_post"
+  ],
+  "must_include": [
+   "이의신청은 11/3(화)까지 메일로, 이미 지남",
+   "교수께 문의 정도만 가능"
+  ],
+  "must_not": [
+   "아직 가능하다고 말하기"
+  ],
+  "notes": "보통: 지난 기한"
+ }
+]

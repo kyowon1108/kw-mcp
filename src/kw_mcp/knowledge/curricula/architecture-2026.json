@@ -1,0 +1,254 @@
+{
+ "department": "건축학과",
+ "admission_year": 2026,
+ "scope": "full",
+ "basis": "www.kw.ac.kr의 (A) 건축학과 교육과정 페이지를 현행 교육과정으로 간주함. 학정번호는 (B)에 같은 과목명이 있으면 가져오고, 없으면 비워 둠. (A)에서 3학년과 4학년 행이 동일하며, 둘 다 기재된 대로 옮김.",
+ "courses": [
+  {
+   "code": null,
+   "name": "기초설계",
+   "credits": 6,
+   "type": "전공필수",
+   "year_level": 1,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "기초설계",
+   "credits": 6,
+   "type": "전공필수",
+   "year_level": 1,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "건축설계입문",
+   "credits": 3,
+   "type": "전공필수",
+   "year_level": 1,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": "1270-1-4545",
+   "name": "디지털디자인",
+   "credits": 3,
+   "type": "전공필수",
+   "year_level": 1,
+   "term": 2,
+   "note": "(B) uses code 127044545 in 2015-2021 rows and 1270-1-4545 in 2022-2024 rows"
+  },
+  {
+   "code": "1270-2-0068",
+   "name": "건축설계1",
+   "credits": 6,
+   "type": "전공필수",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": "1270-2-0069",
+   "name": "건축설계2",
+   "credits": 6,
+   "type": "전공필수",
+   "year_level": 2,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": "1270-1-3838",
+   "name": "주거론",
+   "credits": 3,
+   "type": "전공필수",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": "1270-2-0275",
+   "name": "구조역학",
+   "credits": 3,
+   "type": "전공필수",
+   "year_level": 2,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": "1270-4-2158",
+   "name": "건축설계5",
+   "credits": 6,
+   "type": "전공필수",
+   "year_level": 3,
+   "term": 1,
+   "note": "(A) lists this under 3학년 (duplicate of 4학년 row)"
+  },
+  {
+   "code": "1270-4-2767",
+   "name": "건축설계6",
+   "credits": 6,
+   "type": "전공필수",
+   "year_level": 3,
+   "term": 2,
+   "note": "(A) lists this under 3학년 (duplicate of 4학년 row)"
+  },
+  {
+   "code": "1270-4-4549",
+   "name": "건축디자인론",
+   "credits": 3,
+   "type": "전공필수",
+   "year_level": 3,
+   "term": 1,
+   "note": "(A) lists this under 3학년 (duplicate of 4학년 row)"
+  },
+  {
+   "code": "1270-4-4550",
+   "name": "건축시공",
+   "credits": 3,
+   "type": "전공필수",
+   "year_level": 3,
+   "term": 2,
+   "note": "(A) lists this under 3학년 (duplicate of 4학년 row)"
+  },
+  {
+   "code": "1270-4-2158",
+   "name": "건축설계5",
+   "credits": 6,
+   "type": "전공필수",
+   "year_level": 4,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": "1270-4-2767",
+   "name": "건축설계6",
+   "credits": 6,
+   "type": "전공필수",
+   "year_level": 4,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": "1270-4-4549",
+   "name": "건축디자인론",
+   "credits": 3,
+   "type": "전공필수",
+   "year_level": 4,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": "1270-4-4550",
+   "name": "건축시공",
+   "credits": 3,
+   "type": "전공필수",
+   "year_level": 4,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": "1270-5-4867",
+   "name": "건축설계7",
+   "credits": 6,
+   "type": "전공필수",
+   "year_level": 5,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": "1270-5-5012",
+   "name": "건축설계8",
+   "credits": 6,
+   "type": "전공필수",
+   "year_level": 5,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "건축기획론",
+   "credits": 3,
+   "type": "전공필수",
+   "year_level": 5,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": "1270-5-5014",
+   "name": "건축실무",
+   "credits": 3,
+   "type": "전공필수",
+   "year_level": 5,
+   "term": 2,
+   "note": "In (B) from 2018 this course is named 건축실무와 윤리 (구, 건축실무)"
+  }
+ ],
+ "also": [
+  {
+   "scope": "required_only",
+   "basis": "(B)에서 대각선 규칙으로 가져옴: 1학년은 2026행. 2~5학년(2027~2030년)은 미래 연도라 없음.",
+   "courses": [
+    {
+     "code": "1270-1-3631",
+     "name": "기초설계1",
+     "credits": 3,
+     "type": "전필",
+     "year_level": 1,
+     "term": 1,
+     "note": null
+    },
+    {
+     "code": "1270-1-3837",
+     "name": "다차원디지털디자인",
+     "credits": 3,
+     "type": "전필",
+     "year_level": 1,
+     "term": 1,
+     "note": null
+    },
+    {
+     "code": "1270-1-4546",
+     "name": "공간과형태",
+     "credits": 3,
+     "type": "전필",
+     "year_level": 1,
+     "term": 1,
+     "note": null
+    },
+    {
+     "code": "1270-1-3699",
+     "name": "기초설계2",
+     "credits": 6,
+     "type": "전필",
+     "year_level": 1,
+     "term": 2,
+     "note": null
+    },
+    {
+     "code": "1270-1-3838",
+     "name": "주거론",
+     "credits": 3,
+     "type": "전필",
+     "year_level": 1,
+     "term": 2,
+     "note": null
+    }
+   ]
+  }
+ ],
+ "sources": [
+  {
+   "title": "건축학과 교육과정",
+   "url": "https://www.kw.ac.kr/ko/univ/engineering04_4.jsp",
+   "checked_at": "2026-11-07"
+  },
+  {
+   "title": "필수과목표 must_2026_14",
+   "url": "https://www.kw.ac.kr/ko/life/must_2026_14.xls",
+   "checked_at": "2026-11-07"
+  }
+ ],
+ "checked_at": "2026-11-07"
+}

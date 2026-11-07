@@ -1,0 +1,4166 @@
+{
+ "version": {
+  "built_at": "2026-11-07",
+  "basis": "2026학년도 기준: Daple(다전공 플래너, 기획처 대학혁신사업단, 2026-11-07 확인)의 다전공 과정 이름·이수학점·대상 학과 기준을 우선하고, 광운대학교 학칙(2026.10.28. 개정·시행), 학칙 시행세칙(2026.02.11.), 다전공 이수에 관한 내규(2026.05.12.), 다전공 운영에 관한 내규(2025.04.23.)와 학사안내 페이지(2026-11-07 확인)",
+  "sources": [
+   {
+    "id": "att-linked-changes",
+    "title": "연계전공 변경사항 안내 (2026. 10) [PDF, notice-4cha 첨부]",
+    "url": "https://radiowave.kw.ac.kr/LIB/PHP_FUNC/Download.php?param=2167717550d9028f0aab66dcca34e28a892d1a8f7d9fa8e9a3fa22fa8cb19ab6ba6348e95f763983012c4785f064edc8dbdb97281cc1252ae3d9247da70e45cb2a33e319dff169f84261355aeec98b70d04c85aaaec2fb175ad7b74e26467f29e2d11b6fec60dcf29fb7e83ef6fd840fccdcfbfed21b256b3c1e379ccda24730f68286ade75c6baaf4f2b376ef5a866ec4e996a2683abaf5ef830a2c212cca60eed8e7dee136afac959974dd0fca3a04",
+    "regulation": null,
+    "article": null,
+    "effective_date": null,
+    "checked_at": "2026-11-07",
+    "posted": "2026-10-15"
+   },
+   {
+    "id": "att-linked-guide",
+    "title": "2026학년도 연계·학생설계융합전공 안내자료 [PDF, www 공지 53468 첨부]",
+    "url": "https://www.kw.ac.kr/include/Download.jsp?fuid=35407&ano=53468",
+    "regulation": null,
+    "article": null,
+    "effective_date": null,
+    "checked_at": "2026-11-07",
+    "posted": "2026-10-15"
+   },
+   {
+    "id": "att-micro-changes",
+    "title": "마이크로전공 변경사항 안내 (2026. 10) [PDF, notice-4cha 첨부]",
+    "url": "https://radiowave.kw.ac.kr/LIB/PHP_FUNC/Download.php?param=2167717550d9028f0aab66dcca34e28a892d1a8f7d9fa8e9a3fa22fa8cb19ab6ba6348e95f763983012c4785f064edc8fe73859a7e73ef871f8bba2a864b5b141ecc2bb262bddd084169bd56799163e71d0ace1cec4076e02185262058cf7b902aa74a00a993e9b8197b77234258c5179ed30f5fa02f9abb5dfcf00cc58f80e4d9abe4c94febd5fe68d79b430d39193c62bdf50643ab0fbfad9eff300eae60c0fdf3d56da11e81c92660b50e7ac57356766af6fbe9af1c6f41d16dc6b0dc0a9e",
+    "regulation": null,
+    "article": null,
+    "effective_date": null,
+    "checked_at": "2026-11-07",
+    "posted": "2026-10-15"
+   },
+   {
+    "id": "att-micro-guide",
+    "title": "2026학년도 마이크로전공 안내자료 [PDF, www 공지 53468 첨부]",
+    "url": "https://www.kw.ac.kr/include/Download.jsp?fuid=35406&ano=53468",
+    "regulation": null,
+    "article": null,
+    "effective_date": null,
+    "checked_at": "2026-11-07",
+    "posted": "2026-10-15"
+   },
+   {
+    "id": "notice-4cha",
+    "title": "[학부] 2026학년도 4차 다전공(복수/부/심화/연계/마이크로/학생설계융합전공) 신청 안내 (전자융합공학과 게시판 재게시)",
+    "url": "https://radiowave.kw.ac.kr/community/s_notice.php?BoardMode=view&UID=1403",
+    "regulation": null,
+    "article": null,
+    "effective_date": null,
+    "checked_at": "2026-11-07",
+    "posted": "2026-10-15",
+    "publisher": "교육지원팀 공지의 학과 재게시",
+    "note": "원 공지는 www.kw.ac.kr DUID=53468(첨부 fuid 35405~35409). 원 공지 상세 페이지는 비로그인 상태에서 본문 없이 홈으로 이동"
+   },
+   {
+    "id": "reg-damajor-isu",
+    "title": "4-3-8 다전공 이수에 관한 내규",
+    "url": "https://rule.kw.ac.kr/lmxsrv/law/lawFullContent.do?SEQ=95&SEQ_HISTORY=672",
+    "regulation": "다전공 이수에 관한 내규 (2026.05.12. 개정, SEQ_HISTORY=672)",
+    "article": "제2조~제15조, [별표1](미열람)",
+    "effective_date": "2026-05-12",
+    "checked_at": "2026-11-07",
+    "publisher": "교육지원팀"
+   },
+   {
+    "id": "reg-damajor-unyeong",
+    "title": "4-3-9 다전공 운영에 관한 내규",
+    "url": "https://rule.kw.ac.kr/lmxsrv/law/lawFullContent.do?SEQ=96&SEQ_HISTORY=525",
+    "regulation": "다전공 운영에 관한 내규 (2025.04.23. 개정, SEQ_HISTORY=525)",
+    "article": "제3조~제18조, 부칙<2024.8.28.> ②",
+    "effective_date": "2025-04-23",
+    "checked_at": "2026-11-07",
+    "publisher": "교육지원팀"
+   },
+   {
+    "id": "reg-hakchik",
+    "title": "2-0-1 광운대학교 학칙",
+    "url": "https://rule.kw.ac.kr/lmxsrv/law/lawFullContent.do?SEQ=21&SEQ_HISTORY=675",
+    "regulation": "광운대학교 학칙 (2026.10.28. 개정, SEQ_HISTORY=675)",
+    "article": "제5조, 제39조의2, 제46조, 제46조의3·4, 제48조의2, 제49조~제52조, 제61조, 제63조~제65조, 부칙<2025.12.17.> 제2조, [별표 6]",
+    "effective_date": "2026-10-28",
+    "checked_at": "2026-11-07",
+    "publisher": "교육지원팀"
+   },
+   {
+    "id": "reg-sihaeng",
+    "title": "2-0-2 광운대학교 학칙 시행세칙",
+    "url": "https://rule.kw.ac.kr/lmxsrv/law/lawFullContent.do?SEQ=22&SEQ_HISTORY=614",
+    "regulation": "광운대학교 학칙 시행세칙 (2026.02.11. 개정, SEQ_HISTORY=614)",
+    "article": "제16조, 제20조, 제30조, 제30조의2, 제32조, 제33조, 제33조의2, 제34조, 부칙<2014.4.18.>",
+    "effective_date": "2026-02-11",
+    "checked_at": "2026-11-07",
+    "publisher": "교육지원팀"
+   },
+   {
+    "id": "web-info01",
+    "title": "학사안내 > 교과안내",
+    "url": "https://www.kw.ac.kr/ko/life/bachelor_info01.jsp",
+    "regulation": null,
+    "article": null,
+    "effective_date": null,
+    "checked_at": "2026-11-07",
+    "publisher": "교육지원팀",
+    "note": "이수구분 코드(교필·교선·전필·전선·복필·복선·부필·부선·연필·연선·MD·일선)"
+   },
+   {
+    "id": "web-info07",
+    "title": "학사안내 > 수료/졸업요건 안내",
+    "url": "https://www.kw.ac.kr/ko/life/bachelor_info07.jsp",
+    "regulation": null,
+    "article": null,
+    "effective_date": null,
+    "checked_at": "2026-11-07",
+    "publisher": "교육지원팀",
+    "note": "수료 기준, 조기졸업·졸업연기, 편입생 졸업요건, 졸업논문, 필수과목 안내"
+   },
+   {
+    "id": "web-info11",
+    "title": "학사안내 > 다전공 이수제도 안내",
+    "url": "https://www.kw.ac.kr/ko/life/bachelor_info11.jsp",
+    "regulation": null,
+    "article": null,
+    "effective_date": null,
+    "checked_at": "2026-11-07",
+    "publisher": "교육지원팀",
+    "note": "심화·복수·부전공, 연계전공(26개), 마이크로전공(64개), 학생설계융합전공 안내와 입학연도별 다전공 이수학점"
+   },
+   {
+    "id": "web-info12",
+    "title": "학사안내 > 입학연도별 졸업학점 안내",
+    "url": "https://www.kw.ac.kr/ko/life/bachelor_info12.jsp",
+    "regulation": null,
+    "article": null,
+    "effective_date": null,
+    "checked_at": "2026-11-07",
+    "publisher": "교육지원팀",
+    "note": "입학연도(2026~1995 이전)별 교양 이수체계와 단과대학(학과)별 이수학점 표. 학칙 [별표 6]의 웹 게시본으로 보임"
+   },
+   {
+    "id": "daple-2026-11-07",
+    "title": "다전공 플래너(Daple, 광운대 기획처 대학혁신사업단) 2026-11-07 확인",
+    "url": "https://daple.kwuniv.com",
+    "regulation": null,
+    "article": null,
+    "effective_date": null,
+    "checked_at": "2026-11-07",
+    "publisher": "기획처 대학혁신사업단"
+   }
+  ],
+  "unread_sources": [
+   {
+    "id": "unread-hakchik-annex6",
+    "title": "학칙 [별표 6] 입학년도별 단과대학(학과)별 이수학점 안내.hwp",
+    "url": "https://rule.kw.ac.kr/lmxsrv/law/lawFullContent.do?SEQ=21&SEQ_HISTORY=675 (페이지 안 fileDown('3092','attach'))",
+    "reason": "HWP 첨부. 이 환경에 HWP 해석기가 없고 직접 다운로드 주소도 확인하지 못함. 같은 내용으로 보이는 web-info12 표를 대신 사용"
+   },
+   {
+    "id": "unread-hakchik-annex5",
+    "title": "학칙 [별표 5] 2017학년도 신입생 졸업이수 학점 및 전공이수학점 표.hwp",
+    "url": "https://rule.kw.ac.kr/lmxsrv/law/lawFullContent.do?SEQ=21&SEQ_HISTORY=675 (fileDown('3091','attach'))",
+    "reason": "HWP 첨부, 위와 같음"
+   },
+   {
+    "id": "unread-damajor-annex1",
+    "title": "다전공 이수에 관한 내규 [별표1] 연계전공별 이수학점 및 학위명.hwp",
+    "url": "https://rule.kw.ac.kr/lmxsrv/law/lawFullContent.do?SEQ=95&SEQ_HISTORY=672 (fileDown('3086','attach'))",
+    "reason": "HWP 첨부. 연계전공별 학위명은 이 별표에만 있어 확인하지 못함"
+   },
+   {
+    "id": "unread-gyoyang-annex2",
+    "title": "교양교육 운영 규정 [별표2] 교양교과목 분류.hwp",
+    "url": "https://rule.kw.ac.kr/lmxsrv/law/lawFullContent.do?SEQ=77&SEQ_HISTORY=509",
+    "reason": "HWP 첨부. 균형교양 영역 분류 원문(기초학문융합 영역 포함 여부 등)을 확인하지 못함"
+   },
+   {
+    "id": "unread-notice-53468",
+    "title": "www 공지 DUID=53468 (2026학년도 4차 다전공 신청 안내 원문)",
+    "url": "https://www.kw.ac.kr/ko/life/notice.jsp?BoardMode=view&DUID=53468",
+    "reason": "비로그인 GET에서 본문 없이 홈으로 이동(location.href). 학과 재게시본(notice-4cha)으로 대신 읽음"
+   },
+   {
+    "id": "unread-notice-attachments",
+    "title": "공지 53468의 나머지 첨부: 다전공 이수제도 안내(fuid 35408), 2026학년도 2학기 학과(전공)표(35405), 학생설계융합전공 신청 양식(35409), 마이크로전공 신청 유의사항(비슷한 교과과정).pdf",
+    "url": "https://www.kw.ac.kr/include/Download.jsp?fuid=35408&ano=53468",
+    "reason": "요청 수를 줄이려고 받지 않음. 35408은 web-info11과 같은 내용으로 보이고, 유의사항 PDF 내용은 att-micro-guide 1~2쪽에 들어 있음"
+   }
+  ]
+ },
+ "disclaimer": "참고용 시뮬레이션 데이터입니다. 공개된 학사안내·규정·공지에서 옮긴 것으로, 실제 졸업·다전공 사정은 소속 학과 사무실과 교육지원팀(02-940-5021·5022) 확인이 우선입니다.",
+ "types": {
+  "심화전공": {
+   "definition": "본인 전공과정(주전공)의 기본 이수학점 이상을 초과하여 이수하는 전공",
+   "degree": "별도 학위 없음(주전공 학위). 학위증에 '심화전공'으로 표기",
+   "required_credits": {
+    "default": 70,
+    "unit": "주전공 과목 학점 합계(필수 포함)",
+    "rule": "심화전공은 전공과목으로 70학점",
+    "by_admission_year": [
+     {
+      "admission_years": "2026",
+      "credits": 70,
+      "applies_to": [
+       "전자정보공과대학",
+       "인공지능융합대학",
+       "공과대학 건축공,화공,환경",
+       "자연과학대학",
+       "인문사회과학대학",
+       "정책법학대학",
+       "경영대학"
+      ],
+      "source_ids": [
+       "web-info12",
+       "web-info11"
+      ]
+     },
+     {
+      "admission_years": "2026",
+      "credits": null,
+      "applies_to": [
+       "공과대학 건축학과(5년제)",
+       "인제니움대학 자율전공학부"
+      ],
+      "source_ids": [
+       "web-info12",
+       "web-info11"
+      ]
+     },
+     {
+      "admission_years": "2026",
+      "credits": 60,
+      "applies_to": [
+       "참빛인재대학"
+      ],
+      "source_ids": [
+       "web-info12",
+       "web-info11"
+      ]
+     },
+     {
+      "admission_years": "2025",
+      "credits": 70,
+      "applies_to": [
+       "전자정보공과대학",
+       "인공지능융합대학",
+       "공과대학 건축공,화공,환경",
+       "자연과학대학",
+       "인문사회과학대학",
+       "정책법학대학",
+       "경영대학"
+      ],
+      "source_ids": [
+       "web-info12",
+       "web-info11"
+      ]
+     },
+     {
+      "admission_years": "2025",
+      "credits": null,
+      "applies_to": [
+       "공과대학 건축학과(5년제)",
+       "인제니움대학 자율전공학부"
+      ],
+      "source_ids": [
+       "web-info12",
+       "web-info11"
+      ]
+     },
+     {
+      "admission_years": "2025",
+      "credits": 60,
+      "applies_to": [
+       "참빛인재대학"
+      ],
+      "source_ids": [
+       "web-info12",
+       "web-info11"
+      ]
+     },
+     {
+      "admission_years": "2024",
+      "credits": null,
+      "applies_to": [
+       "전자정보공과대학",
+       "인공지능융합대학",
+       "공과대학 건축공,화공,환경",
+       "공과대학 건축학과(5년제)",
+       "인문사회과학대학 동북아문화산업학부",
+       "경영대학 국제통상학부"
+      ],
+      "source_ids": [
+       "web-info12",
+       "web-info11"
+      ]
+     },
+     {
+      "admission_years": "2024",
+      "credits": 70,
+      "applies_to": [
+       "자연과학대학 수학과",
+       "자연과학대학 전자바이오물리학과,화학과, 스포츠융합과학과",
+       "인문사회과학대학 국어국문학과",
+       "인문사회과학대학 영어산업학과",
+       "인문사회과학대학 미디어커뮤니케이션학부",
+       "경영대학 경영학부"
+      ],
+      "source_ids": [
+       "web-info12",
+       "web-info11"
+      ]
+     },
+     {
+      "admission_years": "2024",
+      "credits": 66,
+      "applies_to": [
+       "인문사회과학대학 산업심리학과"
+      ],
+      "source_ids": [
+       "web-info12",
+       "web-info11"
+      ]
+     },
+     {
+      "admission_years": "2024",
+      "credits": 60,
+      "applies_to": [
+       "정책법학대학 행정학과",
+       "정책법학대학 법학부",
+       "정책법학대학 국제학부",
+       "참빛인재대학 금융부동산법무학과",
+       "참빛인재대학 게임콘텐츠학과",
+       "참빛인재대학 스마트전기전자학과",
+       "참빛인재대학 스포츠상담재활학과"
+      ],
+      "source_ids": [
+       "web-info12",
+       "web-info11"
+      ]
+     },
+     {
+      "admission_years": "2020-2023",
+      "credits": null,
+      "applies_to": [
+       "전자정보공과대학 전자공학과, 전자통신공학과, 전자융합공학과, 전기공학과, 전자재료공학과, 로봇학부",
+       "전자정보공과대학 지능형로봇학과(2022학번∼)",
+       "소프트웨어 융합대학 컴퓨터정보공학부",
+       "소프트웨어 융합대학 소프트웨어학부",
+       "소프트웨어 융합대학 정보융합학부",
+       "공과대학 건축공,화공,환경",
+       "공과대학 건축학과(5년제)",
+       "인문사회과학대학 동북아문화산업학부 (2020학번)",
+       "인문사회과학대학 동북아문화산업학부 (2021학번~)",
+       "경영대학 국제통상학부"
+      ],
+      "source_ids": [
+       "web-info12",
+       "web-info11"
+      ]
+     },
+     {
+      "admission_years": "2020-2023",
+      "credits": 70,
+      "applies_to": [
+       "자연과학대학 수학과",
+       "자연과학대학 전자바이오물리학과,화학과,스포츠융합과학과",
+       "인문사회과학대학 국어국문학과",
+       "인문사회과학대학 영어산업학과",
+       "인문사회과학대학 미디어커뮤니케이션학부",
+       "경영대학 경영학부"
+      ],
+      "source_ids": [
+       "web-info12",
+       "web-info11"
+      ]
+     },
+     {
+      "admission_years": "2020-2023",
+      "credits": 60,
+      "applies_to": [
+       "자연과학대학 정보콘텐츠학과(야간)",
+       "정책법학대학 행정학과",
+       "정책법학대학 법학부",
+       "정책법학대학 자산관리학과(야간)",
+       "정책법학대학 국제학부*"
+      ],
+      "source_ids": [
+       "web-info12",
+       "web-info11"
+      ]
+     },
+     {
+      "admission_years": "2020-2023",
+      "credits": 66,
+      "applies_to": [
+       "인문사회과학대학 산업심리학과"
+      ],
+      "source_ids": [
+       "web-info12",
+       "web-info11"
+      ]
+     },
+     {
+      "admission_years": "2019",
+      "credits": null,
+      "applies_to": [
+       "전자정보공과대학",
+       "인공지능융합대학 (구. 소프트웨어 융합대학) 컴퓨터정보공학부",
+       "인공지능융합대학 (구. 소프트웨어 융합대학) 소프트웨어학부",
+       "인공지능융합대학 (구. 소프트웨어 융합대학) 정보융합학부",
+       "공과대학 건축공,화공,환경",
+       "공과대학 건축학과(5년제)",
+       "인문사회과학대학 동북아문화산업학부",
+       "경영대학 국제통상학부"
+      ],
+      "source_ids": [
+       "web-info12",
+       "web-info11"
+      ]
+     },
+     {
+      "admission_years": "2019",
+      "credits": 70,
+      "applies_to": [
+       "자연과학대학 수학과",
+       "자연과학대학 전자바이오물리학과",
+       "자연과학대학 화학과, 생활체육학과",
+       "인문사회과학대학 국어국문학과",
+       "인문사회과학대학 영어산업학과",
+       "인문사회과학대학 미디어커뮤니케이션학부",
+       "경영대학 경영학부"
+      ],
+      "source_ids": [
+       "web-info12",
+       "web-info11"
+      ]
+     },
+     {
+      "admission_years": "2019",
+      "credits": 60,
+      "applies_to": [
+       "자연과학대학 정보콘텐츠학과(야간)",
+       "정책법학대학 행정학과",
+       "정책법학대학 법학부",
+       "정책법학대학 자산관리학과(야간)",
+       "정책법학대학 국제학부"
+      ],
+      "source_ids": [
+       "web-info12",
+       "web-info11"
+      ]
+     },
+     {
+      "admission_years": "2019",
+      "credits": 66,
+      "applies_to": [
+       "인문사회과학대학 산업심리학과"
+      ],
+      "source_ids": [
+       "web-info12",
+       "web-info11"
+      ]
+     },
+     {
+      "admission_years": "2017-2018",
+      "credits": null,
+      "applies_to": [
+       "전자정보공과대학",
+       "인공지능융합대학 (구. 소프트웨어 융합대학) 컴퓨터정보공학부",
+       "인공지능융합대학 (구. 소프트웨어 융합대학) 소프트웨어학부",
+       "인공지능융합대학 (구. 소프트웨어 융합대학) 정보융합학부",
+       "공과대학 건축공,화공,환경",
+       "공과대학 건축학과(5년제)",
+       "인문사회과학대학 동북아문화산업학부",
+       "경영대학 국제통상학부"
+      ],
+      "source_ids": [
+       "web-info12",
+       "web-info11"
+      ]
+     },
+     {
+      "admission_years": "2017-2018",
+      "credits": 70,
+      "applies_to": [
+       "자연과학대학 수학과",
+       "자연과학대학 전자바이오물리학과 (2017학번)",
+       "자연과학대학 전자바이오물리학과 (2018학번)",
+       "자연과학대학 화학과, 생활체육학과",
+       "인문사회과학대학 국어국문학과",
+       "인문사회과학대학 영어영문학과",
+       "인문사회과학대학 미디어영상학부",
+       "경영대학 경영학부"
+      ],
+      "source_ids": [
+       "web-info12",
+       "web-info11"
+      ]
+     },
+     {
+      "admission_years": "2017-2018",
+      "credits": 60,
+      "applies_to": [
+       "자연과학대학 정보콘텐츠학과(야간)",
+       "정책법학대학 행정학과",
+       "정책법학대학 법학부",
+       "정책법학대학 자산관리학과(야간)",
+       "정책법학대학 국제학부"
+      ],
+      "source_ids": [
+       "web-info12",
+       "web-info11"
+      ]
+     },
+     {
+      "admission_years": "2017-2018",
+      "credits": 66,
+      "applies_to": [
+       "인문사회과학대학 산업심리학과"
+      ],
+      "source_ids": [
+       "web-info12",
+       "web-info11"
+      ]
+     }
+    ],
+    "before_2017": "자기 전공 70학점 이상. 전자정보공과대학·공과대학은 2010학번부터 심화전공 미운영",
+    "notes": [
+     "표의 null(‘-’)은 심화전공 미운영",
+     "2025학번 이상은 심화전공 70학점이면 다전공 의무를 충족(별도 주전공 45와 합산하지 않음)"
+    ],
+    "source_ids": [
+     "reg-damajor-isu",
+     "reg-damajor-unyeong",
+     "web-info11",
+     "web-info12"
+    ]
+   },
+   "eligibility": [
+    "자율전공학부 소속 학생은 다전공으로 심화전공을 고를 수 없음. 학과 진입 후 그 학과 심화전공 이수"
+   ],
+   "mutual_recognition": {
+    "max_credits": null,
+    "note": "해당없음"
+   },
+   "major_credit_reduction": "해당없음(주전공 자체를 늘리는 방식)",
+   "source_ids": [
+    "reg-damajor-isu",
+    "reg-damajor-unyeong",
+    "web-info11",
+    "web-info12"
+   ],
+   "articles": {
+    "reg-damajor-isu": "제5조 제1항",
+    "reg-damajor-unyeong": "제3조 제1항, 제13조 제3항"
+   }
+  },
+  "복수전공": {
+   "definition": "본인 전공과정(주전공) 이외에 다른 학과(부) 및 전공을 추가 이수하는 전공",
+   "degree": "학위 수여(소속 전공과 복수전공 학위 동시 수여). 학위증에 복수전공 학위 표기",
+   "required_credits": {
+    "default": 45,
+    "unit": "복수전공 학과(부)의 전공과목 학점",
+    "rule": "복수전공 45학점(건축학과 5년제 99학점: 10학기 이상 등록, 인증 필수과목을 순차 이수). 2017학년도 신입생부터 학칙 [별표 6]에 따름",
+    "by_admission_year": [
+     {
+      "admission_years": "2026",
+      "credits": 45,
+      "applies_to": [
+       "전자정보공과대학",
+       "인공지능융합대학",
+       "공과대학 건축공,화공,환경",
+       "자연과학대학",
+       "인문사회과학대학",
+       "정책법학대학",
+       "경영대학"
+      ],
+      "source_ids": [
+       "web-info12",
+       "web-info11"
+      ]
+     },
+     {
+      "admission_years": "2026",
+      "credits": 99,
+      "applies_to": [
+       "공과대학 건축학과(5년제)"
+      ],
+      "source_ids": [
+       "web-info12",
+       "web-info11"
+      ]
+     },
+     {
+      "admission_years": "2026",
+      "credits": 39,
+      "applies_to": [
+       "참빛인재대학"
+      ],
+      "source_ids": [
+       "web-info12",
+       "web-info11"
+      ]
+     },
+     {
+      "admission_years": "2025",
+      "credits": 45,
+      "applies_to": [
+       "전자정보공과대학",
+       "인공지능융합대학",
+       "공과대학 건축공,화공,환경",
+       "자연과학대학",
+       "인문사회과학대학",
+       "정책법학대학",
+       "경영대학"
+      ],
+      "source_ids": [
+       "web-info12",
+       "web-info11"
+      ]
+     },
+     {
+      "admission_years": "2025",
+      "credits": 99,
+      "applies_to": [
+       "공과대학 건축학과(5년제)"
+      ],
+      "source_ids": [
+       "web-info12",
+       "web-info11"
+      ]
+     },
+     {
+      "admission_years": "2025",
+      "credits": 39,
+      "applies_to": [
+       "참빛인재대학"
+      ],
+      "source_ids": [
+       "web-info12",
+       "web-info11"
+      ]
+     },
+     {
+      "admission_years": "2024",
+      "credits": 54,
+      "applies_to": [
+       "전자정보공과대학",
+       "인공지능융합대학",
+       "공과대학 건축공,화공,환경",
+       "자연과학대학 전자바이오물리학과,화학과, 스포츠융합과학과"
+      ],
+      "source_ids": [
+       "web-info12",
+       "web-info11"
+      ]
+     },
+     {
+      "admission_years": "2024",
+      "credits": 99,
+      "applies_to": [
+       "공과대학 건축학과(5년제)"
+      ],
+      "source_ids": [
+       "web-info12",
+       "web-info11"
+      ]
+     },
+     {
+      "admission_years": "2024",
+      "credits": 45,
+      "applies_to": [
+       "자연과학대학 수학과",
+       "인문사회과학대학 국어국문학과",
+       "인문사회과학대학 영어산업학과",
+       "인문사회과학대학 산업심리학과",
+       "인문사회과학대학 미디어커뮤니케이션학부",
+       "인문사회과학대학 동북아문화산업학부",
+       "정책법학대학 행정학과",
+       "정책법학대학 국제학부",
+       "경영대학 경영학부",
+       "경영대학 국제통상학부"
+      ],
+      "source_ids": [
+       "web-info12",
+       "web-info11"
+      ]
+     },
+     {
+      "admission_years": "2024",
+      "credits": 36,
+      "applies_to": [
+       "정책법학대학 법학부"
+      ],
+      "source_ids": [
+       "web-info12",
+       "web-info11"
+      ]
+     },
+     {
+      "admission_years": "2024",
+      "credits": 39,
+      "applies_to": [
+       "참빛인재대학 금융부동산법무학과",
+       "참빛인재대학 게임콘텐츠학과",
+       "참빛인재대학 스마트전기전자학과",
+       "참빛인재대학 스포츠상담재활학과"
+      ],
+      "source_ids": [
+       "web-info12",
+       "web-info11"
+      ]
+     },
+     {
+      "admission_years": "2020-2023",
+      "credits": 54,
+      "applies_to": [
+       "전자정보공과대학 전자공학과, 전자통신공학과, 전자융합공학과, 전기공학과, 전자재료공학과, 로봇학부",
+       "전자정보공과대학 지능형로봇학과(2022학번∼)",
+       "소프트웨어 융합대학 컴퓨터정보공학부",
+       "소프트웨어 융합대학 소프트웨어학부",
+       "소프트웨어 융합대학 정보융합학부",
+       "공과대학 건축공,화공,환경",
+       "자연과학대학 전자바이오물리학과,화학과,스포츠융합과학과"
+      ],
+      "source_ids": [
+       "web-info12",
+       "web-info11"
+      ]
+     },
+     {
+      "admission_years": "2020-2023",
+      "credits": 99,
+      "applies_to": [
+       "공과대학 건축학과(5년제)"
+      ],
+      "source_ids": [
+       "web-info12",
+       "web-info11"
+      ]
+     },
+     {
+      "admission_years": "2020-2023",
+      "credits": 45,
+      "applies_to": [
+       "자연과학대학 수학과",
+       "인문사회과학대학 국어국문학과",
+       "인문사회과학대학 영어산업학과",
+       "인문사회과학대학 산업심리학과",
+       "인문사회과학대학 미디어커뮤니케이션학부",
+       "인문사회과학대학 동북아문화산업학부 (2020학번)",
+       "인문사회과학대학 동북아문화산업학부 (2021학번~)",
+       "정책법학대학 행정학과",
+       "정책법학대학 국제학부*",
+       "경영대학 경영학부",
+       "경영대학 국제통상학부"
+      ],
+      "source_ids": [
+       "web-info12",
+       "web-info11"
+      ]
+     },
+     {
+      "admission_years": "2020-2023",
+      "credits": 39,
+      "applies_to": [
+       "자연과학대학 정보콘텐츠학과(야간)",
+       "정책법학대학 자산관리학과(야간)"
+      ],
+      "source_ids": [
+       "web-info12",
+       "web-info11"
+      ]
+     },
+     {
+      "admission_years": "2020-2023",
+      "credits": 36,
+      "applies_to": [
+       "정책법학대학 법학부"
+      ],
+      "source_ids": [
+       "web-info12",
+       "web-info11"
+      ]
+     },
+     {
+      "admission_years": "2019",
+      "credits": 54,
+      "applies_to": [
+       "전자정보공과대학",
+       "인공지능융합대학 (구. 소프트웨어 융합대학) 컴퓨터정보공학부",
+       "인공지능융합대학 (구. 소프트웨어 융합대학) 소프트웨어학부",
+       "인공지능융합대학 (구. 소프트웨어 융합대학) 정보융합학부",
+       "공과대학 건축공,화공,환경",
+       "자연과학대학 전자바이오물리학과",
+       "자연과학대학 화학과, 생활체육학과"
+      ],
+      "source_ids": [
+       "web-info12",
+       "web-info11"
+      ]
+     },
+     {
+      "admission_years": "2019",
+      "credits": 99,
+      "applies_to": [
+       "공과대학 건축학과(5년제)"
+      ],
+      "source_ids": [
+       "web-info12",
+       "web-info11"
+      ]
+     },
+     {
+      "admission_years": "2019",
+      "credits": 45,
+      "applies_to": [
+       "자연과학대학 수학과",
+       "인문사회과학대학 국어국문학과",
+       "인문사회과학대학 영어산업학과",
+       "인문사회과학대학 산업심리학과",
+       "인문사회과학대학 미디어커뮤니케이션학부",
+       "인문사회과학대학 동북아문화산업학부",
+       "정책법학대학 행정학과",
+       "정책법학대학 국제학부",
+       "경영대학 경영학부",
+       "경영대학 국제통상학부"
+      ],
+      "source_ids": [
+       "web-info12",
+       "web-info11"
+      ]
+     },
+     {
+      "admission_years": "2019",
+      "credits": 39,
+      "applies_to": [
+       "자연과학대학 정보콘텐츠학과(야간)",
+       "정책법학대학 자산관리학과(야간)"
+      ],
+      "source_ids": [
+       "web-info12",
+       "web-info11"
+      ]
+     },
+     {
+      "admission_years": "2019",
+      "credits": 36,
+      "applies_to": [
+       "정책법학대학 법학부"
+      ],
+      "source_ids": [
+       "web-info12",
+       "web-info11"
+      ]
+     },
+     {
+      "admission_years": "2017-2018",
+      "credits": 54,
+      "applies_to": [
+       "전자정보공과대학",
+       "인공지능융합대학 (구. 소프트웨어 융합대학) 컴퓨터정보공학부",
+       "인공지능융합대학 (구. 소프트웨어 융합대학) 소프트웨어학부",
+       "인공지능융합대학 (구. 소프트웨어 융합대학) 정보융합학부",
+       "공과대학 건축공,화공,환경",
+       "자연과학대학 전자바이오물리학과 (2017학번)",
+       "자연과학대학 전자바이오물리학과 (2018학번)",
+       "자연과학대학 화학과, 생활체육학과"
+      ],
+      "source_ids": [
+       "web-info12",
+       "web-info11"
+      ]
+     },
+     {
+      "admission_years": "2017-2018",
+      "credits": 99,
+      "applies_to": [
+       "공과대학 건축학과(5년제)"
+      ],
+      "source_ids": [
+       "web-info12",
+       "web-info11"
+      ]
+     },
+     {
+      "admission_years": "2017-2018",
+      "credits": 45,
+      "applies_to": [
+       "자연과학대학 수학과",
+       "인문사회과학대학 국어국문학과",
+       "인문사회과학대학 영어영문학과",
+       "인문사회과학대학 산업심리학과",
+       "인문사회과학대학 미디어영상학부",
+       "인문사회과학대학 동북아문화산업학부",
+       "정책법학대학 행정학과",
+       "정책법학대학 국제학부",
+       "경영대학 경영학부",
+       "경영대학 국제통상학부"
+      ],
+      "source_ids": [
+       "web-info12",
+       "web-info11"
+      ]
+     },
+     {
+      "admission_years": "2017-2018",
+      "credits": 39,
+      "applies_to": [
+       "자연과학대학 정보콘텐츠학과(야간)",
+       "정책법학대학 자산관리학과(야간)"
+      ],
+      "source_ids": [
+       "web-info12",
+       "web-info11"
+      ]
+     },
+     {
+      "admission_years": "2017-2018",
+      "credits": 36,
+      "applies_to": [
+       "정책법학대학 법학부"
+      ],
+      "source_ids": [
+       "web-info12",
+       "web-info11"
+      ]
+     }
+    ],
+    "before_2017": "복수전공 학과의 입학년도별 졸업 전공학점 이상(45~66). 건축학과 99",
+    "notes": [
+     "이수학점은 대상 학과(복수·부전공으로 이수하는 학과) 행을 적용합니다(Daple: basis admission, 입학연도에 따른 버전은 targets의 version_year). 학생 본인 학과 행이 아닙니다."
+    ],
+    "source_ids": [
+     "daple-2026-11-07",
+     "notice-4cha",
+     "reg-damajor-isu",
+     "reg-damajor-unyeong",
+     "reg-hakchik",
+     "web-info11",
+     "web-info12"
+    ]
+   },
+   "eligibility": [
+    "체육특기자는 복수전공·부전공 신청 불가(스포츠융합과학과 일반 학생은 가능)",
+    "신설 학과(전공)는 학번 조건이 있음(예: 반도체시스템공학전공 24학번부터, 2027년 2월부터 전 학번; 빅데이터경영·글로벌비즈니스·국제금융 25학번부터, 2028년 2월부터 전 학번 등)",
+    "폐지 예정 학과(전공)는 신청 마감 시점이 있음(예: 정보콘텐츠학과·자산관리학과(야간) 2025년 2월부터 불가, 국제법무전공 2027년 2월부터 불가)"
+   ],
+   "mutual_recognition": {
+    "max_credits": 9,
+    "condition": "본인 주전공 학점(전선·전필)으로 인정되는 과목이 ① 복수전공 학과에 동일 교과목으로 개설됐거나 ② 복수전공 학과가 지정한 타학(과)부 전공인정 과목일 때",
+    "graduation_total": "졸업 총학점에는 한 번만 산입"
+   },
+   "major_credit_reduction": {
+    "2017-2024": "일부 학과는 '다전공 이수시' 주전공 학점으로 하향(credit_tables 참조). 복수전공·연계전공 이수 때만 적용",
+    "2025-2026": "참빛인재대학만 45→39"
+   },
+   "other": [
+    "복수전공 학과의 전공필수는 반드시 이수하지 않아도 됨(건축학과 복수·부전공은 예외)",
+    "중도 포기 시 이수 과목은 일반선택. 복수전공 과목을 부전공 기준 이상 취득한 뒤 포기하면서 부전공을 신청하면 부전공 인정",
+    "2020학년도부터 건축학과 복수(부)전공 가능(양방향). 건축학과는 별도 운영, 학과 사무실 사전 확인"
+   ],
+   "source_ids": [
+    "reg-hakchik",
+    "reg-damajor-isu",
+    "reg-damajor-unyeong",
+    "web-info11",
+    "web-info12",
+    "notice-4cha"
+   ],
+   "articles": {
+    "reg-hakchik": "제51조",
+    "reg-damajor-isu": "제3조 제1항, 제5조 제1·3항",
+    "reg-damajor-unyeong": "제3조 제2항, 제13조, 제18조 제1항"
+   }
+  },
+  "부전공": {
+   "definition": "본인 전공 이외의 특정 학과(부) 전공을 소정 학점 이상 선택 이수",
+   "degree": "학위 없음. 학위증에 '부전공'으로 표기",
+   "required_credits": {
+    "default": 21,
+    "unit": "부전공 학과(부)의 전공과목 학점",
+    "rule": "부전공 21학점(건축학과 5년제 45학점: 10학기 이상 등록, 인증 필수과목 순차 이수). 2017학년도 신입생부터 학칙 [별표 6]에 따름",
+    "by_admission_year": [
+     {
+      "admission_years": "2026",
+      "credits": 21,
+      "applies_to": [
+       "전자정보공과대학",
+       "인공지능융합대학",
+       "공과대학 건축공,화공,환경",
+       "자연과학대학",
+       "인문사회과학대학",
+       "정책법학대학",
+       "경영대학",
+       "참빛인재대학"
+      ],
+      "source_ids": [
+       "web-info12",
+       "web-info11"
+      ]
+     },
+     {
+      "admission_years": "2026",
+      "credits": 45,
+      "applies_to": [
+       "공과대학 건축학과(5년제)"
+      ],
+      "source_ids": [
+       "web-info12",
+       "web-info11"
+      ]
+     },
+     {
+      "admission_years": "2025",
+      "credits": 21,
+      "applies_to": [
+       "전자정보공과대학",
+       "인공지능융합대학",
+       "공과대학 건축공,화공,환경",
+       "자연과학대학",
+       "인문사회과학대학",
+       "정책법학대학",
+       "경영대학",
+       "참빛인재대학"
+      ],
+      "source_ids": [
+       "web-info12",
+       "web-info11"
+      ]
+     },
+     {
+      "admission_years": "2025",
+      "credits": 45,
+      "applies_to": [
+       "공과대학 건축학과(5년제)"
+      ],
+      "source_ids": [
+       "web-info12",
+       "web-info11"
+      ]
+     },
+     {
+      "admission_years": "2024",
+      "credits": 21,
+      "applies_to": [
+       "전자정보공과대학",
+       "인공지능융합대학",
+       "공과대학 건축공,화공,환경",
+       "자연과학대학 수학과",
+       "자연과학대학 전자바이오물리학과,화학과, 스포츠융합과학과",
+       "인문사회과학대학 국어국문학과",
+       "인문사회과학대학 영어산업학과",
+       "인문사회과학대학 산업심리학과",
+       "인문사회과학대학 미디어커뮤니케이션학부",
+       "인문사회과학대학 동북아문화산업학부",
+       "정책법학대학 법학부",
+       "정책법학대학 국제학부",
+       "경영대학 경영학부",
+       "경영대학 국제통상학부",
+       "참빛인재대학 금융부동산법무학과",
+       "참빛인재대학 게임콘텐츠학과",
+       "참빛인재대학 스마트전기전자학과",
+       "참빛인재대학 스포츠상담재활학과"
+      ],
+      "source_ids": [
+       "web-info12",
+       "web-info11"
+      ]
+     },
+     {
+      "admission_years": "2024",
+      "credits": 45,
+      "applies_to": [
+       "공과대학 건축학과(5년제)"
+      ],
+      "source_ids": [
+       "web-info12",
+       "web-info11"
+      ]
+     },
+     {
+      "admission_years": "2024",
+      "credits": 30,
+      "applies_to": [
+       "정책법학대학 행정학과"
+      ],
+      "source_ids": [
+       "web-info12",
+       "web-info11"
+      ]
+     },
+     {
+      "admission_years": "2020-2023",
+      "credits": 21,
+      "applies_to": [
+       "전자정보공과대학 전자공학과, 전자통신공학과, 전자융합공학과, 전기공학과, 전자재료공학과, 로봇학부",
+       "소프트웨어 융합대학 컴퓨터정보공학부",
+       "소프트웨어 융합대학 소프트웨어학부",
+       "소프트웨어 융합대학 정보융합학부",
+       "공과대학 건축공,화공,환경",
+       "자연과학대학 수학과",
+       "자연과학대학 전자바이오물리학과,화학과,스포츠융합과학과",
+       "자연과학대학 정보콘텐츠학과(야간)",
+       "인문사회과학대학 국어국문학과",
+       "인문사회과학대학 영어산업학과",
+       "인문사회과학대학 산업심리학과",
+       "인문사회과학대학 미디어커뮤니케이션학부",
+       "인문사회과학대학 동북아문화산업학부 (2020학번)",
+       "인문사회과학대학 동북아문화산업학부 (2021학번~)",
+       "정책법학대학 법학부",
+       "정책법학대학 자산관리학과(야간)",
+       "정책법학대학 국제학부*",
+       "경영대학 경영학부",
+       "경영대학 국제통상학부"
+      ],
+      "source_ids": [
+       "web-info12",
+       "web-info11"
+      ]
+     },
+     {
+      "admission_years": "2020-2023",
+      "credits": 24,
+      "applies_to": [
+       "전자정보공과대학 지능형로봇학과(2022학번∼)"
+      ],
+      "source_ids": [
+       "web-info12",
+       "web-info11"
+      ]
+     },
+     {
+      "admission_years": "2020-2023",
+      "credits": 45,
+      "applies_to": [
+       "공과대학 건축학과(5년제)"
+      ],
+      "source_ids": [
+       "web-info12",
+       "web-info11"
+      ]
+     },
+     {
+      "admission_years": "2020-2023",
+      "credits": 30,
+      "applies_to": [
+       "정책법학대학 행정학과"
+      ],
+      "source_ids": [
+       "web-info12",
+       "web-info11"
+      ]
+     },
+     {
+      "admission_years": "2019",
+      "credits": 21,
+      "applies_to": [
+       "전자정보공과대학",
+       "인공지능융합대학 (구. 소프트웨어 융합대학) 컴퓨터정보공학부",
+       "인공지능융합대학 (구. 소프트웨어 융합대학) 소프트웨어학부",
+       "인공지능융합대학 (구. 소프트웨어 융합대학) 정보융합학부",
+       "공과대학 건축공,화공,환경",
+       "자연과학대학 수학과",
+       "자연과학대학 전자바이오물리학과",
+       "자연과학대학 화학과, 생활체육학과",
+       "자연과학대학 정보콘텐츠학과(야간)",
+       "인문사회과학대학 국어국문학과",
+       "인문사회과학대학 영어산업학과",
+       "인문사회과학대학 산업심리학과",
+       "인문사회과학대학 미디어커뮤니케이션학부",
+       "인문사회과학대학 동북아문화산업학부",
+       "정책법학대학 법학부",
+       "정책법학대학 자산관리학과(야간)",
+       "정책법학대학 국제학부",
+       "경영대학 경영학부",
+       "경영대학 국제통상학부"
+      ],
+      "source_ids": [
+       "web-info12",
+       "web-info11"
+      ]
+     },
+     {
+      "admission_years": "2019",
+      "credits": 45,
+      "applies_to": [
+       "공과대학 건축학과(5년제)"
+      ],
+      "source_ids": [
+       "web-info12",
+       "web-info11"
+      ]
+     },
+     {
+      "admission_years": "2019",
+      "credits": 30,
+      "applies_to": [
+       "정책법학대학 행정학과"
+      ],
+      "source_ids": [
+       "web-info12",
+       "web-info11"
+      ]
+     },
+     {
+      "admission_years": "2017-2018",
+      "credits": 21,
+      "applies_to": [
+       "전자정보공과대학",
+       "인공지능융합대학 (구. 소프트웨어 융합대학) 컴퓨터정보공학부",
+       "인공지능융합대학 (구. 소프트웨어 융합대학) 소프트웨어학부",
+       "인공지능융합대학 (구. 소프트웨어 융합대학) 정보융합학부",
+       "공과대학 건축공,화공,환경",
+       "자연과학대학 수학과",
+       "자연과학대학 전자바이오물리학과 (2017학번)",
+       "자연과학대학 전자바이오물리학과 (2018학번)",
+       "자연과학대학 화학과, 생활체육학과",
+       "자연과학대학 정보콘텐츠학과(야간)",
+       "인문사회과학대학 국어국문학과",
+       "인문사회과학대학 영어영문학과",
+       "인문사회과학대학 산업심리학과",
+       "인문사회과학대학 미디어영상학부",
+       "인문사회과학대학 동북아문화산업학부",
+       "정책법학대학 법학부",
+       "정책법학대학 자산관리학과(야간)",
+       "정책법학대학 국제학부",
+       "경영대학 경영학부",
+       "경영대학 국제통상학부"
+      ],
+      "source_ids": [
+       "web-info12",
+       "web-info11"
+      ]
+     },
+     {
+      "admission_years": "2017-2018",
+      "credits": 45,
+      "applies_to": [
+       "공과대학 건축학과(5년제)"
+      ],
+      "source_ids": [
+       "web-info12",
+       "web-info11"
+      ]
+     },
+     {
+      "admission_years": "2017-2018",
+      "credits": 30,
+      "applies_to": [
+       "정책법학대학 행정학과"
+      ],
+      "source_ids": [
+       "web-info12",
+       "web-info11"
+      ]
+     }
+    ],
+    "before_2017": "21학점. 건축학과 45",
+    "source_ids": [
+     "daple-2026-11-07",
+     "notice-4cha",
+     "reg-damajor-isu",
+     "reg-damajor-unyeong",
+     "reg-hakchik",
+     "web-info11",
+     "web-info12"
+    ],
+    "notes": [
+     "이수학점은 대상 학과(복수·부전공으로 이수하는 학과) 행을 적용합니다(Daple: basis admission, 입학연도에 따른 버전은 targets의 version_year). 학생 본인 학과 행이 아닙니다."
+    ]
+   },
+   "eligibility": [
+    "체육특기자는 신청 불가",
+    "신설 학과(전공)라도 부전공은 학번에 관계없이 신청 가능(공지)"
+   ],
+   "mutual_recognition": {
+    "max_credits": 9,
+    "condition": "복수전공과 같음(동일 교과목 또는 타학(과)부 전공인정 과목)",
+    "graduation_total": "졸업 총학점에는 한 번만 산입"
+   },
+   "major_credit_reduction": {
+    "2017-2024": "적용 안 됨(부전공은 하향 대상에서 제외)",
+    "2025-2026": "참빛인재대학만 45→39"
+   },
+   "other": [
+    "부전공 학과의 전공필수는 반드시 이수하지 않아도 됨(건축학과 예외)"
+   ],
+   "source_ids": [
+    "reg-hakchik",
+    "reg-damajor-isu",
+    "reg-damajor-unyeong",
+    "web-info11",
+    "web-info12",
+    "notice-4cha"
+   ],
+   "articles": {
+    "reg-hakchik": "제50조",
+    "reg-damajor-isu": "제5조 제1·3항",
+    "reg-damajor-unyeong": "제13조, 제18조 제4항"
+   }
+  },
+  "연계전공": {
+   "definition": "2개 이상의 학부, 학과 또는 대학원의 전공을 연계하여 편성된 교육과정을 이수하는 전공",
+   "degree": "학위 수여(소속 전공과 연계전공 학위 동시 수여). 학위명은 [별표1]에서 따로 정함(미열람)",
+   "required_credits": {
+    "range": {
+     "min": 30,
+     "max": 51
+    },
+    "unit": "연계전공 교육과정 학점",
+    "rule": "연계전공별로 30~51학점 내에서 교과과정심의위원회가 정함([별표1]). 현재 사회복지학 51(2019학번까지 45), 나머지 25개 30",
+    "per_track": "tracks 참조",
+    "source_ids": [
+     "reg-damajor-isu",
+     "reg-damajor-unyeong",
+     "web-info11",
+     "att-linked-guide"
+    ]
+   },
+   "eligibility": [
+    "별도의 학점·전공 제한 없음(안내자료집)",
+    "대학원 개설 과목은 학·석사 연계과목 신청 절차로 수강(공지)"
+   ],
+   "mutual_recognition": {
+    "max_credits": {
+     "min": 9,
+     "max": 15
+    },
+    "per_track": true,
+    "condition": "본인 주전공 학점(전선·전필)으로 인정되는 과목이 연계전공 참여 학과에 동일 교과목으로 개설된 경우(타학과 전공인정 과목은 해당 없음)",
+    "graduation_total": "졸업 총학점에는 한 번만 산입"
+   },
+   "major_credit_reduction": {
+    "2017-2024": "일부 학과 '다전공 이수시' 주전공 하향 적용(복수전공과 같음)",
+    "2025-2026": "참빛인재대학만 45→39"
+   },
+   "other": [
+    "연계전공 필수과목은 반드시 이수",
+    "과목이 삭제되면 삭제 전 수강분만 인정, 추가되면 이전·이후 수강 모두 인정",
+    "필수에서 해제되면 모든 학생에게 해제, 필수가 추가되면 그 시점 이후 신청자에게만 적용",
+    "중도 포기 시 이수 과목은 일반선택",
+    "연계전공 이수 인원 제한 없음(필요 시 교과과정심의위원회 심의)"
+   ],
+   "source_ids": [
+    "reg-damajor-isu",
+    "reg-damajor-unyeong",
+    "web-info11",
+    "att-linked-guide"
+   ],
+   "articles": {
+    "reg-damajor-isu": "제5조 제1항, [별표1]",
+    "reg-damajor-unyeong": "제3조 제3항, 제7조, 제10조, 제14조, 제18조"
+   }
+  },
+  "마이크로전공": {
+   "definition": "세부전공 또는 학제간 교육과정을 최소 이수 요건(15학점)으로 이수하는 최소단위 전공",
+   "degree": "학위 없음. 학위증에 '마이크로전공'으로 표기",
+   "required_credits": {
+    "default": 15,
+    "unit": "마이크로전공 교육과정(편성 24학점 이상) 중 이수 학점",
+    "rule": "과정별 15학점 이상. 정부지원사업 등으로 개설된 마이크로전공은 별도 운영 가능",
+    "exceptions": [
+     {
+      "operator": "지능형로봇학과(지능형로봇혁신융합대학사업단)",
+      "credits": 12,
+      "note": "2개 이상 과정을 이수해야 다전공 의무 이수 졸업요건으로 인정"
+     },
+     {
+      "operator": "글로벌지속가능융합학과(인문사회융합인재양성사업단)",
+      "credits": 9,
+      "note": "2개 이상 과정을 이수해야 다전공 의무 이수 졸업요건으로 인정"
+     }
+    ],
+    "per_track": "tracks 참조",
+    "source_ids": [
+     "reg-damajor-isu",
+     "reg-damajor-unyeong",
+     "web-info11",
+     "att-micro-guide"
+    ]
+   },
+   "eligibility": [
+    "본인이 소속하지 않은 학과(부)의 마이크로전공만 이수 가능",
+    "자율전공학부 학생은 본인 주전공 학과의 마이크로전공 이수 불가",
+    "본인 학과 교과과정과 매우 비슷한 마이크로전공은 신청 비권장(안내자료에 학과별 목록)"
+   ],
+   "mutual_recognition": {
+    "max_credits": 0,
+    "note": "마이크로전공으로 이수한 학점은 주전공·다른 다전공 학점으로 중복 인정하지 않음. 주전공 전선 과목을 마이크로전공으로 옮기면 주전공 학점이 그만큼 줄 수 있음(전필은 이관 불가)"
+   },
+   "major_credit_reduction": {
+    "2017-2024": "적용 안 됨",
+    "2025-2026": "참빛인재대학만 45→39"
+   },
+   "other": [
+    "필수과목 없음",
+    "교육과정 편성 시 타학과 전공 교과목 6학점 이내 포함 가능",
+    "이수 인원 제한 없음"
+   ],
+   "source_ids": [
+    "reg-damajor-isu",
+    "reg-damajor-unyeong",
+    "web-info11",
+    "att-micro-guide"
+   ],
+   "articles": {
+    "reg-damajor-isu": "제5조 제1·5·6·7항",
+    "reg-damajor-unyeong": "제3조 제5항, 제6조, 제9조, 제12조, 제16조, 제18조 제4항"
+   }
+  },
+  "학생설계융합전공": {
+   "definition": "학생이 스스로 3개 이상의 학과 또는 학부의 전공을 융합하여 구성한 교육과정을 이수하는 전공",
+   "degree": "학위 없음. 학위증에 전공명은 표기되나 별도 학위명(공학사 등)은 표기하지 않음",
+   "required_credits": {
+    "default": 24,
+    "unit": "편성 교육과정(소속 학과 포함 3개 이상 학과, 36학점 이상) 중 이수 학점",
+    "rule": "24학점 이상",
+    "source_ids": [
+     "reg-damajor-isu",
+     "reg-damajor-unyeong",
+     "web-info11",
+     "att-linked-guide",
+     "notice-4cha"
+    ]
+   },
+   "eligibility": [
+    "재학 중 1회만 신청 가능(포기 후 재신청 불가)",
+    "매년 4월·10월 다전공 신청기간에만 신청(서류를 교육지원팀에 제출)",
+    "소속 학과 지도교수, 학생설계융합전공 지도교수, 편성 교과목 개설 학과장 모두의 검토·승인",
+    "학생설계융합전공운영위원회 심의 60점(100점 만점) 이상, 교과과정심의위원회 심의, 총장 최종 승인"
+   ],
+   "mutual_recognition": {
+    "max_credits": 9,
+    "condition": "주전공 학점으로 인정되는 과목이 구성 학과에 동일 교과목으로 개설된 경우",
+    "graduation_total": "졸업 총학점에는 한 번만 산입"
+   },
+   "major_credit_reduction": {
+    "2017-2024": "적용 안 됨",
+    "2025-2026": "참빛인재대학만 45→39"
+   },
+   "other": [
+    "포기 시 이수 학점은 일반선택",
+    "교과목 폐지·변경 시 교과과정 변경 신청 가능(위원회 심의)"
+   ],
+   "source_ids": [
+    "reg-damajor-isu",
+    "reg-damajor-unyeong",
+    "web-info11",
+    "att-linked-guide",
+    "notice-4cha"
+   ],
+   "articles": {
+    "reg-damajor-isu": "제5조 제1항",
+    "reg-damajor-unyeong": "제3조 제4항, 제5조, 제8조, 제11조, 제15조"
+   }
+  }
+ },
+ "tracks": [
+  {
+   "name": "사회복지학",
+   "type": "연계전공",
+   "operator": "행정학과",
+   "participants": "행정학과, 산업심리학과, 법학부, 스포츠융합과학과, 상담복지정책대학원(사회복지학과)",
+   "required_credits": 51,
+   "mutual_recognition_max": 9,
+   "required_courses": "51학점 (17과목)",
+   "source_id": "web-info11",
+   "year": 2026,
+   "listed_as_of": "2026-11-07",
+   "credits_detail": {
+    "by_admission_year": [
+     {
+      "admission_years": "-2019",
+      "credits": 45,
+      "required_courses": "필수 10과목 30학점 + 선택 5과목 15학점 이상"
+     },
+     {
+      "admission_years": "2020-",
+      "credits": 51,
+      "required_courses": "*표시 17과목 51학점 모두(필수 10 + *표시 7)"
+     }
+    ],
+    "social_worker_level2": {
+     "-2019": "42학점 이상(*표시 과목 중 14과목, 필수 10과목 포함)",
+     "2020-": "51학점(*표시 17과목 모두)"
+    }
+   },
+   "notes": [
+    "대학원 과목은 4학년만 수강 가능, 학기당 6학점 이하(타 대학 학점교류 포함)",
+    "2020학년도 신입생부터 사회복지사 2급 자격요건에 맞춰 교과목·학점 변경"
+   ],
+   "also_source_ids": [
+    "att-linked-guide",
+    "daple-2026-11-07"
+   ],
+   "aliases": [
+    "사회복지학 연계전공"
+   ],
+   "program_code": "interdisciplinary_major:social-welfare"
+  },
+  {
+   "name": "인공지능반도체",
+   "type": "연계전공",
+   "operator": "반도체시스템공학부",
+   "participants": "반도체시스템공학부, 전자공학과, 전자통신공학과, 전자융합공학과, 전자재료공학과, 컴퓨터정보공학부, 전자바이오물리학과, 전정대 공통",
+   "required_credits": 30,
+   "mutual_recognition_max": 15,
+   "required_courses": "없음",
+   "source_id": "web-info11",
+   "year": 2026,
+   "listed_as_of": "2026-11-07",
+   "notes": [
+    "동일 교과목이 여러 학과에 개설되어 있고 본 소속 학과 교과목 수강이 가능한 경우, 소속 학과의 교과목을 이수하는 것을 원칙으로 함. (동일 교과목 : 머신러닝, 전자회로1, 전자회로2, 전자회로실험(전자회로실험1)"
+   ],
+   "also_source_ids": [
+    "att-linked-guide",
+    "daple-2026-11-07"
+   ],
+   "aliases": [
+    "인공지능반도체 연계전공"
+   ],
+   "program_code": "interdisciplinary_major:ai-semiconductor"
+  },
+  {
+   "name": "건설금융",
+   "type": "연계전공",
+   "operator": "건축공학과",
+   "participants": "건축공학과, 경영학부, 법학부",
+   "required_credits": 30,
+   "mutual_recognition_max": 9,
+   "required_courses": "없음",
+   "source_id": "web-info11",
+   "year": 2026,
+   "listed_as_of": "2026-11-07",
+   "also_source_ids": [
+    "att-linked-guide",
+    "daple-2026-11-07"
+   ],
+   "aliases": [
+    "건설금융 연계전공"
+   ],
+   "program_code": "interdisciplinary_major:construction-finance"
+  },
+  {
+   "name": "경영분석",
+   "type": "연계전공",
+   "operator": "경영학부",
+   "participants": "경영학부, 국제통상학부",
+   "required_credits": 30,
+   "mutual_recognition_max": 9,
+   "required_courses": "없음",
+   "source_id": "web-info11",
+   "year": 2026,
+   "listed_as_of": "2026-11-07",
+   "also_source_ids": [
+    "att-linked-guide",
+    "daple-2026-11-07"
+   ],
+   "aliases": [
+    "경영분석 연계전공"
+   ],
+   "program_code": "interdisciplinary_major:business-analytics"
+  },
+  {
+   "name": "경찰학·범죄학",
+   "type": "연계전공",
+   "operator": "행정학과",
+   "participants": "행정학과, 법학부, 산업심리학과, 인제니움대학, 일반대학원(범죄학과)",
+   "required_credits": 30,
+   "mutual_recognition_max": 9,
+   "required_courses": "없음",
+   "source_id": "web-info11",
+   "year": 2026,
+   "listed_as_of": "2026-11-07",
+   "also_source_ids": [
+    "att-linked-guide",
+    "daple-2026-11-07"
+   ],
+   "aliases": [
+    "경찰학·범죄학 연계전공"
+   ],
+   "program_code": "interdisciplinary_major:police-criminology"
+  },
+  {
+   "name": "금융공학및핀테크",
+   "type": "연계전공",
+   "operator": "컴퓨터정보공학부",
+   "participants": "컴퓨터정보공학부, 경영학부, 국제통상학부, 수학과",
+   "required_credits": 30,
+   "mutual_recognition_max": 9,
+   "required_courses": "없음",
+   "source_id": "web-info11",
+   "year": 2026,
+   "listed_as_of": "2026-11-07",
+   "also_source_ids": [
+    "att-linked-guide",
+    "daple-2026-11-07"
+   ],
+   "aliases": [
+    "금융공학및핀테크 연계전공"
+   ],
+   "program_code": "interdisciplinary_major:financial-engineering-fintech"
+  },
+  {
+   "name": "리더십코칭",
+   "type": "연계전공",
+   "operator": "산업심리학과",
+   "participants": "산업심리학과, 경영학부",
+   "required_credits": 30,
+   "mutual_recognition_max": 15,
+   "required_courses": "없음",
+   "source_id": "web-info11",
+   "year": 2026,
+   "listed_as_of": "2026-11-07",
+   "also_source_ids": [
+    "att-linked-guide",
+    "daple-2026-11-07"
+   ],
+   "aliases": [
+    "리더십코칭 연계전공"
+   ],
+   "program_code": "interdisciplinary_major:leadership-coaching"
+  },
+  {
+   "name": "모바일로봇",
+   "type": "연계전공",
+   "operator": "로봇학부",
+   "participants": "로봇학부, 전기공학과, 지능형로봇학과",
+   "required_credits": 30,
+   "mutual_recognition_max": 15,
+   "required_courses": "없음",
+   "source_id": "web-info11",
+   "year": 2026,
+   "listed_as_of": "2026-11-07",
+   "notes": [
+    "2026-2학기(8월 다전공 신청)부터 신설. 2026학년도 연계전공 안내자료(24개)에는 없음"
+   ],
+   "also_source_ids": [
+    "att-linked-changes",
+    "daple-2026-11-07"
+   ],
+   "aliases": [
+    "모바일로봇 연계전공"
+   ],
+   "program_code": "interdisciplinary_major:mobile-robot"
+  },
+  {
+   "name": "미디어콘텐츠",
+   "type": "연계전공",
+   "operator": "소프트웨어학부",
+   "participants": "학부 : 소프트웨어학부, 정보융합학부 일반대학원 : 인공지능응용학과, 컴퓨터과학과",
+   "required_credits": 30,
+   "mutual_recognition_max": 9,
+   "required_courses": "없음",
+   "source_id": "web-info11",
+   "year": 2026,
+   "listed_as_of": "2026-11-07",
+   "also_source_ids": [
+    "att-linked-guide",
+    "daple-2026-11-07"
+   ],
+   "aliases": [
+    "미디어콘텐츠 연계전공"
+   ],
+   "program_code": "interdisciplinary_major:media-contents"
+  },
+  {
+   "name": "빅데이터",
+   "type": "연계전공",
+   "operator": "정보융합학부",
+   "participants": "정보융합학부, 컴퓨터정보공학부, 소프트웨어학부",
+   "required_credits": 30,
+   "mutual_recognition_max": 9,
+   "required_courses": "없음",
+   "source_id": "web-info11",
+   "year": 2026,
+   "listed_as_of": "2026-11-07",
+   "notes": [
+    "동일 교과목이 여러 학과에 개설되어 있고 본 소속 학과 교과목 수강이 가능한 경우, 소속 학과의 교과목을 이수하는 것을 원칙으로 함. (동일 교과목 : 객체지향프로그래밍, 데이터베이스, 산학협력캡스톤설계1)"
+   ],
+   "also_source_ids": [
+    "att-linked-guide",
+    "daple-2026-11-07"
+   ],
+   "aliases": [
+    "빅데이터 연계전공"
+   ],
+   "program_code": "interdisciplinary_major:big-data"
+  },
+  {
+   "name": "사물인터넷",
+   "type": "연계전공",
+   "operator": "컴퓨터정보공학부",
+   "participants": "컴퓨터정보공학부, 전자통신공학과",
+   "required_credits": 30,
+   "mutual_recognition_max": 9,
+   "required_courses": "없음",
+   "source_id": "web-info11",
+   "year": 2026,
+   "listed_as_of": "2026-11-07",
+   "notes": [
+    "동일 교과목이 여러 학과에 개설되어 있고 본 소속 학과 교과목 수강이 가능한 경우, 소속 학과의 교과목을 이수하는 것을 원칙으로 함. (동일 교과목 : 신호및시스템, 디지털신호처리, 컴퓨터네트워크, 운영체제, 마이크로프로세서)"
+   ],
+   "also_source_ids": [
+    "att-linked-guide",
+    "daple-2026-11-07"
+   ],
+   "aliases": [
+    "사물인터넷 연계전공"
+   ],
+   "program_code": "interdisciplinary_major:internet-of-things"
+  },
+  {
+   "name": "스타트업",
+   "type": "연계전공",
+   "operator": "산학협력단",
+   "participants": "산학협력단(주관, 전정대∙공대 개설 창업교과목 운영), 경영학부, 국제통상학부, 인제니움대학",
+   "required_credits": 30,
+   "mutual_recognition_max": 9,
+   "required_courses": "없음",
+   "source_id": "web-info11",
+   "year": 2026,
+   "listed_as_of": "2026-11-07",
+   "also_source_ids": [
+    "att-linked-guide",
+    "daple-2026-11-07"
+   ],
+   "aliases": [
+    "스타트업 연계전공"
+   ],
+   "program_code": "interdisciplinary_major:startup"
+  },
+  {
+   "name": "스포츠빅데이터",
+   "type": "연계전공",
+   "operator": "스포츠융합과학과",
+   "participants": "스포츠융합과학과, 정보융합학부",
+   "required_credits": 30,
+   "mutual_recognition_max": 9,
+   "required_courses": "없음",
+   "source_id": "web-info11",
+   "year": 2026,
+   "listed_as_of": "2026-11-07",
+   "also_source_ids": [
+    "att-linked-guide",
+    "daple-2026-11-07"
+   ],
+   "aliases": [
+    "스포츠빅데이터 연계전공"
+   ],
+   "program_code": "interdisciplinary_major:sports-big-data"
+  },
+  {
+   "name": "시스템반도체",
+   "type": "연계전공",
+   "operator": "반도체시스템공학부",
+   "participants": "반도체시스템공학부, 전자공학과, 전자통신공학과, 전자융합공학과, 전자재료공학과, 컴퓨터정보공학부, 전정대 공통개설 과목",
+   "required_credits": 30,
+   "mutual_recognition_max": 15,
+   "required_courses": "없음",
+   "source_id": "web-info11",
+   "year": 2026,
+   "listed_as_of": "2026-11-07",
+   "notes": [
+    "동일 교과목이 여러 학과에 개설되어 있고 본 소속 학과 교과목 수강이 가능한 경우, 소속 학과의 교과목을 이수하는 것을 원칙으로 함. (동일 교과목 : 회로이론2, 전자회로1, 전자회로실험1, 전자회로실험, 시스템반도체설계, 전자회로2, 전자회로실험2, 디지털집적회로설계, 임베디드시스템, 디지털신호처리, 집적회로설계)"
+   ],
+   "also_source_ids": [
+    "att-linked-guide",
+    "daple-2026-11-07"
+   ],
+   "aliases": [
+    "시스템반도체 연계전공"
+   ],
+   "program_code": "interdisciplinary_major:system-semiconductor"
+  },
+  {
+   "name": "실감미디어",
+   "type": "연계전공",
+   "operator": "소프트웨어학부",
+   "participants": "소프트웨어학부, 미디어커뮤니케이션학부",
+   "required_credits": 30,
+   "mutual_recognition_max": 9,
+   "required_courses": "없음",
+   "source_id": "web-info11",
+   "year": 2026,
+   "listed_as_of": "2026-11-07",
+   "also_source_ids": [
+    "att-linked-guide",
+    "daple-2026-11-07"
+   ],
+   "aliases": [
+    "실감미디어 연계전공"
+   ],
+   "program_code": "interdisciplinary_major:immersive-media"
+  },
+  {
+   "name": "언어빅데이터",
+   "type": "연계전공",
+   "operator": "영어산업학과",
+   "participants": "영어산업학과, 정보융합학부",
+   "required_credits": 30,
+   "mutual_recognition_max": 9,
+   "required_courses": "없음",
+   "source_id": "web-info11",
+   "year": 2026,
+   "listed_as_of": "2026-11-07",
+   "also_source_ids": [
+    "att-linked-guide",
+    "daple-2026-11-07"
+   ],
+   "aliases": [
+    "언어빅데이터 연계전공"
+   ],
+   "program_code": "interdisciplinary_major:language-big-data"
+  },
+  {
+   "name": "엔터테인먼트경영",
+   "type": "연계전공",
+   "operator": "미디어커뮤니케이션학부",
+   "participants": "미디어커뮤니케이션학부, 경영학부",
+   "required_credits": 30,
+   "mutual_recognition_max": 9,
+   "required_courses": "없음",
+   "source_id": "web-info11",
+   "year": 2026,
+   "listed_as_of": "2026-11-07",
+   "notes": [
+    "특정학부 교과목은 최대 18학점까지만 인정함. (엔터테인먼트경영 연계전공 공통과목 제외)"
+   ],
+   "also_source_ids": [
+    "att-linked-guide",
+    "daple-2026-11-07"
+   ],
+   "aliases": [
+    "엔터테인먼트경영 연계전공"
+   ],
+   "program_code": "interdisciplinary_major:entertainment-management"
+  },
+  {
+   "name": "영어정보콘텐츠",
+   "type": "연계전공",
+   "operator": "영어산업학과",
+   "participants": "영어산업학과, 정보콘텐츠학과, 게임콘텐츠학과",
+   "required_credits": 30,
+   "mutual_recognition_max": 9,
+   "required_courses": "없음",
+   "source_id": "web-info11",
+   "year": 2026,
+   "listed_as_of": "2026-11-07",
+   "also_source_ids": [
+    "att-linked-guide",
+    "daple-2026-11-07"
+   ],
+   "aliases": [
+    "영어정보콘텐츠 연계전공"
+   ],
+   "program_code": "interdisciplinary_major:english-information-contents"
+  },
+  {
+   "name": "융합소프트웨어",
+   "type": "연계전공",
+   "operator": "컴퓨터정보공학부",
+   "participants": "컴퓨터정보공학부, 소프트웨어학부, 정보융합학부",
+   "required_credits": 30,
+   "mutual_recognition_max": 9,
+   "required_courses": "없음",
+   "source_id": "web-info11",
+   "year": 2026,
+   "listed_as_of": "2026-11-07",
+   "also_source_ids": [
+    "att-linked-guide",
+    "daple-2026-11-07"
+   ],
+   "aliases": [
+    "융합소프트웨어 연계전공"
+   ],
+   "program_code": "interdisciplinary_major:convergence-software"
+  },
+  {
+   "name": "정보보호",
+   "type": "연계전공",
+   "operator": "경영학부",
+   "participants": "경영학부, 법학부, 정보콘텐츠학과, 게임콘텐츠학과",
+   "required_credits": 30,
+   "mutual_recognition_max": 9,
+   "required_courses": "없음",
+   "source_id": "web-info11",
+   "year": 2026,
+   "listed_as_of": "2026-11-07",
+   "also_source_ids": [
+    "att-linked-guide",
+    "daple-2026-11-07"
+   ],
+   "aliases": [
+    "정보보호 연계전공"
+   ],
+   "program_code": "interdisciplinary_major:information-security"
+  },
+  {
+   "name": "휴머노이드",
+   "type": "연계전공",
+   "operator": "로봇학부",
+   "participants": "로봇학부, 소프트웨어학부, 정보융합학부, 지능형로봇학과",
+   "required_credits": 30,
+   "mutual_recognition_max": 15,
+   "required_courses": "없음",
+   "source_id": "web-info11",
+   "year": 2026,
+   "listed_as_of": "2026-11-07",
+   "notes": [
+    "2026-2학기(8월 다전공 신청)부터 신설. 2026학년도 연계전공 안내자료(24개)에는 없음"
+   ],
+   "also_source_ids": [
+    "att-linked-changes",
+    "daple-2026-11-07"
+   ],
+   "aliases": [
+    "휴머노이드 연계전공"
+   ],
+   "program_code": "interdisciplinary_major:humanoid"
+  },
+  {
+   "name": "AIoT",
+   "type": "연계전공",
+   "operator": "정보융합학부",
+   "participants": "학부 : 정보융합학부, 컴퓨터정보공학부, 소프트웨어학부 일반대학원 : 컴퓨터공학과",
+   "required_credits": 30,
+   "mutual_recognition_max": 9,
+   "required_courses": "없음",
+   "source_id": "web-info11",
+   "year": 2026,
+   "listed_as_of": "2026-11-07",
+   "notes": [
+    "동일 교과목이 여러 학과에 개설되어 있고 본 소속 학과 교과목 수강이 가능한 경우, 소속 학과의 교과목을 이수하는 것을 원칙으로 함. (동일 교과목 : 컴퓨터네트워크)"
+   ],
+   "also_source_ids": [
+    "att-linked-guide",
+    "daple-2026-11-07"
+   ],
+   "aliases": [
+    "AIoT 연계전공"
+   ],
+   "program_code": "interdisciplinary_major:aiot"
+  },
+  {
+   "name": "AI융합",
+   "type": "연계전공",
+   "operator": "컴퓨터정보공학부",
+   "participants": "컴퓨터정보공학부, 소프트웨어학부, 정보융합학부, 전자통신공학과, 로봇학부",
+   "required_credits": 30,
+   "mutual_recognition_max": 9,
+   "required_courses": "없음",
+   "source_id": "web-info11",
+   "year": 2026,
+   "listed_as_of": "2026-11-07",
+   "also_source_ids": [
+    "att-linked-guide",
+    "daple-2026-11-07"
+   ],
+   "aliases": [
+    "AI융합 연계전공"
+   ],
+   "program_code": "interdisciplinary_major:ai-convergence"
+  },
+  {
+   "name": "Bio-Health-Care",
+   "type": "연계전공",
+   "operator": "컴퓨터정보공학부",
+   "participants": "학부 : 컴퓨터정보공학부, 소프트웨어학부, 정보융합학부, 인융대 공통 일반대학원 : 컴퓨터공학과, 컴퓨터과학과",
+   "required_credits": 30,
+   "mutual_recognition_max": 9,
+   "required_courses": "없음",
+   "source_id": "web-info11",
+   "year": 2026,
+   "listed_as_of": "2026-11-07",
+   "notes": [
+    "동일 교과목이 여러 학과에 개설되어 있고 본 소속 학과 교과목 수강이 가능한 경우, 소속 학과의 교과목을 이수하는 것을 원칙으로 함. (동일 교과목 : 모바일프로그래밍, 빅데이터처리및응용)"
+   ],
+   "also_source_ids": [
+    "att-linked-guide",
+    "daple-2026-11-07"
+   ],
+   "aliases": [
+    "Bio-Health-Care 연계전공"
+   ],
+   "program_code": "interdisciplinary_major:bio-health-care"
+  },
+  {
+   "name": "OTT미디어프로듀싱",
+   "type": "연계전공",
+   "operator": "미디어커뮤니케이션학부",
+   "participants": "미디어커뮤니케이션학부, 동북아문화산업학부",
+   "required_credits": 30,
+   "mutual_recognition_max": 15,
+   "required_courses": "없음",
+   "source_id": "web-info11",
+   "year": 2026,
+   "listed_as_of": "2026-11-07",
+   "also_source_ids": [
+    "att-linked-guide",
+    "daple-2026-11-07"
+   ],
+   "aliases": [
+    "OTT미디어프로듀싱 연계전공"
+   ],
+   "program_code": "interdisciplinary_major:ott-media-producing"
+  },
+  {
+   "name": "VR/AR",
+   "type": "연계전공",
+   "operator": "소프트웨어학부",
+   "participants": "학부 : 소프트웨어학부, 정보융합학부, 컴퓨터정보공학부 일반대학원 : 컴퓨터공학과, 컴퓨터과학과",
+   "required_credits": 30,
+   "mutual_recognition_max": 9,
+   "required_courses": "없음",
+   "source_id": "web-info11",
+   "year": 2026,
+   "listed_as_of": "2026-11-07",
+   "notes": [
+    "동일 교과목이 여러 학과에 개설되어 있고 본 소속 학과 교과목 수강이 가능한 경우, 소속 학과의 교과목을 이수하는 것을 원칙으로 함. (동일 교과목 : 객체지향프로그래밍, 자료구조)"
+   ],
+   "also_source_ids": [
+    "att-linked-guide",
+    "daple-2026-11-07"
+   ],
+   "aliases": [
+    "VR/AR 연계전공"
+   ],
+   "program_code": "interdisciplinary_major:vr-ar"
+  },
+  {
+   "name": "첨단스마트센서전공",
+   "type": "마이크로전공",
+   "operator": "전자공학과",
+   "college": "전자정보공과대학",
+   "required_credits": 15,
+   "offered_credits": 24,
+   "source_id": "web-info11",
+   "year": 2026,
+   "listed_as_of": "2026-11-07",
+   "also_source_ids": [
+    "att-micro-guide",
+    "daple-2026-11-07"
+   ],
+   "program_code": "micro_major:advanced-smart-sensor"
+  },
+  {
+   "name": "지능형통신전공",
+   "type": "마이크로전공",
+   "operator": "전자통신공학과",
+   "college": "전자정보공과대학",
+   "required_credits": 15,
+   "offered_credits": 24,
+   "source_id": "web-info11",
+   "year": 2026,
+   "listed_as_of": "2026-11-07",
+   "also_source_ids": [
+    "att-micro-guide",
+    "daple-2026-11-07"
+   ],
+   "program_code": "micro_major:intelligent-communication"
+  },
+  {
+   "name": "미래자동차전공",
+   "type": "마이크로전공",
+   "operator": "전자융합공학과",
+   "college": "전자정보공과대학",
+   "required_credits": 15,
+   "offered_credits": 27,
+   "source_id": "web-info11",
+   "year": 2026,
+   "listed_as_of": "2026-11-07",
+   "also_source_ids": [
+    "att-micro-guide",
+    "daple-2026-11-07"
+   ],
+   "program_code": "micro_major:future-vehicle"
+  },
+  {
+   "name": "전력시스템전공",
+   "type": "마이크로전공",
+   "operator": "전기공학과",
+   "college": "전자정보공과대학",
+   "required_credits": 15,
+   "offered_credits": 24,
+   "source_id": "web-info11",
+   "year": 2026,
+   "listed_as_of": "2026-11-07",
+   "also_source_ids": [
+    "att-micro-guide",
+    "daple-2026-11-07"
+   ],
+   "program_code": "micro_major:power-system"
+  },
+  {
+   "name": "지능형센서전공",
+   "type": "마이크로전공",
+   "operator": "전기공학과",
+   "college": "전자정보공과대학",
+   "required_credits": 15,
+   "offered_credits": 24,
+   "source_id": "web-info11",
+   "year": 2026,
+   "listed_as_of": "2026-11-07",
+   "also_source_ids": [
+    "att-micro-guide",
+    "daple-2026-11-07"
+   ],
+   "program_code": "micro_major:intelligent-sensor"
+  },
+  {
+   "name": "첨단반도체전공",
+   "type": "마이크로전공",
+   "operator": "전자재료공학과",
+   "college": "전자정보공과대학",
+   "required_credits": 15,
+   "offered_credits": 24,
+   "source_id": "web-info11",
+   "year": 2026,
+   "listed_as_of": "2026-11-07",
+   "also_source_ids": [
+    "att-micro-guide",
+    "daple-2026-11-07"
+   ],
+   "program_code": "micro_major:advanced-semiconductor"
+  },
+  {
+   "name": "첨단신소재전공",
+   "type": "마이크로전공",
+   "operator": "전자재료공학과",
+   "college": "전자정보공과대학",
+   "required_credits": 15,
+   "offered_credits": 24,
+   "source_id": "web-info11",
+   "year": 2026,
+   "listed_as_of": "2026-11-07",
+   "also_source_ids": [
+    "att-micro-guide",
+    "daple-2026-11-07"
+   ],
+   "program_code": "micro_major:advanced-new-materials"
+  },
+  {
+   "name": "반도체디지털설계전공",
+   "type": "마이크로전공",
+   "operator": "반도체시스템공학부",
+   "college": "전자정보공과대학",
+   "required_credits": 15,
+   "offered_credits": 24,
+   "source_id": "web-info11",
+   "year": 2026,
+   "listed_as_of": "2026-11-07",
+   "also_source_ids": [
+    "att-micro-changes",
+    "att-micro-guide",
+    "daple-2026-11-07"
+   ],
+   "notes": [
+    "2026.10 변경: 과목명 변경(HDL설계→HDL및설계)"
+   ],
+   "program_code": "micro_major:semiconductor-digital-design"
+  },
+  {
+   "name": "인공지능융합시스템전공",
+   "type": "마이크로전공",
+   "operator": "컴퓨터정보공학부",
+   "college": "인공지능융합대학",
+   "required_credits": 15,
+   "offered_credits": 24,
+   "source_id": "web-info11",
+   "year": 2026,
+   "listed_as_of": "2026-11-07",
+   "also_source_ids": [
+    "att-micro-guide",
+    "daple-2026-11-07"
+   ],
+   "program_code": "micro_major:ai-convergence-system"
+  },
+  {
+   "name": "소프트웨어개발전공",
+   "type": "마이크로전공",
+   "operator": "소프트웨어학부",
+   "college": "인공지능융합대학",
+   "required_credits": 15,
+   "offered_credits": 24,
+   "source_id": "web-info11",
+   "year": 2026,
+   "listed_as_of": "2026-11-07",
+   "also_source_ids": [
+    "att-micro-guide",
+    "daple-2026-11-07"
+   ],
+   "program_code": "micro_major:software-development"
+  },
+  {
+   "name": "지능형인터렉션전공",
+   "type": "마이크로전공",
+   "operator": "정보융합학부",
+   "college": "인공지능융합대학",
+   "required_credits": 15,
+   "offered_credits": 24,
+   "source_id": "web-info11",
+   "year": 2026,
+   "listed_as_of": "2026-11-07",
+   "also_source_ids": [
+    "att-micro-guide",
+    "daple-2026-11-07"
+   ],
+   "program_code": "micro_major:intelligent-interaction"
+  },
+  {
+   "name": "로봇공학전공",
+   "type": "마이크로전공",
+   "operator": "로봇학부",
+   "college": "인공지능융합대학",
+   "required_credits": 15,
+   "offered_credits": 24,
+   "source_id": "web-info11",
+   "year": 2026,
+   "listed_as_of": "2026-11-07",
+   "also_source_ids": [
+    "att-micro-guide",
+    "daple-2026-11-07"
+   ],
+   "program_code": "micro_major:robotics"
+  },
+  {
+   "name": "스마트빌딩전공",
+   "type": "마이크로전공",
+   "operator": "건축공학과",
+   "college": "공과대학",
+   "required_credits": 15,
+   "offered_credits": 24,
+   "source_id": "web-info11",
+   "year": 2026,
+   "listed_as_of": "2026-11-07",
+   "also_source_ids": [
+    "att-micro-guide",
+    "daple-2026-11-07"
+   ],
+   "program_code": "micro_major:smart-building"
+  },
+  {
+   "name": "건축학실무전공",
+   "type": "마이크로전공",
+   "operator": "건축학과",
+   "college": "공과대학",
+   "required_credits": 15,
+   "offered_credits": 24,
+   "source_id": "web-info11",
+   "year": 2026,
+   "listed_as_of": "2026-11-07",
+   "also_source_ids": [
+    "att-micro-guide",
+    "daple-2026-11-07"
+   ],
+   "program_code": "micro_major:architecture-practice"
+  },
+  {
+   "name": "AI화학공학전공",
+   "type": "마이크로전공",
+   "operator": "화학공학과",
+   "college": "공과대학",
+   "required_credits": 15,
+   "offered_credits": 24,
+   "source_id": "web-info11",
+   "year": 2026,
+   "listed_as_of": "2026-11-07",
+   "also_source_ids": [
+    "att-micro-guide",
+    "daple-2026-11-07"
+   ],
+   "program_code": "micro_major:ai-chemical-engineering"
+  },
+  {
+   "name": "배터리화학공학전공",
+   "type": "마이크로전공",
+   "operator": "화학공학과",
+   "college": "공과대학",
+   "required_credits": 15,
+   "offered_credits": 24,
+   "source_id": "web-info11",
+   "year": 2026,
+   "listed_as_of": "2026-11-07",
+   "also_source_ids": [
+    "att-micro-guide",
+    "daple-2026-11-07"
+   ],
+   "program_code": "micro_major:battery-chemical-engineering"
+  },
+  {
+   "name": "생명화학공학전공",
+   "type": "마이크로전공",
+   "operator": "화학공학과",
+   "college": "공과대학",
+   "required_credits": 15,
+   "offered_credits": 24,
+   "source_id": "web-info11",
+   "year": 2026,
+   "listed_as_of": "2026-11-07",
+   "also_source_ids": [
+    "att-micro-guide",
+    "daple-2026-11-07"
+   ],
+   "program_code": "micro_major:bio-chemical-engineering"
+  },
+  {
+   "name": "지속가능ESG전공",
+   "type": "마이크로전공",
+   "operator": "환경공학과",
+   "college": "공과대학",
+   "required_credits": 15,
+   "offered_credits": 24,
+   "source_id": "web-info11",
+   "year": 2026,
+   "listed_as_of": "2026-11-07",
+   "also_source_ids": [
+    "att-micro-changes",
+    "att-micro-guide",
+    "daple-2026-11-07"
+   ],
+   "notes": [
+    "2026.10 변경: 안전환경공학 폐지, 에너지와기후변화 신설"
+   ],
+   "aliases": [
+    "지속가능ESG (Environment,Safety,Governance)전공"
+   ],
+   "program_code": "micro_major:sustainable-esg"
+  },
+  {
+   "name": "고등해석모델링전공",
+   "type": "마이크로전공",
+   "operator": "수학과",
+   "college": "자연과학대학",
+   "required_credits": 15,
+   "offered_credits": 24,
+   "source_id": "web-info11",
+   "year": 2026,
+   "listed_as_of": "2026-11-07",
+   "also_source_ids": [
+    "att-micro-guide",
+    "daple-2026-11-07"
+   ],
+   "program_code": "micro_major:advanced-analysis-modeling"
+  },
+  {
+   "name": "데이터분석전공",
+   "type": "마이크로전공",
+   "operator": "수학과",
+   "college": "자연과학대학",
+   "required_credits": 15,
+   "offered_credits": 24,
+   "source_id": "web-info11",
+   "year": 2026,
+   "listed_as_of": "2026-11-07",
+   "also_source_ids": [
+    "att-micro-changes",
+    "att-micro-guide",
+    "daple-2026-11-07"
+   ],
+   "notes": [
+    "2026.10 변경: 수리통계학 폐지, 수리통계학및연습1·2 신설. 편성학점 24→27"
+   ],
+   "program_code": "micro_major:data-analysis"
+  },
+  {
+   "name": "현대대수암호전공",
+   "type": "마이크로전공",
+   "operator": "수학과",
+   "college": "자연과학대학",
+   "required_credits": 15,
+   "offered_credits": 24,
+   "source_id": "web-info11",
+   "year": 2026,
+   "listed_as_of": "2026-11-07",
+   "also_source_ids": [
+    "att-micro-guide",
+    "daple-2026-11-07"
+   ],
+   "program_code": "micro_major:modern-algebra-cryptography"
+  },
+  {
+   "name": "플라즈마&디스플레이전공",
+   "type": "마이크로전공",
+   "operator": "전자바이오물리학과",
+   "college": "자연과학대학",
+   "required_credits": 15,
+   "offered_credits": 24,
+   "source_id": "web-info11",
+   "year": 2026,
+   "listed_as_of": "2026-11-07",
+   "also_source_ids": [
+    "att-micro-guide",
+    "daple-2026-11-07"
+   ],
+   "program_code": "micro_major:plasma-display"
+  },
+  {
+   "name": "바이오헬스케어전공",
+   "type": "마이크로전공",
+   "operator": "전자바이오물리학과",
+   "college": "자연과학대학",
+   "required_credits": 15,
+   "offered_credits": 24,
+   "source_id": "web-info11",
+   "year": 2026,
+   "listed_as_of": "2026-11-07",
+   "also_source_ids": [
+    "att-micro-guide",
+    "daple-2026-11-07"
+   ],
+   "aliases": [
+    "바이오헬스케어"
+   ],
+   "program_code": "micro_major:bio-health-care"
+  },
+  {
+   "name": "기능성소재화학전공",
+   "type": "마이크로전공",
+   "operator": "화학과",
+   "college": "자연과학대학",
+   "required_credits": 15,
+   "offered_credits": 24,
+   "source_id": "web-info11",
+   "year": 2026,
+   "listed_as_of": "2026-11-07",
+   "also_source_ids": [
+    "att-micro-guide",
+    "daple-2026-11-07"
+   ],
+   "program_code": "micro_major:functional-materials-chemistry"
+  },
+  {
+   "name": "스포츠헬스케어전공",
+   "type": "마이크로전공",
+   "operator": "스포츠융합과학과",
+   "college": "자연과학대학",
+   "required_credits": 15,
+   "offered_credits": 24,
+   "source_id": "web-info11",
+   "year": 2026,
+   "listed_as_of": "2026-11-07",
+   "also_source_ids": [
+    "att-micro-guide",
+    "daple-2026-11-07"
+   ],
+   "program_code": "micro_major:sports-healthcare"
+  },
+  {
+   "name": "문학기반K-콘텐츠전공",
+   "type": "마이크로전공",
+   "operator": "국어국문학과",
+   "college": "인문사회과학대학",
+   "required_credits": 15,
+   "offered_credits": 24,
+   "source_id": "web-info11",
+   "year": 2026,
+   "listed_as_of": "2026-11-07",
+   "also_source_ids": [
+    "att-micro-guide",
+    "daple-2026-11-07"
+   ],
+   "aliases": [
+    "문학기반K-콘텐츠개발전공"
+   ],
+   "program_code": "micro_major:literature-based-k-content"
+  },
+  {
+   "name": "영어교육전공",
+   "type": "마이크로전공",
+   "operator": "영어산업학과",
+   "college": "인문사회과학대학",
+   "required_credits": 15,
+   "offered_credits": 24,
+   "source_id": "web-info11",
+   "year": 2026,
+   "listed_as_of": "2026-11-07",
+   "also_source_ids": [
+    "att-micro-changes",
+    "att-micro-guide",
+    "daple-2026-11-07"
+   ],
+   "notes": [
+    "2026.10 변경: 과목명 변경 3과목"
+   ],
+   "program_code": "micro_major:english-education"
+  },
+  {
+   "name": "번역전공",
+   "type": "마이크로전공",
+   "operator": "영어산업학과",
+   "college": "인문사회과학대학",
+   "required_credits": 15,
+   "offered_credits": 24,
+   "source_id": "web-info11",
+   "year": 2026,
+   "listed_as_of": "2026-11-07",
+   "also_source_ids": [
+    "att-micro-changes",
+    "att-micro-guide",
+    "daple-2026-11-07"
+   ],
+   "notes": [
+    "2026.10 변경: 과목명 변경 3과목"
+   ],
+   "program_code": "micro_major:translation"
+  },
+  {
+   "name": "소비자광고심리전공",
+   "type": "마이크로전공",
+   "operator": "산업심리학과",
+   "college": "인문사회과학대학",
+   "required_credits": 15,
+   "offered_credits": 24,
+   "source_id": "web-info11",
+   "year": 2026,
+   "listed_as_of": "2026-11-07",
+   "also_source_ids": [
+    "att-micro-guide",
+    "daple-2026-11-07"
+   ],
+   "program_code": "micro_major:consumer-advertising-psychology"
+  },
+  {
+   "name": "미디어콘텐츠전공",
+   "type": "마이크로전공",
+   "operator": "미디어커뮤니케이션학부",
+   "college": "인문사회과학대학",
+   "required_credits": 15,
+   "offered_credits": 24,
+   "source_id": "web-info11",
+   "year": 2026,
+   "listed_as_of": "2026-11-07",
+   "also_source_ids": [
+    "att-micro-guide",
+    "daple-2026-11-07"
+   ],
+   "program_code": "micro_major:media-contents"
+  },
+  {
+   "name": "문화콘텐츠전공",
+   "type": "마이크로전공",
+   "operator": "동북아문화산업학부",
+   "college": "인문사회과학대학",
+   "required_credits": 15,
+   "offered_credits": 24,
+   "source_id": "web-info11",
+   "year": 2026,
+   "listed_as_of": "2026-11-07",
+   "also_source_ids": [
+    "att-micro-guide",
+    "daple-2026-11-07"
+   ],
+   "program_code": "micro_major:cultural-contents"
+  },
+  {
+   "name": "ESG지속가능행정전공",
+   "type": "마이크로전공",
+   "operator": "행정학과",
+   "college": "정책법학대학",
+   "required_credits": 15,
+   "offered_credits": 24,
+   "source_id": "web-info11",
+   "year": 2026,
+   "listed_as_of": "2026-11-07",
+   "also_source_ids": [
+    "att-micro-guide",
+    "daple-2026-11-07"
+   ],
+   "program_code": "micro_major:esg-sustainable-administration"
+  },
+  {
+   "name": "노사상생혁신전공",
+   "type": "마이크로전공",
+   "operator": "법학부",
+   "college": "정책법학대학",
+   "required_credits": 15,
+   "offered_credits": 24,
+   "source_id": "web-info11",
+   "year": 2026,
+   "listed_as_of": "2026-11-07",
+   "also_source_ids": [
+    "att-micro-changes",
+    "att-micro-guide",
+    "daple-2026-11-07"
+   ],
+   "notes": [
+    "2026.10 변경: 과목명 변경(노동법1·2)"
+   ],
+   "program_code": "micro_major:labor-management-innovation"
+  },
+  {
+   "name": "로스쿨기초법학전공",
+   "type": "마이크로전공",
+   "operator": "법학부",
+   "college": "정책법학대학",
+   "required_credits": 15,
+   "offered_credits": 27,
+   "source_id": "web-info11",
+   "year": 2026,
+   "listed_as_of": "2026-11-07",
+   "also_source_ids": [
+    "att-micro-changes",
+    "att-micro-guide",
+    "daple-2026-11-07"
+   ],
+   "notes": [
+    "2026.10 변경: 과목명 변경(헌법총론·국가권력구조론)"
+   ],
+   "program_code": "micro_major:law-school-basic-law"
+  },
+  {
+   "name": "동북아국제관계전공",
+   "type": "마이크로전공",
+   "operator": "국제학부",
+   "college": "정책법학대학",
+   "required_credits": 15,
+   "offered_credits": 24,
+   "source_id": "web-info11",
+   "year": 2026,
+   "listed_as_of": "2026-11-07",
+   "also_source_ids": [
+    "att-micro-guide",
+    "daple-2026-11-07"
+   ],
+   "program_code": "micro_major:northeast-asia-international-relations"
+  },
+  {
+   "name": "동북아지역전문가전공",
+   "type": "마이크로전공",
+   "operator": "국제학부",
+   "college": "정책법학대학",
+   "required_credits": 15,
+   "offered_credits": 27,
+   "source_id": "web-info11",
+   "year": 2026,
+   "listed_as_of": "2026-11-07",
+   "also_source_ids": [
+    "att-micro-guide",
+    "daple-2026-11-07"
+   ],
+   "notes": [
+    "편성학점: 이 페이지 27, 2026학년도 안내자료 24"
+   ],
+   "program_code": "micro_major:northeast-asia-regional-expert"
+  },
+  {
+   "name": "HR전문가및전략컨설턴트전공",
+   "type": "마이크로전공",
+   "operator": "경영학부",
+   "college": "경영대학",
+   "required_credits": 15,
+   "offered_credits": 24,
+   "source_id": "web-info11",
+   "year": 2026,
+   "listed_as_of": "2026-11-07",
+   "also_source_ids": [
+    "att-micro-guide",
+    "daple-2026-11-07"
+   ],
+   "program_code": "micro_major:hr-expert-strategy-consultant"
+  },
+  {
+   "name": "마케팅전공",
+   "type": "마이크로전공",
+   "operator": "경영학부",
+   "college": "경영대학",
+   "required_credits": 15,
+   "offered_credits": 24,
+   "source_id": "web-info11",
+   "year": 2026,
+   "listed_as_of": "2026-11-07",
+   "also_source_ids": [
+    "att-micro-guide",
+    "daple-2026-11-07"
+   ],
+   "program_code": "micro_major:marketing"
+  },
+  {
+   "name": "글로벌파이낸스전공",
+   "type": "마이크로전공",
+   "operator": "경영학부",
+   "college": "경영대학",
+   "required_credits": 15,
+   "offered_credits": 24,
+   "source_id": "web-info11",
+   "year": 2026,
+   "listed_as_of": "2026-11-07",
+   "also_source_ids": [
+    "att-micro-guide",
+    "daple-2026-11-07"
+   ],
+   "program_code": "micro_major:global-finance"
+  },
+  {
+   "name": "금융/회계데이터분석전공",
+   "type": "마이크로전공",
+   "operator": "경영학부",
+   "college": "경영대학",
+   "required_credits": 15,
+   "offered_credits": 24,
+   "source_id": "web-info11",
+   "year": 2026,
+   "listed_as_of": "2026-11-07",
+   "also_source_ids": [
+    "att-micro-guide",
+    "daple-2026-11-07"
+   ],
+   "program_code": "micro_major:finance-accounting-data-analysis"
+  },
+  {
+   "name": "글로벌마케팅전공",
+   "type": "마이크로전공",
+   "operator": "국제통상학부",
+   "college": "경영대학",
+   "required_credits": 15,
+   "offered_credits": 24,
+   "source_id": "web-info11",
+   "year": 2026,
+   "listed_as_of": "2026-11-07",
+   "also_source_ids": [
+    "att-micro-changes",
+    "att-micro-guide",
+    "daple-2026-11-07"
+   ],
+   "notes": [
+    "2026.10 변경: FTA와경제통합 폐지, 시장조사방법론 신설"
+   ],
+   "program_code": "micro_major:global-marketing"
+  },
+  {
+   "name": "응용경제경영분석전공",
+   "type": "마이크로전공",
+   "operator": "국제통상학부",
+   "college": "경영대학",
+   "required_credits": 15,
+   "offered_credits": 24,
+   "source_id": "web-info11",
+   "year": 2026,
+   "listed_as_of": "2026-11-07",
+   "also_source_ids": [
+    "att-micro-guide",
+    "daple-2026-11-07"
+   ],
+   "program_code": "micro_major:applied-economics-business-analysis"
+  },
+  {
+   "name": "기초전공",
+   "type": "마이크로전공",
+   "operator": "지능형로봇학과 (지능형로봇혁신융합대학사업단)",
+   "college": null,
+   "required_credits": 12,
+   "offered_credits": null,
+   "source_id": "web-info11",
+   "year": 2026,
+   "listed_as_of": "2026-11-07",
+   "offered_credits_note": "사업단 사이트 참조",
+   "also_source_ids": [
+    "att-micro-guide",
+    "daple-2026-11-07"
+   ],
+   "notes": [
+    "12학점 과정. 2개 이상 이수해야 다전공 의무 요건 인정. 교육과정은 share.kw.ac.kr"
+   ],
+   "aliases": [
+    "로봇기초전공"
+   ],
+   "program_code": "micro_major:robot-01"
+  },
+  {
+   "name": "로봇기구전공",
+   "type": "마이크로전공",
+   "operator": "지능형로봇학과 (지능형로봇혁신융합대학사업단)",
+   "college": null,
+   "required_credits": 12,
+   "offered_credits": null,
+   "source_id": "web-info11",
+   "year": 2026,
+   "listed_as_of": "2026-11-07",
+   "offered_credits_note": "사업단 사이트 참조",
+   "also_source_ids": [
+    "att-micro-guide",
+    "daple-2026-11-07"
+   ],
+   "notes": [
+    "12학점 과정. 2개 이상 이수해야 다전공 의무 요건 인정. 교육과정은 share.kw.ac.kr"
+   ],
+   "program_code": "micro_major:robot-02"
+  },
+  {
+   "name": "로봇전장전공",
+   "type": "마이크로전공",
+   "operator": "지능형로봇학과 (지능형로봇혁신융합대학사업단)",
+   "college": null,
+   "required_credits": 12,
+   "offered_credits": null,
+   "source_id": "web-info11",
+   "year": 2026,
+   "listed_as_of": "2026-11-07",
+   "offered_credits_note": "사업단 사이트 참조",
+   "also_source_ids": [
+    "att-micro-guide",
+    "daple-2026-11-07"
+   ],
+   "notes": [
+    "12학점 과정. 2개 이상 이수해야 다전공 의무 요건 인정. 교육과정은 share.kw.ac.kr"
+   ],
+   "program_code": "micro_major:robot-03"
+  },
+  {
+   "name": "로봇제어전공",
+   "type": "마이크로전공",
+   "operator": "지능형로봇학과 (지능형로봇혁신융합대학사업단)",
+   "college": null,
+   "required_credits": 12,
+   "offered_credits": null,
+   "source_id": "web-info11",
+   "year": 2026,
+   "listed_as_of": "2026-11-07",
+   "offered_credits_note": "사업단 사이트 참조",
+   "also_source_ids": [
+    "att-micro-guide",
+    "daple-2026-11-07"
+   ],
+   "notes": [
+    "12학점 과정. 2개 이상 이수해야 다전공 의무 요건 인정. 교육과정은 share.kw.ac.kr"
+   ],
+   "program_code": "micro_major:robot-04"
+  },
+  {
+   "name": "로봇지능전공",
+   "type": "마이크로전공",
+   "operator": "지능형로봇학과 (지능형로봇혁신융합대학사업단)",
+   "college": null,
+   "required_credits": 12,
+   "offered_credits": null,
+   "source_id": "web-info11",
+   "year": 2026,
+   "listed_as_of": "2026-11-07",
+   "offered_credits_note": "사업단 사이트 참조",
+   "also_source_ids": [
+    "att-micro-guide",
+    "daple-2026-11-07"
+   ],
+   "notes": [
+    "12학점 과정. 2개 이상 이수해야 다전공 의무 요건 인정. 교육과정은 share.kw.ac.kr"
+   ],
+   "program_code": "micro_major:robot-05"
+  },
+  {
+   "name": "로봇마케팅전공",
+   "type": "마이크로전공",
+   "operator": "지능형로봇학과 (지능형로봇혁신융합대학사업단)",
+   "college": null,
+   "required_credits": 12,
+   "offered_credits": null,
+   "source_id": "web-info11",
+   "year": 2026,
+   "listed_as_of": "2026-11-07",
+   "offered_credits_note": "사업단 사이트 참조",
+   "also_source_ids": [
+    "att-micro-guide",
+    "daple-2026-11-07"
+   ],
+   "notes": [
+    "12학점 과정. 2개 이상 이수해야 다전공 의무 요건 인정. 교육과정은 share.kw.ac.kr"
+   ],
+   "program_code": "micro_major:robot-06"
+  },
+  {
+   "name": "로봇미디어커뮤니케이션전공",
+   "type": "마이크로전공",
+   "operator": "지능형로봇학과 (지능형로봇혁신융합대학사업단)",
+   "college": null,
+   "required_credits": 12,
+   "offered_credits": null,
+   "source_id": "web-info11",
+   "year": 2026,
+   "listed_as_of": "2026-11-07",
+   "offered_credits_note": "사업단 사이트 참조",
+   "also_source_ids": [
+    "att-micro-guide",
+    "daple-2026-11-07"
+   ],
+   "notes": [
+    "12학점 과정. 2개 이상 이수해야 다전공 의무 요건 인정. 교육과정은 share.kw.ac.kr"
+   ],
+   "program_code": "micro_major:robot-07"
+  },
+  {
+   "name": "HW시스템전공",
+   "type": "마이크로전공",
+   "operator": "지능형로봇학과 (지능형로봇혁신융합대학사업단)",
+   "college": null,
+   "required_credits": 12,
+   "offered_credits": null,
+   "source_id": "web-info11",
+   "year": 2026,
+   "listed_as_of": "2026-11-07",
+   "offered_credits_note": "사업단 사이트 참조",
+   "also_source_ids": [
+    "att-micro-guide",
+    "daple-2026-11-07"
+   ],
+   "notes": [
+    "12학점 과정. 2개 이상 이수해야 다전공 의무 요건 인정. 교육과정은 share.kw.ac.kr"
+   ],
+   "program_code": "micro_major:robot-08"
+  },
+  {
+   "name": "메니퓰레이션전공",
+   "type": "마이크로전공",
+   "operator": "지능형로봇학과 (지능형로봇혁신융합대학사업단)",
+   "college": null,
+   "required_credits": 12,
+   "offered_credits": null,
+   "source_id": "web-info11",
+   "year": 2026,
+   "listed_as_of": "2026-11-07",
+   "offered_credits_note": "사업단 사이트 참조",
+   "also_source_ids": [
+    "att-micro-guide",
+    "daple-2026-11-07"
+   ],
+   "notes": [
+    "12학점 과정. 2개 이상 이수해야 다전공 의무 요건 인정. 교육과정은 share.kw.ac.kr"
+   ],
+   "program_code": "micro_major:robot-09"
+  },
+  {
+   "name": "내비게이션전공",
+   "type": "마이크로전공",
+   "operator": "지능형로봇학과 (지능형로봇혁신융합대학사업단)",
+   "college": null,
+   "required_credits": 12,
+   "offered_credits": null,
+   "source_id": "web-info11",
+   "year": 2026,
+   "listed_as_of": "2026-11-07",
+   "offered_credits_note": "사업단 사이트 참조",
+   "also_source_ids": [
+    "att-micro-guide",
+    "daple-2026-11-07"
+   ],
+   "notes": [
+    "12학점 과정. 2개 이상 이수해야 다전공 의무 요건 인정. 교육과정은 share.kw.ac.kr"
+   ],
+   "program_code": "micro_major:robot-10"
+  },
+  {
+   "name": "AI시스템전공",
+   "type": "마이크로전공",
+   "operator": "지능형로봇학과 (지능형로봇혁신융합대학사업단)",
+   "college": null,
+   "required_credits": 12,
+   "offered_credits": null,
+   "source_id": "web-info11",
+   "year": 2026,
+   "listed_as_of": "2026-11-07",
+   "offered_credits_note": "사업단 사이트 참조",
+   "also_source_ids": [
+    "att-micro-guide",
+    "daple-2026-11-07"
+   ],
+   "notes": [
+    "12학점 과정. 2개 이상 이수해야 다전공 의무 요건 인정. 교육과정은 share.kw.ac.kr"
+   ],
+   "program_code": "micro_major:robot-11"
+  },
+  {
+   "name": "인간로봇상호작용전공",
+   "type": "마이크로전공",
+   "operator": "지능형로봇학과 (지능형로봇혁신융합대학사업단)",
+   "college": null,
+   "required_credits": 12,
+   "offered_credits": null,
+   "source_id": "web-info11",
+   "year": 2026,
+   "listed_as_of": "2026-11-07",
+   "offered_credits_note": "사업단 사이트 참조",
+   "also_source_ids": [
+    "att-micro-guide",
+    "daple-2026-11-07"
+   ],
+   "notes": [
+    "12학점 과정. 2개 이상 이수해야 다전공 의무 요건 인정. 교육과정은 share.kw.ac.kr"
+   ],
+   "program_code": "micro_major:robot-12"
+  },
+  {
+   "name": "로봇 SI",
+   "type": "마이크로전공",
+   "operator": "지능형로봇학과 (지능형로봇혁신융합대학사업단)",
+   "college": null,
+   "required_credits": 12,
+   "offered_credits": null,
+   "source_id": "web-info11",
+   "year": 2026,
+   "listed_as_of": "2026-11-07",
+   "offered_credits_note": "사업단 사이트 참조",
+   "also_source_ids": [
+    "att-micro-guide",
+    "daple-2026-11-07"
+   ],
+   "notes": [
+    "12학점 과정. 2개 이상 이수해야 다전공 의무 요건 인정. 교육과정은 share.kw.ac.kr"
+   ],
+   "program_code": "micro_major:robot-13"
+  },
+  {
+   "name": "국제협력과공생전략전공",
+   "type": "마이크로전공",
+   "operator": "글로벌지속가능융합학과 (인문사회문화인재양성사업단)",
+   "college": null,
+   "required_credits": 9,
+   "offered_credits": 34,
+   "source_id": "web-info11",
+   "year": 2026,
+   "listed_as_of": "2026-11-07",
+   "also_source_ids": [
+    "att-micro-guide",
+    "daple-2026-11-07"
+   ],
+   "notes": [
+    "9학점 과정. 2개 이상 이수해야 다전공 의무 요건 인정. 교육과정은 huss.kw.ac.kr"
+   ],
+   "program_code": "micro_major:international-cooperation-coexistence-strategy"
+  },
+  {
+   "name": "글로벌경제와자원관리전공",
+   "type": "마이크로전공",
+   "operator": "글로벌지속가능융합학과 (인문사회문화인재양성사업단)",
+   "college": null,
+   "required_credits": 9,
+   "offered_credits": 36,
+   "source_id": "web-info11",
+   "year": 2026,
+   "listed_as_of": "2026-11-07",
+   "also_source_ids": [
+    "att-micro-guide",
+    "daple-2026-11-07"
+   ],
+   "notes": [
+    "9학점 과정. 2개 이상 이수해야 다전공 의무 요건 인정. 교육과정은 huss.kw.ac.kr"
+   ],
+   "program_code": "micro_major:global-economy-resource-management"
+  },
+  {
+   "name": "글로벌콘텐츠코디네이터전공",
+   "type": "마이크로전공",
+   "operator": "글로벌지속가능융합학과 (인문사회문화인재양성사업단)",
+   "college": null,
+   "required_credits": 9,
+   "offered_credits": 30,
+   "source_id": "web-info11",
+   "year": 2026,
+   "listed_as_of": "2026-11-07",
+   "also_source_ids": [
+    "att-micro-changes",
+    "att-micro-guide",
+    "daple-2026-11-07"
+   ],
+   "notes": [
+    "9학점 과정. 2개 이상 이수해야 다전공 의무 요건 인정. 교육과정은 huss.kw.ac.kr",
+    "2026.10 변경: 과목명 변경"
+   ],
+   "program_code": "micro_major:global-content-coordinator"
+  },
+  {
+   "name": "에너지·환경지속가능성전공",
+   "type": "마이크로전공",
+   "operator": "글로벌지속가능융합학과 (인문사회문화인재양성사업단)",
+   "college": null,
+   "required_credits": 9,
+   "offered_credits": 32,
+   "source_id": "web-info11",
+   "year": 2026,
+   "listed_as_of": "2026-11-07",
+   "also_source_ids": [
+    "att-micro-changes",
+    "att-micro-guide",
+    "daple-2026-11-07"
+   ],
+   "notes": [
+    "9학점 과정. 2개 이상 이수해야 다전공 의무 요건 인정. 교육과정은 huss.kw.ac.kr",
+    "2026.10 변경: 과목명·시간 변경"
+   ],
+   "aliases": [
+    "에너지‧환경지속가능성전공"
+   ],
+   "program_code": "micro_major:energy-environment-sustainability"
+  },
+  {
+   "name": "ESG와미디어경영전공",
+   "type": "마이크로전공",
+   "operator": "글로벌지속가능융합학과 (인문사회문화인재양성사업단)",
+   "college": null,
+   "required_credits": 9,
+   "offered_credits": 34,
+   "source_id": "web-info11",
+   "year": 2026,
+   "listed_as_of": "2026-11-07",
+   "also_source_ids": [
+    "att-micro-changes",
+    "att-micro-guide",
+    "daple-2026-11-07"
+   ],
+   "notes": [
+    "9학점 과정. 2개 이상 이수해야 다전공 의무 요건 인정. 교육과정은 huss.kw.ac.kr",
+    "2026.10 변경: 과목명 변경"
+   ],
+   "program_code": "micro_major:esg-media-management"
+  },
+  {
+   "name": "디지털문화콘텐츠전공",
+   "type": "마이크로전공",
+   "operator": "디지털경제융합학과 (디지털경제인재양성사업단)",
+   "college": null,
+   "required_credits": 15,
+   "offered_credits": 24,
+   "source_id": "web-info11",
+   "year": 2026,
+   "listed_as_of": "2026-11-07",
+   "notes": [
+    "web-info11에는 있으나 2026학년도 마이크로전공 안내자료(60개)에는 없음"
+   ],
+   "program_code": "micro_major:digital-cultural-contents",
+   "also_source_ids": [
+    "daple-2026-11-07"
+   ]
+  },
+  {
+   "name": "수리AI디지털응용전공",
+   "type": "마이크로전공",
+   "operator": "디지털경제융합학과 (디지털경제인재양성사업단)",
+   "college": null,
+   "required_credits": 15,
+   "offered_credits": 24,
+   "source_id": "web-info11",
+   "year": 2026,
+   "listed_as_of": "2026-11-07",
+   "notes": [
+    "web-info11에는 있으나 2026학년도 마이크로전공 안내자료(60개)에는 없음"
+   ],
+   "program_code": "micro_major:math-ai-digital-application",
+   "also_source_ids": [
+    "daple-2026-11-07"
+   ]
+  },
+  {
+   "name": "AI·데이터기반디지털비즈니스융합전공",
+   "type": "마이크로전공",
+   "operator": "디지털경제융합학과 (디지털경제인재양성사업단)",
+   "college": null,
+   "required_credits": 15,
+   "offered_credits": 24,
+   "source_id": "web-info11",
+   "year": 2026,
+   "listed_as_of": "2026-11-07",
+   "notes": [
+    "web-info11에는 있으나 2026학년도 마이크로전공 안내자료(60개)에는 없음"
+   ],
+   "program_code": "micro_major:ai-data-digital-business-convergence",
+   "also_source_ids": [
+    "daple-2026-11-07"
+   ]
+  },
+  {
+   "name": "DX휴먼솔루션전공",
+   "type": "마이크로전공",
+   "operator": "디지털경제융합학과 (디지털경제인재양성사업단)",
+   "college": null,
+   "required_credits": 15,
+   "offered_credits": 24,
+   "source_id": "web-info11",
+   "year": 2026,
+   "listed_as_of": "2026-11-07",
+   "notes": [
+    "web-info11에는 있으나 2026학년도 마이크로전공 안내자료(60개)에는 없음"
+   ],
+   "program_code": "micro_major:dx-human-solution",
+   "also_source_ids": [
+    "daple-2026-11-07"
+   ]
+  }
+ ],
+ "track_counts": {
+  "연계전공": 26,
+  "마이크로전공": 64,
+  "복수전공·부전공·심화전공": "복수·부전공은 targets(Daple 대상 학과 28개). 심화전공은 학과 단위라 tracks에 넣지 않음",
+  "학생설계융합전공": "학생이 설계하므로 고정 목록 없음"
+ },
+ "common_rules": [
+  {
+   "rule": "다전공 종류: 심화전공, 복수전공, 부전공, 연계전공, 학생설계융합전공, 마이크로전공",
+   "source_ids": [
+    "reg-hakchik",
+    "reg-damajor-isu",
+    "reg-damajor-unyeong"
+   ],
+   "articles": {
+    "reg-hakchik": "제52조",
+    "reg-damajor-isu": "제2조",
+    "reg-damajor-unyeong": "제2조"
+   }
+  },
+  {
+   "rule": "2025학년도 신입생부터 졸업요건으로 다전공 하나를 반드시 이수. 예외: 외국인전형, 특성화고 졸업 재직자전형, 체육특기자, 편입생, 건축학과",
+   "source_ids": [
+    "reg-damajor-isu",
+    "reg-hakchik",
+    "reg-sihaeng"
+   ],
+   "articles": {
+    "reg-damajor-isu": "제3조 제2항",
+    "reg-hakchik": "제65조 제10호",
+    "reg-sihaeng": "제33조 제19호"
+   }
+  },
+  {
+   "rule": "신청 자격(내규): 2개 학기 이상 이수한 학생. 편입생은 편입학기부터",
+   "source_ids": [
+    "reg-damajor-isu"
+   ],
+   "articles": {
+    "reg-damajor-isu": "제4조"
+   }
+  },
+  {
+   "rule": "신청 대상(학사안내·공지): 2개 학기 이상 이수하고 3학기째 등록하는 2~4학년 재학생, 총 재학 학기 3학기 이상 8학기 이하. 휴학생은 신청 불가",
+   "source_ids": [
+    "web-info11",
+    "notice-4cha",
+    "att-micro-guide",
+    "att-linked-guide"
+   ]
+  },
+  {
+   "rule": "다전공은 최대 2개까지 신청(다른 다전공과 연계·마이크로전공 합산)",
+   "source_ids": [
+    "notice-4cha",
+    "att-micro-guide",
+    "att-linked-guide"
+   ]
+  },
+  {
+   "rule": "신청은 매년 2·4·8·10월 다전공 신청기간에 KLAS(대학생활 > 학적관리)에서. 학생설계융합전공은 4·10월에만 교육지원팀에 서류 제출",
+   "source_ids": [
+    "web-info11",
+    "notice-4cha",
+    "att-micro-guide",
+    "att-linked-guide"
+   ]
+  },
+  {
+   "rule": "다전공(복수·부·연계·학생설계융합·마이크로) 사이에는 학점 상호인정 불가. 소속 전공과의 상호인정만 가능",
+   "source_ids": [
+    "web-info11",
+    "att-linked-guide"
+   ]
+  },
+  {
+   "rule": "상호인정 범위: 복수·부전공 9학점, 연계전공 9~15학점(전공별), 학생설계융합전공 9학점, 마이크로전공·심화전공 없음. 상호인정 학점은 졸업 총학점에 한 번만 산입",
+   "source_ids": [
+    "reg-damajor-unyeong",
+    "web-info11"
+   ],
+   "articles": {
+    "reg-damajor-unyeong": "제13조 제2항, 제14조 제3항, 제15조 제3항, 제16조 제3항"
+   }
+  },
+  {
+   "rule": "주전공 졸업학점은 반드시 이수. 소속 학과 전공필수는 반드시 이수, 복수·부전공 학과 전공필수는 필수 아님(건축학과 예외), 연계전공 필수과목은 필수",
+   "source_ids": [
+    "reg-damajor-isu",
+    "web-info11"
+   ],
+   "articles": {
+    "reg-damajor-isu": "제5조 제2항"
+   }
+  },
+  {
+   "rule": "2017학년도 신입생부터 다전공 학점은 학칙 [별표 6] 입학년도별 단과대학(학과)별 이수학점에 따라 인정",
+   "source_ids": [
+    "reg-damajor-isu",
+    "reg-hakchik"
+   ],
+   "articles": {
+    "reg-damajor-isu": "제5조 제3항",
+    "reg-hakchik": "제49조~제51조"
+   }
+  },
+  {
+   "rule": "다전공 신청 전에 일반선택으로 이수한 해당 과목도 신청 후 다전공 학점으로 인정(졸업 사정 시 반영)",
+   "source_ids": [
+    "reg-damajor-unyeong",
+    "web-info11"
+   ],
+   "articles": {
+    "reg-damajor-unyeong": "제17조 제1항"
+   }
+  },
+  {
+   "rule": "중도 포기 또는 졸업 때까지 소정 학점을 못 채우면 이수 과목은 일반선택. 주전공 졸업요건을 채웠다면 졸업은 가능",
+   "source_ids": [
+    "reg-damajor-isu",
+    "reg-damajor-unyeong",
+    "web-info11"
+   ],
+   "articles": {
+    "reg-damajor-isu": "제14조",
+    "reg-damajor-unyeong": "제17조 제2항"
+   }
+  },
+  {
+   "rule": "다전공 학점을 다 채우지 못한 졸업요건 충족자는 졸업연기(유보)를 신청해 다전공을 계속 이수할 수 있음",
+   "source_ids": [
+    "reg-sihaeng",
+    "web-info11",
+    "web-info07"
+   ],
+   "articles": {
+    "reg-sihaeng": "제33조의2 제1호"
+   }
+  },
+  {
+   "rule": "학위: 복수·연계전공은 소속 전공 학위와 동시 수여. 부전공·학생설계융합·마이크로전공은 학위 없음. 주전공 졸업요건을 못 채우면 다전공만으로 학위를 주지 않음(외국인 대상 융합전공 예외)",
+   "source_ids": [
+    "reg-damajor-unyeong",
+    "reg-damajor-isu",
+    "web-info11"
+   ],
+   "articles": {
+    "reg-damajor-unyeong": "제18조",
+    "reg-damajor-isu": "제13조, 제15조"
+   }
+  },
+  {
+   "rule": "이수 사정은 소속 학과(부)에서 주전공 이수사정과 같은 절차로 함. 수강 집중 시 주관학과가 성적 등으로 수강 제한 가능. 실험실습 학과는 실험실습비 부과 가능",
+   "source_ids": [
+    "reg-damajor-isu"
+   ],
+   "articles": {
+    "reg-damajor-isu": "제7조, 제9조, 제12조"
+   }
+  },
+  {
+   "rule": "'소속학과(부)'는 입학·전과로 소속된 학과(부)와 자율전공학부 학생이 선택한 주전공",
+   "source_ids": [
+    "reg-damajor-unyeong"
+   ],
+   "articles": {
+    "reg-damajor-unyeong": "부칙<2024.8.28.> ②"
+   }
+  },
+  {
+   "rule": "성적표 이수구분: 복필·복선(복수전공), 부필·부선(부전공), 연필·연선(연계전공), MD(마이크로전공 선택), 일선(타 학과 전공 과목)",
+   "source_ids": [
+    "web-info01"
+   ]
+  },
+  {
+   "rule": "복수·부전공 이수학점은 대상 학과 행을 적용(Daple 기준). 연계·마이크로전공 이수학점과 과목 목록은 Daple 교육과정 버전(2026)을 따름",
+   "source_ids": [
+    "daple-2026-11-07"
+   ]
+  }
+ ],
+ "uncertain": [
+  {
+   "item": "신청 자격의 학기 상한",
+   "seen": "내규 제4조는 '2개 학기 이상 이수(편입생은 편입학기부터)'만 정함. '총 재학 학기 8학기 이내/이하'는 학사안내와 공지에만 있음",
+   "source_ids": [
+    "reg-damajor-isu",
+    "web-info11",
+    "notice-4cha"
+   ]
+  },
+  {
+   "item": "최대 2개 다전공",
+   "seen": "공지와 안내자료 FAQ에만 있고 내규에는 없음",
+   "source_ids": [
+    "notice-4cha",
+    "att-micro-guide"
+   ]
+  },
+  {
+   "item": "연계전공별 학위명",
+   "seen": "다전공 이수에 관한 내규 [별표1](HWP) 미열람",
+   "source_ids": [
+    "reg-damajor-isu"
+   ]
+  },
+  {
+   "item": "정부지원사업 마이크로전공의 졸업요건 인정",
+   "seen": "내규 제5조 ⑦은 '제5항(15학점 이상)·제6항을 충족할 경우' 인정한다고 하나, 학사안내는 지능형로봇학과(12학점)·글로벌지속가능융합학과(9학점)를 '2개 이상 이수' 시 인정한다고 함. 디지털경제융합학과 4개 과정(15학점)은 학사안내에만 있고 안내자료(60개)에 없음",
+   "source_ids": [
+    "reg-damajor-isu",
+    "web-info11",
+    "att-micro-guide"
+   ]
+  },
+  {
+   "item": "동북아지역전문가전공 편성학점",
+   "seen": "web-info11 27학점, 2026학년도 마이크로전공 안내자료 24학점(이수학점은 둘 다 15)",
+   "source_ids": [
+    "web-info11",
+    "att-micro-guide"
+   ]
+  },
+  {
+   "item": "데이터분석전공 편성학점",
+   "seen": "web-info11 24학점, 2026.10 변경사항 안내 27학점(이수학점은 15로 같음). 적용 학기 명시 없음",
+   "source_ids": [
+    "web-info11",
+    "att-micro-changes"
+   ]
+  },
+  {
+   "item": "2019학년도 행정학과 부전공",
+   "seen": "web-info12 30, web-info11 21",
+   "source_ids": [
+    "web-info12",
+    "web-info11"
+   ]
+  },
+  {
+   "item": "학생설계융합전공의 성적표 이수구분 코드",
+   "seen": "교과안내 이수구분 표에 없음",
+   "source_ids": [
+    "web-info01"
+   ]
+  },
+  {
+   "item": "연계전공 상호인정 학점이 연계전공 총 이수학점에 포함되는지",
+   "seen": "상호인정 과목은 주전공·연계전공 양쪽 학점으로 인정된다고만 함. 졸업 총학점에는 한 번만 산입",
+   "source_ids": [
+    "reg-damajor-unyeong",
+    "web-info11"
+   ]
+  },
+  {
+   "item": "사회복지학 연계전공 2019학번 이전 이수학점",
+   "seen": "Daple은 교육과정 기준(2026)으로 51학점, 학사안내는 2019학번까지 45학점(필수 10과목 30 + 선택 15)",
+   "source_ids": [
+    "daple-2026-11-07",
+    "web-info11"
+   ]
+  },
+  {
+   "item": "Daple 대상 학과 이수학점의 적용 학번 범위",
+   "seen": "스냅샷은 학과마다 한 버전(version_year)만 보여 줍니다. 2025학번 이후 표(복수전공 대부분 45)는 일부 학과의 Daple 값(54, 버전 2017)과 다르며, Daple이 2025학번 이후에 어느 버전을 쓰는지는 스냅샷으로 확인하지 못했습니다",
+   "source_ids": [
+    "daple-2026-11-07",
+    "web-info12"
+   ]
+  }
+ ],
+ "targets": [
+  {
+   "type": "복수전공",
+   "department": "건축공학과",
+   "college": "공과대학",
+   "required_credits": 54,
+   "basis": "admission",
+   "version_year": 2017,
+   "program_code": "double_major:1170",
+   "source_ids": [
+    "daple-2026-11-07"
+   ]
+  },
+  {
+   "type": "복수전공",
+   "department": "건축학과",
+   "college": "공과대학",
+   "required_credits": 99,
+   "basis": "admission",
+   "version_year": 2003,
+   "program_code": "double_major:1270",
+   "source_ids": [
+    "daple-2026-11-07"
+   ]
+  },
+  {
+   "type": "복수전공",
+   "department": "경영학부",
+   "college": "경영대학",
+   "required_credits": 45,
+   "basis": "admission",
+   "version_year": 2003,
+   "program_code": "double_major:5080",
+   "source_ids": [
+    "daple-2026-11-07"
+   ]
+  },
+  {
+   "type": "복수전공",
+   "department": "국어국문학과",
+   "college": "인문사회과학대학",
+   "required_credits": 45,
+   "basis": "admission",
+   "version_year": 2017,
+   "program_code": "double_major:E020",
+   "source_ids": [
+    "daple-2026-11-07"
+   ]
+  },
+  {
+   "type": "복수전공",
+   "department": "국제통상학부",
+   "college": "경영대학",
+   "required_credits": 45,
+   "basis": "admission",
+   "version_year": 2017,
+   "program_code": "double_major:5100",
+   "source_ids": [
+    "daple-2026-11-07"
+   ]
+  },
+  {
+   "type": "복수전공",
+   "department": "국제학부",
+   "college": "정책법학대학",
+   "required_credits": 45,
+   "basis": "admission",
+   "version_year": 2016,
+   "program_code": "double_major:D040",
+   "source_ids": [
+    "daple-2026-11-07"
+   ]
+  },
+  {
+   "type": "복수전공",
+   "department": "동북아문화산업학부",
+   "college": "인문사회과학대학",
+   "required_credits": 45,
+   "basis": "admission",
+   "version_year": 2017,
+   "program_code": "double_major:3210",
+   "source_ids": [
+    "daple-2026-11-07"
+   ]
+  },
+  {
+   "type": "복수전공",
+   "department": "로봇학부",
+   "college": "인공지능융합대학",
+   "required_credits": 54,
+   "basis": "admission",
+   "version_year": 2017,
+   "program_code": "double_major:I050",
+   "source_ids": [
+    "daple-2026-11-07"
+   ]
+  },
+  {
+   "type": "복수전공",
+   "department": "미디어커뮤니케이션학부",
+   "college": "인문사회과학대학",
+   "required_credits": 45,
+   "basis": "admission",
+   "version_year": 2007,
+   "program_code": "double_major:3230",
+   "source_ids": [
+    "daple-2026-11-07"
+   ]
+  },
+  {
+   "type": "복수전공",
+   "department": "법학부",
+   "college": "정책법학대학",
+   "required_credits": 36,
+   "basis": "admission",
+   "version_year": 2017,
+   "program_code": "double_major:F030",
+   "source_ids": [
+    "daple-2026-11-07"
+   ]
+  },
+  {
+   "type": "복수전공",
+   "department": "산업심리학과",
+   "college": "인문사회과학대학",
+   "required_credits": 45,
+   "basis": "admission",
+   "version_year": 2017,
+   "program_code": "double_major:3110",
+   "source_ids": [
+    "daple-2026-11-07"
+   ]
+  },
+  {
+   "type": "복수전공",
+   "department": "소프트웨어학부",
+   "college": "인공지능융합대학",
+   "required_credits": 54,
+   "basis": "admission",
+   "version_year": 2017,
+   "program_code": "double_major:7260",
+   "source_ids": [
+    "daple-2026-11-07"
+   ]
+  },
+  {
+   "type": "복수전공",
+   "department": "수학과",
+   "college": "자연과학대학",
+   "required_credits": 45,
+   "basis": "admission",
+   "version_year": 2017,
+   "program_code": "double_major:6030",
+   "source_ids": [
+    "daple-2026-11-07"
+   ]
+  },
+  {
+   "type": "복수전공",
+   "department": "스포츠융합과학과",
+   "college": "자연과학대학",
+   "required_credits": 54,
+   "basis": "admission",
+   "version_year": 2017,
+   "program_code": "double_major:6130",
+   "source_ids": [
+    "daple-2026-11-07"
+   ]
+  },
+  {
+   "type": "복수전공",
+   "department": "영어산업학과",
+   "college": "인문사회과학대학",
+   "required_credits": 45,
+   "basis": "admission",
+   "version_year": 2007,
+   "program_code": "double_major:9070",
+   "source_ids": [
+    "daple-2026-11-07"
+   ]
+  },
+  {
+   "type": "복수전공",
+   "department": "전기공학과",
+   "college": "전자정보공과대학",
+   "required_credits": 54,
+   "basis": "admission",
+   "version_year": 2017,
+   "program_code": "double_major:7320",
+   "source_ids": [
+    "daple-2026-11-07"
+   ]
+  },
+  {
+   "type": "복수전공",
+   "department": "전자공학과",
+   "college": "전자정보공과대학",
+   "required_credits": 54,
+   "basis": "admission",
+   "version_year": 2017,
+   "program_code": "double_major:7060",
+   "source_ids": [
+    "daple-2026-11-07"
+   ]
+  },
+  {
+   "type": "복수전공",
+   "department": "전자바이오물리학과",
+   "college": "자연과학대학",
+   "required_credits": 54,
+   "basis": "admission",
+   "version_year": 2017,
+   "program_code": "double_major:6100",
+   "source_ids": [
+    "daple-2026-11-07"
+   ]
+  },
+  {
+   "type": "복수전공",
+   "department": "전자융합공학과",
+   "college": "전자정보공과대학",
+   "required_credits": 54,
+   "basis": "admission",
+   "version_year": 2017,
+   "program_code": "double_major:7420",
+   "source_ids": [
+    "daple-2026-11-07"
+   ]
+  },
+  {
+   "type": "복수전공",
+   "department": "전자재료공학과",
+   "college": "전자정보공과대학",
+   "required_credits": 54,
+   "basis": "admission",
+   "version_year": 2017,
+   "program_code": "double_major:7340",
+   "source_ids": [
+    "daple-2026-11-07"
+   ]
+  },
+  {
+   "type": "복수전공",
+   "department": "전자통신공학과",
+   "college": "전자정보공과대학",
+   "required_credits": 54,
+   "basis": "admission",
+   "version_year": 2017,
+   "program_code": "double_major:7070",
+   "source_ids": [
+    "daple-2026-11-07"
+   ]
+  },
+  {
+   "type": "복수전공",
+   "department": "정보융합학부",
+   "college": "인공지능융합대학",
+   "required_credits": 54,
+   "basis": "admission",
+   "version_year": 2017,
+   "program_code": "double_major:H040",
+   "source_ids": [
+    "daple-2026-11-07"
+   ]
+  },
+  {
+   "type": "복수전공",
+   "department": "지능형로봇학과",
+   "college": "인공지능융합대학",
+   "required_credits": 54,
+   "basis": "admission",
+   "version_year": 2022,
+   "program_code": "double_major:I060",
+   "source_ids": [
+    "daple-2026-11-07"
+   ]
+  },
+  {
+   "type": "복수전공",
+   "department": "컴퓨터정보공학부",
+   "college": "인공지능융합대학",
+   "required_credits": 54,
+   "basis": "admission",
+   "version_year": 2017,
+   "program_code": "double_major:H020",
+   "source_ids": [
+    "daple-2026-11-07"
+   ]
+  },
+  {
+   "type": "복수전공",
+   "department": "행정학과",
+   "college": "정책법학대학",
+   "required_credits": 45,
+   "basis": "admission",
+   "version_year": 2020,
+   "program_code": "double_major:F020",
+   "source_ids": [
+    "daple-2026-11-07"
+   ]
+  },
+  {
+   "type": "복수전공",
+   "department": "화학공학과",
+   "college": "공과대학",
+   "required_credits": 54,
+   "basis": "admission",
+   "version_year": 2017,
+   "program_code": "double_major:1140",
+   "source_ids": [
+    "daple-2026-11-07"
+   ]
+  },
+  {
+   "type": "복수전공",
+   "department": "화학과",
+   "college": "자연과학대학",
+   "required_credits": 54,
+   "basis": "admission",
+   "version_year": 2017,
+   "program_code": "double_major:6050",
+   "source_ids": [
+    "daple-2026-11-07"
+   ]
+  },
+  {
+   "type": "복수전공",
+   "department": "환경공학과",
+   "college": "공과대학",
+   "required_credits": 54,
+   "basis": "admission",
+   "version_year": 2017,
+   "program_code": "double_major:1160",
+   "source_ids": [
+    "daple-2026-11-07"
+   ]
+  },
+  {
+   "type": "부전공",
+   "department": "건축공학과",
+   "college": "공과대학",
+   "required_credits": 21,
+   "basis": "admission",
+   "version_year": 2017,
+   "program_code": "minor:1170",
+   "source_ids": [
+    "daple-2026-11-07"
+   ]
+  },
+  {
+   "type": "부전공",
+   "department": "건축학과",
+   "college": "공과대학",
+   "required_credits": 45,
+   "basis": "admission",
+   "version_year": 2003,
+   "program_code": "minor:1270",
+   "source_ids": [
+    "daple-2026-11-07"
+   ]
+  },
+  {
+   "type": "부전공",
+   "department": "경영학부",
+   "college": "경영대학",
+   "required_credits": 21,
+   "basis": "admission",
+   "version_year": 2003,
+   "program_code": "minor:5080",
+   "source_ids": [
+    "daple-2026-11-07"
+   ]
+  },
+  {
+   "type": "부전공",
+   "department": "국어국문학과",
+   "college": "인문사회과학대학",
+   "required_credits": 21,
+   "basis": "admission",
+   "version_year": 2017,
+   "program_code": "minor:E020",
+   "source_ids": [
+    "daple-2026-11-07"
+   ]
+  },
+  {
+   "type": "부전공",
+   "department": "국제통상학부",
+   "college": "경영대학",
+   "required_credits": 21,
+   "basis": "admission",
+   "version_year": 2017,
+   "program_code": "minor:5100",
+   "source_ids": [
+    "daple-2026-11-07"
+   ]
+  },
+  {
+   "type": "부전공",
+   "department": "국제학부",
+   "college": "정책법학대학",
+   "required_credits": 21,
+   "basis": "admission",
+   "version_year": 2016,
+   "program_code": "minor:D040",
+   "source_ids": [
+    "daple-2026-11-07"
+   ]
+  },
+  {
+   "type": "부전공",
+   "department": "동북아문화산업학부",
+   "college": "인문사회과학대학",
+   "required_credits": 21,
+   "basis": "admission",
+   "version_year": 2017,
+   "program_code": "minor:3210",
+   "source_ids": [
+    "daple-2026-11-07"
+   ]
+  },
+  {
+   "type": "부전공",
+   "department": "로봇학부",
+   "college": "인공지능융합대학",
+   "required_credits": 21,
+   "basis": "admission",
+   "version_year": 2017,
+   "program_code": "minor:I050",
+   "source_ids": [
+    "daple-2026-11-07"
+   ]
+  },
+  {
+   "type": "부전공",
+   "department": "미디어커뮤니케이션학부",
+   "college": "인문사회과학대학",
+   "required_credits": 21,
+   "basis": "admission",
+   "version_year": 2007,
+   "program_code": "minor:3230",
+   "source_ids": [
+    "daple-2026-11-07"
+   ]
+  },
+  {
+   "type": "부전공",
+   "department": "법학부",
+   "college": "정책법학대학",
+   "required_credits": 21,
+   "basis": "admission",
+   "version_year": 2017,
+   "program_code": "minor:F030",
+   "source_ids": [
+    "daple-2026-11-07"
+   ]
+  },
+  {
+   "type": "부전공",
+   "department": "산업심리학과",
+   "college": "인문사회과학대학",
+   "required_credits": 21,
+   "basis": "admission",
+   "version_year": 2017,
+   "program_code": "minor:3110",
+   "source_ids": [
+    "daple-2026-11-07"
+   ]
+  },
+  {
+   "type": "부전공",
+   "department": "소프트웨어학부",
+   "college": "인공지능융합대학",
+   "required_credits": 21,
+   "basis": "admission",
+   "version_year": 2017,
+   "program_code": "minor:7260",
+   "source_ids": [
+    "daple-2026-11-07"
+   ]
+  },
+  {
+   "type": "부전공",
+   "department": "수학과",
+   "college": "자연과학대학",
+   "required_credits": 21,
+   "basis": "admission",
+   "version_year": 2017,
+   "program_code": "minor:6030",
+   "source_ids": [
+    "daple-2026-11-07"
+   ]
+  },
+  {
+   "type": "부전공",
+   "department": "스포츠융합과학과",
+   "college": "자연과학대학",
+   "required_credits": 21,
+   "basis": "admission",
+   "version_year": 2017,
+   "program_code": "minor:6130",
+   "source_ids": [
+    "daple-2026-11-07"
+   ]
+  },
+  {
+   "type": "부전공",
+   "department": "영어산업학과",
+   "college": "인문사회과학대학",
+   "required_credits": 21,
+   "basis": "admission",
+   "version_year": 2007,
+   "program_code": "minor:9070",
+   "source_ids": [
+    "daple-2026-11-07"
+   ]
+  },
+  {
+   "type": "부전공",
+   "department": "전기공학과",
+   "college": "전자정보공과대학",
+   "required_credits": 21,
+   "basis": "admission",
+   "version_year": 2017,
+   "program_code": "minor:7320",
+   "source_ids": [
+    "daple-2026-11-07"
+   ]
+  },
+  {
+   "type": "부전공",
+   "department": "전자공학과",
+   "college": "전자정보공과대학",
+   "required_credits": 21,
+   "basis": "admission",
+   "version_year": 2017,
+   "program_code": "minor:7060",
+   "source_ids": [
+    "daple-2026-11-07"
+   ]
+  },
+  {
+   "type": "부전공",
+   "department": "전자바이오물리학과",
+   "college": "자연과학대학",
+   "required_credits": 21,
+   "basis": "admission",
+   "version_year": 2017,
+   "program_code": "minor:6100",
+   "source_ids": [
+    "daple-2026-11-07"
+   ]
+  },
+  {
+   "type": "부전공",
+   "department": "전자융합공학과",
+   "college": "전자정보공과대학",
+   "required_credits": 21,
+   "basis": "admission",
+   "version_year": 2017,
+   "program_code": "minor:7420",
+   "source_ids": [
+    "daple-2026-11-07"
+   ]
+  },
+  {
+   "type": "부전공",
+   "department": "전자재료공학과",
+   "college": "전자정보공과대학",
+   "required_credits": 21,
+   "basis": "admission",
+   "version_year": 2017,
+   "program_code": "minor:7340",
+   "source_ids": [
+    "daple-2026-11-07"
+   ]
+  },
+  {
+   "type": "부전공",
+   "department": "전자통신공학과",
+   "college": "전자정보공과대학",
+   "required_credits": 21,
+   "basis": "admission",
+   "version_year": 2017,
+   "program_code": "minor:7070",
+   "source_ids": [
+    "daple-2026-11-07"
+   ]
+  },
+  {
+   "type": "부전공",
+   "department": "정보융합학부",
+   "college": "인공지능융합대학",
+   "required_credits": 21,
+   "basis": "admission",
+   "version_year": 2017,
+   "program_code": "minor:I040",
+   "source_ids": [
+    "daple-2026-11-07"
+   ]
+  },
+  {
+   "type": "부전공",
+   "department": "지능형로봇학과",
+   "college": "인공지능융합대학",
+   "required_credits": 21,
+   "basis": "admission",
+   "version_year": 2022,
+   "program_code": "minor:I060",
+   "source_ids": [
+    "daple-2026-11-07"
+   ]
+  },
+  {
+   "type": "부전공",
+   "department": "컴퓨터정보공학부",
+   "college": "인공지능융합대학",
+   "required_credits": 21,
+   "basis": "admission",
+   "version_year": 2017,
+   "program_code": "minor:I020",
+   "source_ids": [
+    "daple-2026-11-07"
+   ]
+  },
+  {
+   "type": "부전공",
+   "department": "행정학과",
+   "college": "정책법학대학",
+   "required_credits": 30,
+   "basis": "admission",
+   "version_year": 2020,
+   "program_code": "minor:F020",
+   "source_ids": [
+    "daple-2026-11-07"
+   ]
+  },
+  {
+   "type": "부전공",
+   "department": "화학공학과",
+   "college": "공과대학",
+   "required_credits": 21,
+   "basis": "admission",
+   "version_year": 2017,
+   "program_code": "minor:1140",
+   "source_ids": [
+    "daple-2026-11-07"
+   ]
+  },
+  {
+   "type": "부전공",
+   "department": "화학과",
+   "college": "자연과학대학",
+   "required_credits": 21,
+   "basis": "admission",
+   "version_year": 2017,
+   "program_code": "minor:6050",
+   "source_ids": [
+    "daple-2026-11-07"
+   ]
+  },
+  {
+   "type": "부전공",
+   "department": "환경공학과",
+   "college": "공과대학",
+   "required_credits": 21,
+   "basis": "admission",
+   "version_year": 2017,
+   "program_code": "minor:1160",
+   "source_ids": [
+    "daple-2026-11-07"
+   ]
+  }
+ ],
+ "resolved": [
+  {
+   "item": "복수·부전공 학점 표의 적용 기준",
+   "seen": "학칙 [별표 6] 웹 게시본의 학과 행은 대상 학과 기준으로 보임(건축학과 행 99/45 = 학칙 제50·51조). 학생 본인 입학연도 표를 쓰는지 명시 문구 없음",
+   "source_ids": [
+    "daple-2026-11-07",
+    "reg-hakchik",
+    "web-info12"
+   ],
+   "resolution": "Daple은 대상 학과 행을 적용합니다(basis admission, 버전은 targets의 version_year)."
+  },
+  {
+   "item": "마이크로전공 이름 표기",
+   "seen": "학사안내 메뉴 '지능형인트렉션'·'HR전문가 및 전략컨설컨트'·'문학기반K-콘텐츠' vs 표 '지능형인터렉션전공'·'HR전문가및전략컨설턴트전공'·'문학기반K-콘텐츠개발전공'. 표 이름을 씀",
+   "source_ids": [
+    "daple-2026-11-07",
+    "web-info11"
+   ],
+   "resolution": "Daple의 과정 이름을 쓰고, 예전 표 이름은 aliases에 남깁니다."
+  },
+  {
+   "item": "2020~2023 지능형로봇학과(2022학번~) 부전공 24",
+   "seen": "web-info12에만 별도 행이 있고 web-info11에는 없음(전자정보공과대학 21에 포함된 것처럼 보임)",
+   "source_ids": [
+    "daple-2026-11-07",
+    "web-info11",
+    "web-info12"
+   ],
+   "resolution": "Daple은 지능형로봇학과 부전공을 21학점(버전 2022)으로 적용합니다."
+  }
+ ]
+}

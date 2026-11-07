@@ -4,7 +4,7 @@ import keyring
 import pytest
 from keyring.backend import KeyringBackend
 
-from kw_mcp import klas
+from kw_mcp import agent, klas
 
 
 class MemoryKeyring(KeyringBackend):
@@ -47,3 +47,28 @@ def login_state_in_tmp(tmp_path, monkeypatch):
     path = tmp_path / "login-state.json"
     monkeypatch.setattr(klas, "LOGIN_STATE_FILE", path)
     return path
+
+
+@pytest.fixture(autouse=True)
+def agent_config_in_tmp(tmp_path, monkeypatch):
+    """The PC agent's link file, lock and state go to a temporary folder, never ~/.config/kw-campus
+    (klas_status reads the link; test modules may point it elsewhere again)."""
+    monkeypatch.setattr(agent, "CONFIG_DIR", tmp_path / "kw-campus")
+    monkeypatch.setattr(agent, "LINK_FILE", tmp_path / "kw-campus" / "agent.json")
+
+
+TEST_BRIDGE = "https://bridge.example"
+TEST_BRIDGE_WS = "wss://ws.example/prod"
+
+
+@pytest.fixture(autouse=True)
+def test_bridge_is_the_official_one(monkeypatch):
+    """Tests talk to https://bridge.example and wss://ws.example/prod (mocked); they stand in for
+    release.BRIDGE_ORIGIN and BRIDGE_WS_URL, the only bridge kw-mcp accepts. No developer's local
+    bridge leaks in from the environment."""
+    from kw_mcp import release
+
+    monkeypatch.setattr(release, "BRIDGE_ORIGIN", TEST_BRIDGE)
+    monkeypatch.setattr(release, "BRIDGE_WS_URL", TEST_BRIDGE_WS)
+    monkeypatch.delenv(release.DEV_BRIDGE_ENV, raising=False)
+    monkeypatch.delenv(release.DEV_BRIDGE_WS_ENV, raising=False)

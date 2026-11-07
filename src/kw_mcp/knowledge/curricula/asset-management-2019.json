@@ -1,0 +1,61 @@
+{
+ "department": "자산관리학과",
+ "admission_year": 2019,
+ "scope": "required_only",
+ "basis": "(B) 필수과목표, 대각선 규칙: 2학년은 2020행, 3학년은 2021행, 4학년은 2022행. 1학년(2019행)과 4학년(2022행)에는 필수과목이 없음. (A)는 없음.",
+ "courses": [
+  {
+   "code": null,
+   "name": "물권법",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "경제법",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": 2,
+   "note": "구,약관규제와소비자보호론"
+  },
+  {
+   "code": null,
+   "name": "자산과세무",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 3,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "자본시장법",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 3,
+   "term": 1,
+   "note": "구,자본시장통합법"
+  },
+  {
+   "code": null,
+   "name": "금융법제론",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 3,
+   "term": 2,
+   "note": null
+  }
+ ],
+ "sources": [
+  {
+   "title": "필수과목표 must_2026_28",
+   "url": "https://www.kw.ac.kr/ko/life/must_2026_28.xls",
+   "checked_at": "2026-11-07"
+  }
+ ],
+ "checked_at": "2026-11-07"
+}

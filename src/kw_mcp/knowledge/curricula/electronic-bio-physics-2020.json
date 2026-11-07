@@ -1,0 +1,93 @@
+{
+ "department": "전자바이오물리학과",
+ "admission_year": 2020,
+ "scope": "required_only",
+ "basis": "(B) 대각선 규칙: 1~4학년은 2020~2023행. (B)에는 4학년 필수과목이 없음.",
+ "courses": [
+  {
+   "code": "6100-1-5220",
+   "name": "일반물리및실험1",
+   "credits": 4,
+   "type": "기필",
+   "year_level": 1,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": "6100-1-1223",
+   "name": "일반화학및실험1",
+   "credits": 4,
+   "type": "기필",
+   "year_level": 1,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": "6100-1-5221",
+   "name": "일반물리및실험2",
+   "credits": 4,
+   "type": "기필",
+   "year_level": 1,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": "6100-1-1224",
+   "name": "일반화학및실험2",
+   "credits": 4,
+   "type": "기필",
+   "year_level": 1,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": "6060-2-4564",
+   "name": "역학",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": 1,
+   "note": "구,역학1,기초역학"
+  },
+  {
+   "code": "6060-2-1411",
+   "name": "전자기학1",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": "6060-3-0974",
+   "name": "양자역학",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 3,
+   "term": 1,
+   "note": "구,양자역학1"
+  },
+  {
+   "code": "6060-3-1412",
+   "name": "전자기학2",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 3,
+   "term": 1,
+   "note": null
+  }
+ ],
+ "sources": [
+  {
+   "title": "전자바이오물리학과 교육과정",
+   "url": "https://www.kw.ac.kr/ko/univ/science02_4.jsp",
+   "checked_at": "2026-11-07"
+  },
+  {
+   "title": "필수과목표 must_2026_16",
+   "url": "https://www.kw.ac.kr/ko/life/must_2026_16.xls",
+   "checked_at": "2026-11-07"
+  }
+ ],
+ "checked_at": "2026-11-07"
+}

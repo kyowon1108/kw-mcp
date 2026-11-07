@@ -1,0 +1,623 @@
+{
+ "department": "경영학부",
+ "admission_year": 2026,
+ "scope": "full",
+ "basis": "(A) www.kw.ac.kr 경영학부 경영학전공 교육과정 페이지를 현행 교육과정으로 간주. 학정번호와 학점은 (B)에 같은 과목명이 있을 때만 채움. (A)에는 학점이 없어 그 외 과목의 학점은 빈칸. 'X - 1, 2' 표기는 학기 미지정(\"\")으로 처리.",
+ "courses": [
+  {
+   "code": null,
+   "name": "경영통계",
+   "credits": null,
+   "type": "교양선택",
+   "year_level": 1,
+   "term": null,
+   "note": "교양 선택"
+  },
+  {
+   "code": null,
+   "name": "경영과컴퓨터",
+   "credits": null,
+   "type": "교양선택",
+   "year_level": 1,
+   "term": null,
+   "note": "교양 선택"
+  },
+  {
+   "code": "5080-1-1970",
+   "name": "회계원리",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 1,
+   "term": null,
+   "note": "회계/재무"
+  },
+  {
+   "code": "5080-2-1277",
+   "name": "재무관리",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": null,
+   "note": "회계/재무"
+  },
+  {
+   "code": "5080-2-0508",
+   "name": "마케팅",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": null,
+   "note": "마케팅/전략"
+  },
+  {
+   "code": "5080-2-4900",
+   "name": "생산운영관리",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": null,
+   "note": "계량/정보"
+  },
+  {
+   "code": "5080-2-4906",
+   "name": "MIS개론",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": null,
+   "note": "계량/정보; 구,정보시스템과e비즈니스"
+  },
+  {
+   "code": "5080-2-1539",
+   "name": "조직행동",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": null,
+   "note": "조직관리; 구,조직론"
+  },
+  {
+   "code": null,
+   "name": "경영학의 이해",
+   "credits": null,
+   "type": "전선",
+   "year_level": 1,
+   "term": null,
+   "note": "조직관리"
+  },
+  {
+   "code": null,
+   "name": "비즈니스챌린지",
+   "credits": null,
+   "type": "전선",
+   "year_level": 1,
+   "term": null,
+   "note": "조직관리"
+  },
+  {
+   "code": null,
+   "name": "소비자행동",
+   "credits": null,
+   "type": "전선",
+   "year_level": 2,
+   "term": null,
+   "note": "마케팅/전략"
+  },
+  {
+   "code": null,
+   "name": "경영과학",
+   "credits": null,
+   "type": "전선",
+   "year_level": 2,
+   "term": null,
+   "note": "계량/정보"
+  },
+  {
+   "code": null,
+   "name": "비즈니스데이터분석",
+   "credits": null,
+   "type": "전선",
+   "year_level": 2,
+   "term": null,
+   "note": "계량/정보"
+  },
+  {
+   "code": null,
+   "name": "관리회계",
+   "credits": null,
+   "type": "전선",
+   "year_level": 3,
+   "term": null,
+   "note": "회계/재무"
+  },
+  {
+   "code": null,
+   "name": "증권투자론",
+   "credits": null,
+   "type": "전선",
+   "year_level": 3,
+   "term": null,
+   "note": "회계/재무"
+  },
+  {
+   "code": null,
+   "name": "경영전략",
+   "credits": null,
+   "type": "전선",
+   "year_level": 3,
+   "term": null,
+   "note": "마케팅/전략"
+  },
+  {
+   "code": null,
+   "name": "경영데이터베이스",
+   "credits": null,
+   "type": "전선",
+   "year_level": 3,
+   "term": null,
+   "note": "계량/정보"
+  },
+  {
+   "code": null,
+   "name": "정보화전략",
+   "credits": null,
+   "type": "전선",
+   "year_level": 3,
+   "term": null,
+   "note": "계량/정보"
+  },
+  {
+   "code": null,
+   "name": "원가회계",
+   "credits": null,
+   "type": "전선",
+   "year_level": 2,
+   "term": 1,
+   "note": "회계/재무"
+  },
+  {
+   "code": null,
+   "name": "인터넷프로그래밍",
+   "credits": null,
+   "type": "전선",
+   "year_level": 2,
+   "term": 1,
+   "note": "계량/정보"
+  },
+  {
+   "code": null,
+   "name": "경영통계분석",
+   "credits": null,
+   "type": "전선",
+   "year_level": 2,
+   "term": 1,
+   "note": "계량/정보"
+  },
+  {
+   "code": null,
+   "name": "재무회계",
+   "credits": null,
+   "type": "전선",
+   "year_level": 2,
+   "term": 2,
+   "note": "회계/재무"
+  },
+  {
+   "code": null,
+   "name": "인터넷기반기술",
+   "credits": null,
+   "type": "전선",
+   "year_level": 2,
+   "term": 2,
+   "note": "계량/정보"
+  },
+  {
+   "code": null,
+   "name": "프로그램구조론",
+   "credits": null,
+   "type": "전선",
+   "year_level": 2,
+   "term": 2,
+   "note": "계량/정보"
+  },
+  {
+   "code": null,
+   "name": "중급회계1",
+   "credits": null,
+   "type": "전선",
+   "year_level": 3,
+   "term": 1,
+   "note": "회계/재무"
+  },
+  {
+   "code": null,
+   "name": "유통관리",
+   "credits": null,
+   "type": "전선",
+   "year_level": 3,
+   "term": 1,
+   "note": "마케팅/전략"
+  },
+  {
+   "code": null,
+   "name": "통합적마케팅커뮤니케이션",
+   "credits": null,
+   "type": "전선",
+   "year_level": 3,
+   "term": 1,
+   "note": "마케팅/전략"
+  },
+  {
+   "code": null,
+   "name": "서비스경영관리",
+   "credits": null,
+   "type": "전선",
+   "year_level": 3,
+   "term": 1,
+   "note": "마케팅/전략"
+  },
+  {
+   "code": null,
+   "name": "경영시뮬레이션",
+   "credits": null,
+   "type": "전선",
+   "year_level": 3,
+   "term": 1,
+   "note": "계량/정보"
+  },
+  {
+   "code": null,
+   "name": "ERP개론",
+   "credits": null,
+   "type": "전선",
+   "year_level": 3,
+   "term": 1,
+   "note": "계량/정보"
+  },
+  {
+   "code": null,
+   "name": "비즈니스인텔리전스",
+   "credits": null,
+   "type": "전선",
+   "year_level": 3,
+   "term": 1,
+   "note": "계량/정보"
+  },
+  {
+   "code": null,
+   "name": "경영데이터과학론",
+   "credits": null,
+   "type": "전선",
+   "year_level": 3,
+   "term": 1,
+   "note": "계량/정보"
+  },
+  {
+   "code": null,
+   "name": "노사관계",
+   "credits": null,
+   "type": "전선",
+   "year_level": 3,
+   "term": 1,
+   "note": "조직관리"
+  },
+  {
+   "code": null,
+   "name": "조직문화와리더십",
+   "credits": null,
+   "type": "전선",
+   "year_level": 3,
+   "term": 1,
+   "note": "조직관리"
+  },
+  {
+   "code": null,
+   "name": "중급회계2",
+   "credits": null,
+   "type": "전선",
+   "year_level": 3,
+   "term": 2,
+   "note": "회계/재무"
+  },
+  {
+   "code": null,
+   "name": "자산운용기초",
+   "credits": null,
+   "type": "전선",
+   "year_level": 3,
+   "term": 2,
+   "note": "회계/재무"
+  },
+  {
+   "code": null,
+   "name": "기업재무론",
+   "credits": null,
+   "type": "전선",
+   "year_level": 3,
+   "term": 2,
+   "note": "회계/재무"
+  },
+  {
+   "code": null,
+   "name": "파생금융상품론",
+   "credits": null,
+   "type": "전선",
+   "year_level": 3,
+   "term": 2,
+   "note": "회계/재무"
+  },
+  {
+   "code": null,
+   "name": "마케팅조사",
+   "credits": null,
+   "type": "전선",
+   "year_level": 3,
+   "term": 2,
+   "note": "마케팅/전략"
+  },
+  {
+   "code": null,
+   "name": "소셜미디어마케팅",
+   "credits": null,
+   "type": "전선",
+   "year_level": 3,
+   "term": 2,
+   "note": "마케팅/전략"
+  },
+  {
+   "code": null,
+   "name": "서비스마케팅",
+   "credits": null,
+   "type": "전선",
+   "year_level": 3,
+   "term": 2,
+   "note": "마케팅/전략"
+  },
+  {
+   "code": null,
+   "name": "SCM",
+   "credits": null,
+   "type": "전선",
+   "year_level": 3,
+   "term": 2,
+   "note": "계량/정보"
+  },
+  {
+   "code": null,
+   "name": "CRM",
+   "credits": null,
+   "type": "전선",
+   "year_level": 3,
+   "term": 2,
+   "note": "계량/정보"
+  },
+  {
+   "code": null,
+   "name": "데이터사이언스개론",
+   "credits": null,
+   "type": "전선",
+   "year_level": 3,
+   "term": 2,
+   "note": "계량/정보"
+  },
+  {
+   "code": null,
+   "name": "경영데이터과학론심화",
+   "credits": null,
+   "type": "전선",
+   "year_level": 3,
+   "term": 2,
+   "note": "계량/정보"
+  },
+  {
+   "code": null,
+   "name": "인적자원관리",
+   "credits": null,
+   "type": "전선",
+   "year_level": 3,
+   "term": 2,
+   "note": "조직관리"
+  },
+  {
+   "code": null,
+   "name": "국제경영",
+   "credits": null,
+   "type": "전선",
+   "year_level": 3,
+   "term": 2,
+   "note": "조직관리"
+  },
+  {
+   "code": null,
+   "name": "비즈니스와사회적공헌",
+   "credits": null,
+   "type": "전선",
+   "year_level": 3,
+   "term": 2,
+   "note": "조직관리"
+  },
+  {
+   "code": null,
+   "name": "회계감사",
+   "credits": null,
+   "type": "전선",
+   "year_level": 4,
+   "term": 1,
+   "note": "회계/재무"
+  },
+  {
+   "code": null,
+   "name": "고급회계",
+   "credits": null,
+   "type": "전선",
+   "year_level": 4,
+   "term": 1,
+   "note": "회계/재무"
+  },
+  {
+   "code": null,
+   "name": "금융시장론",
+   "credits": null,
+   "type": "전선",
+   "year_level": 4,
+   "term": 1,
+   "note": "회계/재무"
+  },
+  {
+   "code": null,
+   "name": "재무분석",
+   "credits": null,
+   "type": "전선",
+   "year_level": 4,
+   "term": 1,
+   "note": "회계/재무"
+  },
+  {
+   "code": null,
+   "name": "가치평가론",
+   "credits": null,
+   "type": "전선",
+   "year_level": 4,
+   "term": 1,
+   "note": "회계/재무"
+  },
+  {
+   "code": null,
+   "name": "자산운용심화",
+   "credits": null,
+   "type": "전선",
+   "year_level": 4,
+   "term": 1,
+   "note": "회계/재무"
+  },
+  {
+   "code": null,
+   "name": "사업과금융",
+   "credits": null,
+   "type": "전선",
+   "year_level": 4,
+   "term": 1,
+   "note": "회계/재무"
+  },
+  {
+   "code": null,
+   "name": "회계디지털데이터활용과분석",
+   "credits": null,
+   "type": "전선",
+   "year_level": 4,
+   "term": 1,
+   "note": "회계/재무"
+  },
+  {
+   "code": null,
+   "name": "성공적인창업계획",
+   "credits": null,
+   "type": "전선",
+   "year_level": 4,
+   "term": 1,
+   "note": "회계/재무"
+  },
+  {
+   "code": null,
+   "name": "실용금용",
+   "credits": null,
+   "type": "전선",
+   "year_level": 4,
+   "term": 1,
+   "note": "회계/재무"
+  },
+  {
+   "code": null,
+   "name": "세무회계",
+   "credits": null,
+   "type": "전선",
+   "year_level": 4,
+   "term": 2,
+   "note": "회계/재무"
+  },
+  {
+   "code": null,
+   "name": "성공적인창업계획",
+   "credits": null,
+   "type": "전선",
+   "year_level": 4,
+   "term": 2,
+   "note": "회계/재무"
+  },
+  {
+   "code": null,
+   "name": "금융과인공지능",
+   "credits": null,
+   "type": "전선",
+   "year_level": 4,
+   "term": 2,
+   "note": "회계/재무"
+  },
+  {
+   "code": null,
+   "name": "브랜드관리",
+   "credits": null,
+   "type": "전선",
+   "year_level": 4,
+   "term": 2,
+   "note": "마케팅/전략"
+  },
+  {
+   "code": null,
+   "name": "소셜네트워크분석",
+   "credits": null,
+   "type": "전선",
+   "year_level": 4,
+   "term": 2,
+   "note": "계량/정보"
+  },
+  {
+   "code": null,
+   "name": "IT융합비즈니스모델",
+   "credits": null,
+   "type": "전선",
+   "year_level": 4,
+   "term": 2,
+   "note": "계량/정보"
+  },
+  {
+   "code": null,
+   "name": "벤처경영",
+   "credits": null,
+   "type": "전선",
+   "year_level": 4,
+   "term": 2,
+   "note": "조직관리"
+  }
+ ],
+ "also": [
+  {
+   "scope": "required_only",
+   "basis": "(B) 대각선 규칙: 1학년=2026행만 사용. 2~4학년은 2027년 이후로 미래라 정보 없음. 경영학전공/빅데이터경영전공 공통.",
+   "courses": [
+    {
+     "code": "5080-1-1970",
+     "name": "회계원리",
+     "credits": 3,
+     "type": "전필",
+     "year_level": 1,
+     "term": null,
+     "note": "경영학전공/빅데이터경영전공 공통"
+    }
+   ]
+  }
+ ],
+ "sources": [
+  {
+   "title": "경영학부 교육과정",
+   "url": "https://www.kw.ac.kr/ko/univ/business01_4.jsp",
+   "checked_at": "2026-11-07"
+  },
+  {
+   "title": "필수과목표 must_2026_29",
+   "url": "https://www.kw.ac.kr/ko/life/must_2026_29.xls",
+   "checked_at": "2026-11-07"
+  }
+ ],
+ "checked_at": "2026-11-07"
+}

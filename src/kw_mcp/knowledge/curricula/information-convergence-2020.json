@@ -1,0 +1,84 @@
+{
+ "department": "정보융합학부",
+ "admission_year": 2020,
+ "scope": "required_only",
+ "basis": "(B) 대각선 규칙: 1학년=2020행, 2학년=2021행, 3학년=2022행, 4학년=2023행. 3·4학년 필수과목 없음.",
+ "courses": [
+  {
+   "code": null,
+   "name": "대학수학및연습1",
+   "credits": 3,
+   "type": "기필",
+   "year_level": 1,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "대학수학및연습2",
+   "credits": 3,
+   "type": "기필",
+   "year_level": 1,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "고급C프로그래밍및설계",
+   "credits": 3,
+   "type": "기필",
+   "year_level": 1,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "객체지향프로그래밍",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "AI수학",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "자료구조",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "모바일프로그래밍",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": 2,
+   "note": null
+  }
+ ],
+ "sources": [
+  {
+   "title": "정보융합학부 교육과정",
+   "url": "https://www.kw.ac.kr/ko/univ/ai03_4.jsp",
+   "checked_at": "2026-11-07"
+  },
+  {
+   "title": "필수과목표 must_2026_09",
+   "url": "https://www.kw.ac.kr/ko/life/must_2026_09.xls",
+   "checked_at": "2026-11-07"
+  }
+ ],
+ "checked_at": "2026-11-07"
+}

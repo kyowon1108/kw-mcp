@@ -1,0 +1,174 @@
+{
+ "department": "건축학과",
+ "admission_year": 2024,
+ "scope": "required_only",
+ "basis": "(B)에서 대각선 규칙으로 가져옴: 1~3학년은 2024~2026행. 4~5학년(2027~2028년)은 미래 연도라 없음.",
+ "courses": [
+  {
+   "code": "1270-1-3631",
+   "name": "기초설계1",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 1,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": "1270-1-4545",
+   "name": "디지털디자인",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 1,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": "1270-1-4546",
+   "name": "공간과형태",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 1,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": "1270-1-3699",
+   "name": "기초설계2",
+   "credits": 6,
+   "type": "전필",
+   "year_level": 1,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": "1270-1-3838",
+   "name": "주거론",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 1,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": "1270-2-0068",
+   "name": "건축설계1",
+   "credits": 6,
+   "type": "전필",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": "1270-2-0812",
+   "name": "서양건축사",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": "1270-3-4186",
+   "name": "시설계획론",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": 1,
+   "note": "구,시설계획론1"
+  },
+  {
+   "code": "1270-2-0069",
+   "name": "건축설계2",
+   "credits": 6,
+   "type": "전필",
+   "year_level": 2,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": "1270-4-0067",
+   "name": "건축법규",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": 2,
+   "note": "구, 건축법과실무"
+  },
+  {
+   "code": "1270-2-0275",
+   "name": "구조역학",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": "1270-30070",
+   "name": "건축설계3",
+   "credits": 6,
+   "type": "전필",
+   "year_level": 3,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": "1270-3-3544",
+   "name": "건축재료",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 3,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": "1270-3-4063",
+   "name": "구조시스템",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 3,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": "1270-3-2011",
+   "name": "건축설계4",
+   "credits": 6,
+   "type": "전필",
+   "year_level": 3,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": "1270-4-4550",
+   "name": "건축시공",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 3,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": "1270-2-1783",
+   "name": "한국건축사",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 3,
+   "term": 2,
+   "note": null
+  }
+ ],
+ "sources": [
+  {
+   "title": "건축학과 교육과정",
+   "url": "https://www.kw.ac.kr/ko/univ/engineering04_4.jsp",
+   "checked_at": "2026-11-07"
+  },
+  {
+   "title": "필수과목표 must_2026_14",
+   "url": "https://www.kw.ac.kr/ko/life/must_2026_14.xls",
+   "checked_at": "2026-11-07"
+  }
+ ],
+ "checked_at": "2026-11-07"
+}

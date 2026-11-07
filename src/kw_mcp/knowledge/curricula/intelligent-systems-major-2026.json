@@ -1,0 +1,480 @@
+{
+ "department": "지능시스템전공",
+ "admission_year": 2026,
+ "scope": "full",
+ "basis": "(A) www.kw.ac.kr 로봇학부 지능시스템전공 교육과정 표를 현재 교육과정으로 간주함. 학정번호는 (B) 로봇학부 필수과목표에서 같은 이름의 과목이 있을 때만 채움(정보제어·지능시스템전공 2026 행 우선, 없으면 가장 최근 행). 그 외는 빈 값.",
+ "courses": [
+  {
+   "code": null,
+   "name": "광운인되기",
+   "credits": 1,
+   "type": "교양필수",
+   "year_level": 1,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "광운인되기",
+   "credits": 1,
+   "type": "교양필수",
+   "year_level": 1,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "대학영어",
+   "credits": 3,
+   "type": "교양필수",
+   "year_level": 1,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "대학영어",
+   "credits": 3,
+   "type": "교양필수",
+   "year_level": 1,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "대학물리 및 실험1",
+   "credits": 3,
+   "type": "교양필수",
+   "year_level": 1,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "대학물리 및 실험2",
+   "credits": 3,
+   "type": "교양필수",
+   "year_level": 1,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "컴퓨팅사고",
+   "credits": 3,
+   "type": "교양필수",
+   "year_level": 1,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "컴퓨팅사고",
+   "credits": 3,
+   "type": "교양필수",
+   "year_level": 1,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "프로그래밍기초",
+   "credits": 3,
+   "type": "교양필수",
+   "year_level": 1,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "프로그래밍기초",
+   "credits": 3,
+   "type": "교양필수",
+   "year_level": 1,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "융합적사고와 글쓰기",
+   "credits": 3,
+   "type": "교양필수",
+   "year_level": 1,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "융합적사고와 글쓰기",
+   "credits": 3,
+   "type": "교양필수",
+   "year_level": 1,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "로봇학입문",
+   "credits": 3,
+   "type": "교양선택",
+   "year_level": 1,
+   "term": 1,
+   "note": "학점 3(2)"
+  },
+  {
+   "code": null,
+   "name": "로봇학입문",
+   "credits": 3,
+   "type": "교양선택",
+   "year_level": 1,
+   "term": 2,
+   "note": "학점 3(2)"
+  },
+  {
+   "code": "I050-2-6154",
+   "name": "로봇학실험1",
+   "credits": 3,
+   "type": "전공필수",
+   "year_level": 2,
+   "term": 1,
+   "note": "학점 3(2)"
+  },
+  {
+   "code": "I050-2-62446",
+   "name": "로봇학실험2",
+   "credits": 3,
+   "type": "전공필수",
+   "year_level": 2,
+   "term": 2,
+   "note": "학점 3(2); 2024 행에서는 학정번호 I050-2-5473"
+  },
+  {
+   "code": null,
+   "name": "기초역학",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "메카니즘해석",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "디지털공학",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "컴퓨터구조",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 2,
+   "note": "(A)에서 2학년 2학기에 두 번 기재됨"
+  },
+  {
+   "code": null,
+   "name": "전자기학",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "회로이론",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "회로 및 시스템",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "상상과 표현",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "상상로봇비평",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": "7410-3-1235",
+   "name": "자동제어",
+   "credits": 3,
+   "type": "전공필수",
+   "year_level": 3,
+   "term": 1,
+   "note": "구,자동제어1 구, 제어공학; 학정번호는 (B) 2015~2022 행의 구 코드"
+  },
+  {
+   "code": "7410-3-0476",
+   "name": "로봇제어",
+   "credits": 3,
+   "type": "전공필수",
+   "year_level": 3,
+   "term": 2,
+   "note": "구,로봇공학; 학정번호는 (B) 2016~2022 행의 구 코드"
+  },
+  {
+   "code": "I050-3-6538",
+   "name": "로봇학실험3",
+   "credits": 3,
+   "type": "전공필수",
+   "year_level": 3,
+   "term": 1,
+   "note": "학점 3(2); 구,센서공학실험"
+  },
+  {
+   "code": "I050-3-6539",
+   "name": "로봇학실험4",
+   "credits": 3,
+   "type": "전공필수",
+   "year_level": 3,
+   "term": 2,
+   "note": "학점 3(2); 구,자동제어실험"
+  },
+  {
+   "code": null,
+   "name": "마이크로프로세서",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "모터제어",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "엑츄에이터",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "전자회로",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": "I050-3-5481",
+   "name": "로봇운동학",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 1,
+   "note": "구.메카트로닉스; (B)에서는 2023년 이후 전필"
+  },
+  {
+   "code": null,
+   "name": "컴퓨터네트워크",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "데이터통신",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "제어시스템설계",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "알고리즘",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "기계학습",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "로봇게임세미나1",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "로봇게임세미나2",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "로봇설계",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "로봇내비게이션",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "컴퓨터비전",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "로봇시스템설계1",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "로봇시스템설계2",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "로봇응용시스템",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "임베디드시스템",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "캡스톤설계",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 1,
+   "note": "학점 3(2)"
+  },
+  {
+   "code": null,
+   "name": "캡스톤설계",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 2,
+   "note": "학점 3(2)"
+  },
+  {
+   "code": null,
+   "name": "딥러닝",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 1,
+   "note": null
+  }
+ ],
+ "sources": [
+  {
+   "title": "지능시스템전공 교육과정",
+   "url": "https://www.kw.ac.kr/ko/univ/electronic09_4.jsp",
+   "checked_at": "2026-11-07"
+  },
+  {
+   "title": "필수과목표 must_2026_10",
+   "url": "https://www.kw.ac.kr/ko/life/must_2026_10.xls",
+   "checked_at": "2026-11-07"
+  }
+ ],
+ "checked_at": "2026-11-07"
+}

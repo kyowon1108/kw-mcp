@@ -1,0 +1,2882 @@
+[
+ {
+  "id": "web-info01",
+  "url": "https://www.kw.ac.kr/ko/life/bachelor_info01.jsp",
+  "title": "학사정보 교과안내(이수구분)",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "web-info03",
+  "url": "https://www.kw.ac.kr/ko/life/bachelor_info03.jsp",
+  "title": "학사정보 수업안내",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "web-info04",
+  "url": "https://www.kw.ac.kr/ko/life/bachelor_info04.jsp",
+  "title": "학사정보 전공배정 신청 안내",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "web-info05",
+  "url": "https://www.kw.ac.kr/ko/life/bachelor_info05.jsp",
+  "title": "학사정보 성적평가 안내",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "web-info07",
+  "url": "https://www.kw.ac.kr/ko/life/bachelor_info07.jsp",
+  "title": "학사정보 수료/졸업요건 안내",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "web-info08",
+  "url": "https://www.kw.ac.kr/ko/life/bachelor_info08.jsp",
+  "title": "학사정보 학적변동 구분",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "web-info09",
+  "url": "https://www.kw.ac.kr/ko/life/bachelor_info09.jsp",
+  "title": "학사정보 특별프로그램 안내",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "web-info11",
+  "url": "https://www.kw.ac.kr/ko/life/bachelor_info11.jsp",
+  "title": "학사정보 다전공 이수제도 안내",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "web-info12",
+  "url": "https://www.kw.ac.kr/ko/life/bachelor_info12.jsp",
+  "title": "학사정보 입학연도별 졸업학점 안내",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "web-info13",
+  "url": "https://www.kw.ac.kr/ko/life/bachelor_info13.jsp",
+  "title": "학사정보 수강신청/강의시간표",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "web-info02",
+  "url": "https://www.kw.ac.kr/ko/life/bachelor_info02.jsp",
+  "title": "학사정보 필수과목 개설안내(연도별/학과별)",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "web-rule",
+  "url": "https://www.kw.ac.kr/ko/life/bachelor_rule.jsp",
+  "title": "학칙 및 학사관련규정",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "web-summary",
+  "url": "https://www.kw.ac.kr/ko/life/summary.jsp",
+  "title": "장학안내",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "web-scholar01",
+  "url": "https://www.kw.ac.kr/ko/life/scholarship01.jsp",
+  "title": "교내장학금",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "web-scholar02",
+  "url": "https://www.kw.ac.kr/ko/life/scholarship02.jsp",
+  "title": "교외장학금",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "web-scholar03",
+  "url": "https://www.kw.ac.kr/ko/life/scholarship03.jsp",
+  "title": "장학재단 예우",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "web-cert01",
+  "url": "https://www.kw.ac.kr/ko/life/certificate01.jsp",
+  "title": "제증명안내",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "web-cert02",
+  "url": "https://www.kw.ac.kr/ko/life/certificate02.jsp",
+  "title": "인터넷 증명발급",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "web-cert06",
+  "url": "https://www.kw.ac.kr/ko/life/certificate06.jsp",
+  "title": "증명서 자동발급기",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "web-cert07",
+  "url": "https://www.kw.ac.kr/ko/life/certificate07.jsp",
+  "title": "증명서 창구 발급",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "web-studentid",
+  "url": "https://www.kw.ac.kr/ko/life/student_id.jsp",
+  "title": "학생증발급 안내",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "web-isic",
+  "url": "https://www.kw.ac.kr/ko/life/isic.jsp",
+  "title": "국제학생증 발급 안내",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "web-military",
+  "url": "https://www.kw.ac.kr/ko/life/military_consulting.jsp",
+  "title": "병무안내",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "web-military01",
+  "url": "https://www.kw.ac.kr/ko/life/military_guide01.jsp",
+  "title": "병사업무안내",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "web-facility01",
+  "url": "https://www.kw.ac.kr/ko/life/facility01.jsp",
+  "title": "복지 편의시설",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "web-facility03",
+  "url": "https://www.kw.ac.kr/ko/life/facility03.jsp",
+  "title": "문화학습지원",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "web-facility07",
+  "url": "https://www.kw.ac.kr/ko/life/facility07.jsp",
+  "title": "전산멀티미디어지원",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "web-facility09",
+  "url": "https://www.kw.ac.kr/ko/life/facility09.jsp",
+  "title": "편의시설안내",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "web-facility11",
+  "url": "https://www.kw.ac.kr/ko/life/facility11.jsp",
+  "title": "식단안내",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "web-facility12",
+  "url": "https://www.kw.ac.kr/ko/life/facility12.jsp",
+  "title": "Wi-Fi 이용 안내",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "web-dorm",
+  "url": "https://www.kw.ac.kr/ko/department/affiliated_etc02.jsp",
+  "title": "생활관",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "web-directions",
+  "url": "https://www.kw.ac.kr/ko/tour/directions.jsp",
+  "title": "위치 및 교통안내(셔틀)",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "web-tour02",
+  "url": "https://www.kw.ac.kr/ko/tour/tour02.jsp",
+  "title": "위치 및 교통안내",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "web-phone",
+  "url": "https://www.kw.ac.kr/ko/tour/phone.jsp",
+  "title": "조회서비스(전화번호)",
+  "feeds": [
+   "contacts"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "web-team-edu",
+  "url": "https://www.kw.ac.kr/ko/department/view.jsp?hpage=intro_0004",
+  "title": "교육지원팀 소개",
+  "feeds": [
+   "contacts"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "web-team-student",
+  "url": "https://www.kw.ac.kr/ko/department/view.jsp?hpage=intro_0005",
+  "title": "학생처(학생복지팀) 소개",
+  "feeds": [
+   "contacts"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "web-team-intl",
+  "url": "https://www.kw.ac.kr/ko/department/view.jsp?hpage=intro_0014",
+  "title": "국제교류팀 소개",
+  "feeds": [
+   "contacts"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "web-team-finance",
+  "url": "https://www.kw.ac.kr/ko/department/view.jsp?hpage=intro_0017",
+  "title": "재무팀 소개",
+  "feeds": [
+   "contacts"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "web-team-career",
+  "url": "https://www.kw.ac.kr/ko/department/view.jsp?hpage=intro_0008",
+  "title": "경력개발팀 소개",
+  "feeds": [
+   "contacts"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "web-counsel",
+  "url": "https://www.kw.ac.kr/ko/department/admin32.jsp",
+  "title": "학생상담실",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "web-faq-all",
+  "url": "https://www.kw.ac.kr/ko/life/faq.jsp?MaxRows=100&tpage=1&searchKey=1&searchVal=&srCategoryId=",
+  "title": "종합 FAQ 목록",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "dept-college_001_01",
+  "url": "https://www.kw.ac.kr/ko/univ/depart_intro.jsp?hpage=college_001_01",
+  "title": "전자공학과 학과 소개",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr",
+  "department": "전자공학과"
+ },
+ {
+  "id": "dept-college_001_04",
+  "url": "https://www.kw.ac.kr/ko/univ/depart_intro.jsp?hpage=college_001_04",
+  "title": "전자통신공학과 학과 소개",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr",
+  "department": "전자통신공학과"
+ },
+ {
+  "id": "dept-college_001_05",
+  "url": "https://www.kw.ac.kr/ko/univ/depart_intro.jsp?hpage=college_001_05",
+  "title": "전자융합공학과 학과 소개",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr",
+  "department": "전자융합공학과"
+ },
+ {
+  "id": "dept-college_001_02",
+  "url": "https://www.kw.ac.kr/ko/univ/depart_intro.jsp?hpage=college_001_02",
+  "title": "전기공학과 학과 소개",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr",
+  "department": "전기공학과"
+ },
+ {
+  "id": "dept-college_001_03",
+  "url": "https://www.kw.ac.kr/ko/univ/depart_intro.jsp?hpage=college_001_03",
+  "title": "전자재료공학과 학과 소개",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr",
+  "department": "전자재료공학과"
+ },
+ {
+  "id": "dept-college_001_08",
+  "url": "https://www.kw.ac.kr/ko/univ/depart_intro.jsp?hpage=college_001_08",
+  "title": "반도체시스템공학부 학과 소개",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr",
+  "department": "반도체시스템공학부"
+ },
+ {
+  "id": "dept-college_011_01",
+  "url": "https://www.kw.ac.kr/ko/univ/depart_intro.jsp?hpage=college_011_01",
+  "title": "컴퓨터정보공학부 학과 소개",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr",
+  "department": "컴퓨터정보공학부"
+ },
+ {
+  "id": "dept-college_011_02",
+  "url": "https://www.kw.ac.kr/ko/univ/depart_intro.jsp?hpage=college_011_02",
+  "title": "소프트웨어학부 학과 소개",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr",
+  "department": "소프트웨어학부"
+ },
+ {
+  "id": "dept-college_011_03",
+  "url": "https://www.kw.ac.kr/ko/univ/depart_intro.jsp?hpage=college_011_03",
+  "title": "정보융합학부 학과 소개",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr",
+  "department": "정보융합학부"
+ },
+ {
+  "id": "dept-college_011_04",
+  "url": "https://www.kw.ac.kr/ko/univ/depart_intro.jsp?hpage=college_011_04",
+  "title": "로봇학부 학과 소개",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr",
+  "department": "로봇학부"
+ },
+ {
+  "id": "dept-college_011_05",
+  "url": "https://www.kw.ac.kr/ko/univ/depart_intro.jsp?hpage=college_011_05",
+  "title": "정보제어·지능시스템전공 학과 소개",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr",
+  "department": "정보제어·지능시스템전공"
+ },
+ {
+  "id": "dept-ai06_1",
+  "url": "https://www.kw.ac.kr/ko/univ/ai06_1.jsp",
+  "title": "지능형로봇학과 학과 소개",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr",
+  "department": "지능형로봇학과"
+ },
+ {
+  "id": "dept-college_003_01",
+  "url": "https://www.kw.ac.kr/ko/univ/depart_intro.jsp?hpage=college_003_01",
+  "title": "건축공학과 학과 소개",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr",
+  "department": "건축공학과"
+ },
+ {
+  "id": "dept-college_003_02",
+  "url": "https://www.kw.ac.kr/ko/univ/depart_intro.jsp?hpage=college_003_02",
+  "title": "화학공학과 학과 소개",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr",
+  "department": "화학공학과"
+ },
+ {
+  "id": "dept-college_003_03",
+  "url": "https://www.kw.ac.kr/ko/univ/depart_intro.jsp?hpage=college_003_03",
+  "title": "환경공학과 학과 소개",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr",
+  "department": "환경공학과"
+ },
+ {
+  "id": "dept-college_003_04",
+  "url": "https://www.kw.ac.kr/ko/univ/depart_intro.jsp?hpage=college_003_04",
+  "title": "건축학과 학과 소개",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr",
+  "department": "건축학과"
+ },
+ {
+  "id": "dept-college_004_01",
+  "url": "https://www.kw.ac.kr/ko/univ/depart_intro.jsp?hpage=college_004_01",
+  "title": "수학과 학과 소개",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr",
+  "department": "수학과"
+ },
+ {
+  "id": "dept-college_004_02",
+  "url": "https://www.kw.ac.kr/ko/univ/depart_intro.jsp?hpage=college_004_02",
+  "title": "전자바이오물리학과 학과 소개",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr",
+  "department": "전자바이오물리학과"
+ },
+ {
+  "id": "dept-college_004_04",
+  "url": "https://www.kw.ac.kr/ko/univ/depart_intro.jsp?hpage=college_004_04",
+  "title": "화학과 학과 소개",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr",
+  "department": "화학과"
+ },
+ {
+  "id": "dept-college_004_05",
+  "url": "https://www.kw.ac.kr/ko/univ/depart_intro.jsp?hpage=college_004_05",
+  "title": "스포츠융합과학과 학과 소개",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr",
+  "department": "스포츠융합과학과"
+ },
+ {
+  "id": "dept-college_005_01",
+  "url": "https://www.kw.ac.kr/ko/univ/depart_intro.jsp?hpage=college_005_01",
+  "title": "국어국문학과 학과 소개",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr",
+  "department": "국어국문학과"
+ },
+ {
+  "id": "dept-college_005_02",
+  "url": "https://www.kw.ac.kr/ko/univ/depart_intro.jsp?hpage=college_005_02",
+  "title": "영어산업학과 학과 소개",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr",
+  "department": "영어산업학과"
+ },
+ {
+  "id": "dept-college_005_03",
+  "url": "https://www.kw.ac.kr/ko/univ/depart_intro.jsp?hpage=college_005_03",
+  "title": "미디어커뮤니케이션학부 학과 소개",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr",
+  "department": "미디어커뮤니케이션학부"
+ },
+ {
+  "id": "dept-college_005_06",
+  "url": "https://www.kw.ac.kr/ko/univ/depart_intro.jsp?hpage=college_005_06",
+  "title": "산업심리학과 학과 소개",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr",
+  "department": "산업심리학과"
+ },
+ {
+  "id": "dept-college_005_07",
+  "url": "https://www.kw.ac.kr/ko/univ/depart_intro.jsp?hpage=college_005_07",
+  "title": "동북아문화산업학부 학과 소개",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr",
+  "department": "동북아문화산업학부"
+ },
+ {
+  "id": "dept-college_006_01",
+  "url": "https://www.kw.ac.kr/ko/univ/depart_intro.jsp?hpage=college_006_01",
+  "title": "행정학과 학과 소개",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr",
+  "department": "행정학과"
+ },
+ {
+  "id": "dept-college_006_02",
+  "url": "https://www.kw.ac.kr/ko/univ/depart_intro.jsp?hpage=college_006_02",
+  "title": "법학부 학과 소개",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr",
+  "department": "법학부"
+ },
+ {
+  "id": "dept-college_006_05",
+  "url": "https://www.kw.ac.kr/ko/univ/depart_intro.jsp?hpage=college_006_05",
+  "title": "국제학부 학과 소개",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr",
+  "department": "국제학부"
+ },
+ {
+  "id": "dept-college_007_01",
+  "url": "https://www.kw.ac.kr/ko/univ/depart_intro.jsp?hpage=college_007_01",
+  "title": "경영학부 학과 소개",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr",
+  "department": "경영학부"
+ },
+ {
+  "id": "dept-college_007_02",
+  "url": "https://www.kw.ac.kr/ko/univ/depart_intro.jsp?hpage=college_007_02",
+  "title": "국제통상학부 학과 소개",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr",
+  "department": "국제통상학부"
+ },
+ {
+  "id": "dept-college_010_01",
+  "url": "https://www.kw.ac.kr/ko/univ/depart_intro.jsp?hpage=college_010_01",
+  "title": "금융부동산법무학과 학과 소개",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr",
+  "department": "금융부동산법무학과"
+ },
+ {
+  "id": "dept-college_010_02",
+  "url": "https://www.kw.ac.kr/ko/univ/depart_intro.jsp?hpage=college_010_02",
+  "title": "게임콘텐츠학과 학과 소개",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr",
+  "department": "게임콘텐츠학과"
+ },
+ {
+  "id": "dept-college_010_03",
+  "url": "https://www.kw.ac.kr/ko/univ/depart_intro.jsp?hpage=college_010_03",
+  "title": "스마트전기전자학과 학과 소개",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr",
+  "department": "스마트전기전자학과"
+ },
+ {
+  "id": "dept-college_010_04",
+  "url": "https://www.kw.ac.kr/ko/univ/depart_intro.jsp?hpage=college_010_04",
+  "title": "스포츠상담재활학과 학과 소개",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr",
+  "department": "스포츠상담재활학과"
+ },
+ {
+  "id": "must-2026-01",
+  "url": "https://www.kw.ac.kr/ko/life/must_2026_01.xls",
+  "title": "필수과목표 must_2026_01",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "must-2026-02",
+  "url": "https://www.kw.ac.kr/ko/life/must_2026_02.xls",
+  "title": "필수과목표 must_2026_02",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "must-2026-03",
+  "url": "https://www.kw.ac.kr/ko/life/must_2026_03.xls",
+  "title": "필수과목표 must_2026_03",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "must-2026-04",
+  "url": "https://www.kw.ac.kr/ko/life/must_2026_04.xls",
+  "title": "필수과목표 must_2026_04",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "must-2026-05",
+  "url": "https://www.kw.ac.kr/ko/life/must_2026_05.xls",
+  "title": "필수과목표 must_2026_05",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "must-2026-06",
+  "url": "https://www.kw.ac.kr/ko/life/must_2026_06.xls",
+  "title": "필수과목표 must_2026_06",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "must-2026-07",
+  "url": "https://www.kw.ac.kr/ko/life/must_2026_07.xls",
+  "title": "필수과목표 must_2026_07",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "must-2026-08",
+  "url": "https://www.kw.ac.kr/ko/life/must_2026_08.xls",
+  "title": "필수과목표 must_2026_08",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "must-2026-09",
+  "url": "https://www.kw.ac.kr/ko/life/must_2026_09.xls",
+  "title": "필수과목표 must_2026_09",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "must-2026-10",
+  "url": "https://www.kw.ac.kr/ko/life/must_2026_10.xls",
+  "title": "필수과목표 must_2026_10",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "must-2026-11",
+  "url": "https://www.kw.ac.kr/ko/life/must_2026_11.xls",
+  "title": "필수과목표 must_2026_11",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "must-2026-12",
+  "url": "https://www.kw.ac.kr/ko/life/must_2026_12.xls",
+  "title": "필수과목표 must_2026_12",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "must-2026-13",
+  "url": "https://www.kw.ac.kr/ko/life/must_2026_13.xls",
+  "title": "필수과목표 must_2026_13",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "must-2026-14",
+  "url": "https://www.kw.ac.kr/ko/life/must_2026_14.xls",
+  "title": "필수과목표 must_2026_14",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "must-2026-15",
+  "url": "https://www.kw.ac.kr/ko/life/must_2026_15.xls",
+  "title": "필수과목표 must_2026_15",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "must-2026-16",
+  "url": "https://www.kw.ac.kr/ko/life/must_2026_16.xls",
+  "title": "필수과목표 must_2026_16",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "must-2026-17",
+  "url": "https://www.kw.ac.kr/ko/life/must_2026_17.xls",
+  "title": "필수과목표 must_2026_17",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "must-2026-18",
+  "url": "https://www.kw.ac.kr/ko/life/must_2026_18.xlsx",
+  "title": "필수과목표 must_2026_18",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "must-2026-19",
+  "url": "https://www.kw.ac.kr/ko/life/must_2026_19.xls",
+  "title": "필수과목표 must_2026_19",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "must-2026-20",
+  "url": "https://www.kw.ac.kr/ko/life/must_2026_20.xls",
+  "title": "필수과목표 must_2026_20",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "must-2026-21",
+  "url": "https://www.kw.ac.kr/ko/life/must_2026_21.xls",
+  "title": "필수과목표 must_2026_21",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "must-2026-22",
+  "url": "https://www.kw.ac.kr/ko/life/must_2026_22.xls",
+  "title": "필수과목표 must_2026_22",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "must-2026-23",
+  "url": "https://www.kw.ac.kr/ko/life/must_2026_23.xls",
+  "title": "필수과목표 must_2026_23",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "must-2026-24",
+  "url": "https://www.kw.ac.kr/ko/life/must_2026_24.xls",
+  "title": "필수과목표 must_2026_24",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "must-2026-25",
+  "url": "https://www.kw.ac.kr/ko/life/must_2026_25.xls",
+  "title": "필수과목표 must_2026_25",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "must-2026-26",
+  "url": "https://www.kw.ac.kr/ko/life/must_2026_26.xls",
+  "title": "필수과목표 must_2026_26",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "must-2026-28",
+  "url": "https://www.kw.ac.kr/ko/life/must_2026_28.xls",
+  "title": "필수과목표 must_2026_28",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "must-2026-29",
+  "url": "https://www.kw.ac.kr/ko/life/must_2026_29.xls",
+  "title": "필수과목표 must_2026_29",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "must-2026-30",
+  "url": "https://www.kw.ac.kr/ko/life/must_2026_30.xls",
+  "title": "필수과목표 must_2026_30",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "must-2026-31",
+  "url": "https://www.kw.ac.kr/ko/life/must_2026_31.xls",
+  "title": "필수과목표 must_2026_31",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "must-2026-32",
+  "url": "https://www.kw.ac.kr/ko/life/must_2026_32.xls",
+  "title": "필수과목표 must_2026_32",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "must-2026-33",
+  "url": "https://www.kw.ac.kr/ko/life/must_2026_33.xlsx",
+  "title": "필수과목표 must_2026_33",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "must-2026-34",
+  "url": "https://www.kw.ac.kr/ko/life/must_2026_34.xls",
+  "title": "필수과목표 must_2026_34",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "regview-188",
+  "url": "https://rule.kw.ac.kr/lmxsrv/law/lawFullView.do?SEQ=188",
+  "title": "4-3-3 계절수업 운영에 관한 규정 (개정 정보)",
+  "feeds": [
+   "faq"
+  ],
+  "host": "rule.kw.ac.kr"
+ },
+ {
+  "id": "regview-221",
+  "url": "https://rule.kw.ac.kr/lmxsrv/law/lawFullView.do?SEQ=221",
+  "title": "4-3-4 수강신청에 관한 규정 (개정 정보)",
+  "feeds": [
+   "faq"
+  ],
+  "host": "rule.kw.ac.kr"
+ },
+ {
+  "id": "regview-223",
+  "url": "https://rule.kw.ac.kr/lmxsrv/law/lawFullView.do?SEQ=223",
+  "title": "4-3-6 국내대학 수학 및 이수학점 인정에 관한 시행세칙 (개정 정보)",
+  "feeds": [
+   "faq"
+  ],
+  "host": "rule.kw.ac.kr"
+ },
+ {
+  "id": "regview-211",
+  "url": "https://rule.kw.ac.kr/lmxsrv/law/lawFullView.do?SEQ=211",
+  "title": "4-3-11 학사경고자 관리 및 지원에 관한 규정 (개정 정보)",
+  "feeds": [
+   "faq"
+  ],
+  "host": "rule.kw.ac.kr"
+ },
+ {
+  "id": "regview-79",
+  "url": "https://rule.kw.ac.kr/lmxsrv/law/lawFullView.do?SEQ=79",
+  "title": "4-3-18 국제기관 교환학생에 대한 내규 (개정 정보)",
+  "feeds": [
+   "faq"
+  ],
+  "host": "rule.kw.ac.kr"
+ },
+ {
+  "id": "regview-89",
+  "url": "https://rule.kw.ac.kr/lmxsrv/law/lawFullView.do?SEQ=89",
+  "title": "4-3-31 전과에 관한 규정 (개정 정보)",
+  "feeds": [
+   "faq"
+  ],
+  "host": "rule.kw.ac.kr"
+ },
+ {
+  "id": "regview-90",
+  "url": "https://rule.kw.ac.kr/lmxsrv/law/lawFullView.do?SEQ=90",
+  "title": "4-3-32 수업 운영에 관한 규정 (개정 정보)",
+  "feeds": [
+   "faq"
+  ],
+  "host": "rule.kw.ac.kr"
+ },
+ {
+  "id": "regview-87",
+  "url": "https://rule.kw.ac.kr/lmxsrv/law/lawFullView.do?SEQ=87",
+  "title": "4-3-27 현장실습학기제 운영 규정 (개정 정보)",
+  "feeds": [
+   "faq"
+  ],
+  "host": "rule.kw.ac.kr"
+ },
+ {
+  "id": "regview-218",
+  "url": "https://rule.kw.ac.kr/lmxsrv/law/lawFullView.do?SEQ=218",
+  "title": "4-3-33 학생창업 학사지원에 관한 규정 (개정 정보)",
+  "feeds": [
+   "faq"
+  ],
+  "host": "rule.kw.ac.kr"
+ },
+ {
+  "id": "ruletree-13",
+  "url": "https://rule.kw.ac.kr/lmxsrv/law/lawTreeNodes.do?LAWGROUP=1&PARENT=13&TREEDEPTH=3",
+  "title": "제4편 제4장 재무행정 목록",
+  "feeds": [
+   "faq"
+  ],
+  "host": "rule.kw.ac.kr"
+ },
+ {
+  "id": "ruletree-15",
+  "url": "https://rule.kw.ac.kr/lmxsrv/law/lawTreeNodes.do?LAWGROUP=1&PARENT=15&TREEDEPTH=3",
+  "title": "제4편 제6장 학생행정 목록",
+  "feeds": [
+   "faq"
+  ],
+  "host": "rule.kw.ac.kr"
+ },
+ {
+  "id": "reg-hakchik",
+  "url": "https://rule.kw.ac.kr/lmxsrv/law/lawFullContent.do?SEQ=21&SEQ_HISTORY=675",
+  "title": "2-0-1 광운대학교 학칙 (2026.10.28.)",
+  "feeds": [
+   "faq",
+   "rules_tables"
+  ],
+  "host": "rule.kw.ac.kr",
+  "fetch": false,
+  "reused_from": "rules worker"
+ },
+ {
+  "id": "reg-sihaeng",
+  "url": "https://rule.kw.ac.kr/lmxsrv/law/lawFullContent.do?SEQ=22&SEQ_HISTORY=614",
+  "title": "2-0-2 학칙 시행세칙 (2026.02.11.)",
+  "feeds": [
+   "faq",
+   "rules_tables"
+  ],
+  "host": "rule.kw.ac.kr",
+  "fetch": false,
+  "reused_from": "rules worker"
+ },
+ {
+  "id": "reg-damajor-isu",
+  "url": "https://rule.kw.ac.kr/lmxsrv/law/lawFullContent.do?SEQ=95&SEQ_HISTORY=672",
+  "title": "4-3-8 다전공 이수에 관한 내규",
+  "feeds": [
+   "faq",
+   "rules_tables"
+  ],
+  "host": "rule.kw.ac.kr",
+  "fetch": false,
+  "reused_from": "rules worker"
+ },
+ {
+  "id": "reg-damajor-unyeong",
+  "url": "https://rule.kw.ac.kr/lmxsrv/law/lawFullContent.do?SEQ=96&SEQ_HISTORY=525",
+  "title": "4-3-9 다전공 운영에 관한 내규",
+  "feeds": [
+   "faq",
+   "rules_tables"
+  ],
+  "host": "rule.kw.ac.kr",
+  "fetch": false,
+  "reused_from": "rules worker"
+ },
+ {
+  "id": "reg-early-grad",
+  "url": "https://rule.kw.ac.kr/lmxsrv/law/lawFullContent.do?SEQ=216&SEQ_HISTORY=422",
+  "title": "4-3-2 조기졸업에 관한 규정",
+  "feeds": [
+   "faq",
+   "rules_tables"
+  ],
+  "host": "rule.kw.ac.kr",
+  "fetch": false,
+  "reused_from": "rules worker"
+ },
+ {
+  "id": "reg-gyoyang",
+  "url": "https://rule.kw.ac.kr/lmxsrv/law/lawFullContent.do?SEQ=77&SEQ_HISTORY=509",
+  "title": "4-3-1 교양교육 운영 규정",
+  "feeds": [
+   "faq",
+   "rules_tables"
+  ],
+  "host": "rule.kw.ac.kr",
+  "fetch": false,
+  "reused_from": "rules worker"
+ },
+ {
+  "id": "annex-hakchik-6",
+  "url": "https://rule.kw.ac.kr/lmxsrv/fileDown.do?FILE_SEQ=3092&FILE_TYPE=attach",
+  "title": "학칙 [별표 6] 입학년도별 단과대학(학과)별 이수학점 안내 (HWP)",
+  "feeds": [
+   "rules_tables"
+  ],
+  "host": "rule.kw.ac.kr"
+ },
+ {
+  "id": "annex-damajor-1",
+  "url": "https://rule.kw.ac.kr/lmxsrv/fileDown.do?FILE_SEQ=3086&FILE_TYPE=attach",
+  "title": "다전공 이수에 관한 내규 [별표1] 연계전공별 이수학점 및 학위명 (HWP)",
+  "feeds": [
+   "rules_tables"
+  ],
+  "host": "rule.kw.ac.kr"
+ },
+ {
+  "id": "annex-gyoyang-2",
+  "url": "https://rule.kw.ac.kr/lmxsrv/fileDown.do?FILE_SEQ=2708&FILE_TYPE=attach",
+  "title": "교양교육 운영 규정 [별표2] 교양교과목 분류 (HWP)",
+  "feeds": [
+   "rules_tables"
+  ],
+  "host": "rule.kw.ac.kr"
+ },
+ {
+  "id": "oia-outbound",
+  "url": "https://oia.kw.ac.kr/exchange/outbound.php",
+  "title": "국제교류팀 교환학생(파견) 안내",
+  "feeds": [
+   "faq"
+  ],
+  "host": "oia.kw.ac.kr"
+ },
+ {
+  "id": "kupis-home",
+  "url": "https://kupis.kw.ac.kr/",
+  "title": "중앙도서관 홈",
+  "feeds": [
+   "faq"
+  ],
+  "host": "kupis.kw.ac.kr"
+ },
+ {
+  "id": "curr-college_001_01",
+  "url": "https://www.kw.ac.kr/ko/univ/electronic01_4.jsp",
+  "title": "전자공학과 교육과정",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr",
+  "department": "전자공학과"
+ },
+ {
+  "id": "curr-college_001_04",
+  "url": "https://www.kw.ac.kr/ko/univ/electronic02_4.jsp",
+  "title": "전자통신공학과 교육과정",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr",
+  "department": "전자통신공학과"
+ },
+ {
+  "id": "curr-college_001_05",
+  "url": "https://www.kw.ac.kr/ko/univ/electronic03_4.jsp",
+  "title": "전자융합공학과 교육과정",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr",
+  "department": "전자융합공학과"
+ },
+ {
+  "id": "curr-college_001_02",
+  "url": "https://www.kw.ac.kr/ko/univ/electronic06_4.jsp",
+  "title": "전기공학과 교육과정",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr",
+  "department": "전기공학과"
+ },
+ {
+  "id": "curr-college_001_03",
+  "url": "https://www.kw.ac.kr/ko/univ/electronic07_4.jsp",
+  "title": "전자재료공학과 교육과정",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr",
+  "department": "전자재료공학과"
+ },
+ {
+  "id": "curr-college_001_08",
+  "url": "https://www.kw.ac.kr/ko/univ/electronic11_4.jsp",
+  "title": "반도체시스템공학부 교육과정",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr",
+  "department": "반도체시스템공학부"
+ },
+ {
+  "id": "curr-college_011_01",
+  "url": "https://www.kw.ac.kr/ko/univ/ai01_4.jsp",
+  "title": "컴퓨터정보공학부 교육과정",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr",
+  "department": "컴퓨터정보공학부"
+ },
+ {
+  "id": "curr-college_011_02",
+  "url": "https://www.kw.ac.kr/ko/univ/ai02_4.jsp",
+  "title": "소프트웨어학부 교육과정",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr",
+  "department": "소프트웨어학부"
+ },
+ {
+  "id": "curr-college_011_03",
+  "url": "https://www.kw.ac.kr/ko/univ/ai03_4.jsp",
+  "title": "정보융합학부 교육과정",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr",
+  "department": "정보융합학부"
+ },
+ {
+  "id": "curr-college_011_04",
+  "url": "https://www.kw.ac.kr/ko/univ/ai04_4.jsp",
+  "title": "로봇학부 교육과정",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr",
+  "department": "로봇학부"
+ },
+ {
+  "id": "curr-college_011_05",
+  "url": "https://www.kw.ac.kr/ko/univ/ai05_4.jsp",
+  "title": "정보제어·지능시스템전공 교육과정",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr",
+  "department": "정보제어·지능시스템전공"
+ },
+ {
+  "id": "curr-college_003_01",
+  "url": "https://www.kw.ac.kr/ko/univ/engineering01_4.jsp",
+  "title": "건축공학과 교육과정",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr",
+  "department": "건축공학과"
+ },
+ {
+  "id": "curr-college_003_02",
+  "url": "https://www.kw.ac.kr/ko/univ/engineering02_4.jsp",
+  "title": "화학공학과 교육과정",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr",
+  "department": "화학공학과"
+ },
+ {
+  "id": "curr-college_003_03",
+  "url": "https://www.kw.ac.kr/ko/univ/engineering03_4.jsp",
+  "title": "환경공학과 교육과정",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr",
+  "department": "환경공학과"
+ },
+ {
+  "id": "curr-college_003_04",
+  "url": "https://www.kw.ac.kr/ko/univ/engineering04_4.jsp",
+  "title": "건축학과 교육과정",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr",
+  "department": "건축학과"
+ },
+ {
+  "id": "curr-college_004_01",
+  "url": "https://www.kw.ac.kr/ko/univ/science01_4.jsp",
+  "title": "수학과 교육과정",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr",
+  "department": "수학과"
+ },
+ {
+  "id": "curr-college_004_02",
+  "url": "https://www.kw.ac.kr/ko/univ/science02_4.jsp",
+  "title": "전자바이오물리학과 교육과정",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr",
+  "department": "전자바이오물리학과"
+ },
+ {
+  "id": "curr-college_004_04",
+  "url": "https://www.kw.ac.kr/ko/univ/science03_4.jsp",
+  "title": "화학과 교육과정",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr",
+  "department": "화학과"
+ },
+ {
+  "id": "curr-college_004_05",
+  "url": "https://www.kw.ac.kr/ko/univ/science04_4.jsp",
+  "title": "스포츠융합과학과 교육과정",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr",
+  "department": "스포츠융합과학과"
+ },
+ {
+  "id": "curr-college_005_01",
+  "url": "https://www.kw.ac.kr/ko/univ/social01_4.jsp",
+  "title": "국어국문학과 교육과정",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr",
+  "department": "국어국문학과"
+ },
+ {
+  "id": "curr-college_005_02",
+  "url": "https://www.kw.ac.kr/ko/univ/social02_4.jsp",
+  "title": "영어산업학과 교육과정",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr",
+  "department": "영어산업학과"
+ },
+ {
+  "id": "curr-college_005_03",
+  "url": "https://www.kw.ac.kr/ko/univ/social03_4.jsp",
+  "title": "미디어커뮤니케이션학부 교육과정",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr",
+  "department": "미디어커뮤니케이션학부"
+ },
+ {
+  "id": "curr-college_005_06",
+  "url": "https://www.kw.ac.kr/ko/univ/social06_4.jsp",
+  "title": "산업심리학과 교육과정",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr",
+  "department": "산업심리학과"
+ },
+ {
+  "id": "curr-college_005_07",
+  "url": "https://www.kw.ac.kr/ko/univ/social07_4.jsp",
+  "title": "동북아문화산업학부 교육과정",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr",
+  "department": "동북아문화산업학부"
+ },
+ {
+  "id": "curr-college_006_01",
+  "url": "https://www.kw.ac.kr/ko/univ/law01_4.jsp",
+  "title": "행정학과 교육과정",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr",
+  "department": "행정학과"
+ },
+ {
+  "id": "curr-college_006_02",
+  "url": "https://www.kw.ac.kr/ko/univ/law02_4.jsp",
+  "title": "법학부 교육과정",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr",
+  "department": "법학부"
+ },
+ {
+  "id": "curr-college_006_05",
+  "url": "https://www.kw.ac.kr/ko/univ/law05_4.jsp",
+  "title": "국제학부 교육과정",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr",
+  "department": "국제학부"
+ },
+ {
+  "id": "curr-college_007_01",
+  "url": "https://www.kw.ac.kr/ko/univ/business01_4.jsp",
+  "title": "경영학부 교육과정",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr",
+  "department": "경영학부"
+ },
+ {
+  "id": "curr-college_007_02",
+  "url": "https://www.kw.ac.kr/ko/univ/business02_4.jsp",
+  "title": "국제통상학부 교육과정",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr",
+  "department": "국제통상학부"
+ },
+ {
+  "id": "curr-college_010_01",
+  "url": "https://www.kw.ac.kr/ko/univ/chambit01_4.jsp",
+  "title": "금융부동산법무학과 교육과정",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr",
+  "department": "금융부동산법무학과"
+ },
+ {
+  "id": "curr-college_010_02",
+  "url": "https://www.kw.ac.kr/ko/univ/chambit02_4.jsp",
+  "title": "게임콘텐츠학과 교육과정",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr",
+  "department": "게임콘텐츠학과"
+ },
+ {
+  "id": "curr-college_010_03",
+  "url": "https://www.kw.ac.kr/ko/univ/chambit03_4.jsp",
+  "title": "스마트전기전자학과 교육과정",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr",
+  "department": "스마트전기전자학과"
+ },
+ {
+  "id": "curr-college_010_04",
+  "url": "https://www.kw.ac.kr/ko/univ/chambit04_4.jsp",
+  "title": "스포츠상담재활학과 교육과정",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr",
+  "department": "스포츠상담재활학과"
+ },
+ {
+  "id": "reg-188",
+  "url": "https://rule.kw.ac.kr/lmxsrv/law/lawFullContent.do?SEQ=188&SEQ_HISTORY=599",
+  "title": "4-3-3 계절수업 운영에 관한 규정",
+  "feeds": [
+   "faq"
+  ],
+  "host": "rule.kw.ac.kr"
+ },
+ {
+  "id": "reg-221",
+  "url": "https://rule.kw.ac.kr/lmxsrv/law/lawFullContent.do?SEQ=221&SEQ_HISTORY=619",
+  "title": "4-3-4 수강신청에 관한 규정",
+  "feeds": [
+   "faq"
+  ],
+  "host": "rule.kw.ac.kr"
+ },
+ {
+  "id": "reg-223",
+  "url": "https://rule.kw.ac.kr/lmxsrv/law/lawFullContent.do?SEQ=223&SEQ_HISTORY=429",
+  "title": "4-3-6 국내대학 수학 및 이수학점 인정에 관한 시행세칙",
+  "feeds": [
+   "faq"
+  ],
+  "host": "rule.kw.ac.kr"
+ },
+ {
+  "id": "reg-211",
+  "url": "https://rule.kw.ac.kr/lmxsrv/law/lawFullContent.do?SEQ=211&SEQ_HISTORY=417",
+  "title": "4-3-11 학사경고자 관리 및 지원에 관한 규정",
+  "feeds": [
+   "faq"
+  ],
+  "host": "rule.kw.ac.kr"
+ },
+ {
+  "id": "reg-79",
+  "url": "https://rule.kw.ac.kr/lmxsrv/law/lawFullContent.do?SEQ=79&SEQ_HISTORY=654",
+  "title": "4-3-18 국제기관 교환학생에 대한 내규",
+  "feeds": [
+   "faq"
+  ],
+  "host": "rule.kw.ac.kr"
+ },
+ {
+  "id": "reg-89",
+  "url": "https://rule.kw.ac.kr/lmxsrv/law/lawFullContent.do?SEQ=89&SEQ_HISTORY=676",
+  "title": "4-3-31 전과에 관한 규정",
+  "feeds": [
+   "faq"
+  ],
+  "host": "rule.kw.ac.kr"
+ },
+ {
+  "id": "reg-90",
+  "url": "https://rule.kw.ac.kr/lmxsrv/law/lawFullContent.do?SEQ=90&SEQ_HISTORY=511",
+  "title": "4-3-32 수업 운영에 관한 규정",
+  "feeds": [
+   "faq"
+  ],
+  "host": "rule.kw.ac.kr"
+ },
+ {
+  "id": "reg-87",
+  "url": "https://rule.kw.ac.kr/lmxsrv/law/lawFullContent.do?SEQ=87&SEQ_HISTORY=218",
+  "title": "4-3-27 현장실습학기제 운영 규정",
+  "feeds": [
+   "faq"
+  ],
+  "host": "rule.kw.ac.kr"
+ },
+ {
+  "id": "reg-218",
+  "url": "https://rule.kw.ac.kr/lmxsrv/law/lawFullContent.do?SEQ=218&SEQ_HISTORY=606",
+  "title": "4-3-33 학생창업 학사지원에 관한 규정",
+  "feeds": [
+   "faq"
+  ],
+  "host": "rule.kw.ac.kr"
+ },
+ {
+  "id": "regview-114",
+  "url": "https://rule.kw.ac.kr/lmxsrv/law/lawFullView.do?SEQ=114",
+  "title": "4-6-4 장학 규정 (개정 정보)",
+  "feeds": [
+   "faq"
+  ],
+  "host": "rule.kw.ac.kr"
+ },
+ {
+  "id": "regview-230",
+  "url": "https://rule.kw.ac.kr/lmxsrv/law/lawFullView.do?SEQ=230",
+  "title": "4-4-9 납입금 반환에 관한 규정 (개정 정보)",
+  "feeds": [
+   "faq"
+  ],
+  "host": "rule.kw.ac.kr"
+ },
+ {
+  "id": "regview-229",
+  "url": "https://rule.kw.ac.kr/lmxsrv/law/lawFullView.do?SEQ=229",
+  "title": "4-4-8 제증명 수수료 징수 규정 (개정 정보)",
+  "feeds": [
+   "faq"
+  ],
+  "host": "rule.kw.ac.kr"
+ },
+ {
+  "id": "reg-114",
+  "url": "https://rule.kw.ac.kr/lmxsrv/law/lawFullContent.do?SEQ=114&SEQ_HISTORY=666",
+  "title": "4-6-4 장학 규정",
+  "feeds": [
+   "faq"
+  ],
+  "host": "rule.kw.ac.kr"
+ },
+ {
+  "id": "reg-230",
+  "url": "https://rule.kw.ac.kr/lmxsrv/law/lawFullContent.do?SEQ=230&SEQ_HISTORY=436",
+  "title": "4-4-9 납입금 반환에 관한 규정",
+  "feeds": [
+   "faq"
+  ],
+  "host": "rule.kw.ac.kr"
+ },
+ {
+  "id": "reg-229",
+  "url": "https://rule.kw.ac.kr/lmxsrv/law/lawFullContent.do?SEQ=229&SEQ_HISTORY=435",
+  "title": "4-4-8 제증명 수수료 징수 규정",
+  "feeds": [
+   "faq"
+  ],
+  "host": "rule.kw.ac.kr"
+ },
+ {
+  "id": "faqlist-2",
+  "url": "https://www.kw.ac.kr/ko/life/faq.jsp?MaxRows=10&tpage=2&searchKey=1&searchVal=&srCategoryId=",
+  "title": "종합 FAQ 목록 2쪽",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "faqlist-3",
+  "url": "https://www.kw.ac.kr/ko/life/faq.jsp?MaxRows=10&tpage=3&searchKey=1&searchVal=&srCategoryId=",
+  "title": "종합 FAQ 목록 3쪽",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "faqlist-4",
+  "url": "https://www.kw.ac.kr/ko/life/faq.jsp?MaxRows=10&tpage=4&searchKey=1&searchVal=&srCategoryId=",
+  "title": "종합 FAQ 목록 4쪽",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "faqlist-5",
+  "url": "https://www.kw.ac.kr/ko/life/faq.jsp?MaxRows=10&tpage=5&searchKey=1&searchVal=&srCategoryId=",
+  "title": "종합 FAQ 목록 5쪽",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "faqlist-6",
+  "url": "https://www.kw.ac.kr/ko/life/faq.jsp?MaxRows=10&tpage=6&searchKey=1&searchVal=&srCategoryId=",
+  "title": "종합 FAQ 목록 6쪽",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "faqlist-7",
+  "url": "https://www.kw.ac.kr/ko/life/faq.jsp?MaxRows=10&tpage=7&searchKey=1&searchVal=&srCategoryId=",
+  "title": "종합 FAQ 목록 7쪽",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "faqlist-8",
+  "url": "https://www.kw.ac.kr/ko/life/faq.jsp?MaxRows=10&tpage=8&searchKey=1&searchVal=&srCategoryId=",
+  "title": "종합 FAQ 목록 8쪽",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "faq-53053",
+  "url": "https://www.kw.ac.kr/ko/life/faq.jsp?BoardMode=view&DUID=53053",
+  "title": "종합 FAQ [교육지원팀] 군 복무 e-러닝 수강신청 및 학점 인정 안내",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "faq-52309",
+  "url": "https://www.kw.ac.kr/ko/life/faq.jsp?BoardMode=view&DUID=52309",
+  "title": "종합 FAQ [교육지원팀] 학적부 정정 신청 안내",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "faq-49939",
+  "url": "https://www.kw.ac.kr/ko/life/faq.jsp?BoardMode=view&DUID=49939",
+  "title": "종합 FAQ [교육지원팀] 출석부•학생증 사진 변경 방법 안내",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "faq-34897",
+  "url": "https://www.kw.ac.kr/ko/life/faq.jsp?BoardMode=view&DUID=34897",
+  "title": "종합 FAQ [교육지원팀] 자퇴 신청 절차 안내 (자퇴원서 첨부)",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "faq-34581",
+  "url": "https://www.kw.ac.kr/ko/life/faq.jsp?BoardMode=view&DUID=34581",
+  "title": "종합 FAQ [교육지원팀] 수강신청 프로그램 설치방법 및 이용방법 안내(2020학년도 리뉴얼)",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "faq-829",
+  "url": "https://www.kw.ac.kr/ko/life/faq.jsp?BoardMode=view&DUID=829",
+  "title": "종합 FAQ [교육지원팀] 졸업연기 및 조기졸업 신청방법",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "faq-791",
+  "url": "https://www.kw.ac.kr/ko/life/faq.jsp?BoardMode=view&DUID=791",
+  "title": "종합 FAQ [예비군연대] 예비군업무 자주하는 질문",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "faq-783",
+  "url": "https://www.kw.ac.kr/ko/life/faq.jsp?BoardMode=view&DUID=783",
+  "title": "종합 FAQ [재무팀] 학부생 은행정보 등록 안내",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "faq-782",
+  "url": "https://www.kw.ac.kr/ko/life/faq.jsp?BoardMode=view&DUID=782",
+  "title": "종합 FAQ [재무팀] 졸업요건 미달자에 대한 등록금 책정 기준(학점당 등록)",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "faq-781",
+  "url": "https://www.kw.ac.kr/ko/life/faq.jsp?BoardMode=view&DUID=781",
+  "title": "종합 FAQ [재무팀] 등록금 반환 안내",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "faq-780",
+  "url": "https://www.kw.ac.kr/ko/life/faq.jsp?BoardMode=view&DUID=780",
+  "title": "종합 FAQ [재무팀] 교육비납입증명서 발급 안내",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "faq-779",
+  "url": "https://www.kw.ac.kr/ko/life/faq.jsp?BoardMode=view&DUID=779",
+  "title": "종합 FAQ [재무팀] 등록금 납부 안내",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "faq-776",
+  "url": "https://www.kw.ac.kr/ko/life/faq.jsp?BoardMode=view&DUID=776",
+  "title": "종합 FAQ [예비군연대] 학생예비군의 연간 교육훈련시간을 알고 싶은데요",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "faq-775",
+  "url": "https://www.kw.ac.kr/ko/life/faq.jsp?BoardMode=view&DUID=775",
+  "title": "종합 FAQ [예비군연대] 신입생(복학생)예비군의 신고절차는 어떻게 되나요?",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "faq-774",
+  "url": "https://www.kw.ac.kr/ko/life/faq.jsp?BoardMode=view&DUID=774",
+  "title": "종합 FAQ [예비군연대] 학생예비군으로 재학하고있다가 휴학을 하면 예비군관계는 어떻게 신고를 하면 됩니까?",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "faq-750",
+  "url": "https://www.kw.ac.kr/ko/life/faq.jsp?BoardMode=view&DUID=750",
+  "title": "종합 FAQ [정보운영팀] 광운대학교 오는 교통편",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "dept-college_001_07",
+  "url": "https://www.kw.ac.kr/ko/univ/depart_intro.jsp?hpage=college_001_07",
+  "title": "지능시스템전공 학과 소개",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr",
+  "department": "지능시스템전공"
+ },
+ {
+  "id": "dept-college_005_04",
+  "url": "https://www.kw.ac.kr/ko/univ/depart_intro.jsp?hpage=college_005_04",
+  "title": "인터랙티브미디어커뮤니케이션전공 학과 소개",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr",
+  "department": "인터랙티브미디어커뮤니케이션전공"
+ },
+ {
+  "id": "dept-college_005_05",
+  "url": "https://www.kw.ac.kr/ko/univ/depart_intro.jsp?hpage=college_005_05",
+  "title": "전략커뮤니케이션전공 학과 소개",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr",
+  "department": "전략커뮤니케이션전공"
+ },
+ {
+  "id": "dept-college_005_08",
+  "url": "https://www.kw.ac.kr/ko/univ/depart_intro.jsp?hpage=college_005_08",
+  "title": "문화콘텐츠개발전공 학과 소개",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr",
+  "department": "문화콘텐츠개발전공"
+ },
+ {
+  "id": "dept-college_006_08",
+  "url": "https://www.kw.ac.kr/ko/univ/depart_intro.jsp?hpage=college_006_08",
+  "title": "기업법무전공 학과 소개",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr",
+  "department": "기업법무전공"
+ },
+ {
+  "id": "dept-college_006_04",
+  "url": "https://www.kw.ac.kr/ko/univ/depart_intro.jsp?hpage=college_006_04",
+  "title": "과학기술법무전공 학과 소개",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr",
+  "department": "과학기술법무전공"
+ },
+ {
+  "id": "dept-college_006_03",
+  "url": "https://www.kw.ac.kr/ko/univ/depart_intro.jsp?hpage=college_006_03",
+  "title": "국제법무전공 학과 소개",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr",
+  "department": "국제법무전공"
+ },
+ {
+  "id": "dept-college_006_06",
+  "url": "https://www.kw.ac.kr/ko/univ/depart_intro.jsp?hpage=college_006_06",
+  "title": "글로벌코리아전공 학과 소개",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr",
+  "department": "글로벌코리아전공"
+ },
+ {
+  "id": "dept-college_007_03",
+  "url": "https://www.kw.ac.kr/ko/univ/depart_intro.jsp?hpage=college_007_03",
+  "title": "빅데이터경영전공 학과 소개",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr",
+  "department": "빅데이터경영전공"
+ },
+ {
+  "id": "dept-college_007_04",
+  "url": "https://www.kw.ac.kr/ko/univ/depart_intro.jsp?hpage=college_007_04",
+  "title": "국제금융전공 학과 소개",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr",
+  "department": "국제금융전공"
+ },
+ {
+  "id": "dept-college_007_05",
+  "url": "https://www.kw.ac.kr/ko/univ/depart_intro.jsp?hpage=college_007_05",
+  "title": "글로벌비즈니스전공 학과 소개",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr",
+  "department": "글로벌비즈니스전공"
+ },
+ {
+  "id": "curr-college_001_07",
+  "url": "https://www.kw.ac.kr/ko/univ/electronic09_4.jsp",
+  "title": "지능시스템전공 교육과정",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr",
+  "department": "지능시스템전공"
+ },
+ {
+  "id": "curr-college_005_04",
+  "url": "https://www.kw.ac.kr/ko/univ/social04_4.jsp",
+  "title": "인터랙티브미디어커뮤니케이션전공 교육과정",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr",
+  "department": "인터랙티브미디어커뮤니케이션전공"
+ },
+ {
+  "id": "curr-college_005_05",
+  "url": "https://www.kw.ac.kr/ko/univ/social05_4.jsp",
+  "title": "전략커뮤니케이션전공 교육과정",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr",
+  "department": "전략커뮤니케이션전공"
+ },
+ {
+  "id": "curr-college_005_08",
+  "url": "https://www.kw.ac.kr/ko/univ/social08_4.jsp",
+  "title": "문화콘텐츠개발전공 교육과정",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr",
+  "department": "문화콘텐츠개발전공"
+ },
+ {
+  "id": "curr-college_006_08",
+  "url": "https://www.kw.ac.kr/ko/univ/law08_4.jsp",
+  "title": "기업법무전공 교육과정",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr",
+  "department": "기업법무전공"
+ },
+ {
+  "id": "curr-college_006_04",
+  "url": "https://www.kw.ac.kr/ko/univ/law04_4.jsp",
+  "title": "과학기술법무전공 교육과정",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr",
+  "department": "과학기술법무전공"
+ },
+ {
+  "id": "curr-college_006_03",
+  "url": "https://www.kw.ac.kr/ko/univ/law03_4.jsp",
+  "title": "국제법무전공 교육과정",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr",
+  "department": "국제법무전공"
+ },
+ {
+  "id": "curr-college_007_03",
+  "url": "https://www.kw.ac.kr/ko/univ/business03_4.jsp",
+  "title": "빅데이터경영전공 교육과정",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr",
+  "department": "빅데이터경영전공"
+ },
+ {
+  "id": "curr-college_007_04",
+  "url": "https://www.kw.ac.kr/ko/univ/business04_4.jsp",
+  "title": "국제금융전공 교육과정",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr",
+  "department": "국제금융전공"
+ },
+ {
+  "id": "curr-college_007_05",
+  "url": "https://www.kw.ac.kr/ko/univ/business05_4.jsp",
+  "title": "글로벌비즈니스전공 교육과정",
+  "feeds": [
+   "curricula"
+  ],
+  "host": "www.kw.ac.kr",
+  "department": "글로벌비즈니스전공"
+ },
+ {
+  "id": "regview-78",
+  "url": "https://rule.kw.ac.kr/lmxsrv/law/lawFullView.do?SEQ=78",
+  "title": "4-3-10 교과과정 편성 및 운영에 관한 규정 (개정 정보)",
+  "feeds": [
+   "faq"
+  ],
+  "host": "rule.kw.ac.kr"
+ },
+ {
+  "id": "regview-189",
+  "url": "https://rule.kw.ac.kr/lmxsrv/law/lawFullView.do?SEQ=189",
+  "title": "4-3-39 자율전공학부 운영에 관한 규정 (개정 정보)",
+  "feeds": [
+   "faq"
+  ],
+  "host": "rule.kw.ac.kr"
+ },
+ {
+  "id": "annex-class-3",
+  "url": "https://rule.kw.ac.kr/lmxsrv/fileDown.do?FILE_SEQ=2715&FILE_TYPE=attach",
+  "title": "수업 운영에 관한 규정 [별표3] 수강인원 (HWP)",
+  "feeds": [
+   "rules_tables"
+  ],
+  "host": "rule.kw.ac.kr"
+ },
+ {
+  "id": "annex-class-4",
+  "url": "https://rule.kw.ac.kr/lmxsrv/fileDown.do?FILE_SEQ=2716&FILE_TYPE=attach",
+  "title": "수업 운영에 관한 규정 [별표4] 유고결석 사유에 따른 결석 허용기간 (HWP)",
+  "feeds": [
+   "rules_tables"
+  ],
+  "host": "rule.kw.ac.kr"
+ },
+ {
+  "id": "annex-scholar-1",
+  "url": "https://rule.kw.ac.kr/lmxsrv/fileDown.do?FILE_SEQ=3076&FILE_TYPE=attach",
+  "title": "장학 규정 [별표 1] 장학금 종류별 지급대상 및 신청자격 (HWP)",
+  "feeds": [
+   "rules_tables"
+  ],
+  "host": "rule.kw.ac.kr"
+ },
+ {
+  "id": "reg-78",
+  "url": "https://rule.kw.ac.kr/lmxsrv/law/lawFullContent.do?SEQ=78&SEQ_HISTORY=620",
+  "title": "4-3-10 교과과정 편성 및 운영에 관한 규정",
+  "feeds": [
+   "faq"
+  ],
+  "host": "rule.kw.ac.kr"
+ },
+ {
+  "id": "reg-189",
+  "url": "https://rule.kw.ac.kr/lmxsrv/law/lawFullContent.do?SEQ=189&SEQ_HISTORY=601",
+  "title": "4-3-39 자율전공학부 운영에 관한 규정",
+  "feeds": [
+   "faq"
+  ],
+  "host": "rule.kw.ac.kr"
+ },
+ {
+  "id": "daple-snapshot",
+  "url": "https://daple.kwuniv.com",
+  "title": "다전공 플래너(Daple) 2026-11-07 확인",
+  "feeds": [
+   "faq"
+  ],
+  "host": "daple.kwuniv.com",
+  "fetch": false,
+  "provided_by": "owner snapshot"
+ },
+ {
+  "id": "notices-haksa-1",
+  "url": "https://www.kw.ac.kr/ko/life/notice.jsp?srCategoryId=1&mode=list&tpage=1",
+  "title": "공지사항 학사 목록 1쪽",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "notices-haksa-2",
+  "url": "https://www.kw.ac.kr/ko/life/notice.jsp?srCategoryId=1&mode=list&tpage=2",
+  "title": "공지사항 학사 목록 2쪽",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "notices-haksa-3",
+  "url": "https://www.kw.ac.kr/ko/life/notice.jsp?srCategoryId=1&mode=list&tpage=3",
+  "title": "공지사항 학사 목록 3쪽",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "notices-jang-1",
+  "url": "https://www.kw.ac.kr/ko/life/notice.jsp?srCategoryId=4&mode=list&tpage=1",
+  "title": "공지사항 등록/장학 목록 1쪽",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "notices-jang-2",
+  "url": "https://www.kw.ac.kr/ko/life/notice.jsp?srCategoryId=4&mode=list&tpage=2",
+  "title": "공지사항 등록/장학 목록 2쪽",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "college-001",
+  "url": "https://www.kw.ac.kr/ko/univ/college_view.jsp?hpage=college_001",
+  "title": "단과대학 소개 college_001",
+  "feeds": [
+   "faq",
+   "contacts"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "college-003",
+  "url": "https://www.kw.ac.kr/ko/univ/college_view.jsp?hpage=college_003",
+  "title": "단과대학 소개 college_003",
+  "feeds": [
+   "faq",
+   "contacts"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "college-004",
+  "url": "https://www.kw.ac.kr/ko/univ/college_view.jsp?hpage=college_004",
+  "title": "단과대학 소개 college_004",
+  "feeds": [
+   "faq",
+   "contacts"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "college-005",
+  "url": "https://www.kw.ac.kr/ko/univ/college_view.jsp?hpage=college_005",
+  "title": "단과대학 소개 college_005",
+  "feeds": [
+   "faq",
+   "contacts"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "college-006",
+  "url": "https://www.kw.ac.kr/ko/univ/college_view.jsp?hpage=college_006",
+  "title": "단과대학 소개 college_006",
+  "feeds": [
+   "faq",
+   "contacts"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "college-007",
+  "url": "https://www.kw.ac.kr/ko/univ/college_view.jsp?hpage=college_007",
+  "title": "단과대학 소개 college_007",
+  "feeds": [
+   "faq",
+   "contacts"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "college-008",
+  "url": "https://www.kw.ac.kr/ko/univ/college_view.jsp?hpage=college_008",
+  "title": "단과대학 소개 college_008",
+  "feeds": [
+   "faq",
+   "contacts"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "college-010",
+  "url": "https://www.kw.ac.kr/ko/univ/college_view.jsp?hpage=college_010",
+  "title": "단과대학 소개 college_010",
+  "feeds": [
+   "faq",
+   "contacts"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "college-011",
+  "url": "https://www.kw.ac.kr/ko/univ/college_view.jsp?hpage=college_011",
+  "title": "단과대학 소개 college_011",
+  "feeds": [
+   "faq",
+   "contacts"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "dorm-home",
+  "url": "https://kw.happydorm.or.kr/",
+  "title": "행복기숙사(빛솔재) 홈페이지",
+  "feeds": [
+   "faq"
+  ],
+  "host": "kw.happydorm.or.kr"
+ },
+ {
+  "id": "seat-status",
+  "url": "http://mobileid.kw.ac.kr/seatweb/domian5.asp",
+  "title": "중앙도서관 열람실 좌석 현황",
+  "feeds": [
+   "faq"
+  ],
+  "host": "mobileid.kw.ac.kr"
+ },
+ {
+  "id": "notice-53557",
+  "url": "https://www.kw.ac.kr/ko/life/notice.jsp?BoardMode=view&DUID=53557",
+  "title": "공지 [학사] 2026학년도 동계계절수업 타대학 학점교류 안내 (본교→타교)",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "notice-53449",
+  "url": "https://www.kw.ac.kr/ko/life/notice.jsp?BoardMode=view&DUID=53449",
+  "title": "공지 [학사] 2026학년도 2학기 중간고사 일정 및 시행 지침 안내",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "notice-53320",
+  "url": "https://www.kw.ac.kr/ko/life/notice.jsp?BoardMode=view&DUID=53320",
+  "title": "공지 [학사] 2026학년도 2학기 학부 수강과목 포기 안내",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "notice-53174",
+  "url": "https://www.kw.ac.kr/ko/life/notice.jsp?BoardMode=view&DUID=53174",
+  "title": "공지 [학사] 2026학년도 2학기 학부 재수강 불가 과목의 취득학점 포기 안내",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "notice-52920",
+  "url": "https://www.kw.ac.kr/ko/life/notice.jsp?BoardMode=view&DUID=52920",
+  "title": "공지 [학사] 2026학년도 2학기 수강신청 공고",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "notice-53138",
+  "url": "https://www.kw.ac.kr/ko/life/notice.jsp?BoardMode=view&DUID=53138",
+  "title": "공지 [학사] 2026학년도 전기(2027. 2.) 졸업연기 및 조기졸업 신청 안내",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "notice-53083",
+  "url": "https://www.kw.ac.kr/ko/life/notice.jsp?BoardMode=view&DUID=53083",
+  "title": "공지 [학사] 2026학년도 2학기 조기취업자에 관한 사항 안내",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "notice-53077",
+  "url": "https://www.kw.ac.kr/ko/life/notice.jsp?BoardMode=view&DUID=53077",
+  "title": "공지 [학사] 2026학년도 2학기 유고결석 및 공결에 관한 사항 안내",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "notice-52850",
+  "url": "https://www.kw.ac.kr/ko/life/notice.jsp?BoardMode=view&DUID=52850",
+  "title": "공지 [학사] 2026학년도 1학기 성적 확인 및 성적증명서 발급 안내",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "notice-52788",
+  "url": "https://www.kw.ac.kr/ko/life/notice.jsp?BoardMode=view&DUID=52788",
+  "title": "공지 [학사] 2026학년도 2학기 재입학 전형 안내",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "notice-53624",
+  "url": "https://www.kw.ac.kr/ko/life/notice.jsp?BoardMode=view&DUID=53624",
+  "title": "공지 [등록/장학] 2026학년도 2학기 국가장학금 지급 (예정)안내(1차)",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "notice-53561",
+  "url": "https://www.kw.ac.kr/ko/life/notice.jsp?BoardMode=view&DUID=53561",
+  "title": "공지 [등록/장학] 2026학년도 2학기 화도 및 동해장학금 2차 신청 안내",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "dorm-main",
+  "url": "https://kw.happydorm.or.kr/00/0000.do",
+  "title": "행복기숙사(빛솔재) 메인",
+  "feeds": [
+   "faq"
+  ],
+  "host": "kw.happydorm.or.kr"
+ },
+ {
+  "id": "dorm-admission",
+  "url": "https://kw.happydorm.or.kr/30/3010.do",
+  "title": "행복기숙사 입사/퇴사안내",
+  "feeds": [
+   "faq"
+  ],
+  "host": "kw.happydorm.or.kr"
+ },
+ {
+  "id": "dorm-apply",
+  "url": "https://kw.happydorm.or.kr/30/3030.do",
+  "title": "행복기숙사 입사신청",
+  "feeds": [
+   "faq"
+  ],
+  "host": "kw.happydorm.or.kr"
+ },
+ {
+  "id": "dorm-contact",
+  "url": "https://kw.happydorm.or.kr/10/1040.do",
+  "title": "행복기숙사 연락처",
+  "feeds": [
+   "faq"
+  ],
+  "host": "kw.happydorm.or.kr"
+ },
+ {
+  "id": "notices-general-1",
+  "url": "https://www.kw.ac.kr/ko/life/notice.jsp?srCategoryId=0&mode=list&tpage=1",
+  "title": "공지사항 일반 목록 1쪽",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "notices-general-2",
+  "url": "https://www.kw.ac.kr/ko/life/notice.jsp?srCategoryId=0&mode=list&tpage=2",
+  "title": "공지사항 일반 목록 2쪽",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "notices-general-3",
+  "url": "https://www.kw.ac.kr/ko/life/notice.jsp?srCategoryId=0&mode=list&tpage=3",
+  "title": "공지사항 일반 목록 3쪽",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "notices-student-1",
+  "url": "https://www.kw.ac.kr/ko/life/notice.jsp?srCategoryId=2&mode=list&tpage=1",
+  "title": "공지사항 학생 목록 1쪽",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "notices-student-2",
+  "url": "https://www.kw.ac.kr/ko/life/notice.jsp?srCategoryId=2&mode=list&tpage=2",
+  "title": "공지사항 학생 목록 2쪽",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "notices-facility-1",
+  "url": "https://www.kw.ac.kr/ko/life/notice.jsp?srCategoryId=6&mode=list&tpage=1",
+  "title": "공지사항 시설 목록 1쪽",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "notices-job-1",
+  "url": "https://www.kw.ac.kr/ko/life/job.jsp?mode=list&tpage=1",
+  "title": "취업게시판 목록 1쪽",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "notices-job-2",
+  "url": "https://www.kw.ac.kr/ko/life/job.jsp?mode=list&tpage=2",
+  "title": "취업게시판 목록 2쪽",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "web-team-it",
+  "url": "https://www.kw.ac.kr/ko/department/view.jsp?hpage=intro_0019",
+  "title": "정보통신처(정보운영팀) 소개",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "web-team-network",
+  "url": "https://www.kw.ac.kr/ko/department/view.jsp?hpage=intro_0020",
+  "title": "통신운영팀 소개",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "web-team-sports",
+  "url": "https://www.kw.ac.kr/ko/department/view.jsp?hpage=intro_0006",
+  "title": "체육지원팀 소개",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "web-team-general",
+  "url": "https://www.kw.ac.kr/ko/department/view.jsp?hpage=intro_0016",
+  "title": "총무처(총무팀) 소개",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "web-team-facility",
+  "url": "https://www.kw.ac.kr/ko/department/view.jsp?hpage=intro_0018",
+  "title": "관리처(시설안전관리팀) 소개",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "web-team-internship",
+  "url": "https://www.kw.ac.kr/ko/department/view.jsp?hpage=intro_0009",
+  "title": "현장실습지원팀 소개",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "web-humanrights",
+  "url": "https://www.kw.ac.kr/ko/department/admin31.jsp",
+  "title": "인권센터",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "web-disability",
+  "url": "https://www.kw.ac.kr/ko/department/admin33.jsp",
+  "title": "장애학생지원실",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "web-facility10",
+  "url": "https://www.kw.ac.kr/ko/life/facility10.jsp",
+  "title": "장소 사용(신청) 안내",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "web-facility04",
+  "url": "https://www.kw.ac.kr/ko/life/facility04.jsp",
+  "title": "대강당/소강당",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "web-tour01",
+  "url": "https://www.kw.ac.kr/ko/tour/tour01.jsp",
+  "title": "광운캠퍼스안내",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "web-activity01",
+  "url": "https://www.kw.ac.kr/ko/life/activity01.jsp",
+  "title": "학생자치활동(학생자치기구)",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "web-activity02",
+  "url": "https://www.kw.ac.kr/ko/life/activity02.jsp",
+  "title": "총동아리연합회",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "web-activity03",
+  "url": "https://www.kw.ac.kr/ko/life/activity03.jsp",
+  "title": "중앙동아리",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "job-home",
+  "url": "https://job.kw.ac.kr/",
+  "title": "경력개발팀(인재개발원) 홈",
+  "feeds": [
+   "faq"
+  ],
+  "host": "job.kw.ac.kr"
+ },
+ {
+  "id": "job-notice",
+  "url": "https://job.kw.ac.kr/community/notice.php",
+  "title": "경력개발팀 공지사항 목록",
+  "feeds": [
+   "faq"
+  ],
+  "host": "job.kw.ac.kr"
+ },
+ {
+  "id": "internship-home",
+  "url": "https://internship.kw.ac.kr/index.do",
+  "title": "현장실습지원팀 첫 화면",
+  "feeds": [
+   "faq"
+  ],
+  "host": "internship.kw.ac.kr"
+ },
+ {
+  "id": "dept-electric-852",
+  "url": "https://electric.kw.ac.kr/community/s_notice.php?BoardMode=view&UID=852",
+  "title": "전기공학과 공지 2026-2 이수체계 준수제도 및 선수 교과목 미이수자 상담 안내",
+  "feeds": [
+   "faq"
+  ],
+  "host": "electric.kw.ac.kr"
+ },
+ {
+  "id": "notice-53558",
+  "url": "https://www.kw.ac.kr/ko/life/notice.jsp?BoardMode=view&DUID=53558",
+  "title": "공지 [학생] 장소사용 신청 안내(2026년 11월)",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "notice-53200",
+  "url": "https://www.kw.ac.kr/ko/life/notice.jsp?BoardMode=view&DUID=53200",
+  "title": "공지 [학생] 2026-2 복지관 3층 학생식당(함지마루) 운영 안내",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "notice-53599",
+  "url": "https://www.kw.ac.kr/ko/life/notice.jsp?BoardMode=view&DUID=53599",
+  "title": "공지 [시설] 한울관 및 아이스링크 주차장 입구 차량 출입 통제 안내",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "notice-53462",
+  "url": "https://www.kw.ac.kr/ko/life/notice.jsp?BoardMode=view&DUID=53462",
+  "title": "공지 [시설] 한울관 및 아이스링크 주차장 출입구 변경 안내",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "notice-53458",
+  "url": "https://www.kw.ac.kr/ko/life/notice.jsp?BoardMode=view&DUID=53458",
+  "title": "공지 [정보통신처] 불법 소프트웨어, 이미지, 폰트 사용 및 배포 방지를 위한 협조 안내",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "notice-53457",
+  "url": "https://www.kw.ac.kr/ko/life/notice.jsp?BoardMode=view&DUID=53457",
+  "title": "공지 [정보통신처] 내PC지키미를 이용한 PC보안 및 알약 점검 협조 요청",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "notice-53483",
+  "url": "https://www.kw.ac.kr/ko/life/notice.jsp?BoardMode=view&DUID=53483",
+  "title": "공지 [학사] KLAS 종합정보서비스 보안 강화 조치 시행 안내",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "notice-53549",
+  "url": "https://www.kw.ac.kr/ko/life/notice.jsp?BoardMode=view&DUID=53549",
+  "title": "공지 [학생상담실] 뇌파·맥파 측정 체험 및 해석상담",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "notice-53505",
+  "url": "https://www.kw.ac.kr/ko/life/notice.jsp?BoardMode=view&DUID=53505",
+  "title": "공지 [인권센터 특강] AI·SNS 시대 디지털 경계",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "notice-52442",
+  "url": "https://www.kw.ac.kr/ko/life/notice.jsp?BoardMode=view&DUID=52442",
+  "title": "공지 [학생] 2026 폭력예방교육 수강 안내",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "notice-53210",
+  "url": "https://www.kw.ac.kr/ko/life/notice.jsp?BoardMode=view&DUID=53210",
+  "title": "공지 [취업] 2026-2 비교과프로그램 운영 안내",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "notice-53211",
+  "url": "https://www.kw.ac.kr/ko/life/notice.jsp?BoardMode=view&DUID=53211",
+  "title": "공지 [취업] 2026-2 온라인 이력서 클리닉",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "notice-52987",
+  "url": "https://www.kw.ac.kr/ko/life/notice.jsp?BoardMode=view&DUID=52987",
+  "title": "공지 [학사] 2026-2 학부·대학원 연계과목(학석사연계과정) 수강신청 안내",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "notice-52981",
+  "url": "https://www.kw.ac.kr/ko/life/notice.jsp?BoardMode=view&DUID=52981",
+  "title": "공지 [학사] 2026-2 수강신청자료집",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "job-counsel-info",
+  "url": "https://job.kw.ac.kr/jobprogram/counsel_info.php",
+  "title": "경력개발팀 진로·취업 상담안내",
+  "feeds": [
+   "faq"
+  ],
+  "host": "job.kw.ac.kr"
+ },
+ {
+  "id": "job-program-intro",
+  "url": "https://job.kw.ac.kr/jobprogram/program_intro.php",
+  "title": "경력개발팀 취업프로그램",
+  "feeds": [
+   "faq"
+  ],
+  "host": "job.kw.ac.kr"
+ },
+ {
+  "id": "job-notice-12476",
+  "url": "https://job.kw.ac.kr/community/notice.php?BoardMode=view&UID=12476",
+  "title": "경력개발팀 공지 10월 외부상담사(온라인) 진로 및 취업상담 신청 안내",
+  "feeds": [
+   "faq"
+  ],
+  "host": "job.kw.ac.kr"
+ },
+ {
+  "id": "faq-755",
+  "url": "https://www.kw.ac.kr/ko/life/faq.jsp?BoardMode=view&DUID=755",
+  "title": "종합 FAQ [정보운영팀] 홈페이지 및 종합정보서비스 비밀번호를 분실한 경우",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ },
+ {
+  "id": "job-51947",
+  "url": "https://www.kw.ac.kr/ko/life/job.jsp?BoardMode=view&DUID=51947",
+  "title": "취업게시판 경력개발팀 취업정보 인스타그램(@kwu_career) 제공 안내",
+  "feeds": [
+   "faq"
+  ],
+  "host": "www.kw.ac.kr"
+ }
+]

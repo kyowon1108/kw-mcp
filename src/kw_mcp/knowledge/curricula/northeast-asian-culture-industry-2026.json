@@ -1,0 +1,200 @@
+{
+ "department": "동북아문화산업학부",
+ "admission_year": 2026,
+ "scope": "full",
+ "basis": "www.kw.ac.kr의 (A) 교육과정 페이지(문화교류전공 교육과정)를 현행 교육과정으로 간주함. 학정번호는 (B)에 같은 과목이 있으면 채우나, 이 과목들은 (B)에 없어 모두 비어 있음.",
+ "courses": [
+  {
+   "code": null,
+   "name": "동북아문화산업과진로",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 1,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "문화분석",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 1,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "문화마케팅",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "문화산업개론",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "일본영상문화론",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "한국영화문화론",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "변혁기의현대중국문학",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "현대문화이론",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "탈근대일본현대소설",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "한일문화비교론",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "문화비평연습",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "중국사회와시장분석",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "일본근대소설과문화",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "중국문화와문화산업분석",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "문화산업과유통",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 2,
+   "note": null
+  }
+ ],
+ "also": [
+  {
+   "scope": "required_only",
+   "basis": "(B) 대각선 규칙: 1학년은 2026행. 2~4학년은 해당 연도(2027~2029)가 미래라 없음. 2026행은 2026학번 교양 이수체계 준수를 명시함.",
+   "courses": [
+    {
+     "code": "3210-1-9214",
+     "name": "일본어기초1",
+     "credits": 3,
+     "type": "전필",
+     "year_level": 1,
+     "term": 1,
+     "note": "외국인학생 면제"
+    },
+    {
+     "code": "3210-1-9215",
+     "name": "중국어기초1",
+     "credits": 3,
+     "type": "전필",
+     "year_level": 1,
+     "term": 1,
+     "note": "외국인학생 면제"
+    },
+    {
+     "code": "3210-1-9216",
+     "name": "일본어기초2",
+     "credits": 3,
+     "type": "전필",
+     "year_level": 1,
+     "term": 2,
+     "note": "외국인학생 면제"
+    },
+    {
+     "code": "3210-1-9217",
+     "name": "중국어기초2",
+     "credits": 3,
+     "type": "전필",
+     "year_level": 1,
+     "term": 2,
+     "note": "외국인학생 면제"
+    }
+   ]
+  }
+ ],
+ "sources": [
+  {
+   "title": "동북아문화산업학부 교육과정",
+   "url": "https://www.kw.ac.kr/ko/univ/social07_4.jsp",
+   "checked_at": "2026-11-07"
+  },
+  {
+   "title": "필수과목표 must_2026_24",
+   "url": "https://www.kw.ac.kr/ko/life/must_2026_24.xls",
+   "checked_at": "2026-11-07"
+  }
+ ],
+ "checked_at": "2026-11-07"
+}

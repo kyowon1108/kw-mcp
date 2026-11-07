@@ -120,11 +120,22 @@ async def test_graduation_progress_applies_the_2025_rule_without_leaking_identit
     gen = out["general_education"]
     assert gen["balanced_by_area"]["과학과기술"] == 6 and gen["balanced_areas_taken"] == 5
     assert gen["total"] == 1 + 3 + 3 + 6 + 3 + 3  # aa83/aa84 are not part of the page's total
-    assert out["student"]["admission_year"] == 2025 and out["check"] == {"areas_needed": 0, "credits_needed": 11,
-                                                                        "met": False}
+    assert gen["required"] == 1 and "required_kwangwoonin" not in gen
+    check = out["check"]
+    assert out["student"]["admission_year"] == 2025 and check["met"] is False
+    # 2025: 균형 30 over 4 of 8 areas + 1 for the abolished 광운인되기 = 31, not 30.
+    assert (check["areas_needed"], check["credits_needed"], check["balanced_credits_needed"]) == (0, 12, 12)
+    assert "31" in out["rule"] and "광운인되기" in check["note"]
+    assert [(i["requirement"], i["status"]) for i in check["items"]] == [
+        ("균형교양 8개 영역 중 4개 영역 이상", "충족"), ("균형교양 30학점", "미충족"), ("총 교양 31학점", "미충족")]
     client.admitted = "2022"
     older = await KlasService(client, now=lambda: datetime(2026, 11, 5, tzinfo=KST)).graduation_progress()
-    assert older["check"]["kwangwoonin_done"] is True and older["check"]["met"] is None
+    # 2024학번 and earlier: no 광운인되기 (학칙 부칙<2025.12.17.>), only the year's total; 정보융합학부 2022 =
+    # 필수+균형 22 (19: short) plus the department's 기초교양, which KLAS's table doesn't show.
+    assert "kwangwoonin_done" not in older["check"] and older["check"]["met"] is False
+    assert [(i["requirement"], i["status"]) for i in older["check"]["items"]] == [
+        ("필수+균형 교양 22학점", "미충족"), ("기초교양(학과 지정)", "확인 필요")]
+    assert "부칙<2025.12.17.>" in older["check"]["articles"]["reg-hakchik"]
     assert out["official_check"]["on_list"] is False
 
 

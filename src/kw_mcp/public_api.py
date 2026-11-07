@@ -51,12 +51,13 @@ def _reason(status: int) -> str:
 
 
 def _from_invite(invite: str) -> tuple[str | None, str | None]:
-    """(base URL, None) for a good invite; (None, why not) for one that can't be read."""
-    from .agent import parse_invite
+    """(base URL, None) for a good invite; (None, why not) for one that can't be read, or that names a
+    server other than the KW CAMPUS bridge (its token is never sent there)."""
+    from .agent import official_invite
 
     try:
-        server, token = parse_invite(invite)
-    except ValueError as e:  # a partial copy, a pasted /setup link, ...
+        server, token = official_invite(invite)
+    except ValueError as e:  # a partial copy, a pasted /setup link, another server, ...
         return None, f"초대 코드 형식 오류: {e} 확장 설정(또는 KW_CAMPUS_INVITE)의 초대 코드를 다시 붙여 넣으세요."
     return f"{server}/c/{token}", None
 

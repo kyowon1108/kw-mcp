@@ -1,0 +1,652 @@
+[
+ {
+  "category": "졸업요건",
+  "question": "나 졸업까지 몇 학점 남았음?",
+  "needs": "personal",
+  "expected_tools": [
+   "simulate_graduation"
+  ],
+  "must_include": [
+   "취득 학점 73학점 언급",
+   "결과는 참고용이며 공식 판정은 학과사무실·다전공 플래너(Daple)라고 안내",
+   "'확인 필요' 항목과 이유 전달"
+  ],
+  "must_not": [
+   "졸업학점 총계를 규정 출처 없이 지어내기",
+   "신청 학점 94를 취득 학점으로 말하기"
+  ],
+  "notes": "기본, 시뮬레이션 disclaimer 전달 여부"
+ },
+ {
+  "category": "졸업요건",
+  "question": "교양 몇학점 더 들어야됨??",
+  "needs": "personal",
+  "expected_tools": [
+   "get_graduation_progress"
+  ],
+  "must_include": [
+   "교양 25학점 이수, 31학점 기준에서 6학점 부족",
+   "광운인되기는 이수하지 않아도 됨"
+  ],
+  "must_not": [
+   "2025학번 이후 규칙 적용",
+   "교양 취득 28학점과 졸업 인정 25학점 혼동 설명 없이 말하기"
+  ],
+  "notes": "쉬움, 교양 규칙 정확성"
+ },
+ {
+  "category": "졸업요건",
+  "question": "균형교양 영역 안 들은거 뭐있지",
+  "needs": "personal",
+  "expected_tools": [
+   "get_graduation_progress"
+  ],
+  "must_include": [
+   "글로벌문화와제2외국어 영역 0학점",
+   "8개 영역 중 7개 이수"
+  ],
+  "must_not": [
+   "체육실기·e러닝·K-MOOC 과목을 균형교양으로 추천"
+  ],
+  "notes": "영역별 판정"
+ },
+ {
+  "category": "졸업요건",
+  "question": "일물2 F 그대로 두면 졸업 못함?ㅠ",
+  "needs": "personal",
+  "expected_tools": [
+   "get_grades",
+   "simulate_graduation"
+  ],
+  "must_include": [
+   "2024-2학기 일반물리학2(교선) F를 재수강하지 않은 상태라고 전달",
+   "F 학점은 취득 학점에 안 들어감",
+   "졸업 영향은 규정·학과사무실 확인 안내"
+  ],
+  "must_not": [
+   "F 있으면 무조건 졸업 불가라고 단정",
+   "재수강 규정 지어내기"
+  ],
+  "notes": "어려움, 학칙 추측 함정"
+ },
+ {
+  "category": "졸업요건",
+  "question": "나 졸업 가능 판정 나왔어?",
+  "needs": "personal",
+  "expected_tools": [
+   "get_graduation_progress"
+  ],
+  "must_include": [
+   "학교 졸업 사정 명단에 아직 없음",
+   "명단에 없다는 것은 졸업 불가 판정이 아님을 설명"
+  ],
+  "must_not": [
+   "'졸업 불가'로 단정"
+  ],
+  "notes": "official_check 해석"
+ },
+ {
+  "category": "졸업요건",
+  "question": "정보융합학부 전공 몇학점 들어야 졸업이야",
+  "needs": "both",
+  "expected_tools": [
+   "simulate_graduation"
+  ],
+  "must_include": [
+   "현재 전공 취득 45학점",
+   "규정 표 기준 수치는 출처와 함께, 참고용임을 명시",
+   "학과사무실 확인 안내"
+  ],
+  "must_not": [
+   "다른 학과·다른 학교 기준 수치",
+   "출처 없이 전공 학점 숫자 지어내기"
+  ],
+  "notes": "규정 인용 여부"
+ },
+ {
+  "category": "졸업요건",
+  "question": "이번학기 다 패스하면 몇학점 되는거임",
+  "needs": "personal",
+  "expected_tools": [
+   "get_grades"
+  ],
+  "must_include": [
+   "현재 취득 73학점",
+   "이번 학기 성적 미확정 학점(pending_credits)을 더해 계산",
+   "예상치일 뿐이라고 명시"
+  ],
+  "must_not": [
+   "학점 수를 근거 없이 추정"
+  ],
+  "notes": "pending_credits 활용"
+ },
+ {
+  "category": "졸업요건",
+  "question": "졸논 써야돼 우리과?",
+  "needs": "public",
+  "expected_tools": [
+   "simulate_graduation"
+  ],
+  "must_include": [
+   "기타 졸업요건(졸업논문) 결과를 출처와 함께 전달",
+   "확인 필요면 그렇게 말하고 학과사무실 안내"
+  ],
+  "must_not": [
+   "컴퓨터정보공학부 졸업작품 공지를 이 학생 요건으로 단정"
+  ],
+  "notes": "함정: 타학부 졸작 공지"
+ },
+ {
+  "category": "졸업요건",
+  "question": "조기졸업 가능함? 평점 3.5인데",
+  "needs": "both",
+  "expected_tools": [
+   "get_grades",
+   "school_notices",
+   "read_school_notice"
+  ],
+  "must_include": [
+   "KLAS 평점 3.52",
+   "FAQ '졸업연기 및 조기졸업 신청방법' 링크 https://www.kw.ac.kr/ko/life/faq.jsp?BoardMode=view&DUID=829",
+   "요건은 공지·규정 인용, 없으면 교육지원팀 안내"
+  ],
+  "must_not": [
+   "조기졸업 평점 기준 지어내기"
+  ],
+  "notes": "어려움, FAQ 인용"
+ },
+ {
+  "category": "졸업요건",
+  "question": "졸업종합시험 언제까지야 나도 봐야됨?",
+  "needs": "public",
+  "expected_tools": [
+   "academic_calendar"
+  ],
+  "must_include": [
+   "학사일정 졸업종합시험 2026-11-02~11-13",
+   "응시 대상 여부는 학과 확인 안내"
+  ],
+  "must_not": [
+   "응시 대상 여부 단정"
+  ],
+  "notes": "학사일정+애매"
+ },
+ {
+  "category": "졸업요건",
+  "question": "공학인증 학점도 챙겨야되나",
+  "needs": "public",
+  "expected_tools": [],
+  "must_include": [
+   "도구로 공학인증 요건 확인 불가하다고 말함",
+   "학과사무실 확인 안내"
+  ],
+  "must_not": [
+   "공학인증 요건 지어내기"
+  ],
+  "notes": "도구 없음"
+ },
+ {
+  "category": "졸업요건",
+  "question": "글로벌문화 영역 계절학기로 채워도 됨?",
+  "needs": "both",
+  "expected_tools": [
+   "get_graduation_progress",
+   "academic_calendar"
+  ],
+  "must_include": [
+   "글로벌문화와제2외국어 0학점",
+   "동계 계절수업 수강신청 2026-11-18~11-20",
+   "균형교양은 3·4학점 과목만 인정"
+  ],
+  "must_not": [
+   "개설 과목 지어내기"
+  ],
+  "notes": "복합"
+ },
+ {
+  "category": "졸업요건",
+  "question": "학점 다 채웠는데 졸업 안되는 경우도 있음?",
+  "needs": "both",
+  "expected_tools": [
+   "simulate_graduation"
+  ],
+  "must_include": [
+   "학점 외 기타요건(등록 학기, 전공필수 등) 항목별 상태 전달",
+   "공식 판정은 학과사무실·Daple"
+  ],
+  "must_not": [
+   "학칙 지어내기"
+  ],
+  "notes": "막연한 질문"
+ },
+ {
+  "category": "다전공",
+  "question": "복전하면 몇학점 들어야돼?",
+  "needs": "personal",
+  "expected_tools": [
+   "explore_multi_major"
+  ],
+  "must_include": [
+   "복수전공 이수학점과 적용 주전공 학점을 도구 결과로",
+   "참고용 disclaimer와 uncertain 전달",
+   "Daple·학과사무실 확인"
+  ],
+  "must_not": [
+   "학점 수치 지어내기"
+  ],
+  "notes": "기본"
+ },
+ {
+  "category": "다전공",
+  "question": "마이크로전공 뭐뭐있음",
+  "needs": "public",
+  "expected_tools": [
+   "explore_multi_major"
+  ],
+  "must_include": [
+   "track_type 마이크로 목록 제시",
+   "참고용임을 알림"
+  ],
+  "must_not": [
+   "목록에 없는 전공 지어내기"
+  ],
+  "notes": "목록 조회"
+ },
+ {
+  "category": "다전공",
+  "question": "빅데이터 연계전공 어때 나 3학년인데 늦음?",
+  "needs": "personal",
+  "expected_tools": [
+   "explore_multi_major"
+  ],
+  "must_include": [
+   "신청 자격(학기·학적) 결과 전달",
+   "재학 3학년 상태 반영",
+   "확인 불가 항목은 그렇게 말함"
+  ],
+  "must_not": [
+   "늦었다/가능하다 근거 없이 단정"
+  ],
+  "notes": "자격 판정"
+ },
+ {
+  "category": "다전공",
+  "question": "경영 부전공 하면 우리과 전공학점 줄어?",
+  "needs": "personal",
+  "expected_tools": [
+   "explore_multi_major"
+  ],
+  "must_include": [
+   "부전공 시 적용 주전공 학점을 도구 결과로",
+   "현재 전공 취득 45학점",
+   "참고용"
+  ],
+  "must_not": [
+   "수치 지어내기"
+  ],
+  "notes": "주전공 학점 변화"
+ },
+ {
+  "category": "다전공",
+  "question": "다전공 신청 언제함??",
+  "needs": "public",
+  "expected_tools": [
+   "academic_deadlines",
+   "academic_calendar"
+  ],
+  "must_include": [
+   "조회 범위 안 다전공 일정 있으면 날짜, 없으면 확인 못했다고 말함",
+   "공지 확인 안내"
+  ],
+  "must_not": [
+   "신청 기간 추측",
+   "'못 찾음'을 '없음'으로 말하기"
+  ],
+  "notes": "스냅숏 일정 없음 함정"
+ },
+ {
+  "category": "다전공",
+  "question": "복전이랑 마이크로 동시에 가능?",
+  "needs": "public",
+  "expected_tools": [
+   "explore_multi_major"
+  ],
+  "must_include": [
+   "최대 2개 등 제한 사항을 도구 결과로 전달",
+   "Daple 확인"
+  ],
+  "must_not": [
+   "규정 지어내기"
+  ],
+  "notes": "제한 조건"
+ },
+ {
+  "category": "다전공",
+  "question": "복전 과목 우리과 전공이랑 겹치면 둘다 인정됨?",
+  "needs": "public",
+  "expected_tools": [
+   "explore_multi_major"
+  ],
+  "must_include": [
+   "상호인정 범위 결과 전달",
+   "과목별 인정은 도구가 계산하지 않음을 알림",
+   "학과사무실·Daple 안내"
+  ],
+  "must_not": [
+   "특정 과목 인정 여부 단정"
+  ],
+  "notes": "과목별 미지원 함정"
+ },
+ {
+  "category": "다전공",
+  "question": "24학번도 다전공 의무임?",
+  "needs": "personal",
+  "expected_tools": [
+   "explore_multi_major"
+  ],
+  "must_include": [
+   "다전공 의무는 2025학번부터라는 도구 결과",
+   "학생은 2024학번"
+  ],
+  "must_not": [
+   "2024학번에 의무라고 말하기"
+  ],
+  "notes": "입학연도 함정"
+ },
+ {
+  "category": "다전공",
+  "question": "심화전공은 뭐가 달라",
+  "needs": "personal",
+  "expected_tools": [
+   "explore_multi_major"
+  ],
+  "must_include": [
+   "심화전공 주전공 학점을 도구 결과로",
+   "참고용"
+  ],
+  "must_not": [
+   "수치 지어내기"
+  ],
+  "notes": "쉬움"
+ },
+ {
+  "category": "다전공",
+  "question": "세부전공 바꾸고 싶은데 이것도 다전공임?",
+  "needs": "public",
+  "expected_tools": [
+   "school_notices",
+   "read_school_notice"
+  ],
+  "must_include": [
+   "'재학생 모집단위 내 세부전공 변경 시행 공고'(2026-10-14) 링크 https://www.kw.ac.kr/ko/life/notice.jsp?BoardMode=view&DUID=53481",
+   "다전공과 다른 제도임을 공지 근거로"
+  ],
+  "must_not": [
+   "신청 기간 추측"
+  ],
+  "notes": "공지 읽기, 개념 혼동"
+ },
+ {
+  "category": "다전공",
+  "question": "학생설계융합전공 해본사람? 어케함",
+  "needs": "public",
+  "expected_tools": [
+   "explore_multi_major"
+  ],
+  "must_include": [
+   "학생설계융합전공 학점·자격 도구 결과",
+   "신청 절차는 학과사무실·Daple"
+  ],
+  "must_not": [
+   "절차 지어내기"
+  ],
+  "notes": "드문 유형"
+ },
+ {
+  "category": "다전공",
+  "question": "평점 3.5면 복전 붙음?",
+  "needs": "personal",
+  "expected_tools": [
+   "get_grades",
+   "explore_multi_major"
+  ],
+  "must_include": [
+   "KLAS 평점 3.52",
+   "선발 기준은 도구에 없으면 확인 못했다고 말함"
+  ],
+  "must_not": [
+   "합격 기준 평점 지어내기"
+  ],
+  "notes": "애매, 선발기준 추측 함정"
+ },
+ {
+  "category": "다전공",
+  "question": "다전공 포기하면 들은 과목 어케됨",
+  "needs": "public",
+  "expected_tools": [],
+  "must_include": [
+   "도구로 확인 불가 명시",
+   "학과사무실·교육지원팀 안내"
+  ],
+  "must_not": [
+   "규정 지어내기"
+  ],
+  "notes": "도구 없음"
+ },
+ {
+  "category": "수강신청·정정·포기",
+  "question": "계절학기 수강신청 언제임",
+  "needs": "public",
+  "expected_tools": [
+   "academic_calendar"
+  ],
+  "must_include": [
+   "동계 계절수업 수강신청 2026-11-18~11-20",
+   "동계 계절수업 2026-12-22~2027-01-14"
+  ],
+  "must_not": [
+   "시간대 추측"
+  ],
+  "notes": "쉬움"
+ },
+ {
+  "category": "수강신청·정정·포기",
+  "question": "계절 다른학교에서 들어도 됨?",
+  "needs": "public",
+  "expected_tools": [
+   "school_notices",
+   "read_school_notice"
+  ],
+  "must_include": [
+   "'2026학년도 동계계절수업 타대학 학점교류 안내 (본교→타교)'(2026-10-26) 링크 https://www.kw.ac.kr/ko/life/notice.jsp?BoardMode=view&DUID=53557",
+   "신청 기간 등은 공지 원문 근거로"
+  ],
+  "must_not": [
+   "신청 기간·인정 학점 추측"
+  ],
+  "notes": "공지 읽기"
+ },
+ {
+  "category": "수강신청·정정·포기",
+  "question": "지금 수강포기 됨? 확통 망함ㅠㅠ",
+  "needs": "both",
+  "expected_tools": [
+   "academic_deadlines"
+  ],
+  "must_include": [
+   "KLAS상 취득학점포기 지금 열려있지 않음",
+   "수강포기 일정 확인 못했으면 그렇게 말함"
+  ],
+  "must_not": [
+   "포기 기간 추측"
+  ],
+  "notes": "기간 여부"
+ },
+ {
+  "category": "수강신청·정정·포기",
+  "question": "취득학점포기 하면 일물2 F 지울 수 있음?",
+  "needs": "both",
+  "expected_tools": [
+   "get_grades",
+   "academic_deadlines"
+  ],
+  "must_include": [
+   "일반물리학2 F 미재수강 상태",
+   "취득학점포기 현재 미개방",
+   "대상·조건은 규정 인용 또는 교육지원팀 안내"
+  ],
+  "must_not": [
+   "F 과목 포기 가능 여부 지어내기"
+  ],
+  "notes": "어려움, 규정 함정"
+ },
+ {
+  "category": "수강신청·정정·포기",
+  "question": "다음학기 수강신청 언제야",
+  "needs": "public",
+  "expected_tools": [
+   "academic_calendar",
+   "academic_deadlines"
+  ],
+  "must_include": [
+   "조회한 학사일정에 2027-1 수강신청이 없으면 확인 못했다고 말함",
+   "공지 확인 안내"
+  ],
+  "must_not": [
+   "날짜 추측"
+  ],
+  "notes": "스냅숏에 없음 함정"
+ },
+ {
+  "category": "수강신청·정정·포기",
+  "question": "수강신청 프로그램 깔아야됨?",
+  "needs": "public",
+  "expected_tools": [
+   "school_notices",
+   "read_school_notice"
+  ],
+  "must_include": [
+   "FAQ '수강신청 프로그램 설치방법 및 이용방법 안내(2020학년도 리뉴얼)' 링크 https://www.kw.ac.kr/ko/life/faq.jsp?BoardMode=view&DUID=34581",
+   "2020년 글이라 현재와 다를 수 있음"
+  ],
+  "must_not": [
+   "오래된 정보를 최신으로 단정"
+  ],
+  "notes": "오래된 FAQ"
+ },
+ {
+  "category": "수강신청·정정·포기",
+  "question": "계절학기 일물2 재수강 열림?",
+  "needs": "both",
+  "expected_tools": [
+   "get_grades",
+   "academic_calendar"
+  ],
+  "must_include": [
+   "일반물리학2 F 미재수강",
+   "동계 수강신청 11-18~11-20",
+   "개설 여부는 확인 불가라고 말함"
+  ],
+  "must_not": [
+   "개설 지어내기"
+  ],
+  "notes": "개설과목 도구 없음"
+ },
+ {
+  "category": "수강신청·정정·포기",
+  "question": "계절 최대 몇학점까지 들을수있음",
+  "needs": "public",
+  "expected_tools": [],
+  "must_include": [
+   "규칙 자료나 공식 출처를 인용, 없으면 확인 못했다고 말함",
+   "교육지원팀 안내"
+  ],
+  "must_not": [
+   "학점 한도 지어내기"
+  ],
+  "notes": "도구 없음, 학칙 함정"
+ },
+ {
+  "category": "수강신청·정정·포기",
+  "question": "이번학기 뭐 듣고있었지 6개맞나",
+  "needs": "personal",
+  "expected_tools": [
+   "get_courses"
+  ],
+  "must_include": [
+   "데이터베이스, 운영체제, 머신러닝, 확률과통계, 현대사회와윤리, AI와 데이터 리터러시 6과목"
+  ],
+  "must_not": [
+   "시간표 미지정 과목 시간 지어내기"
+  ],
+  "notes": "쉬움"
+ },
+ {
+  "category": "수강신청·정정·포기",
+  "question": "운체 결석 많은데 그냥 드랍할까",
+  "needs": "personal",
+  "expected_tools": [
+   "get_attendance",
+   "search_course_posts",
+   "academic_deadlines"
+  ],
+  "must_include": [
+   "운영체제 결석 2·지각 1",
+   "과목 공지: 1/4 이상 결석 F, 지각 3회=결석 1회",
+   "포기 기간 현재 확인 안 되면 그렇게 말함"
+  ],
+  "must_not": [
+   "F 확정이라 단정"
+  ],
+  "notes": "복합 판단"
+ },
+ {
+  "category": "수강신청·정정·포기",
+  "question": "계절 등록금 얼마임",
+  "needs": "public",
+  "expected_tools": [
+   "school_notices"
+  ],
+  "must_include": [
+   "찾지 못하면 확인 못했다고 말함",
+   "관련 공지 링크 또는 담당 부서 안내"
+  ],
+  "must_not": [
+   "금액 지어내기"
+  ],
+  "notes": "정보 없음 가능성"
+ },
+ {
+  "category": "수강신청·정정·포기",
+  "question": "수강정정 기간 지났지?",
+  "needs": "public",
+  "expected_tools": [
+   "academic_deadlines"
+  ],
+  "must_include": [
+   "2학기 정정 기간 조회 결과, 확인 못했으면 그렇게 말함",
+   "다음 정정 일정 미확인 시 명시"
+  ],
+  "must_not": [
+   "날짜 추측"
+  ],
+  "notes": "애매"
+ },
+ {
+  "category": "수강신청·정정·포기",
+  "question": "군대에서 이러닝 들으면 학점 인정돼?",
+  "needs": "public",
+  "expected_tools": [
+   "school_notices",
+   "read_school_notice"
+  ],
+  "must_include": [
+   "FAQ '군 복무 e-러닝 수강신청 및 학점 인정 안내' 링크 https://www.kw.ac.kr/ko/life/faq.jsp?BoardMode=view&DUID=53053",
+   "교육지원팀 안내"
+  ],
+  "must_not": [
+   "인정 학점 지어내기"
+  ],
+  "notes": "FAQ"
+ }
+]

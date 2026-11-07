@@ -1,0 +1,66 @@
+{
+ "department": "화학과",
+ "admission_year": 2022,
+ "scope": "required_only",
+ "basis": "(B) 대각선 규칙: 2학년=2023행, 3학년=2024행. 1학년은 교양 이수체계 문구만 있음. 4학년 필수과목 없음.",
+ "courses": [
+  {
+   "code": "6050-2-0721",
+   "name": "분석화학1",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": "6050-2-9645",
+   "name": "유기반응디자인및실험1",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": "6050-2-1136",
+   "name": "유기화학2",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": "6050-3-0526",
+   "name": "무기화학1",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 3,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": "6050-3-0985",
+   "name": "양자화학2",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 3,
+   "term": 1,
+   "note": "구,물리화학3"
+  }
+ ],
+ "sources": [
+  {
+   "title": "화학과 교육과정",
+   "url": "https://www.kw.ac.kr/ko/univ/science03_4.jsp",
+   "checked_at": "2026-11-07"
+  },
+  {
+   "title": "필수과목표 must_2026_17",
+   "url": "https://www.kw.ac.kr/ko/life/must_2026_17.xls",
+   "checked_at": "2026-11-07"
+  }
+ ],
+ "checked_at": "2026-11-07"
+}

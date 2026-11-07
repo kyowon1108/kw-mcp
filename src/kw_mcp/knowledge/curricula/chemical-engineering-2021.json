@@ -1,0 +1,84 @@
+{
+ "department": "화학공학과",
+ "admission_year": 2021,
+ "scope": "required_only",
+ "basis": "(B) 대각선 규칙: 1학년 2021행(교양 문구만), 2학년 2022행, 3학년 2023행, 4학년 2024행(필수과목 없음).",
+ "courses": [
+  {
+   "code": "1140-2-4872",
+   "name": "화공기초이론및실험1",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": 1,
+   "note": "구,화공기초실험1"
+  },
+  {
+   "code": "1140-2-1911",
+   "name": "화공양론",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": "1140-2-1135",
+   "name": "유기화학1",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": "1140-2-4941",
+   "name": "화공기초이론및실험2",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": 2,
+   "note": "구,화공기초실험2"
+  },
+  {
+   "code": "1140-2-0586",
+   "name": "물리화학",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": "1140-3-4874",
+   "name": "단위조작이론및실험1",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 3,
+   "term": 1,
+   "note": "구,화학공학실험1"
+  },
+  {
+   "code": "1140-3-4942",
+   "name": "단위조작이론및실험2",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 3,
+   "term": 2,
+   "note": "구,화학공학실험2"
+  }
+ ],
+ "sources": [
+  {
+   "title": "화학공학과 교육과정",
+   "url": "https://www.kw.ac.kr/ko/univ/engineering02_4.jsp",
+   "checked_at": "2026-11-07"
+  },
+  {
+   "title": "필수과목표 must_2026_12",
+   "url": "https://www.kw.ac.kr/ko/life/must_2026_12.xls",
+   "checked_at": "2026-11-07"
+  }
+ ],
+ "checked_at": "2026-11-07"
+}

@@ -1,0 +1,57 @@
+{
+ "department": "영어산업학과",
+ "admission_year": 2025,
+ "scope": "required_only",
+ "basis": "(B) 대각선 규칙. 1학년(2025행)은 전공필수 과목이 없음. 2학년은 2026행. 3~4학년(2027~2028)은 미래 연도임.",
+ "courses": [
+  {
+   "code": "3050-2-2795",
+   "name": "영문학개론",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": "3220-2-1030",
+   "name": "영문법",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": 1,
+   "note": "구,영문법1"
+  },
+  {
+   "code": "3220-2-5236",
+   "name": "영어학입문",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": 2,
+   "note": "구,영어학개론"
+  },
+  {
+   "code": "3220-2-3741",
+   "name": "영어학통계입문",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": 2,
+   "note": "구,영어와통계, 영어평가와통계"
+  }
+ ],
+ "sources": [
+  {
+   "title": "영어산업학과 교육과정",
+   "url": "https://www.kw.ac.kr/ko/univ/social02_4.jsp",
+   "checked_at": "2026-11-07"
+  },
+  {
+   "title": "필수과목표 must_2026_21",
+   "url": "https://www.kw.ac.kr/ko/life/must_2026_21.xls",
+   "checked_at": "2026-11-07"
+  }
+ ],
+ "checked_at": "2026-11-07"
+}

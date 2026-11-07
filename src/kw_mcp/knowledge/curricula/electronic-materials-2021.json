@@ -1,0 +1,84 @@
+{
+ "department": "전자재료공학과",
+ "admission_year": 2021,
+ "scope": "required_only",
+ "basis": "(B) 대각선 규칙: 1학년=2021행(안내문만), 2학년=2022행, 3학년=2023행, 4학년=2024행(필수과목 없음).",
+ "courses": [
+  {
+   "code": "7340-2-3586",
+   "name": "기초회로실험및설계1",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": "7340-2-0574",
+   "name": "물리전자1",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": "7340-2-1411",
+   "name": "전자기학1",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": "7340-2-3587",
+   "name": "기초회로실험및설계2",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": "7340-2-0575",
+   "name": "물리전자2",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": "7340-3-4864",
+   "name": "전자재료물성실험및설계1",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 3,
+   "term": 1,
+   "note": "구,전자재료물성및실험1"
+  },
+  {
+   "code": "7340-3-4865",
+   "name": "전자재료물성실험및설계2",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 3,
+   "term": 2,
+   "note": "구,전자재료물성및실험2"
+  }
+ ],
+ "sources": [
+  {
+   "title": "전자재료공학과 교육과정",
+   "url": "https://www.kw.ac.kr/ko/univ/electronic07_4.jsp",
+   "checked_at": "2026-11-07"
+  },
+  {
+   "title": "필수과목표 must_2026_05",
+   "url": "https://www.kw.ac.kr/ko/life/must_2026_05.xls",
+   "checked_at": "2026-11-07"
+  }
+ ],
+ "checked_at": "2026-11-07"
+}

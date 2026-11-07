@@ -1,0 +1,561 @@
+{
+ "department": "화학공학과",
+ "admission_year": 2026,
+ "scope": "full",
+ "basis": "(A) 화학공학과 교육과정 페이지의 현재 교육과정표를 2026학번 현행 교육과정으로 간주함. 학정번호는 (B)에 같은 과목명이 있는 경우에만 채움.",
+ "courses": [
+  {
+   "code": "1140-1-1077",
+   "name": "영어회화",
+   "credits": 3,
+   "type": "교양필수",
+   "year_level": 1,
+   "term": 1,
+   "note": "인증필수"
+  },
+  {
+   "code": null,
+   "name": "대학수학및연습1",
+   "credits": 3,
+   "type": "교양필수",
+   "year_level": 1,
+   "term": 1,
+   "note": "인증필수"
+  },
+  {
+   "code": null,
+   "name": "대학생물및실험",
+   "credits": 3,
+   "type": "교양선택",
+   "year_level": 1,
+   "term": 1,
+   "note": "인증필수; 2학기 중 1학기만 이수"
+  },
+  {
+   "code": null,
+   "name": "대학화학및실험1",
+   "credits": 3,
+   "type": "교양선택",
+   "year_level": 1,
+   "term": 1,
+   "note": "인증필수"
+  },
+  {
+   "code": null,
+   "name": "대학물리및실험1",
+   "credits": 3,
+   "type": "교양선택",
+   "year_level": 1,
+   "term": 1,
+   "note": "인증필수"
+  },
+  {
+   "code": null,
+   "name": "생활속의과학",
+   "credits": 3,
+   "type": "교양선택",
+   "year_level": 1,
+   "term": 1,
+   "note": "인증필수"
+  },
+  {
+   "code": null,
+   "name": "자연과학사",
+   "credits": 3,
+   "type": "교양선택",
+   "year_level": 1,
+   "term": 1,
+   "note": "인증필수"
+  },
+  {
+   "code": null,
+   "name": "컴퓨터활용",
+   "credits": 3,
+   "type": "교양선택",
+   "year_level": 1,
+   "term": 1,
+   "note": "인증필수"
+  },
+  {
+   "code": null,
+   "name": "인터넷활용",
+   "credits": 3,
+   "type": "교양선택",
+   "year_level": 1,
+   "term": 1,
+   "note": "인증필수"
+  },
+  {
+   "code": null,
+   "name": "영어읽기와쓰기",
+   "credits": 3,
+   "type": "교양필수",
+   "year_level": 1,
+   "term": 2,
+   "note": "인증필수"
+  },
+  {
+   "code": null,
+   "name": "대학수학및연습2",
+   "credits": 3,
+   "type": "교양필수",
+   "year_level": 1,
+   "term": 2,
+   "note": "인증필수"
+  },
+  {
+   "code": null,
+   "name": "대학생물및실험",
+   "credits": 3,
+   "type": "교양선택",
+   "year_level": 1,
+   "term": 2,
+   "note": "인증필수; 2학기 중 1학기만 이수"
+  },
+  {
+   "code": null,
+   "name": "대학화학및실험2",
+   "credits": 3,
+   "type": "교양선택",
+   "year_level": 1,
+   "term": 2,
+   "note": "인증필수"
+  },
+  {
+   "code": null,
+   "name": "나노과학의세계",
+   "credits": 3,
+   "type": "교양선택",
+   "year_level": 1,
+   "term": 2,
+   "note": "인증필수"
+  },
+  {
+   "code": null,
+   "name": "과학기술윤리",
+   "credits": 3,
+   "type": "교양선택",
+   "year_level": 1,
+   "term": 2,
+   "note": "인증필수"
+  },
+  {
+   "code": null,
+   "name": "컴퓨터언어",
+   "credits": 3,
+   "type": "교양선택",
+   "year_level": 1,
+   "term": 2,
+   "note": "인증필수"
+  },
+  {
+   "code": null,
+   "name": "공학설계입문",
+   "credits": 3,
+   "type": "교양선택",
+   "year_level": 1,
+   "term": 2,
+   "note": "인증필수; 1학기와 2학기 중 택1"
+  },
+  {
+   "code": null,
+   "name": "공학수학1",
+   "credits": 3,
+   "type": "교양선택",
+   "year_level": 2,
+   "term": 1,
+   "note": "인증필수"
+  },
+  {
+   "code": null,
+   "name": "수치해석",
+   "credits": 3,
+   "type": "교양선택",
+   "year_level": 2,
+   "term": 1,
+   "note": "인증선택"
+  },
+  {
+   "code": "1140-2-4872",
+   "name": "화공기초이론및실험1",
+   "credits": 3,
+   "type": "전공필수",
+   "year_level": 2,
+   "term": 1,
+   "note": "인증필수; 구,화공기초실험1"
+  },
+  {
+   "code": "1140-2-1911",
+   "name": "화공양론",
+   "credits": 3,
+   "type": "전공필수",
+   "year_level": 2,
+   "term": 1,
+   "note": "인증필수"
+  },
+  {
+   "code": "1140-2-1135",
+   "name": "유기화학1",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 1,
+   "note": "인증필수"
+  },
+  {
+   "code": null,
+   "name": "양자역학개론",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 1,
+   "note": "인증선택"
+  },
+  {
+   "code": null,
+   "name": "공정시스템공학개론",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 1,
+   "note": "인증선택"
+  },
+  {
+   "code": null,
+   "name": "공학수학2",
+   "credits": 3,
+   "type": "교양선택",
+   "year_level": 2,
+   "term": 2,
+   "note": "인증필수"
+  },
+  {
+   "code": "1140-2-4941",
+   "name": "화공기초이론및실험2",
+   "credits": 3,
+   "type": "전공필수",
+   "year_level": 2,
+   "term": 2,
+   "note": "인증필수; 구,화공기초실험2"
+  },
+  {
+   "code": null,
+   "name": "에너지공학개론",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 2,
+   "note": "인증필수"
+  },
+  {
+   "code": "1140-2-0586",
+   "name": "물리화학",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 2,
+   "note": "인증필수"
+  },
+  {
+   "code": null,
+   "name": "유기화학2",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 2,
+   "note": "인증선택"
+  },
+  {
+   "code": null,
+   "name": "생명공학",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 2,
+   "note": "인증선택"
+  },
+  {
+   "code": null,
+   "name": "기업경영과마케팅",
+   "credits": 3,
+   "type": "교양선택",
+   "year_level": 3,
+   "term": 1,
+   "note": "인증필수"
+  },
+  {
+   "code": null,
+   "name": "법과경제",
+   "credits": 3,
+   "type": "교양선택",
+   "year_level": 3,
+   "term": 1,
+   "note": "인증필수"
+  },
+  {
+   "code": "1140-3-4874",
+   "name": "단위조작이론및실험1",
+   "credits": 3,
+   "type": "전공필수",
+   "year_level": 3,
+   "term": 1,
+   "note": "인증필수; 구,화학공학실험1"
+  },
+  {
+   "code": null,
+   "name": "화공열역학1",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 1,
+   "note": "인증필수"
+  },
+  {
+   "code": null,
+   "name": "반응공학1",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 1,
+   "note": "인증필수"
+  },
+  {
+   "code": "1140-3-1147",
+   "name": "유체역학",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 1,
+   "note": "인증필수"
+  },
+  {
+   "code": null,
+   "name": "재료공학",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 1,
+   "note": "인증선택"
+  },
+  {
+   "code": null,
+   "name": "생물화학공학",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 1,
+   "note": "인증선택"
+  },
+  {
+   "code": null,
+   "name": "공학적의사소통",
+   "credits": 3,
+   "type": "교양선택",
+   "year_level": 3,
+   "term": 2,
+   "note": "인증필수"
+  },
+  {
+   "code": null,
+   "name": "조직과리더쉽",
+   "credits": 3,
+   "type": "교양선택",
+   "year_level": 3,
+   "term": 2,
+   "note": "인증필수"
+  },
+  {
+   "code": "1140-3-4942",
+   "name": "단위조작이론및실험2",
+   "credits": 3,
+   "type": "전공필수",
+   "year_level": 3,
+   "term": 2,
+   "note": "인증필수; 구,화학공학실험2"
+  },
+  {
+   "code": null,
+   "name": "공정제어",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 2,
+   "note": "인증선택"
+  },
+  {
+   "code": null,
+   "name": "화공열역학2",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 2,
+   "note": "인증선택"
+  },
+  {
+   "code": null,
+   "name": "반응공학2",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 2,
+   "note": "인증선택"
+  },
+  {
+   "code": null,
+   "name": "열전달",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 2,
+   "note": "인증선택"
+  },
+  {
+   "code": null,
+   "name": "무기공업화학",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 2,
+   "note": "인증선택"
+  },
+  {
+   "code": null,
+   "name": "캡스톤설계1",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 1,
+   "note": "인증필수"
+  },
+  {
+   "code": null,
+   "name": "생물화학공학이론및실험",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 1,
+   "note": "인증선택"
+  },
+  {
+   "code": null,
+   "name": "고분자화학",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 1,
+   "note": "인증선택"
+  },
+  {
+   "code": null,
+   "name": "분자생명공학",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 1,
+   "note": "인증선택"
+  },
+  {
+   "code": null,
+   "name": "청정공학",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 1,
+   "note": "인증선택"
+  },
+  {
+   "code": null,
+   "name": "화공설계",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 1,
+   "note": "인증선택"
+  },
+  {
+   "code": null,
+   "name": "물질전달공정",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 1,
+   "note": "인증선택"
+  },
+  {
+   "code": null,
+   "name": "캡스톤설계2",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 2,
+   "note": "인증필수"
+  },
+  {
+   "code": null,
+   "name": "화학공정이론및실험",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 2,
+   "note": "인증선택"
+  },
+  {
+   "code": null,
+   "name": "나노소재공학",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 2,
+   "note": "인증선택"
+  },
+  {
+   "code": null,
+   "name": "단위조작",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 2,
+   "note": "인증선택"
+  },
+  {
+   "code": null,
+   "name": "유기공업화학",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 2,
+   "note": "인증선택"
+  },
+  {
+   "code": null,
+   "name": "안전공학",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 2,
+   "note": "인증선택"
+  },
+  {
+   "code": null,
+   "name": "산업생물공학",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 2,
+   "note": "인증선택"
+  }
+ ],
+ "sources": [
+  {
+   "title": "화학공학과 교육과정",
+   "url": "https://www.kw.ac.kr/ko/univ/engineering02_4.jsp",
+   "checked_at": "2026-11-07"
+  },
+  {
+   "title": "필수과목표 must_2026_12",
+   "url": "https://www.kw.ac.kr/ko/life/must_2026_12.xls",
+   "checked_at": "2026-11-07"
+  }
+ ],
+ "checked_at": "2026-11-07"
+}

@@ -109,6 +109,10 @@ _LOGIN_PAGE = re.compile(r"LoginForm\.do|LoginConfirm\.do|LoginSecurity\.do|logi
 # character outside printable ASCII.
 _BAD_DOWNLOAD = re.compile(
     r"[\\?#;]|%(?:2e|2f|5c|3b|25|00)|%(?![0-9a-f]{2})|[^\x20-\x7e]|(?:^|/)\.\.?(?:/|$)|//", re.IGNORECASE)
+# The only HTML pages page() fetches: a student menu page like /std/cps/atnlc/GiveupStdPage.do.
+_STUDENT_PAGE = re.compile(r"/std/[a-z]+/[a-z]+/[A-Za-z]+Page\.do")
+# A login form inside a page that came back 200. Narrower than _LOGIN_PAGE: a normal page can link to LoginForm.do.
+_LOGIN_FORM_FIELDS = re.compile(r"loginPwd|name=[\"']?loginId", re.IGNORECASE)
 _TRANSIENT_STATUS = frozenset({429, 502, 503, 504})
 # Transport errors that mean KLAS is down or hanging: they start the shared back-off.
 _DOWN_ERRORS = (httpx.ConnectError, httpx.ConnectTimeout, httpx.ReadTimeout, httpx.ReadError,
@@ -347,6 +351,26 @@ class KlasClient:
         if isinstance(data, dict) and ((_int(data.get("errorCount")) or 0) > 0 or data.get("fieldErrors")):
             raise KlasError(f"{path}: KLAS가 오류를 알렸습니다({_error_message(data) or 'errorCount'}).")
         return data
+
+    async def page(self, path: str) -> str:
+        """GET one of KLAS's student pages (HTML) as text, logging in again when KLAS redirects to the
+        login form. A login form that comes back as the page is an error, not a reason to log in again."""
+        if not _STUDENT_PAGE.fullmatch(path):
+            raise KlasError(f"refusing to fetch {path!r}: only KLAS student pages are allowed")
+        return await self._with_session(lambda: self._raw_page(path))
+
+    async def _raw_page(self, path: str) -> str:
+        resp = await self._send("GET", path, headers={"Accept": "text/html,application/xhtml+xml"})
+        if resp.is_redirect:
+            location = resp.headers.get("location", "")
+            if LOGIN_FORM in location:
+                raise SessionExpired(f"{path}: redirected to the login page")
+            raise KlasError(f"{path}: unexpected redirect to {location or '?'}")
+        if resp.status_code >= 400:
+            raise self._status_error(path, resp.status_code)
+        if _LOGIN_FORM_FIELDS.search(resp.text):
+            raise KlasError(f"{path}: KLAS가 페이지 대신 로그인 화면을 보냈어요.")
+        return resp.text
 
     async def download(self, path: str, max_bytes: int) -> bytes:
         """GET a file (attachment download), logging in again if the session expired.

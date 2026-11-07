@@ -1,0 +1,561 @@
+{
+ "department": "전자융합공학과",
+ "admission_year": 2026,
+ "scope": "full",
+ "basis": "(A) www 교육과정 표를 현재 교육과정으로 간주하여 전 과목 수록. 학정번호는 (B) 2026년 행에서 동일 과목명이 있는 경우에만 기입, 없으면 공란. 학점의 괄호 안 설계학점은 비고에 기재.",
+ "courses": [
+  {
+   "code": null,
+   "name": "대학수학및연습1",
+   "credits": 3,
+   "type": "교선",
+   "year_level": 1,
+   "term": 1,
+   "note": "수학(M), 공학이수구분 공선"
+  },
+  {
+   "code": null,
+   "name": "대학수학및연습2",
+   "credits": 3,
+   "type": "교선",
+   "year_level": 1,
+   "term": 2,
+   "note": "수학(M), 공필; 선수: 대학수학및연습1 (2023학번까지)"
+  },
+  {
+   "code": null,
+   "name": "공학수학1",
+   "credits": 3,
+   "type": "교선",
+   "year_level": 2,
+   "term": 1,
+   "note": "수학(M), 공필"
+  },
+  {
+   "code": null,
+   "name": "공학수학2",
+   "credits": 3,
+   "type": "교선",
+   "year_level": 2,
+   "term": 2,
+   "note": "수학(M), 공필"
+  },
+  {
+   "code": null,
+   "name": "벡터해석학및연습",
+   "credits": 3,
+   "type": "교선",
+   "year_level": 1,
+   "term": 2,
+   "note": "수학(M), 공선"
+  },
+  {
+   "code": null,
+   "name": "이산수학",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 2,
+   "term": null,
+   "note": "수학(M), 공선; 개설학기 미기재"
+  },
+  {
+   "code": null,
+   "name": "선형대수학",
+   "credits": 3,
+   "type": "교선",
+   "year_level": 3,
+   "term": 1,
+   "note": "수학(M), 공선"
+  },
+  {
+   "code": null,
+   "name": "확률및통계",
+   "credits": 3,
+   "type": "교선",
+   "year_level": 3,
+   "term": null,
+   "note": "수학(M), 공선; 개설학기 미기재"
+  },
+  {
+   "code": null,
+   "name": "확률및불규칙신호론",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 3,
+   "term": 1,
+   "note": "수학(M), 공선"
+  },
+  {
+   "code": null,
+   "name": "수치해석",
+   "credits": 3,
+   "type": "전선",
+   "year_level": null,
+   "term": null,
+   "note": "수학(M), 공선; 개설학년·학기 미기재"
+  },
+  {
+   "code": null,
+   "name": "대학물리학1",
+   "credits": 3,
+   "type": "교선",
+   "year_level": 1,
+   "term": 1,
+   "note": "과학(S), 공필"
+  },
+  {
+   "code": null,
+   "name": "대학물리및실험2",
+   "credits": 3,
+   "type": "교선",
+   "year_level": 1,
+   "term": 2,
+   "note": "과학(S), 공필"
+  },
+  {
+   "code": null,
+   "name": "대학화학",
+   "credits": 3,
+   "type": "교선",
+   "year_level": 1,
+   "term": null,
+   "note": "과학(S), 공선; 개설학기 미기재"
+  },
+  {
+   "code": null,
+   "name": "현대재료과학",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 2,
+   "term": 1,
+   "note": "과학(S), 공선"
+  },
+  {
+   "code": null,
+   "name": "대학화학및실험1",
+   "credits": 3,
+   "type": "교선",
+   "year_level": 1,
+   "term": 1,
+   "note": "과학(S), 공선"
+  },
+  {
+   "code": null,
+   "name": "대학화학및실험2",
+   "credits": 3,
+   "type": "교선",
+   "year_level": 1,
+   "term": 2,
+   "note": "과학(S), 공선"
+  },
+  {
+   "code": null,
+   "name": "C프로그래밍",
+   "credits": 3,
+   "type": "교선",
+   "year_level": 1,
+   "term": 1,
+   "note": "전산학(정보,C), 공필"
+  },
+  {
+   "code": null,
+   "name": "C프로그래밍응용",
+   "credits": 3,
+   "type": "교선",
+   "year_level": 1,
+   "term": 2,
+   "note": "전산학(정보,C), 공필"
+  },
+  {
+   "code": null,
+   "name": "공학설계입문",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 1,
+   "term": null,
+   "note": "공학기초, 공필; 설계 3; 1,2학기 개설"
+  },
+  {
+   "code": "7420-2-1411",
+   "name": "전자기학1",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": 1,
+   "note": "공학기초, 공필; 타학과 인정: 전자, 전자통신, 전기, 전자재료, 로봇(전자기학1)"
+  },
+  {
+   "code": null,
+   "name": "전자기학2",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 2,
+   "term": 2,
+   "note": "공학기초, 공선; 타학과 인정: 전자, 전자통신(전자기학2)"
+  },
+  {
+   "code": "7420-2-1995",
+   "name": "회로이론1",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": 1,
+   "note": "공학기초, 공필; 타학과 인정: 전자, 전자통신, 전기, 전자재료, 로봇(회로이론1)"
+  },
+  {
+   "code": null,
+   "name": "회로이론2",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 2,
+   "term": 2,
+   "note": "공학기초, 공선; 타학과 인정: 전자, 전자통신(회로이론2)"
+  },
+  {
+   "code": "7420-2-0444",
+   "name": "디지털공학",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": 1,
+   "note": "공학기초, 공필; 타학과 인정: 전자, 전자통신(디지털공학)"
+  },
+  {
+   "code": null,
+   "name": "기초회로실험1",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 2,
+   "term": 1,
+   "note": "공학기초, 공선; 설계 2"
+  },
+  {
+   "code": "7420-2-0373",
+   "name": "기초회로실험2",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": 2,
+   "note": "공학기초, 공필; 설계 2; 구,기초전자회로및실험2; 타학과 인정: 전자(기초전자회로및실험2)"
+  },
+  {
+   "code": null,
+   "name": "반도체소자1",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 2,
+   "term": 1,
+   "note": "공학기초, 공선; 선수: 대학물리학1; 타학과 인정: 전자(물리전자1), 전자통신(물리전자)"
+  },
+  {
+   "code": null,
+   "name": "반도체소자2",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 2,
+   "term": 2,
+   "note": "공학기초, 공선; 타학과 인정: 전자(물리전자2)"
+  },
+  {
+   "code": null,
+   "name": "컴퓨터구조",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 2,
+   "term": 2,
+   "note": "공학기초, 공선"
+  },
+  {
+   "code": null,
+   "name": "데이터사이언스",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 2,
+   "term": 2,
+   "note": "공학기초, 공선"
+  },
+  {
+   "code": "7420-3-2004",
+   "name": "신호및시스템",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 3,
+   "term": 1,
+   "note": "공학일반, 공필; 타학과 인정: 전자, 전자통신(신호및시스템)"
+  },
+  {
+   "code": "7420-3-1463",
+   "name": "전자회로1",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 3,
+   "term": 1,
+   "note": "공학일반, 공필; 설계 1; 타학과 인정: 전자, 전자통신(전자회로1)"
+  },
+  {
+   "code": null,
+   "name": "전자회로2",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 3,
+   "term": 2,
+   "note": "공학일반, 공선; 설계 1; 선수: 전자회로1; 타학과 인정: 전자, 전자통신(전자회로2)"
+  },
+  {
+   "code": null,
+   "name": "자료구조와알고리즘",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 3,
+   "term": 1,
+   "note": "공학일반, 공선; 설계 1"
+  },
+  {
+   "code": null,
+   "name": "마이크로프로세서",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 3,
+   "term": 1,
+   "note": "공학일반, 공선; 설계 1; 타학과 인정: 컴정공(마이크로프로세서)"
+  },
+  {
+   "code": null,
+   "name": "통신이론",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 3,
+   "term": 1,
+   "note": "공학일반, 공선"
+  },
+  {
+   "code": null,
+   "name": "전자회로실험1",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 3,
+   "term": 1,
+   "note": "공학일반, 공선; 설계 2"
+  },
+  {
+   "code": "7420-3-1473",
+   "name": "전자회로실험2",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 3,
+   "term": 2,
+   "note": "공학일반, 공필; 설계 2; 구,전자회로및실험"
+  },
+  {
+   "code": null,
+   "name": "초고주파공학",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 3,
+   "term": 2,
+   "note": "공학일반, 공선; 선수: 전자기학2"
+  },
+  {
+   "code": null,
+   "name": "응용수치해석",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 3,
+   "term": 2,
+   "note": "공학일반, 공선"
+  },
+  {
+   "code": null,
+   "name": "임베디드시스템",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 3,
+   "term": 2,
+   "note": "공학일반, 공선; 설계 1; 타학과 인정: 전자(임베디드시스템)"
+  },
+  {
+   "code": null,
+   "name": "디지털신호처리",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 3,
+   "term": 2,
+   "note": "공학일반, 공선"
+  },
+  {
+   "code": null,
+   "name": "머신러닝",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 3,
+   "term": 2,
+   "note": "공학일반, 공선"
+  },
+  {
+   "code": null,
+   "name": "디지털통신",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 3,
+   "term": 2,
+   "note": "공학일반, 공선"
+  },
+  {
+   "code": null,
+   "name": "캡스톤설계1",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 4,
+   "term": 1,
+   "note": "공학심화, 공필; 설계 3; 선수: 공학설계입문"
+  },
+  {
+   "code": null,
+   "name": "캡스톤설계2",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 4,
+   "term": 2,
+   "note": "공학심화, 공선; 설계 3"
+  },
+  {
+   "code": null,
+   "name": "초고주파응용",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 4,
+   "term": 1,
+   "note": "공학심화, 공선"
+  },
+  {
+   "code": null,
+   "name": "전자융합시스템실험",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 4,
+   "term": 1,
+   "note": "공학심화, 공선; 설계 2"
+  },
+  {
+   "code": null,
+   "name": "스마트안테나",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 4,
+   "term": 1,
+   "note": "공학심화, 공선"
+  },
+  {
+   "code": null,
+   "name": "무선통신회로",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 4,
+   "term": 1,
+   "note": "공학심화, 공선; 설계 1"
+  },
+  {
+   "code": null,
+   "name": "융합반도체공정",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 4,
+   "term": 1,
+   "note": "공학심화, 공선; 설계 1"
+  },
+  {
+   "code": null,
+   "name": "영상신호처리",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 4,
+   "term": 1,
+   "note": "공학심화, 공선; 설계 1"
+  },
+  {
+   "code": null,
+   "name": "컴퓨터네트워크",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 4,
+   "term": 1,
+   "note": "공학심화, 공선; 설계 1"
+  },
+  {
+   "code": null,
+   "name": "지능형반도체공학",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 4,
+   "term": 1,
+   "note": "공학심화, 공선; 설계 1"
+  },
+  {
+   "code": null,
+   "name": "무선통신시스템",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 4,
+   "term": 2,
+   "note": "공학심화, 공선; 설계 1"
+  },
+  {
+   "code": null,
+   "name": "전파융합시스템실험",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 4,
+   "term": 2,
+   "note": "공학심화, 공선; 설계 2"
+  },
+  {
+   "code": null,
+   "name": "통신융합시스템",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 4,
+   "term": 2,
+   "note": "공학심화, 공선; 설계 1"
+  },
+  {
+   "code": null,
+   "name": "바이오전자공학",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 4,
+   "term": 2,
+   "note": "공학심화, 공선"
+  },
+  {
+   "code": null,
+   "name": "레이더공학및실습",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 4,
+   "term": 2,
+   "note": "공학심화, 공선"
+  },
+  {
+   "code": null,
+   "name": "자동차전자",
+   "credits": 3,
+   "type": "전선",
+   "year_level": 4,
+   "term": 2,
+   "note": "공학심화, 공선"
+  }
+ ],
+ "sources": [
+  {
+   "title": "전자융합공학과 교육과정",
+   "url": "https://www.kw.ac.kr/ko/univ/electronic03_4.jsp",
+   "checked_at": "2026-11-07"
+  },
+  {
+   "title": "필수과목표 must_2026_03",
+   "url": "https://www.kw.ac.kr/ko/life/must_2026_03.xls",
+   "checked_at": "2026-11-07"
+  }
+ ],
+ "checked_at": "2026-11-07"
+}

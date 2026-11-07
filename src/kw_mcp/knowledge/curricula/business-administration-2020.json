@@ -1,0 +1,75 @@
+{
+ "department": "경영학부",
+ "admission_year": 2020,
+ "scope": "required_only",
+ "basis": "(B) 대각선 규칙: 1학년=2020행, 2학년=2021행. 3·4학년 행에는 필수과목 없음.",
+ "courses": [
+  {
+   "code": "5080-1-1970",
+   "name": "회계원리",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 1,
+   "term": null,
+   "note": null
+  },
+  {
+   "code": "5080-2-1277",
+   "name": "재무관리",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": null,
+   "note": null
+  },
+  {
+   "code": "5080-2-0508",
+   "name": "마케팅",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": null,
+   "note": null
+  },
+  {
+   "code": "5080-2-1539",
+   "name": "조직행동",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": null,
+   "note": "구,조직론"
+  },
+  {
+   "code": "5080-2-4900",
+   "name": "생산운영관리",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": null,
+   "note": null
+  },
+  {
+   "code": "5080-2-4906",
+   "name": "MIS개론",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": null,
+   "note": "구,정보시스템과e비즈니스"
+  }
+ ],
+ "sources": [
+  {
+   "title": "경영학부 교육과정",
+   "url": "https://www.kw.ac.kr/ko/univ/business01_4.jsp",
+   "checked_at": "2026-11-07"
+  },
+  {
+   "title": "필수과목표 must_2026_29",
+   "url": "https://www.kw.ac.kr/ko/life/must_2026_29.xls",
+   "checked_at": "2026-11-07"
+  }
+ ],
+ "checked_at": "2026-11-07"
+}

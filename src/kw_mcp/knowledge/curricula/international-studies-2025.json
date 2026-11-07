@@ -1,0 +1,39 @@
+{
+ "department": "국제학부",
+ "admission_year": 2025,
+ "scope": "required_only",
+ "basis": "(B) 대각선 규칙: 1학년은 2025행, 2학년은 2026행(기재 없음). 3·4학년(2027, 2028)은 미래 연도라 없음.",
+ "courses": [
+  {
+   "code": "F040-1-5553",
+   "name": "국제정치의이해",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 1,
+   "term": 1,
+   "note": "구.국제정치론2"
+  },
+  {
+   "code": "F040-1-7400",
+   "name": "동북아관계사",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 1,
+   "term": 2,
+   "note": "구.동아시아역사2"
+  }
+ ],
+ "sources": [
+  {
+   "title": "국제학부 교육과정",
+   "url": "https://www.kw.ac.kr/ko/univ/law05_4.jsp",
+   "checked_at": "2026-11-07"
+  },
+  {
+   "title": "필수과목표 must_2026_34",
+   "url": "https://www.kw.ac.kr/ko/life/must_2026_34.xls",
+   "checked_at": "2026-11-07"
+  }
+ ],
+ "checked_at": "2026-11-07"
+}

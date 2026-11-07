@@ -1,0 +1,39 @@
+{
+ "department": "소프트웨어학부",
+ "admission_year": 2023,
+ "scope": "required_only",
+ "basis": "(B)에서 대각선 규칙으로 가져옴: 2학년은 2024행. 3학년(2025행)과 4학년(2026행)은 (B)에 과목이 없음. 1학년은 교양 안내만 있음.",
+ "courses": [
+  {
+   "code": "I030-2-3405",
+   "name": "자료구조실습",
+   "credits": 2,
+   "type": "전필",
+   "year_level": 2,
+   "term": 2,
+   "note": "구,시스템소프트웨어실습, 소프트웨어실습2"
+  },
+  {
+   "code": "I030-2-1243",
+   "name": "자료구조",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": 2,
+   "note": null
+  }
+ ],
+ "sources": [
+  {
+   "title": "소프트웨어학부 교육과정",
+   "url": "https://www.kw.ac.kr/ko/univ/ai02_4.jsp",
+   "checked_at": "2026-11-07"
+  },
+  {
+   "title": "필수과목표 must_2026_08",
+   "url": "https://www.kw.ac.kr/ko/life/must_2026_08.xls",
+   "checked_at": "2026-11-07"
+  }
+ ],
+ "checked_at": "2026-11-07"
+}

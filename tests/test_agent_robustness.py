@@ -66,10 +66,10 @@ def test_a_stale_timestamp_is_clock_skew_and_never_a_re_registration(linked):
         401, json={"error": "stale_timestamp", "server_time": int(time.time()) - 9 * 3600}))
     with pytest.raises(agent.ClockSkew) as e:
         agent.linked_to(SERVER)
-    assert "약 540분 빠릅니다" in str(e.value) and "시간" in str(e.value)
+    assert "약 540분 빨라요" in str(e.value) and "시간" in str(e.value)
     respx.post(f"{SERVER}/device/pair").mock(return_value=httpx.Response(
         401, json={"error": "stale_timestamp", "server_time": int(time.time()) + 600}))
-    with pytest.raises(agent.ClockSkew, match="느립니다"):
+    with pytest.raises(agent.ClockSkew, match="느려요"):
         agent.pair_code()
 
 
@@ -79,10 +79,10 @@ def test_only_an_unknown_device_means_link_again(linked):
     route.mock(return_value=httpx.Response(403, json={"error": "unknown_device"}))
     assert agent.linked_to(SERVER) is False
     route.mock(return_value=httpx.Response(403, json={"error": "bad_signature"}))
-    with pytest.raises(agent.DeviceRefused, match="--relink"):
+    with pytest.raises(agent.DeviceRefused, match="새로 등록"):
         agent.linked_to(SERVER)
     respx.post(f"{SERVER}/device/pair").mock(return_value=httpx.Response(403, json={"error": "invite_revoked"}))
-    with pytest.raises(agent.DeviceRefused, match="철회"):
+    with pytest.raises(agent.InviteRevoked, match="철회"):
         agent.pair_code()
 
 
@@ -111,7 +111,7 @@ def test_a_replayed_signature_is_retried_once_with_a_fresh_one(linked, monkeypat
 def test_server_clock_check_uses_the_date_header():
     route = respx.get(f"{SERVER}/healthz")
     route.mock(return_value=httpx.Response(200, text="ok", headers={"Date": date(+900)}))
-    with pytest.raises(agent.ClockSkew, match="느립니다"):
+    with pytest.raises(agent.ClockSkew, match="느려요"):
         agent.check_server_clock(SERVER)
     route.mock(return_value=httpx.Response(200, text="ok", headers={"Date": date(+30)}))
     agent.check_server_clock(SERVER)  # a few seconds off is fine
@@ -182,7 +182,7 @@ def test_grants_and_revoke_are_signed_device_requests(linked):
     verify(linked, f"kw-revoke:g_abc:{LINK.uid}:{body['ts']}", body["sig"])
 
     revoke.mock(return_value=httpx.Response(404, json={"error": "unknown_grant"}))
-    with pytest.raises(LookupError, match="g_abc"):
+    with pytest.raises(LookupError, match="찾지 못했어요"):
         agent.revoke("g_abc")
     with pytest.raises(ValueError):
         agent.revoke("g_abc:u_x")  # ':' would change what the signature covers
@@ -399,7 +399,8 @@ def test_a_new_connection_shows_a_notification_with_the_text_as_data(monkeypatch
                    "redirect_host": "claude.ai"})
     argv = launched[0]
     assert argv[0] == "osascript" and argv[-2] == "KW Campus"
-    assert argv[-1].startswith("새 연결: Claude (claude.ai)") and "kw-mcp revoke g_AbC123-_xyz9" in argv[-1]
+    assert argv[-1].startswith("새 연결: Claude (claude.ai)") and "'연결된 앱 끊어 줘'" in argv[-1]
+    assert "g_AbC123" not in argv[-1] and "kw-mcp" not in argv[-1]  # no id or terminal command to copy
     assert "shell script" not in argv[-1]  # the label comes from the redirect host, not the bridge's free text
     assert not any("새 연결" in part for part in argv[:-2])  # the text is an argument, never part of the script
     assert "$env:KW_NOTIFY_TEXT" in agent._BALLOON  # on Windows the text travels in the environment

@@ -1,0 +1,30 @@
+{
+ "department": "정보융합학부",
+ "admission_year": 2024,
+ "scope": "required_only",
+ "basis": "(B) 대각선 규칙: 1학년=2024행, 2학년=2025행(과목 없음), 3학년=2026행(과목 없음), 4학년=2027행(미래 연도로 없음).",
+ "courses": [
+  {
+   "code": null,
+   "name": "대학수학및연습1",
+   "credits": 3,
+   "type": "교선",
+   "year_level": 1,
+   "term": 1,
+   "note": "(B)에 교선으로 표기"
+  }
+ ],
+ "sources": [
+  {
+   "title": "정보융합학부 교육과정",
+   "url": "https://www.kw.ac.kr/ko/univ/ai03_4.jsp",
+   "checked_at": "2026-11-07"
+  },
+  {
+   "title": "필수과목표 must_2026_09",
+   "url": "https://www.kw.ac.kr/ko/life/must_2026_09.xls",
+   "checked_at": "2026-11-07"
+  }
+ ],
+ "checked_at": "2026-11-07"
+}

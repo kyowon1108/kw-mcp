@@ -1,0 +1,57 @@
+{
+ "department": "환경공학과",
+ "admission_year": 2022,
+ "scope": "required_only",
+ "basis": "(B) 대각선 규칙. 3학년 과목은 2024행에서 가져옴. 다른 학년은 (B)에 필수과목이 없음.",
+ "courses": [
+  {
+   "code": "1160-3-4882",
+   "name": "대기오염및모델링실습",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 3,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": "1160-3-2750",
+   "name": "오염토양정화기술",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 3,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": "1160-3-0861",
+   "name": "수질관리",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 3,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": "1160-3-5018",
+   "name": "생물학적수처리",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 3,
+   "term": 2,
+   "note": null
+  }
+ ],
+ "sources": [
+  {
+   "title": "환경공학과 교육과정",
+   "url": "https://www.kw.ac.kr/ko/univ/engineering03_4.jsp",
+   "checked_at": "2026-11-07"
+  },
+  {
+   "title": "필수과목표 must_2026_13",
+   "url": "https://www.kw.ac.kr/ko/life/must_2026_13.xls",
+   "checked_at": "2026-11-07"
+  }
+ ],
+ "checked_at": "2026-11-07"
+}

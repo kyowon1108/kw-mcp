@@ -1,0 +1,48 @@
+{
+ "department": "로봇학부",
+ "admission_year": 2023,
+ "scope": "required_only",
+ "basis": "(B) 대각선 규칙: 1학년=2023행(교양 문구만), 2학년=2024행, 3학년=2025행 AI로봇전공 구분만 사용, 4학년=2026행(필수 없음).",
+ "courses": [
+  {
+   "code": "I050-2-6154",
+   "name": "로봇학실험1",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": "I050-2-5473",
+   "name": "로봇학실험2",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": 2,
+   "note": "이 학정번호는 2025년부터 AI로봇실험1에 사용"
+  },
+  {
+   "code": "I050-3-5481",
+   "name": "로봇운동학",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 3,
+   "term": 1,
+   "note": "구.메카트로닉스; AI로봇전공"
+  }
+ ],
+ "sources": [
+  {
+   "title": "로봇학부 교육과정",
+   "url": "https://www.kw.ac.kr/ko/univ/ai04_4.jsp",
+   "checked_at": "2026-11-07"
+  },
+  {
+   "title": "필수과목표 must_2026_10",
+   "url": "https://www.kw.ac.kr/ko/life/must_2026_10.xls",
+   "checked_at": "2026-11-07"
+  }
+ ],
+ "checked_at": "2026-11-07"
+}

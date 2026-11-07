@@ -1,0 +1,39 @@
+{
+ "department": "반도체시스템공학부",
+ "admission_year": 2022,
+ "scope": "required_only",
+ "basis": "(B) 대각선 규칙: 3학년은 2024년 행. 2학년(2023년 행)과 1학년(2022년 행)은 (B)에 해당 연도 행이 없음(2024~2026만 존재). 4학년(2025년 행)은 해당 블록에 필수과목 없음.",
+ "courses": [
+  {
+   "code": "7460-3-1471-01",
+   "name": "전자회로실험",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 3,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": "7460-3-5050-01",
+   "name": "전자회로응용실험",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 3,
+   "term": 2,
+   "note": null
+  }
+ ],
+ "sources": [
+  {
+   "title": "반도체시스템공학부 교육과정",
+   "url": "https://www.kw.ac.kr/ko/univ/electronic11_4.jsp",
+   "checked_at": "2026-11-07"
+  },
+  {
+   "title": "필수과목표 must_2026_06",
+   "url": "https://www.kw.ac.kr/ko/life/must_2026_06.xls",
+   "checked_at": "2026-11-07"
+  }
+ ],
+ "checked_at": "2026-11-07"
+}

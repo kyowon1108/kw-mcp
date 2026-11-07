@@ -1,0 +1,471 @@
+{
+ "department": "환경공학과",
+ "admission_year": 2026,
+ "scope": "full",
+ "basis": "www.kw.ac.kr의 (A) 환경공학과 교육과정 페이지를 현행 교육과정으로 간주함. 학정번호는 (B)에 같은 과목명이 있으면 채우고, 없으면 비워 둠.",
+ "courses": [
+  {
+   "code": null,
+   "name": "광운인되기",
+   "credits": 1,
+   "type": "교양필수",
+   "year_level": 1,
+   "term": 1,
+   "note": "공학필수"
+  },
+  {
+   "code": null,
+   "name": "공학설계입문",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 1,
+   "term": 1,
+   "note": "공학필수"
+  },
+  {
+   "code": null,
+   "name": "대학수학및연습1",
+   "credits": 3,
+   "type": "교양선택",
+   "year_level": 1,
+   "term": 1,
+   "note": "공학필수"
+  },
+  {
+   "code": null,
+   "name": "대학화학및실험1",
+   "credits": 3,
+   "type": "교양선택",
+   "year_level": 1,
+   "term": 1,
+   "note": "공학필수"
+  },
+  {
+   "code": null,
+   "name": "대학물리및실험1",
+   "credits": 3,
+   "type": "교양선택",
+   "year_level": 1,
+   "term": 1,
+   "note": "공학필수"
+  },
+  {
+   "code": null,
+   "name": "대학생물및실험",
+   "credits": 3,
+   "type": "교양선택",
+   "year_level": 1,
+   "term": 1,
+   "note": "공학필수"
+  },
+  {
+   "code": null,
+   "name": "대학화학",
+   "credits": 3,
+   "type": "교양선택",
+   "year_level": 1,
+   "term": 1,
+   "note": "공학필수"
+  },
+  {
+   "code": null,
+   "name": "스마트사회와인공지능",
+   "credits": 3,
+   "type": "교양선택",
+   "year_level": 1,
+   "term": 1,
+   "note": "공학필수; 구, 인공지능과컴퓨팅사고"
+  },
+  {
+   "code": null,
+   "name": "대학수학및연습2",
+   "credits": 3,
+   "type": "교양선택",
+   "year_level": 1,
+   "term": 2,
+   "note": "공학필수"
+  },
+  {
+   "code": null,
+   "name": "대학화학및실험2",
+   "credits": 3,
+   "type": "교양선택",
+   "year_level": 1,
+   "term": 2,
+   "note": "공학필수"
+  },
+  {
+   "code": null,
+   "name": "대학물리학2",
+   "credits": 3,
+   "type": "교양선택",
+   "year_level": 1,
+   "term": 2,
+   "note": "공학필수"
+  },
+  {
+   "code": null,
+   "name": "파이썬프로그래밍",
+   "credits": 3,
+   "type": "교양선택",
+   "year_level": 1,
+   "term": 2,
+   "note": "공학필수; 구, 프로그래밍기초"
+  },
+  {
+   "code": null,
+   "name": "공학수학1",
+   "credits": 3,
+   "type": "교양선택",
+   "year_level": 2,
+   "term": 1,
+   "note": "공학필수"
+  },
+  {
+   "code": null,
+   "name": "환경기초실험",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 1,
+   "note": "공학필수"
+  },
+  {
+   "code": null,
+   "name": "환경단위조작",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 1,
+   "note": "공학선택"
+  },
+  {
+   "code": null,
+   "name": "환경화학",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 1,
+   "note": "공학선택"
+  },
+  {
+   "code": null,
+   "name": "환경미생물학",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 1,
+   "note": "공학선택"
+  },
+  {
+   "code": "1160-3-0857",
+   "name": "수문학",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 1,
+   "note": "공학선택"
+  },
+  {
+   "code": "1160-3-4879",
+   "name": "지반환경오염해석",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 1,
+   "note": "공학선택"
+  },
+  {
+   "code": null,
+   "name": "환경반응공학",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 2,
+   "note": "공학필수"
+  },
+  {
+   "code": null,
+   "name": "환경분석실험",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 2,
+   "note": "공학선택"
+  },
+  {
+   "code": null,
+   "name": "환경전산프로그래밍및실습",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 2,
+   "note": "공학선택"
+  },
+  {
+   "code": null,
+   "name": "환경경제학",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 2,
+   "note": "공학선택"
+  },
+  {
+   "code": null,
+   "name": "환경유기화학",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 2,
+   "note": "공학선택"
+  },
+  {
+   "code": null,
+   "name": "수리학",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 2,
+   "note": "공학선택"
+  },
+  {
+   "code": null,
+   "name": "진로탐색및설계",
+   "credits": 1,
+   "type": "전공선택",
+   "year_level": 2,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "확률과통계",
+   "credits": 3,
+   "type": "교양선택",
+   "year_level": 3,
+   "term": 1,
+   "note": "공학필수"
+  },
+  {
+   "code": null,
+   "name": "통계학개론",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 1,
+   "note": "공학필수"
+  },
+  {
+   "code": "1160-3-4882",
+   "name": "대기오염및모델링실습",
+   "credits": 3,
+   "type": "전공필수",
+   "year_level": 3,
+   "term": 1,
+   "note": "공학선택"
+  },
+  {
+   "code": null,
+   "name": "지반환경위해성평가",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 1,
+   "note": "공학선택"
+  },
+  {
+   "code": null,
+   "name": "물리화학적수처리",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 1,
+   "note": "공학선택"
+  },
+  {
+   "code": null,
+   "name": "환경법및정책",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 1,
+   "note": "공학선택"
+  },
+  {
+   "code": "1160-3-2750",
+   "name": "오염토양정화기술",
+   "credits": 3,
+   "type": "전공필수",
+   "year_level": 3,
+   "term": 2,
+   "note": "공학선택"
+  },
+  {
+   "code": "1160-3-5018",
+   "name": "생물학적수처리",
+   "credits": 3,
+   "type": "전공필수",
+   "year_level": 3,
+   "term": 2,
+   "note": "공학선택"
+  },
+  {
+   "code": "1160-3-0861",
+   "name": "수질관리",
+   "credits": 3,
+   "type": "전공필수",
+   "year_level": 3,
+   "term": 2,
+   "note": "공학선택"
+  },
+  {
+   "code": null,
+   "name": "환경공정실험",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 2,
+   "note": "공학필수"
+  },
+  {
+   "code": "1160-3-4662",
+   "name": "폐기물처리공학",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 2,
+   "note": "공학선택"
+  },
+  {
+   "code": "1160-3-0404",
+   "name": "대기오염방지시설설계",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 2,
+   "note": "공학선택"
+  },
+  {
+   "code": null,
+   "name": "환경플랜트실무",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 2,
+   "note": "공학선택"
+  },
+  {
+   "code": null,
+   "name": "경력개발과취업전략",
+   "credits": 2,
+   "type": "전공선택",
+   "year_level": 3,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": null,
+   "name": "수처리시설설계",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 1,
+   "note": "공학선택"
+  },
+  {
+   "code": null,
+   "name": "환경복원공정설계",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 1,
+   "note": "공학선택"
+  },
+  {
+   "code": null,
+   "name": "환경영향평가",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 1,
+   "note": "공학선택"
+  },
+  {
+   "code": null,
+   "name": "에너지공학",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 1,
+   "note": "공학선택"
+  },
+  {
+   "code": null,
+   "name": "안전환경공학",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 1,
+   "note": "공학선택"
+  },
+  {
+   "code": null,
+   "name": "상하수도공학",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 1,
+   "note": "공학선택"
+  },
+  {
+   "code": null,
+   "name": "폐기물처리시설설계",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 1,
+   "note": "공학선택"
+  },
+  {
+   "code": null,
+   "name": "캡스톤설계",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 2,
+   "note": "공학필수"
+  },
+  {
+   "code": null,
+   "name": "환경생태공학",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 2,
+   "note": "공학선택"
+  },
+  {
+   "code": null,
+   "name": "환경Issue발표및연습",
+   "credits": 3,
+   "type": "전공선택",
+   "year_level": 4,
+   "term": 2,
+   "note": "공학선택"
+  }
+ ],
+ "sources": [
+  {
+   "title": "환경공학과 교육과정",
+   "url": "https://www.kw.ac.kr/ko/univ/engineering03_4.jsp",
+   "checked_at": "2026-11-07"
+  },
+  {
+   "title": "필수과목표 must_2026_13",
+   "url": "https://www.kw.ac.kr/ko/life/must_2026_13.xls",
+   "checked_at": "2026-11-07"
+  }
+ ],
+ "checked_at": "2026-11-07"
+}

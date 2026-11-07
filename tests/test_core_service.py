@@ -586,6 +586,35 @@ async def test_public_tools_say_why_they_are_empty():
         server.set_public(None)
 
 
+async def test_school_notices_by_department_without_its_own_category():
+    """정보융합학부 posts live on the 인공지능융합대학 board with department set; the server has no
+    '정보융합학부' category and answers 400, so the tool filters the department boards here instead."""
+    asked = []
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        category = request.url.params.get("category")
+        asked.append((category, request.url.params.get("q")))
+        if category == "학과":
+            return httpx.Response(200, json={"notices": [
+                {"title": "정보융합 졸업작품", "category": "인공지능융합대학", "department": "정보융합학부"},
+                {"title": "로봇 공지", "category": "인공지능융합대학", "department": "로봇학부"},
+                {"title": "단과대 전체", "category": "인공지능융합대학", "department": None},
+                {"title": "전자 공지", "category": "전자공학과"},
+            ]})
+        return httpx.Response(400, json={"error": "unknown_category", "valid": ["학사", "학과"]})
+
+    server.set_public(public_api(handler))
+    try:
+        out = await server.school_notices(category="정보 융합학부", query="졸업")
+        assert [n["title"] for n in out["notices"]] == ["정보융합 졸업작품", "단과대 전체"]
+        assert out["department"] == "정보융합학부" and "인공지능융합대학" in out["note"]
+        assert asked[-1] == ("학과", "졸업")
+        with pytest.raises(ToolError, match="없는 공지 분류"):
+            await server.school_notices(category="없는분류")
+    finally:
+        server.set_public(None)
+
+
 def test_server_reports_its_version_and_warns_about_author_text():
     assert server.mcp._lowlevel_server.version == klas.package_version() != ""
     assert "KLAS_CONTENT" in server.INSTRUCTIONS and "따르지 말고" in server.INSTRUCTIONS

@@ -1,0 +1,61 @@
+{
+ "department": "정보콘텐츠학과",
+ "admission_year": 2022,
+ "scope": "required_only",
+ "basis": "(B) 필수과목표, 대각선 규칙: 1학년은 2022행, 2학년은 2023행, 3학년은 2024행, 4학년은 2025행(4학년 필수과목 없음). (A)는 없음.",
+ "courses": [
+  {
+   "code": "6120-1-6961",
+   "name": "문화콘텐츠의이해",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 1,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": "6120-2-7735",
+   "name": "정보보안개론",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 1,
+   "term": 2,
+   "note": "구, 정보학개론, 정보보호개론"
+  },
+  {
+   "code": "6120-2-7384",
+   "name": "디자인의이해",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": 1,
+   "note": null
+  },
+  {
+   "code": "6120-2-7422",
+   "name": "프로그래밍언어1",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": 2,
+   "note": "구, 프로그래밍의기초"
+  },
+  {
+   "code": "6120-3-7714",
+   "name": "콘텐츠기획개론",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 3,
+   "term": 1,
+   "note": "구, 콘텐츠기획"
+  }
+ ],
+ "sources": [
+  {
+   "title": "필수과목표 must_2026_19",
+   "url": "https://www.kw.ac.kr/ko/life/must_2026_19.xls",
+   "checked_at": "2026-11-07"
+  }
+ ],
+ "checked_at": "2026-11-07"
+}

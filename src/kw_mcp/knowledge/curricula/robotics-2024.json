@@ -1,0 +1,66 @@
+{
+ "department": "로봇학부",
+ "admission_year": 2024,
+ "scope": "required_only",
+ "basis": "(B) 대각선 규칙: 1학년=2024행(교양 문구만), 2학년=2025행·3학년=2026행 AI로봇전공 구분만 사용, 4학년=2027년은 미래로 없음.",
+ "courses": [
+  {
+   "code": "I050-2-5473",
+   "name": "AI로봇실험1",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": 1,
+   "note": "AI로봇전공"
+  },
+  {
+   "code": "I050-2-5695",
+   "name": "AI로봇실험2",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": 2,
+   "note": "AI로봇전공"
+  },
+  {
+   "code": "I050-3-6336",
+   "name": "AI로봇실험3",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 3,
+   "term": 1,
+   "note": "AI로봇전공"
+  },
+  {
+   "code": "I050-3-6337",
+   "name": "AI로봇실험4",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 3,
+   "term": 2,
+   "note": "AI로봇전공"
+  },
+  {
+   "code": "I050-3-5481",
+   "name": "로봇운동학",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 3,
+   "term": 1,
+   "note": "구.메카트로닉스; AI로봇전공"
+  }
+ ],
+ "sources": [
+  {
+   "title": "로봇학부 교육과정",
+   "url": "https://www.kw.ac.kr/ko/univ/ai04_4.jsp",
+   "checked_at": "2026-11-07"
+  },
+  {
+   "title": "필수과목표 must_2026_10",
+   "url": "https://www.kw.ac.kr/ko/life/must_2026_10.xls",
+   "checked_at": "2026-11-07"
+  }
+ ],
+ "checked_at": "2026-11-07"
+}

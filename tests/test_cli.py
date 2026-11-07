@@ -34,9 +34,9 @@ def run_cli(monkeypatch, *argv: str) -> SystemExit:
 
 @pytest.mark.parametrize(("error", "says"), [
     (KeyringError("locked"), "키체인"),
-    (httpx.ConnectError("offline"), "연결하지 못했습니다(ConnectError)"),
-    (agent.ClockSkew(3600), "60분 빠릅니다"),
-    (subprocess.CalledProcessError(5, ["launchctl", "bootstrap"]), "자동 실행을 등록하지 못했습니다"),
+    (httpx.ConnectError("offline"), "서버에 연결하지 못했어요"),
+    (agent.ClockSkew(3600), "60분 빨라요"),
+    (subprocess.CalledProcessError(5, ["launchctl", "bootstrap"]), "자동 실행 등록이 안 됐어요"),
     (agent.DeviceRefused("서명을 받아들이지 않습니다"), "서명을"),
     (ZeroDivisionError("x"), "KW_MCP_DEBUG"),
 ])
@@ -79,7 +79,7 @@ def test_link_still_prints_the_code_when_autostart_fails(monkeypatch, capsys):
     monkeypatch.setattr(agent, "pair_code", lambda: {"code": "ABCD-EFGH", "expires_in": 900})
     assert run_cli(monkeypatch, "link", INVITE).code == 0
     out = capsys.readouterr().out
-    assert "자동 실행을 등록하지 못했습니다" in out and "ABCD-EFGH" in out
+    assert "자동 실행 등록이 안 됐어요" in out and "ABCD-EFGH" in out
 
 
 class FakeClient:

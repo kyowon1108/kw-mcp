@@ -1,0 +1,66 @@
+{
+ "department": "소프트웨어학부",
+ "admission_year": 2021,
+ "scope": "required_only",
+ "basis": "(B)에서 대각선 규칙으로 가져옴: 2학년은 2022행, 3학년은 2023행. 1학년은 교양 안내만 있음. 4학년(2024행)은 과목이 없음.",
+ "courses": [
+  {
+   "code": "7260-2-2854",
+   "name": "리눅스활용실습",
+   "credits": 2,
+   "type": "전필",
+   "year_level": 2,
+   "term": 1,
+   "note": "구,소프트웨어실습1"
+  },
+  {
+   "code": "7260-2-3405",
+   "name": "자료구조실습",
+   "credits": 2,
+   "type": "전필",
+   "year_level": 2,
+   "term": 2,
+   "note": "구,시스템소프트웨어실습, 소프트웨어실습2"
+  },
+  {
+   "code": "7260-2-3405",
+   "name": "자료구조",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 2,
+   "term": 2,
+   "note": null
+  },
+  {
+   "code": "7260-3-3661",
+   "name": "응용소프트웨어실습",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 3,
+   "term": 1,
+   "note": "구,소프트웨어실습3"
+  },
+  {
+   "code": "7260-3-0969",
+   "name": "알고리즘",
+   "credits": 3,
+   "type": "전필",
+   "year_level": 3,
+   "term": 1,
+   "note": null
+  }
+ ],
+ "sources": [
+  {
+   "title": "소프트웨어학부 교육과정",
+   "url": "https://www.kw.ac.kr/ko/univ/ai02_4.jsp",
+   "checked_at": "2026-11-07"
+  },
+  {
+   "title": "필수과목표 must_2026_08",
+   "url": "https://www.kw.ac.kr/ko/life/must_2026_08.xls",
+   "checked_at": "2026-11-07"
+  }
+ ],
+ "checked_at": "2026-11-07"
+}
