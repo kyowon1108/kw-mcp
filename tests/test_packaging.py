@@ -62,9 +62,26 @@ def test_manifest_runs_the_locked_environment_and_a_runnable_entry_point():
 def test_manifest_wording_matches_what_the_code_does():
     text = MANIFEST["long_description"]
     assert "2회를 넘거나" not in text  # the old, wrong promise
-    assert "바꿀 때까지 다시 시도하지 않" in text and "서명" in text and "복사가 금지된 PDF" in text
-    assert "요청할 때만" in text and "학습용" in text
+    assert "읽기만" in text and "키체인" in text and "공식 서비스가 아니에요" in text
     assert "새 버전 알림" in MANIFEST["user_config"]["campus_invite"]["description"]
+    # The detailed promises live in the README (and the bridge's privacy page).
+    readme = (ROOT / "README.md").read_text(encoding="utf-8")
+    assert "바꿀 때까지 다시 시도하지 않" in readme and "복사가 금지된 PDF" in readme
+    assert "요청할 때만" in readme and "학습용" in readme
+
+
+def test_the_install_screen_shows_the_same_changes_as_the_update_notice():
+    version = MANIFEST["version"]
+    lines = MANIFEST["long_description"].splitlines()
+    start = lines.index(f"### {version}에서 바뀐 점") + 1
+    section = []
+    for line in lines[start:]:
+        if line.startswith("#"):
+            break
+        if line.strip():
+            section.append(line.removeprefix("- ").strip())
+    notes = json.loads((ROOT / release.RELEASE_NOTES_NAME).read_text(encoding="utf-8"))
+    assert section == notes[version]
     assert MANIFEST["license"] == "MIT" and (ROOT / "LICENSE").read_text().startswith("MIT License")
     assert PYPROJECT["project"]["license"] == "MIT"
 
@@ -116,7 +133,8 @@ def test_staging_copies_only_the_allow_list(tmp_path):
     finally:
         sys.path.pop(0)
     copied = release_script.stage_bundle(ROOT, tmp_path / "stage")
-    assert {"manifest.json", "pyproject.toml", "uv.lock", "LICENSE", "README.md", "src/kw_mcp/server.py"} <= set(copied)
+    assert {"manifest.json", "pyproject.toml", "uv.lock", "LICENSE", "README.md", release.RELEASE_NOTES_NAME,
+            "src/kw_mcp/server.py"} <= set(copied)
     on_disk = sorted(str(p.relative_to(tmp_path / "stage")).replace(os.sep, "/")
                      for p in (tmp_path / "stage").rglob("*") if p.is_file())
     assert on_disk == sorted(copied) and not release.bundle_extras(on_disk)

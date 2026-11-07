@@ -4,7 +4,7 @@
 - 리전: ap-northeast-2(서울) 하나
 - 운영: 학생 1명, 파트타임
 
-> **지난 설계 문서입니다.** 실제로 배포한 구성(kw-campus 1.0)은 이 문서와 다릅니다. 지금 기준은 kw-campus의 README와 코드입니다. 이 문서는 결정 과정을 남기려고 둡니다. 특히 다음은 이 문서대로가 아닙니다.
+> **지난 설계 문서입니다.** 실제로 배포한 구성(kw-campus 1.0)은 이 문서와 다릅니다. 지금 기준은 kw-campus의 README·docs와 코드입니다. 이 문서는 결정 과정을 남기려고 둡니다. 특히 다음은 이 문서대로가 아닙니다.
 > - 저장소는 S3의 SQLite가 아니라 DynamoDB(`kw-public`, `kw-delivery`, `kw-bridge`)이고, Discord는 webhook이 아니라 봇 토큰으로 보냅니다(스트림 → SQS `kw-discord` → 전송 Lambda).
 > - Discord 메시지는 120일 뒤 지우지 않습니다. 지우는 건 `scripts/collector_admin.py takedown`뿐입니다. kw-public 항목은 마지막 변경 120일 뒤 TTL로 지워지고, 전달 기록(`kw-delivery`)은 공지가 바뀔 때마다 늘려 공지보다 30일 더 남깁니다.
 > - robots.txt는 실행 중에 받지 않습니다. 수집하는 호스트마다 손으로 확인해 `politeness.ROBOTS`에 날짜와 결과를 적고, 기록이 없는 호스트와 Disallow 경로는 요청하지 않습니다(`robots_skip`, NeedsHuman). 기록이 180일보다 오래되면 평일 아침 campus 실행이 NeedsHuman을 올립니다(`robots_age_check`). 다시 확인하고 날짜를 고칠 때까지 계속 올립니다.

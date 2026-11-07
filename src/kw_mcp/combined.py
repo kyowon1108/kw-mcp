@@ -338,7 +338,7 @@ async def my_notices(svc: KlasService, public: PublicApi, days: int = 7) -> dict
         return {**out, **pub.status("학교 공지")}
 
 
-# 학사일정 entries students ask deadlines for (에브리타임: "학사일정에 안 뜬다", 2026-11). (?!목) keeps 전과목 out.
+# 학사일정 entries students ask deadlines for (students say they are "not on the calendar"). (?!목) keeps 전과목 out.
 ACADEMIC_DEADLINE_WORDS = re.compile(
     r"수강|(?:수업|강의)\s*(?:중간\s*)?평가|성적|이의|휴학|복학|등록|계절|졸업|장학|학점\s*포기|정정|중간고사|기말고사|"
     r"다전공|복수전공|부전공|연계전공|주전공|전과(?!목)|선택\s*기간|신청\s*기간")

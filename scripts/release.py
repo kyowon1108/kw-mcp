@@ -19,8 +19,9 @@
                                  in as data.json's app); `data --dry-run` signs with a throwaway key
                                  into dist/data-dry-run/
 
-Steps: refuse a dirty tree, a missing tag or a version that isn't above the last release; check
-pyproject, manifest.json and uv.lock agree on the version; export HEAD (so nothing untracked, like
+Steps: refuse a dirty tree, a missing tag, a version that isn't above the last release or one without
+lines in release_notes.json (what students see in the update notice); check pyproject, manifest.json and
+uv.lock agree on the version; export HEAD (so nothing untracked, like
 .claude/ worktrees, can get in); pack the allow-listed extension (.mcpb, a zip made here in Python)
 before any third-party code runs; `uv lock --check`; pytest; build the wheel; export the dependency
 pins from uv.lock; install the wheel into a throwaway uv tool environment exactly like an agent update
@@ -156,7 +157,8 @@ def stage_bundle(src: Path, dest: Path) -> list[str]:
             (dest / name).parent.mkdir(parents=True, exist_ok=True)
             shutil.copy2(path, dest / name)
             copied.append(name)
-    missing = {"manifest.json", "pyproject.toml", "uv.lock", "LICENSE", "src/kw_mcp/server.py"} - set(copied)
+    missing = {"manifest.json", "pyproject.toml", "uv.lock", "LICENSE", release.RELEASE_NOTES_NAME,
+               "src/kw_mcp/server.py"} - set(copied)
     if missing:
         raise ReleaseError(f"the extension would lack {', '.join(sorted(missing))}")
     return copied
@@ -170,6 +172,17 @@ def write_data_version(project: Path, when: datetime) -> int:
     version = release.data_version_at(when)
     (project / "src" / "kw_mcp" / release.DATA_VERSION_FILE).write_text(f"{version}\n", encoding="ascii")
     return version
+
+
+def check_notes(root: Path, version: str) -> list[str]:
+    """release_notes.json's lines for `version`: the update notice tells students what changed, so a release
+    without them stops here."""
+    from kw_mcp import release
+
+    try:
+        return release.release_notes(root, version)
+    except ValueError as e:
+        raise ReleaseError(str(e)) from None
 
 
 def check_bundle_manifest(stage: Path) -> dict:
@@ -317,6 +330,7 @@ def build(root: Path, out: Path, *, dry_run: bool = False, last_manifest: Path |
         if not dry_run:
             raise ReleaseError(f"HEAD is not tagged v{version}; run `git tag v{version}` on the commit to release")
         print(f"warning: HEAD is not tagged v{version}", file=sys.stderr)
+    check_notes(root, version)  # even in a dry run: signing needs them
     try:
         check_newer(root, version, [root / "dist" / "release" / release.MANIFEST_NAME,
                                     *([last_manifest] if last_manifest else [])])
@@ -332,6 +346,7 @@ def build(root: Path, out: Path, *, dry_run: bool = False, last_manifest: Path |
         export_head(root, src)
         if release_version(src) != version:
             raise ReleaseError("HEAD has a different version than the working tree; commit the version bump")
+        check_notes(src, version)  # HEAD's release_notes.json is the one packed and signed
         # Packed straight from the export, before uv, pytest or any dependency runs: what they could
         # change afterwards no longer matches the hash recorded here.
         stage_bundle(src, stage)

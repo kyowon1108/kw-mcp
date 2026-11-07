@@ -1,6 +1,6 @@
-# Runs the live Windows and macOS installers and the agent's OS-specific code (Run key, pythonw spawn,
+# Installs this commit on Windows and macOS as an agent update would, and runs the agent's OS-specific code (Run key, pythonw spawn,
 # launchd job, per-user lock, self-update with pinned, hash-checked dependencies and its self-test).
-# A fake invite stops `kw-mcp link` before it would touch KLAS.
+# (The terminal installers were retired in 1.1: students install the .mcpb from /start.)
 name: Agent install (Windows, macOS)
 
 # Manual runs and release tags only: macOS minutes count 10x on a private repo's free Actions plan.
@@ -17,24 +17,15 @@ jobs:
     runs-on: windows-latest
     timeout-minutes: 20
     env:
-      BRIDGE: https://l9doaodgw6.execute-api.ap-northeast-2.amazonaws.com
       PYTHONUTF8: "1"
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
 
-      - name: Live installer (stops at link with a fake invite)
-        shell: powershell
-        run: |
-          $env:KWC = 'kwc_not-a-real-invite'
-          irm "$env:BRIDGE/install.ps1" | iex
-          $env:Path = "$env:USERPROFILE\.local\bin;$env:Path"
-          kw-mcp --help
-          if ($LASTEXITCODE -ne 0) { throw 'kw-mcp did not run after install' }
-          kw-mcp status
+      - uses: astral-sh/setup-uv@1c37ad07a6a961277cf70c0d37d6f313000f5884 # v10.3.0
 
-      - name: Install this commit over the live release (pinned and hash-checked like a release)
+      - name: Install this commit as an agent update would (pinned and hash-checked like a release)
         shell: powershell
         run: |
           $env:Path = "$env:USERPROFILE\.local\bin;$env:Path"
@@ -83,27 +74,18 @@ jobs:
           if ($v -ne '0.99.0') { throw 'the detached update did not install the new version' }
 
   macos:
-    # A fresh Mac, like a friend's first install: live installer, launchd job, lock, self-update.
+    # A fresh Mac: this commit installed like an update, launchd job, lock, self-update.
     runs-on: macos-latest
     timeout-minutes: 20
-    env:
-      BRIDGE: https://l9doaodgw6.execute-api.ap-northeast-2.amazonaws.com
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
 
-      - name: Live installer (stops at link with a fake invite)
-        run: |
-          set +e
-          # Exactly what a user pastes. The last step (link) needs a terminal and stops on the fake invite.
-          curl -fsSL "$BRIDGE/install.sh" | sh -s -- kwc_not-a-real-invite
-          set -e
-          export PATH="$HOME/.local/bin:$PATH"
-          kw-mcp --help > /dev/null
-          kw-mcp status
+      - name: uv where students have it (~/.local/bin, the agent looks there under launchd's bare PATH)
+        run: curl -LsSf https://astral.sh/uv/0.13.1/install.sh | sh
 
-      - name: Install this commit over the live release (pinned and hash-checked like a release)
+      - name: Install this commit as an agent update would (pinned and hash-checked like a release)
         run: |
           export PATH="$HOME/.local/bin:$PATH"
           uv export --frozen --no-dev --no-emit-project --no-header --format requirements-txt -o exported.txt

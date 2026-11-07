@@ -30,11 +30,11 @@ assert agent.autostart_installed()
 # The spawned agent is not linked, so it should log that and exit on its own.
 log = agent.default_log_file()
 for _ in range(30):
-    if log.exists() and "연결되지 않았습니다" in log.read_text(encoding="utf-8"):
+    if log.exists() and agent.ASK_TO_CONNECT in log.read_text(encoding="utf-8"):
         break
     time.sleep(1)
 print("agent log:", log.read_text(encoding="utf-8") if log.exists() else "(missing)")
-assert log.exists() and "연결되지 않았습니다" in log.read_text(encoding="utf-8"), "spawned agent did not run"
+assert log.exists() and agent.ASK_TO_CONNECT in log.read_text(encoding="utf-8"), "spawned agent did not run"
 
 agent.uninstall_autostart()
 assert not agent.autostart_installed()

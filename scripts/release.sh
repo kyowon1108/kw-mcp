@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Cut a signed kw-mcp release into dist/release/ (see scripts/release.py and README "릴리스").
+# Cut a signed kw-mcp release into dist/release/ (see scripts/release.py and docs/development.md "릴리스").
 #   scripts/release.sh             real release: clean tree, HEAD tagged v<version>, a version above the
 #                                  last release, keychain signing key (no npm code runs in it)
 #   scripts/release.sh --last-latest-json FILE   also compare with the bridge's latest.json saved in FILE

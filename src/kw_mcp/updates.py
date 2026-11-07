@@ -7,6 +7,10 @@ checking the signature and the hash. A compromised server can't make it offer a 
 
 Only inside the extension (KW_MCP_DISTRIBUTION=mcpb) and only with an invite, which names the server.
 Without one, check() says so instead of quietly reporting "no new version".
+
+The notice says what the new version changes: the entry's notes, signed separately (release.verify_notes).
+Notes that fail the signature or the size limits are dropped and the update is offered without them.
+check() also gives this version's own lines from the release_notes.json packed in the extension.
 """
 
 from __future__ import annotations
@@ -25,7 +29,8 @@ import httpx
 from . import release
 from .agent import installed_version, official_invite
 
-__all__ = ["check", "download", "enabled", "installed_version", "latest", "notice", "server", "unavailable_reason"]
+__all__ = ["check", "download", "enabled", "installed_version", "latest", "notice", "server", "this_version_changes",
+           "unavailable_reason"]
 
 CHECK_EVERY_S = 6 * 3600
 RETRY_AFTER_FAILURE_S = 600
@@ -34,6 +39,9 @@ DOWNLOAD_DEADLINE_S = 120.0
 MAX_MANIFEST_BYTES = 64 * 1024
 MAX_MCPB_BYTES = 20 * 1024 * 1024
 RAW = {"Accept-Encoding": "identity"}  # caps count bytes received, so no decompression
+# The project root's release_notes.json: in the extension, the bundle's root (uv runs the project from there).
+# A wheel install has none, and then this version's changes are simply not known.
+NOTES_FILE = Path(__file__).resolve().parents[2] / release.RELEASE_NOTES_NAME
 
 _cache: tuple[float, float, dict[str, Any] | None] | None = None  # (checked_at, valid_for, newer)
 _last_ok = True  # whether the latest check reached the server and read its manifest
@@ -88,9 +96,11 @@ async def latest(http: httpx.AsyncClient | None = None, *, force: bool = False) 
 
 
 async def check(http: httpx.AsyncClient | None = None) -> dict[str, Any]:
-    """What check_update answers: the installed version, a newer signed one if any, and when the
-    check could not run, the reason (no invite, a malformed one, the server unreachable)."""
-    out: dict[str, Any] = {"installed": installed_version(), "checked": False, "update_available": None}
+    """What check_update answers: the installed version and what it changed, a newer signed one if any
+    (with its changes), and when the check could not run, the reason (no invite, a malformed one, the server
+    unreachable)."""
+    out: dict[str, Any] = {"installed": installed_version(), "this_version_changes": this_version_changes(),
+                           "checked": False, "update_available": None}
     if reason := unavailable_reason():
         return {**out, "reason": reason}
     newer = await latest(http, force=True)
@@ -129,16 +139,29 @@ async def _fetch(base: str, http: httpx.AsyncClient | None) -> tuple[dict[str, A
     current = installed_version()
     if release.version_tuple(entry["version"]) <= release.version_tuple(current):
         return None, True
+    # Signed apart from the file: without a valid signature (or within the limits) the update still stands.
+    changes = list(entry["notes"]) if release.verify_notes(entry) else []
     return {"version": entry["version"], "installed": current, "sha256": entry["sha256"],
-            "url": f"{base}/dist/{entry['file']}"}, True
+            "url": f"{base}/dist/{entry['file']}", "changes": changes}, True
 
 
-def notice(newer: dict[str, Any]) -> dict[str, str]:
+def notice(newer: dict[str, Any]) -> dict[str, Any]:
     """What the combined tools add to their answer when a newer version exists."""
+    changes = list(newer.get("changes") or [])
+    said = f" 바뀐 점: {' / '.join(changes)}." if changes else ""
     # No link here: a file fetched by hand skips the signature check that download_update does.
-    return {"installed": newer["installed"], "latest": newer["version"],
-            "message": "KW CAMPUS 확장의 새 버전이 있습니다. 사용자가 원하면 download_update 도구로 받으세요"
-                       "(서명을 확인한 파일만 다운로드 폴더에 저장합니다)."}
+    return {"installed": newer["installed"], "latest": newer["version"], "changes": changes,
+            "message": f"새 버전 {newer['version']}이 있어요.{said} 사용자가 원하면 download_update 도구로 받으세요"
+                       "(서명을 확인한 파일만 다운로드 폴더에 저장해요)."}
+
+
+def this_version_changes() -> list[str]:
+    """What the installed version changed, from the release_notes.json packed with it ([] if unknown)."""
+    try:
+        notes = json.loads(NOTES_FILE.read_text(encoding="utf-8")).get(installed_version())
+    except (OSError, ValueError, AttributeError):
+        return []
+    return list(notes) if release.notes_ok(notes) else []
 
 
 def downloads_dir() -> Path:

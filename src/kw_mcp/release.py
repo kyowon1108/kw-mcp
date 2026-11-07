@@ -5,13 +5,17 @@ The bridge serves /dist/latest.json, written by scripts/release.sh on the releas
   {"version": "0.9.1",
    "wheel": "kw_mcp-0.9.1-py3-none-any.whl", "sha256": "<hex>", "signature": "<b64>",
    "constraints": {"file": "kw_mcp-0.9.1-constraints.txt", "sha256": "<hex>", "signature": "<b64>"},
-   "mcpb": {"version": "0.9.1", "file": "kw-campus.mcpb", "sha256": "<hex>", "signature": "<b64>"}}
+   "mcpb": {"version": "0.9.1", "file": "kw-campus.mcpb", "sha256": "<hex>", "signature": "<b64>",
+            "notes": ["<what the student gets>", ...], "notes_signature": "<b64>"}}
 
 Each signature is Ed25519, made with a key that lives only in the release machine's keychain:
   wheel        `kw-mcp-release:<version>:<wheel>:<sha256>` (unchanged since 0.6, so released agents still verify)
   constraints  `kw-mcp-constraints:<version>:<sha256>`: every dependency pinned (exported from uv.lock,
                with an `# exclude-newer:` cutoff line), so an update can't pull an untested package
   mcpb         `kw-mcp-mcpb:<version>:<sha256>`, version being the kw-mcp version packed inside
+  notes        `kw-mcp-notes:<version>:<sha256 of the notes list as canonical JSON>`: the extension's 1-5 short
+               lines for that version from release_notes.json (since 1.2.2). A separate signature, so the mcpb
+               one is unchanged and older extensions, which don't read notes, still verify the entry
 
 Agents and the extension carry the public key below and install nothing that fails it. That covers
 background updates only: a first install, a manual reinstall with the setup page's command, and the
@@ -67,6 +71,11 @@ KEYRING_SERVICE = "kw-campus-release"
 KEYRING_USER = "signing-key"
 MANIFEST_NAME = "latest.json"
 MCPB_NAME = "kw-campus.mcpb"
+# What each version changed, for students: {"1.2.2": ["one short line", ...]}. At the project root, packed in the
+# extension (check_update reads its own version's lines) and signed into latest.json for the update notice.
+RELEASE_NOTES_NAME = "release_notes.json"
+MAX_NOTES = 5
+MAX_NOTE_CHARS = 80
 _WHEEL = re.compile(r"^kw_mcp-(?P<version>[0-9][\w.]*)-py3-none-any\.whl$")
 _CONSTRAINTS = re.compile(r"^kw_mcp-(?P<version>[0-9][\w.]*)-constraints\.txt$")
 _EXCLUDE_NEWER = re.compile(r"^# exclude-newer: (\d{4}-\d\d-\d\dT\d\d:\d\d:\d\dZ)$", re.MULTILINE)
@@ -75,7 +84,7 @@ _RELEASE_VERSION = re.compile(r"\d+(\.\d+){1,3}")  # plain numbers only: no rc/d
 # What a .mcpb may contain. Anything else (a stale worktree under .claude/, local settings, caches)
 # makes signing refuse the bundle.
 BUNDLE_FILES = frozenset({"manifest.json", "icon.png", "pyproject.toml", "uv.lock", ".python-version", "README.md",
-                          "LICENSE"})
+                          "LICENSE", RELEASE_NOTES_NAME})
 # The package's code, and its data: the graduation/다전공 rules (rules/*.json), the knowledge base
 # (knowledge/**/*.json) and the data's version (data_version, written at release). Folder names without
 # dots, so no entry can climb out of src/kw_mcp.
@@ -120,6 +129,18 @@ def constraints_message(version: str, sha256: str) -> bytes:
 
 def mcpb_message(version: str, sha256: str) -> bytes:
     return f"kw-mcp-mcpb:{version}:{sha256}".encode()
+
+
+def notes_message(version: str, notes: list[str]) -> bytes:
+    canonical = json.dumps(notes, sort_keys=True, separators=(",", ":"), ensure_ascii=True).encode()
+    return f"kw-mcp-notes:{version}:{hashlib.sha256(canonical).hexdigest()}".encode()
+
+
+def notes_ok(notes: Any) -> bool:
+    """1 to MAX_NOTES lines of at most MAX_NOTE_CHARS characters each, one line apiece."""
+    return (isinstance(notes, list) and 0 < len(notes) <= MAX_NOTES
+            and all(isinstance(n, str) and n.strip() and len(n) <= MAX_NOTE_CHARS and "\n" not in n and "\r" not in n
+                    for n in notes))
 
 
 def constraints_name(version: str) -> str:
@@ -181,6 +202,42 @@ def verify_mcpb(entry: dict[str, Any], public_key: str | None = None) -> bool:
         return True
     except (KeyError, ValueError, TypeError, InvalidSignature):
         return False
+
+
+def verify_notes(entry: dict[str, Any], public_key: str | None = None) -> bool:
+    """True if the extension entry's notes are well formed and signed for its version by the release key."""
+    key = public_key if public_key is not None else PUBLIC_KEY
+    try:
+        notes = entry["notes"]
+        if not key or not notes_ok(notes):
+            return False
+        _check(key, entry["notes_signature"], notes_message(str(entry["version"]), notes))
+        return True
+    except (KeyError, ValueError, TypeError, InvalidSignature):
+        return False
+
+
+def release_notes(project_dir: Path, version: str) -> list[str]:
+    """The lines release_notes.json gives `version`. Refuses a version without an entry, or one that is too long."""
+    path = project_dir / RELEASE_NOTES_NAME
+    try:
+        notes = json.loads(path.read_text(encoding="utf-8"))
+    except FileNotFoundError:
+        raise ValueError(f"{RELEASE_NOTES_NAME} is missing; add it with what {version} changes for students") from None
+    if not isinstance(notes, dict) or version not in notes:
+        raise ValueError(f"{RELEASE_NOTES_NAME} has no entry for {version}; add 1-{MAX_NOTES} short lines (해요체) "
+                         "saying what students get")
+    if not notes_ok(notes[version]):
+        raise ValueError(f"{RELEASE_NOTES_NAME}: {version} needs 1-{MAX_NOTES} one-line strings of at most "
+                         f"{MAX_NOTE_CHARS} characters")
+    return notes[version]
+
+
+def sign_notes(version: str, notes: list[str], private_key: Ed25519PrivateKey) -> dict[str, Any]:
+    if not notes_ok(notes):
+        raise ValueError(f"notes for {version} must be 1-{MAX_NOTES} lines of at most {MAX_NOTE_CHARS} characters")
+    signature = private_key.sign(notes_message(version, notes))
+    return {"notes": list(notes), "notes_signature": base64.b64encode(signature).decode()}
 
 
 def app_series(version: str) -> str:
@@ -281,7 +338,7 @@ def sign_constraints(path: Path, version: str, private_key: Ed25519PrivateKey) -
     return {"file": path.name, "sha256": sha256, "signature": base64.b64encode(signature).decode()}
 
 
-PACKED_PROJECT_FILES = ("pyproject.toml", "uv.lock", "manifest.json")
+PACKED_PROJECT_FILES = ("pyproject.toml", "uv.lock", "manifest.json", RELEASE_NOTES_NAME)
 
 
 def bundle_extras(names: list[str]) -> list[str]:
@@ -303,7 +360,8 @@ def sign_mcpb(mcpb_path: Path, private_key: Ed25519PrivateKey, wheel_path: Path 
                    if n.startswith("src/kw_mcp/") and n.endswith(_PACKAGE_FILES)}
         packed_project = {n: bundle.read(n) for n in PACKED_PROJECT_FILES} if project_dir is not None else {}
     if any((project_dir / n).read_bytes() != b for n, b in packed_project.items()):
-        raise ValueError(f"{mcpb_path.name} has an older pyproject.toml, uv.lock or manifest.json; repack it")
+        raise ValueError(f"{mcpb_path.name} has an older pyproject.toml, uv.lock, manifest.json or "
+                         f"{RELEASE_NOTES_NAME}; repack it")
     if shown != version:
         raise ValueError(f"manifest.json version {shown} differs from pyproject version {version}")
     if not _RELEASE_VERSION.fullmatch(version):
@@ -321,18 +379,22 @@ def sign_mcpb(mcpb_path: Path, private_key: Ed25519PrivateKey, wheel_path: Path 
 
 def sign_release(wheel: Path, constraints: Path, mcpb: Path, private_key: Ed25519PrivateKey,
                  project_dir: Path) -> dict[str, Any]:
-    """latest.json for a release: the wheel, its dependency pins and the extension packed from the same code."""
+    """latest.json for a release: the wheel, its dependency pins, the extension packed from the same code and
+    its signed notes (release_notes.json's entry for the version; none refuses the release)."""
     manifest: dict[str, Any] = sign(wheel, private_key)
+    notes = release_notes(project_dir, manifest["version"])
     manifest["constraints"] = sign_constraints(constraints, manifest["version"], private_key)
     manifest["mcpb"] = sign_mcpb(mcpb, private_key, wheel_path=wheel, project_dir=project_dir)
     if manifest["mcpb"]["version"] != manifest["version"]:
         raise ValueError("the extension and the wheel have different versions")
+    manifest["mcpb"] |= sign_notes(manifest["version"], notes, private_key)
     return manifest
 
 
 def check_release(folder: Path, public_key: str | None = None) -> dict[str, Any]:
     """Verify a release folder: latest.json signed by the release key, every entry present (wheel,
-    constraints, extension) and every file matching its signed hash. Returns the manifest."""
+    constraints, extension, and the extension's notes if it has any) and every file matching its signed hash.
+    Returns the manifest."""
     manifest = json.loads((folder / MANIFEST_NAME).read_text(encoding="utf-8"))
     if not verify(manifest, public_key):
         raise ValueError("latest.json: the wheel entry is not signed by the release key")
@@ -342,6 +404,8 @@ def check_release(folder: Path, public_key: str | None = None) -> dict[str, Any]
         raise ValueError("latest.json: no signed extension (mcpb) entry")
     if manifest["mcpb"]["version"] != manifest["version"]:
         raise ValueError("latest.json: the extension and the wheel have different versions")
+    if ({"notes", "notes_signature"} & manifest["mcpb"].keys()) and not verify_notes(manifest["mcpb"], public_key):
+        raise ValueError("latest.json: the extension's notes are malformed or not signed by the release key")
     for name, sha256 in ((manifest["wheel"], manifest["sha256"]),
                          (manifest["constraints"]["file"], manifest["constraints"]["sha256"]),
                          (manifest["mcpb"]["file"], manifest["mcpb"]["sha256"])):
@@ -414,8 +478,9 @@ def _main(argv: list[str]) -> None:
             manifest = check_release(Path(argv[1]))
         except (OSError, ValueError, KeyError, TypeError) as e:
             raise SystemExit(f"release check failed: {e}") from None
+        notes = f", {len(manifest['mcpb']['notes'])} notes" if "notes" in manifest["mcpb"] else ""
         print(f"release {manifest['version']} verified: {manifest['wheel']}, {manifest['constraints']['file']}, "
-              f"{manifest['mcpb']['file']}")
+              f"{manifest['mcpb']['file']}{notes}")
     elif argv[:1] == ["check-data"] and len(argv) == 2:
         try:
             data = check_data(Path(argv[1]))

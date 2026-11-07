@@ -39,7 +39,10 @@ def test_the_origin_is_written_down_once_and_matches_the_manifest_and_ci():
     assert re.findall(r'^BRIDGE_ORIGIN = "([^"]+)"$', source, re.MULTILINE) == [REAL]
     privacy = json.loads((ROOT / "manifest.json").read_text(encoding="utf-8"))["privacy_policies"][0]
     assert privacy == f"{REAL}/privacy"
-    assert f"BRIDGE: {REAL}" in (ROOT / ".github" / "workflows" / "agent-install.yml").read_text(encoding="utf-8")
+    # agent-install.yml installs this commit directly now: no workflow carries a second copy of the origin.
+    for workflow in (ROOT / ".github" / "workflows").glob("*.yml"):
+        text = workflow.read_text(encoding="utf-8")
+        assert "l9doaodgw6" not in text or f"BRIDGE: {REAL}" in text, workflow.name
     for name in ("agent.py", "webconnect.py", "public_api.py", "updates.py", "__init__.py"):  # no second copy
         assert "l9doaodgw6" not in (ROOT / "src" / "kw_mcp" / name).read_text(encoding="utf-8")
 

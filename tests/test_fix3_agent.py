@@ -589,6 +589,7 @@ def checkout(root: Path, version="0.9.1", code=b"print('v')") -> Path:
     (root / "pyproject.toml").write_text(f'[project]\nname = "kw-mcp"\nversion = "{version}"\n')
     (root / "uv.lock").write_text(f'version = 1\n\n[[package]]\nname = "kw-mcp"\nversion = "{version}"\n')
     (root / "LICENSE").write_text("MIT License")
+    (root / "release_notes.json").write_text(json.dumps({version: ["바뀐 점이에요"]}, ensure_ascii=False))
     (root / "src" / "kw_mcp" / "server.py").write_bytes(code)
     (root / "src" / "kw_mcp" / "__main__.py").write_text("from kw_mcp import main\n")
     return root

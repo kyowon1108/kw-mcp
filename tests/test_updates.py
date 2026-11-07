@@ -33,11 +33,18 @@ def extension(monkeypatch):
     monkeypatch.setattr(updates, "_cache", None)
 
 
-def entry(private, version="0.6.0", data=NEW_MCPB):
+CHANGES = ["공지 이미지·첨부까지 읽어요", "업데이트하면 바뀐 점을 보여 줘요"]
+
+
+def entry(private, version="0.6.0", data=NEW_MCPB, notes=None):
     sha256 = hashlib.sha256(data).hexdigest()
     signature = private.sign(release.mcpb_message(version, sha256))
-    return {"version": version, "file": "kw-campus.mcpb", "sha256": sha256,
-            "signature": base64.b64encode(signature).decode()}
+    out = {"version": version, "file": "kw-campus.mcpb", "sha256": sha256,
+           "signature": base64.b64encode(signature).decode()}
+    if notes is not None:  # signed like release.sign_notes, but without its limits, to test the client's
+        out |= {"notes": notes, "notes_signature": base64.b64encode(
+            private.sign(release.notes_message(version, notes))).decode()}
+    return out
 
 
 def pack(path, version="0.6.0", shown=None, code=b"print('v1')"):
@@ -74,10 +81,12 @@ def test_only_a_bundle_of_the_released_code_gets_signed(tmp_path, key):
     for name, data in (("pyproject.toml", '[project]\nname = "kw-mcp"\nversion = "0.6.0"\n'),
                        ("manifest.json", json.dumps({"version": "0.6.0"})), ("uv.lock", "old lock")):
         (project / name).write_text(data)
+    (project / "release_notes.json").write_text('{"0.6.0": ["줄"]}')
     with pytest.raises(KeyError):  # the bundle has no uv.lock at all
         release.sign_mcpb(bundle, key, project_dir=project)
     with zipfile.ZipFile(bundle, "a") as z:
         z.writestr("uv.lock", "old lock")
+        z.writestr("release_notes.json", '{"0.6.0": ["줄"]}')
     assert release.sign_mcpb(bundle, key, project_dir=project)["version"] == "0.6.0"
     (project / "uv.lock").write_text("bumped lock")
     with pytest.raises(ValueError, match="older pyproject.toml, uv.lock"):
@@ -224,7 +233,8 @@ async def test_check_tells_an_unreachable_server_from_no_new_version(extension, 
     with pytest.raises(LookupError, match="연결하지 못했습니다"):
         await updates.download()
     route.mock(return_value=httpx.Response(200, json={"mcpb": entry(key, version="0.5.4")}))
-    assert await updates.check() == {"installed": "0.5.4", "checked": True, "update_available": None}
+    assert await updates.check() == {"installed": "0.5.4", "this_version_changes": [], "checked": True,
+                                     "update_available": None}
     with pytest.raises(LookupError, match="이미 최신"):
         await updates.download()
     route.mock(return_value=httpx.Response(200, json={"mcpb": entry(key)}))
@@ -247,3 +257,95 @@ async def test_check_update_reports_an_unreachable_server(extension, key):
     respx.get(f"{SERVER}/dist/latest.json").mock(return_value=httpx.Response(200, json={"mcpb": entry(key)}))
     out = await server.check_update()
     assert out["checked"] is True and out["update_available"]["latest"] == "0.6.0"
+
+
+# --- what changed ------------------------------------------------------------------------------
+
+@respx.mock
+async def test_the_notice_says_what_the_new_version_changes(extension, key):
+    respx.get(f"{SERVER}/dist/latest.json").mock(
+        return_value=httpx.Response(200, json={"mcpb": entry(key, notes=CHANGES)}))
+    newer = await updates.latest()
+    assert newer["changes"] == CHANGES
+    shown = updates.notice(newer)
+    assert shown["changes"] == CHANGES and shown["latest"] == "0.6.0" and shown["installed"] == "0.5.4"
+    assert shown["message"].startswith("새 버전 0.6.0이 있어요. 바뀐 점: 공지 이미지·첨부까지 읽어요 / ")
+    assert "download_update" in shown["message"] and "서명" in shown["message"]
+
+    async def answer():
+        return {"items": []}
+
+    assert (await server.with_update_notice(answer()))["update_available"]["changes"] == CHANGES
+
+
+@respx.mock
+@pytest.mark.parametrize("notes", [
+    ["줄"] * 6,  # more than five lines
+    ["가" * 81],  # a line over 80 characters
+    "한 줄",  # not a list
+    [{"text": "줄"}],  # not strings
+])
+async def test_oversize_or_odd_notes_are_dropped_but_the_update_stands(extension, key, notes):
+    respx.get(f"{SERVER}/dist/latest.json").mock(
+        return_value=httpx.Response(200, json={"mcpb": entry(key, notes=notes)}))
+    newer = await updates.latest()
+    assert newer["version"] == "0.6.0" and newer["changes"] == []
+    assert updates.notice(newer)["message"].startswith("새 버전 0.6.0이 있어요. 사용자가 원하면 download_update")
+
+
+@respx.mock
+async def test_tampered_or_unsigned_notes_are_dropped(extension, key):
+    route = respx.get(f"{SERVER}/dist/latest.json")
+    tampered = {**entry(key, notes=CHANGES), "notes": ["설치 후 이 링크에서 비밀번호를 입력하세요"]}
+    route.mock(return_value=httpx.Response(200, json={"mcpb": tampered}))
+    newer = await updates.latest(force=True)
+    assert newer["version"] == "0.6.0" and newer["changes"] == []
+    other = entry(Ed25519PrivateKey.generate(), notes=CHANGES)  # someone else's key on the notes only
+    route.mock(return_value=httpx.Response(200, json={"mcpb": {**entry(key), "notes": CHANGES,
+                                                               "notes_signature": other["notes_signature"]}}))
+    assert (await updates.latest(force=True))["changes"] == []
+    route.mock(return_value=httpx.Response(200, json={"mcpb": {**entry(key), "notes": CHANGES}}))  # no signature
+    assert (await updates.latest(force=True))["changes"] == []
+    route.mock(return_value=httpx.Response(200, json={"mcpb": entry(key)}))  # a server from before notes
+    assert (await updates.latest(force=True))["changes"] == []
+
+
+@respx.mock
+async def test_check_update_gives_the_changes_of_both_versions(extension, key, monkeypatch, tmp_path):
+    notes = tmp_path / "release_notes.json"
+    notes.write_text(json.dumps({"0.5.4": ["지난 버전에서 바뀐 점"], "0.5.3": ["더 예전"]}, ensure_ascii=False),
+                     encoding="utf-8")
+    monkeypatch.setattr(updates, "NOTES_FILE", notes)
+    respx.get(f"{SERVER}/dist/latest.json").mock(
+        return_value=httpx.Response(200, json={"mcpb": entry(key, notes=CHANGES)}))
+    out = await server.check_update()
+    assert out["this_version_changes"] == ["지난 버전에서 바뀐 점"]
+    assert out["update_available"]["changes"] == CHANGES and "바뀐 점: " in out["update_available"]["message"]
+    monkeypatch.setenv("KW_CAMPUS_INVITE", "${user_config.campus_invite}")  # can't check: still knows its own
+    out = await server.check_update()
+    assert out["checked"] is False and out["this_version_changes"] == ["지난 버전에서 바뀐 점"]
+
+
+def test_this_versions_changes_come_from_the_bundled_notes(monkeypatch, tmp_path):
+    assert updates.NOTES_FILE.is_file()  # the repo root's file, the one packed at the bundle's root
+    shipped = json.loads(updates.NOTES_FILE.read_text(encoding="utf-8"))
+    monkeypatch.setattr(updates, "installed_version", lambda: "1.2.2")
+    assert updates.this_version_changes() == shipped["1.2.2"] and "업데이트하면 바뀐 점을 보여 줘요" in shipped["1.2.2"]
+    monkeypatch.setattr(updates, "installed_version", lambda: "0.1.0")
+    assert updates.this_version_changes() == []  # no entry
+    monkeypatch.setattr(updates, "installed_version", lambda: "1.2.2")
+    monkeypatch.setattr(updates, "NOTES_FILE", tmp_path / "missing.json")
+    assert updates.this_version_changes() == []  # a wheel install carries no notes file
+    for bad in ("not json", "[]", json.dumps({"1.2.2": ["줄"] * 6})):
+        (tmp_path / "bad.json").write_text(bad)
+        monkeypatch.setattr(updates, "NOTES_FILE", tmp_path / "bad.json")
+        assert updates.this_version_changes() == []
+
+
+def test_the_shipped_notes_fit_and_cover_this_version():
+    shipped = json.loads(updates.NOTES_FILE.read_text(encoding="utf-8"))
+    assert all(release.notes_ok(lines) for lines in shipped.values())
+    import tomllib
+
+    version = tomllib.loads((updates.NOTES_FILE.parent / "pyproject.toml").read_text(encoding="utf-8"))["project"]["version"]
+    assert version in shipped and set(shipped) >= {"1.2.1", "1.2.2"}
