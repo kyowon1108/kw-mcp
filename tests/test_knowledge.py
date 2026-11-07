@@ -118,6 +118,14 @@ def test_disagreements_lower_confidence():
     ("풋살장 예약 어떻게 해?", "학식·편의시설", "풋살"),
     ("선수과목 안 들었는데 후수과목 들어도 돼?", "수강신청", "선수"),
     ("졸업하려면 토익 필요해?", "졸업", "토익"),
+    # round 6: Everytime gaps (docs/campus-sites/gaps-2026-11-07.md)
+    ("총동문회 장학금 어떻게 신청해?", "장학", "총동문회"),
+    ("총동문회비 냈는지 어디서 확인해?", "장학", "총동문회비"),
+    ("튜터링 어떻게 신청해?", "상담·학생지원", "튜터"),
+    ("단과대 학생회 인스타 어디서 찾아?", "동아리·학생자치", "인스타그램"),
+    ("예비군 셔틀버스 있어?", "병무·예비군", "셔틀버스"),
+    ("교내 토익 특강 어디서 신청해?", "기타", "국제교육원"),
+    ("교환학생 어학점수 꼭 있어야 돼?", "학점교류·교환학생", "어학점수"),
     ("KLAS 졸업사정에 어학 대상이라고 뜨는데 뭐야", "졸업", "어학"),
     ("함지마루 저녁도 팔아?", "학식·편의시설", "함지마루"),
     ("분실물 어디서 찾아?", "학식·편의시설", "분실물"),
@@ -140,6 +148,11 @@ def test_link_entries_carry_official_urls():
     assert "mobileid.kw.ac.kr/seatweb" in knowledge.entry("library-seat-status-live")["how_to"]
     assert "kw.happydorm.or.kr" in knowledge.entry("dorm-apply-how")["how_to"]
     assert "www.kw.ac.kr/ko/tour/directions.jsp" in knowledge.entry("shuttle-route-schedule")["how_to"]
+    # robots-disallowed or outside sites: links only, never fetched
+    assert "www.kwuaa.com/bbs/board.php?bo_table=notice" in knowledge.entry("scholar-alumni-apply")["how_to"]
+    assert "ontl.kw.ac.kr" in knowledge.entry("support-kw-major-tutoring")["how_to"]
+    assert "kwu.ttceducation.net" in knowledge.entry("etc-iie-english-toeic")["how_to"]
+    assert "reading.kw.ac.kr" in knowledge.entry("library-contact")["how_to"]
 
 
 def _validate_module():

@@ -12,6 +12,7 @@ expanded) so a model can read them.
 from __future__ import annotations
 
 import argparse
+import json
 import re
 from html import unescape
 from html.parser import HTMLParser
@@ -147,6 +148,28 @@ def html_main_text(html: str) -> str:
     return html_to_text("".join(p.out), limit=10**9)
 
 
+def next_posts(html: str) -> str:
+    """Posts a Next.js page carries only in its flight data (self.__next_f), as text: the 총학생회 site lists
+    titles in HTML but keeps each post's body there. "" when the page has none."""
+    chunks = re.findall(r'self\.__next_f\.push\(\[1,("(?:[^"\\]|\\.)*")\]\)', html)
+    if not chunks:
+        return ""
+    data = "".join(json.loads(c) for c in chunks)
+    decoder, posts = json.JSONDecoder(), {}
+    for m in re.finditer(r'\{"id":"[0-9a-z]+","category"', data):
+        try:
+            obj, _ = decoder.raw_decode(data, m.start())
+        except ValueError:
+            continue
+        if isinstance(obj, dict) and obj.get("title") and "content" in obj:
+            posts.setdefault(obj["id"], obj)
+    out = []
+    for p in posts.values():
+        date = str(p.get("publishedAt") or p.get("createdAt") or "")[:10]
+        out.append(f"[{p.get('category') or ''}] {p['title']} ({date})\n{(p.get('content') or '').strip()}")
+    return "\n\n[게시글 본문]\n" + "\n\n".join(out) if out else ""
+
+
 def links(html: str) -> list[tuple[str, str]]:
     out = []
     for m in re.finditer(r'(?is)<a\s[^>]*href\s*=\s*["\']([^"\']+)["\'][^>]*>(.*?)</a>', html):
@@ -162,7 +185,10 @@ def decode_html(data: bytes) -> str:
     if m and m.group(1) in ("euc-kr", "ks_c_5601-1987", "cp949"):
         enc = "cp949"
     text = data.decode(enc, "replace")
-    if enc == "utf-8" and text.count("\ufffd") > 20:  # old ASP pages send EUC-KR without saying so
+    bad = text.count("\ufffd")
+    # old ASP pages send EUC-KR without saying so: nearly every Korean character breaks. A UTF-8 page with one
+    # EUC-KR comment block (oia.kw.ac.kr: 58 bad characters in 20-55 KB) stays UTF-8.
+    if enc == "utf-8" and bad > 20 and bad > len(text) // 200:
         text = data.decode("cp949", "replace")
     return text
 
@@ -206,7 +232,8 @@ def extract_one(path, force: bool = False) -> str | None:
     ext = path.suffix.lower()
     try:
         if ext == ".html":
-            text = html_main_text(decode_html(data))
+            html = decode_html(data)
+            text = html_main_text(html) + next_posts(html)
         elif ext == ".xls":
             text = xls_text(data)
         elif ext in (".pdf", ".hwp", ".hwpx", ".docx", ".xlsx", ".pptx"):

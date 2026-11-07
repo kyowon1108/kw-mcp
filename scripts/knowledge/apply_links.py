@@ -3,7 +3,9 @@ fixes a few question variants that pulled generic questions onto narrow entries.
 
 Claude saw these pages as text without their addresses, so some entries said "주소는 자료에 없음". The address
 of every page is known (sources.json); this step writes it into how_to and adds the page as a source. kupis is
-robots-disallowed and was never fetched: it is cited as a link only. Idempotent; run before --assemble.
+robots-disallowed and was never fetched: it is cited as a link only. Round 6 adds MORE_LINKS (several links per
+entry), TEXT_FIXES (exact wording swaps) and drops entries that repeat older ones in another category.
+Idempotent; run before --assemble.
 
     python apply_links.py
 """
@@ -64,9 +66,64 @@ LINKS = {
                        "에 연결된 노션 안내 페이지"]),
 }
 
+KWUAA_NOTICES = "https://www.kwuaa.com/bbs/board.php?bo_table=notice"
+ONTL_PROGRAM = "https://ontl.kw.ac.kr/bbs/board.php?bo_table=program2"
+TTC = "https://kwu.ttceducation.net/campusedu/"
+READING = "https://reading.kw.ac.kr/"
+OIA_AGREEMENT = "https://oia.kw.ac.kr/exchange/agreement.php"
+OIA_FAQ = "https://oia.kw.ac.kr/campus/FAQ.php"
+COUNCIL_INSTAGRAM = "https://instagram.com/kwu_studentcouncil"
+
+# Round 6: more links per entry (id -> [(sentence, source ids, answer phrases to drop)]), applied after LINKS.
+# ontl (교수학습센터), ttceducation (어학특강) and reading (리딩리딩) are robots-disallowed: links only, never fetched.
+MORE_LINKS = {
+    "library-contact": [(f"독서 프로그램 리딩리딩: {READING}", ["reading-home"], [])],
+    "scholar-alumni-apply": [(f"총동문회 공지/행사안내: {KWUAA_NOTICES}", ["kwuaa-notices"], [])],
+    "scholar-alumni-result": [(f"총동문회 공지/행사안내: {KWUAA_NOTICES}", ["kwuaa-notices"], [])],
+    "scholar-alumni-eligibility": [(f"총동문회 공지/행사안내: {KWUAA_NOTICES}", ["kwuaa-notices"], [])],
+    "scholar-robot-micromodule": [("지능형로봇학과(사업단) 홈페이지: https://share.kw.ac.kr/main/main.php",
+                                   ["share-main"], [])],
+    "support-kw-major-tutoring": [(f"교수학습센터 프로그램 게시판: {ONTL_PROGRAM}", ["ontl-program"], [])],
+    "support-basic-skills-clinic": [(f"교수학습센터 프로그램 게시판: {ONTL_PROGRAM}", ["ontl-program"], [])],
+    "support-learning-consulting": [(f"교수학습센터 프로그램 게시판: {ONTL_PROGRAM}", ["ontl-program"], [])],
+    "support-ctl-location-contact": [(f"교수학습센터 프로그램 게시판: {ONTL_PROGRAM}", ["ontl-program"], [])],
+    "etc-iie-english-toeic": [(f"교내 어학특강 사이트: {TTC}", ["ttc-campusedu"], [])],
+    "exchange-partner-list": [(f"협정대학 목록: {OIA_AGREEMENT}, 교환학생 FAQ: {OIA_FAQ}",
+                               ["oia-agreement", "oia-faq"], [])],
+    "military-reserve-shuttle-bus": [(f"총학생회 인스타그램: {COUNCIL_INSTAGRAM}", ["web-activity01"], [])],
+}
+
+# Round 6: wording fixes inside an entry (id -> {old: new}) in answer, how_to and conditions. The 총동문회 posters
+# give an e-mail address; addresses point at people here, so the entries name the channel instead.
+TEXT_FIXES = {
+    "scholar-alumni-apply": {"dongmoon@kw.ac.kr로 스캔해 보냅니다": "스캔해 공지에 안내된 총동문회 메일로 보냅니다"},
+    "scholar-alumni-result": {"에 전화하거나 dongmoon@kw.ac.kr로 문의합니다": "에 전화로 문의합니다"},
+    # the web-ctl page lists this program next to the ones the entry names
+    "support-learning-consulting": {"학습법 특강·워크숍과 학습공동체도 맡고 있습니다":
+                                    "학습법 특강·워크숍, 학습공동체, 학사경고자·학업부진자 지원 프로그램도 맡고 있습니다"},
+}
+
+# Round 6: gap lines that the dropped duplicates left behind and that older entries answer (line -> new line; ""
+# removes it). school_guide shows a category's gaps as not_in_documents, so a wrong one misleads.
+GAP_FIXES = {
+    "증명서 발급 수수료 금액과 온라인 발급 경로는 문서에 없습니다.": "",   # cert-fee, cert-internet-issue
+    "보건실 운영 시간은 문서에 없습니다.": "",                              # campus-health-center
+    "교수학습센터와 보건실의 운영시간은 문서에 없습니다.": "교수학습센터 운영시간은 문서에 없습니다.",
+}
+
 # Entries removed outright (id -> reason). The event's sign-up link was m.site.naver.com/2iMoN, which a HEAD
 # resolved to a Google Form (not a school address), and the event itself ends on 2026-11-10.
-DROP = {"support-humanrights-lecture-2026": "2026-11-10 특강, 신청 링크가 단축 주소(구글 폼)"}
+DROP = {"support-humanrights-lecture-2026": "2026-11-10 특강, 신청 링크가 단축 주소(구글 폼)",
+        # round 6: the writer saw only its own category, so these repeat older entries elsewhere
+        "military-enlist-leave": "status-military-leave·grade-military-midterm과 중복",
+        "military-return-after-discharge": "status-return-after-military·status-return-apply와 중복",
+        "military-conscription-exam-absence": "class-official-absence·class-absence-claim-procedure와 중복"
+                                              "(2026-2 제출 기한이 들어 있음)",
+        "support-academic-warning-help": "grade-academic-warning-dismissal과 중복(연속 3회 표기 차이 설명 없음)",
+        "support-health-room": "campus-health-center와 중복(운영시간이 있는 쪽을 남김)",
+        "etc-health-room": "campus-health-center와 중복(운영시간이 있는 쪽을 남김)",
+        "etc-certificates-student-id": "cert-student-id·cert-scholarship-tuition 등 증명서·학생증 항목과 중복",
+        "etc-career-counseling": "support-career-counseling·career-counsel-booking과 중복"}
 
 
 # Question variants that pulled a generic question onto a narrower entry (entry id -> {old: new}).
@@ -77,6 +134,8 @@ QUESTION_FIXES = {
     "status-withdrawal-procedure": {"+": "자퇴하려면 어디 가서 뭐 내야 돼?"},
     # round 5: '제대' (not only '전역') should reach the return-after-service entry
     "status-return-after-military": {"+": "군대 제대하고 복학할 때 뭐 내?"},
+    # round 6: the 리딩리딩 link lives in this entry's how_to (link only)
+    "library-contact": {"+": "도서관 리딩리딩 사이트 어디야?"},
 }
 
 
@@ -86,6 +145,10 @@ def main() -> None:
         for path in entry_files(prefix):
             d = json.loads(path.read_text(encoding="utf-8"))
             changed = False
+            gaps = [GAP_FIXES.get(g, g) for g in d.get("gaps", [])]
+            if "gaps" in d and gaps != d["gaps"]:
+                d["gaps"] = [g for g in gaps if g]
+                changed = True
             gone = [e["id"] for e in d["entries"] if e["id"] in DROP]
             if gone:
                 d["entries"] = [e for e in d["entries"] if e["id"] not in DROP]
@@ -100,22 +163,30 @@ def main() -> None:
                 if extra and extra not in e["questions"] and len(e["questions"]) < 6:
                     e["questions"].append(extra)
                     changed = True
-                if e["id"] not in LINKS:
+                for old, new in TEXT_FIXES.get(e["id"], {}).items():
+                    fixed = {k: e[k].replace(old, new) for k in ("answer", "how_to")}
+                    conds = [c.replace(old, new) for c in e["conditions_exceptions"]]
+                    if fixed != {k: e[k] for k in fixed} or conds != e["conditions_exceptions"]:
+                        e.update(fixed, conditions_exceptions=conds)
+                        changed = True
+                        done.append(e["id"])
+                specs = ([LINKS[e["id"]]] if e["id"] in LINKS else []) + MORE_LINKS.get(e["id"], [])
+                if not specs:
                     continue
-                sentence, sids, drop = LINKS[e["id"]]
-                for phrase in drop:
-                    e["answer"] = e["answer"].replace(phrase, "")
-                    e["how_to"] = e["how_to"].replace(phrase, "")
-                if sentence and sentence not in e["how_to"]:
-                    e["how_to"] = (e["how_to"].rstrip() + " " + sentence).strip()
-                have = {s["source_id"] for s in e["sources"]}
-                e["sources"] += [{"source_id": s, "article": "링크", "quote": ""} for s in sids if s not in have]
+                for sentence, sids, drop in specs:
+                    for phrase in drop:
+                        e["answer"] = e["answer"].replace(phrase, "")
+                        e["how_to"] = e["how_to"].replace(phrase, "")
+                    if sentence and sentence not in e["how_to"]:
+                        e["how_to"] = (e["how_to"].rstrip() + " " + sentence).strip()
+                    have = {s["source_id"] for s in e["sources"]}
+                    e["sources"] += [{"source_id": s, "article": "링크", "quote": ""} for s in sids if s not in have]
                 changed = True
                 done.append(e["id"])
             if changed:
                 dump_json(path, d)
-    missing = sorted(set(LINKS) - set(done))
-    print("links added to", len(done), "entries; not found:", missing)
+    missing = sorted((set(LINKS) | set(MORE_LINKS) | set(TEXT_FIXES)) - set(done))
+    print("links added to", len(set(done)), "entries; not found:", missing)
 
 
 if __name__ == "__main__":

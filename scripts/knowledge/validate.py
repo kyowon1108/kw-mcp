@@ -37,6 +37,8 @@ LINK_HOSTS = {
     "webminwon.com", "www.webminwon.com",        # 인터넷 증명발급 (the school's certificate service)
     "www.isic.co.kr",                            # 국제학생증
     "www.selc.or.kr",                            # 서울권역 e-러닝
+    "www.kwuaa.com",                             # 총동문회 (www.kw.ac.kr/ko/alumni links its http-only twin)
+    "kwu.ttceducation.net",                      # 국제교육원 교내 어학특강 (school's vendor; link only, robots)
 }
 LINK_PATHS = {  # host (without www.) -> allowed account paths
     "instagram.com": ("/kwu_career", "/kwu_studentcouncil", "/kw_club_union"),

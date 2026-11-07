@@ -7,6 +7,10 @@ documents and fixes or drops what they don't support.
     python build_faq.py --dry-run                 # prompt sizes and cost guess, no API call
     python build_faq.py --budget 45 [--only 수강신청 졸업] [--workers 4] [--skip-review]
     python build_faq.py --assemble                # out/faq-*.json -> src/kw_mcp/knowledge/faq.json
+    python build_faq.py --round6 --dry-run        # a later round's sizes and cost guess
+
+--budget is the knowledge pipeline's total in the spend ledger, not one run's: to let a run spend X more, pass
+what the ledger already shows for "knowledge" plus X.
 """
 
 from __future__ import annotations
@@ -25,6 +29,11 @@ CHECKED_AT = "2026-11-07"
 CORE_DOCS = ["reg-hakchik", "reg-sihaeng"]
 CONTACT_DOCS = ["web-team-edu", "web-team-student", "web-team-intl", "web-team-finance", "web-team-career"]
 SLICES = {"web-info11": (1300, 34000), "web-info12": (0, 30000)}
+# Text after this marker is dropped: the 동문회비 page lists donors by name after its fee table.
+CUT_AT = {"kwuaa-fees": "연회비 납부자"}
+# The 총동문회 site's page template has a filler contact box (010-0000-0000, Email@Emai.com, 영업시간 AM:09~PM:19)
+# on every page; it is not the 총동문회's contact and is removed before Claude sees the page.
+FILLER = re.compile(r"\n- (영업시간안내 : AM:09 ~ PM:19|휴무 : 토요일,주말,공휴일|010-0000-0000|Email@Emai\.com|)\s*(?=\n)")
 MAX_DOC_CHARS = 45000
 
 CATEGORIES = [
@@ -283,6 +292,72 @@ ROUND5 = [
                    "복전 포기하고 부전공으로 바꿀 수 있어?"]},
 ]
 
+# Sixth round: what students ask on Everytime that the knowledge base missed (docs/campus-sites/gaps-2026-11-07.md).
+# Update mode as in round 5. Robots-disallowed sites (ontl.kw.ac.kr 교수학습센터, kwu.ttceducation.net 어학특강,
+# reading.kw.ac.kr 리딩리딩) were never fetched; apply_links.py adds them as links only.
+STYLE6 = ("\nStyle: keep each answer short (2-4 sentences) and lead with what the student should do; 합니다체 like the "
+          "existing entries; no translationese (~를 통해, ~에 대한, 해당 ~, ~할 수 있습니다 in every sentence). Never "
+          "copy a link shortener or form link (linktr.ee, m.site.naver.com, docs.google.com, QR codes): name the "
+          "page or account instead.")
+ROUND6 = [
+    {"category": "장학", "n": 3,
+     "docs": ["kwuaa-notice-86-image", "kwuaa-notice-73-image", "kwuaa-notice-86", "kwuaa-notice-73", "notice-53217",
+              "kwuaa-fund", "kwuaa-fees", "kwuaa-notices", "web-scholar02", "web-scholar03", "web-alumni"],
+     "note": (" The 총동문회 scholarship is called every year: answer for any year, using the 2025 and 2026 posters "
+              "as the pattern (when it was posted, the 접수 window, selection by e-mail/SMS, the December 수여식), "
+              "not as this year's dates. The 2025 and 2026 posters give different 접수 phone numbers: use the 2026 "
+              "one. The www 교외장학금 table and the posters/fund page describe the award type and 중복 rule "
+              "differently: say both in disagreement. 동문회비 연회비·종신회비 on the 총동문회 page are for alumni; "
+              "do not present them as what a student pays at admission."),
+     "questions": ["총동문회 장학금 어떻게 신청해? 언제 공고 떠?", "총동문회 장학 자격 뭐야? 총동문회비 안 냈으면 못 받아?",
+                   "총동문회 장학 결과 언제 나와? 연락 와?", "총동문회 장학 다른 장학금이랑 같이 받아도 돼?",
+                   "총동문회비가 뭐야? 꼭 내야 돼? 냈는지 어디서 확인해?"]},
+    {"category": "장학", "n": 3, "suffix": "-extra6b",
+     "docs": ["web-scholar01", "web-scholar02", "web-summary", "notices-jang-1", "notice-53561", "reg-114",
+              "dept-electric-517", "robot-edu-system", "robot-modules-2026"],
+     "questions": ["외부장학 학교장 추천서·학과장 추천서 어디서 받아? 1학년도 돼?", "성적장학금 공지 어디 올라와?",
+                   "근로장학 결과 언제 나와? 근로지는 어떻게 정해져?",
+                   "지능형로봇 마이크로모듈 장학금 받을 수 있어? 어떻게 신청해?"]},
+    {"category": "상담·학생지원", "n": 2,
+     "docs": ["sangdam-personal", "sangdam-faq", "sangdam-check", "sangdam-notice", "web-counsel", "job-counsel-info",
+              "web-team-career"],
+     "related": ["campus-student-counseling", "career-counsel-graduates"],
+     "questions": ["학생상담실 신청하고 연락 언제 와?", "학생상담 화상(줌)으로도 돼? 대면만 돼?",
+                   "졸업생도 학생상담실 상담 받을 수 있어?", "무료 적성검사·직무검사 어디서 받아?", "또래상담 있어?",
+                   "상담 몇 번까지 받아? 기록 남아?"]},
+    {"category": "상담·학생지원", "n": 3, "suffix": "-extra6b",
+     "docs": ["web-ctl", "dept-radiowave-1401", "dept-electric-877", "dept-electric-877-image"],
+     "note": (" The 교수학습센터's own site is not among the documents (it is linked separately): do not describe "
+              "its menus or say what it posts. Dates in the relayed posters are one semester's; give the pattern "
+              "(calls each semester, relayed on department boards) and the center's office and phone."),
+     "questions": ["튜터링 뭐야? 튜터·튜티 어떻게 신청해?", "학습공동체 KW전공튜터링 어떻게 해?",
+                   "학습코칭(학습 컨설팅) 받을 수 있어?", "기초학력 클리닉 뭐야?", "교수학습센터 어디야? 연락처?",
+                   "OT학기제랑 광운인되기 SLT 검사 결과는 어디서 봐?"]},
+    {"category": "동아리·학생자치", "n": 2,
+     "docs": ["council-notices", "council-home", "web-activity01", "web-activity02", "web-activity03"],
+     "questions": ["우리 과 학생회 공지방이나 인스타 어디서 찾아?", "단과대·학과 학생회 인스타 계정 목록 있어?",
+                   "학교 전체 공지 카톡방 있어?", "축제·귀향버스·예비군 셔틀 신청은 어디서 해?", "총학 공지 어디서 봐?"]},
+    {"category": "병무·예비군", "n": 3,
+     "docs": ["web-reserve", "web-military", "web-military01", "faq-791", "faq-775", "faq-776", "faq-774",
+              "notice-53077", "council-notices"],
+     "related": ["class-reserve-training", "status-reserve-forces-leave"],
+     "questions": ["학생예비군 편성 메일 왔는데 뭐 해야 돼?", "1학기에 예비군 다녀왔는데 2학기에 또 가?",
+                   "예비군 전입신고 어떻게 해? 복학하면 다시 해야 돼?", "예비군 훈련비 나와? 증명서는?",
+                   "예비군 셔틀버스 있어?", "예비군연대 어디 있어?"]},
+    {"category": "학점교류·교환학생", "n": 2,
+     "docs": ["oia-faq", "oia-agreement", "oia-outbound", "reg-79", "web-team-intl"],
+     "note": " The 협정대학 page is the first of several pages: point to the list, do not enumerate it.",
+     "questions": ["교환 갈 수 있는 학교 목록 어디서 봐?", "교환학생 어학점수 꼭 있어야 돼? 중국은?",
+                   "교환 가서 들은 과목 몇 학점까지 인정돼? 교양필수도 돼?", "교환 가 있는 동안 장학금 받을 수 있어?",
+                   "교환 생활보고서 꼭 써야 돼?", "교환학생 선발 언제 해?"]},
+    {"category": "기타", "n": 2,
+     "docs": ["web-iie", "web-team-intl", "notice-52981", "web-info12"],
+     "note": (" The 어학특강 site run for the 국제교육원 is not among the documents (it is linked separately): name "
+              "the 국제교육원 office and phone from the documents and do not invent the site's courses or fees."),
+     "questions": ["교내 토익 특강이나 모의토익 어디서 신청해?", "학교 영어 특강·여름 겨울 특강 있어?",
+                   "K-MOOC 어디서 들어? 학점 인정돼?", "광운 TOEIC이 뭐야?"]},
+]
+
 # Low-confidence entries are re-checked against the documents they cite plus these pages fetched since.
 REVERIFY_DOCS = {"진로·취업": ["job-notice-12624"], "IT·계정": ["office365-home"]}
 
@@ -397,6 +472,10 @@ def doc_text(sid: str) -> str | None:
         return None
     t = p.read_text(encoding="utf-8")
     t = scrub_people(t.replace('id="jwxe_main_content">', "").strip())
+    if sid in CUT_AT:
+        t = t.split(CUT_AT[sid])[0].rstrip()
+    if sid.startswith("kwuaa-"):
+        t = FILLER.sub("", t).replace("\nCUSTOMER\n", "\n")
     if sid in SLICES:
         a, b = SLICES[sid]
         t = t[a:b]
@@ -465,7 +544,7 @@ def _related(ids: list[str]) -> list[dict]:
 
 
 def run_topic(topic: dict, titles: dict[str, str], budget: float, review: bool = True, suffix: str = "",
-              update: bool = False) -> dict:
+              update: bool = False, style: str = "") -> dict:
     from claude_client import call
     cat, prefix = topic["category"], PREFIX[topic["category"]]
     content, ids = _prefix(topic, titles)
@@ -486,7 +565,8 @@ def run_topic(topic: dict, titles: dict[str, str], budget: float, review: bool =
            f"Cover these student questions (merge questions that share one answer; skip any the documents "
            f"can't answer and list it under gaps):\n{qs}\n"
            f"Then add entries for other points in these documents that students often ask about and the list "
-           f"misses. Source ids you may cite: {', '.join(ids)}. Leave dropped and changes empty.")
+           f"misses. Source ids you may cite: {', '.join(ids)}. Leave dropped and changes empty."
+           f"{topic.get('note', '')}{style}")
     draft = call(note=f"faq-{prefix}{suffix}-draft", system=SYSTEM, content=content + [{"type": "text", "text": ask}],
                  schema=_schema(), budget=budget, effort="medium", max_tokens=32000)
     if not review:
@@ -497,7 +577,7 @@ def run_topic(topic: dict, titles: dict[str, str], budget: float, review: bool =
              "honest, fill disagreement wherever documents conflict, keep questions casual and varied, remove any "
              "personal name, and keep each quote under 15 words. Return the full corrected list (same ids); drop "
              "an entry only if nothing in it can be supported, and say why. List your changes briefly; leave gaps "
-             "empty.\n\n"
+             f"empty.{topic.get('note', '')}{style}\n\n"
              + json.dumps(draft["data"]["entries"], ensure_ascii=False))
     final = call(note=f"faq-{prefix}{suffix}-review", system=SYSTEM, content=content + [{"type": "text", "text": check}],
                  schema=_schema(), budget=budget, effort="medium", max_tokens=32000)
@@ -541,7 +621,7 @@ def audit(cat: str, titles: dict[str, str], budget: float) -> list[str]:
     from claude_client import call
     prefix = PREFIX[cat]
     data = {p: json.loads(p.read_text(encoding="utf-8")) for p in entry_files(prefix)}
-    docs = [d for t in TOPICS + SUPPLEMENTS + ROUND3 + ROUND4 + ROUND5 if t["category"] == cat for d in t["docs"]]
+    docs = [d for t in TOPICS + SUPPLEMENTS + ROUND3 + ROUND4 + ROUND5 + ROUND6 if t["category"] == cat for d in t["docs"]]
     content, ids = _prefix({"docs": list(dict.fromkeys(docs))}, titles)
     entries = [e for d in data.values() for e in d["entries"]]
     ask = ("You are an independent auditor; someone else wrote and reviewed these entries. Check every number, "
@@ -655,13 +735,31 @@ def _titles() -> dict[str, str]:
     return {s["id"]: s["title"] for s in load_sources()}
 
 
-def dry_run(topics: list[dict]) -> None:
+IMAGE_TOKENS = 1600  # a poster of about 835x1181 px
+OUT_TOKENS = 7000    # one call's JSON answer (rounds 3-5: 2-8k)
+
+
+def dry_run(topics: list[dict], update: bool = False) -> None:
+    """Prompt sizes and a cost guess (claude-opus-5-5 list prices; tokens ~ chars/2 for Korean text): per topic a
+    writer and a reviewer call that share the cached prefix, plus one cache write of the core regulations."""
     titles = _titles()
+    core = sum(len(doc_text(i) or "") for i in CORE_DOCS + CONTACT_DOCS) // 2
+    total = core * 5.0 / 1e6
     for t in topics:
         _, ids = _prefix(t, titles)
-        chars = sum(len(doc_text(i) or "") for i in ids)
-        missing = [d for d in t["docs"] if doc_text(d) is None]
-        print(f"{t['category']}: {len(ids)} docs, {chars:,} chars (~{chars // 2:,} tokens), missing {missing}")
+        own = [i for i in ids if i not in CORE_DOCS + CONTACT_DOCS]
+        images = [i for i in own if doc_text(i) is None]
+        chars = sum(len(doc_text(i) or "") for i in own)
+        own_tok = chars // 2 + IMAGE_TOKENS * len(images)
+        have = len(json.dumps(_existing(t["category"], full=update), ensure_ascii=False)) // 2 if update else 0
+        ask = have + 1500
+        usd = (2 * core * 0.2 + own_tok * (5.0 + 0.2) + ask * 4.0 + (ask + OUT_TOKENS) * 4.0
+               + 2 * OUT_TOKENS * 20.0) / 1e6
+        total += usd
+        missing = [d for d in t["docs"] if d not in ids]
+        print(f"{t['category']}{t.get('suffix', '')}: {len(own)} own docs ({len(images)} images), "
+              f"~{own_tok:,} tokens, existing entries ~{have:,} tokens, ~${usd:.2f}; missing {missing}")
+    print(f"estimate: ~${total:.2f} for {len(topics)} topics (writer + reviewer each), core prefix ~{core:,} tokens")
 
 
 def _source_meta() -> dict[str, dict]:
@@ -749,6 +847,7 @@ def main() -> None:
     ap.add_argument("--round3", action="store_true", help="third round: ROUND3 -> faq-<prefix>-extra3.json")
     ap.add_argument("--round4", action="store_true", help="fourth round: ROUND4 -> faq-<prefix>-extra4.json")
     ap.add_argument("--round5", action="store_true", help="fifth round: ROUND5 -> faq-<prefix>-extra5.json")
+    ap.add_argument("--round6", action="store_true", help="sixth round: ROUND6 -> faq-<prefix>-extra6.json")
     ap.add_argument("--reverify", action="store_true", help="re-check every low-confidence entry (per category)")
     args = ap.parse_args()
     if args.reverify:
@@ -764,18 +863,35 @@ def main() -> None:
                 except Exception as e:  # noqa: BLE001 - one failed category doesn't stop the others
                     print(futs[f], "reverify FAILED", type(e).__name__, str(e)[:200], flush=True)
         return
-    if args.round3 or args.round4 or args.round5:
+    if args.round3 or args.round4 or args.round5 or args.round6:
         titles = _titles()
         rounds, sfx = ((ROUND3, "-extra3") if args.round3 else (ROUND4, "-extra4") if args.round4
-                       else (ROUND5, "-extra5"))
+                       else (ROUND5, "-extra5") if args.round5 else (ROUND6, "-extra6"))
+        style = STYLE6 if args.round6 else ""
         todo = [t for t in rounds if not args.only or t["category"] in args.only]
-        with cf.ThreadPoolExecutor(max_workers=args.workers) as pool:
-            futs = {pool.submit(run_topic, t, titles, args.budget, True, t.get("suffix", sfx), True): t for t in todo}
-            for f in cf.as_completed(futs):
+        if args.dry_run:
+            dry_run(todo, update=True)
+            return
+
+        def one_category(topics: list[dict]) -> list[str]:
+            # topics of one category run in order: an update rewrites that category's earlier files
+            out = []
+            for t in topics:
+                s = t.get("suffix", sfx)
                 try:
-                    print(futs[f]["category"], sfx, len(f.result()["entries"]), "new entries", flush=True)
-                except Exception as e:  # noqa: BLE001 - one failed category doesn't stop the others
-                    print(futs[f]["category"], sfx, "FAILED", type(e).__name__, str(e)[:200], flush=True)
+                    r = run_topic(t, titles, args.budget, True, s, True, style)
+                    out.append(f"{t['category']} {s} {len(r['entries'])} new entries")
+                except Exception as e:  # noqa: BLE001 - one failed topic doesn't stop the others
+                    out.append(f"{t['category']} {s} FAILED {type(e).__name__} {str(e)[:200]}")
+            return out
+
+        groups: dict[str, list[dict]] = {}
+        for t in todo:
+            groups.setdefault(t["category"], []).append(t)
+        with cf.ThreadPoolExecutor(max_workers=args.workers) as pool:
+            for f in cf.as_completed([pool.submit(one_category, g) for g in groups.values()]):
+                for line in f.result():
+                    print(line, flush=True)
         return
     topics = [t for t in TOPICS if not args.only or t["category"] in args.only]
     if args.supplement:

@@ -9155,16 +9155,17 @@
     "교환 학점 몇 이상이어야 됨?",
     "교환학생 토플 필요해?",
     "학고 맞았는데 교환 지원 가능?",
-    "교환 1학년도 가능?"
+    "교환 1학년도 가능?",
+    "교환 평점 몇 넘어야 됨?"
    ],
-   "answer": "본교에서 1년(2개 학기) 이상 수학하고 35학점 이상 이수해야 지원할 수 있습니다. 성적은 총 평점평균 3.0 이상이거나 직전 2개 학기 평점평균 3.0 이상이어야 합니다. 어학 능력은 파견 대학이 요구하는 기준을 충족해야 하며, 지원 시 TOEFL 또는 기타 외국어 성적표 원본을 제출합니다. 그 밖에 징계 이력이 없고 신체 건강하며 해외여행 결격 사유가 없어야 하고, 안내 페이지 기준으로 비자 취득과 등록금·생활비 부담이 가능해야 합니다.",
+   "answer": "지원하려면 본교에서 1년(2개 학기) 이상 다니고 35학점 이상 이수해야 합니다. 성적은 총 평점평균 3.0 이상이거나 직전 2개 학기 평점평균 3.0 이상이어야 합니다. 여기에 파견 대학이 요구하는 어학 능력, 징계 이력 없음, 건강, 해외여행 결격 사유 없음을 모두 갖춰야 합니다. 안내 페이지는 비자 취득과 등록금·생활비 부담 능력도 요구합니다.",
    "conditions_exceptions": [
-    "징계 이력이 있으면 지원할 수 없지만, 국제교류 안내 페이지는 학사경고는 이에서 제외된다고 밝힙니다.",
-    "어학 기준은 대학별로 다르며 각 대학 최근 선발공고를 따릅니다.",
+    "징계 이력이 있으면 지원할 수 없지만, 안내 페이지는 학사경고는 여기에 해당하지 않는다고 밝힙니다.",
+    "미국·유럽·일본·아시아권은 어학점수가 있어야 하고, 중국은 어학점수 없이도 지원할 수 있습니다(점수가 있으면 유리).",
     "졸업유예자는 지원할 수 없습니다.",
-    "졸업예정학기에 해외 수학을 마치면 본교에서 1학기 이상 더 등록·이수해야 학위를 받을 수 있습니다."
+    "졸업예정학기에 해외 수학을 마치면 본교에서 1학기 이상 더 등록·이수해야 학위를 받습니다."
    ],
-   "how_to": "국제교류 홈페이지 Global Exchange > Outbound에서 대학별 최근 선발공고의 파견조건을 확인하십시오.",
+   "how_to": "글로벌전략팀(국제교류) 홈페이지 Global Exchange > Outbound에서 대학별 최근 선발공고의 파견조건을 확인하십시오.",
    "contact_office": {
     "name": "국제처 글로벌전략팀(국제교류팀)",
     "phone": "02-940-5014~5"
@@ -9180,6 +9181,15 @@
      "source_id": "reg-79"
     },
     {
+     "title": "2-0-1 광운대학교 학칙 (2026.10.28.)",
+     "url": "https://rule.kw.ac.kr/lmxsrv/law/lawFullContent.do?SEQ=21&SEQ_HISTORY=675",
+     "regulation": "광운대학교 학칙",
+     "article": "제46조의2 제1항",
+     "effective_date": "2026-10-28",
+     "checked_at": "2026-11-07",
+     "source_id": "reg-hakchik"
+    },
+    {
      "title": "국제교류팀 교환학생(파견) 안내",
      "url": "https://oia.kw.ac.kr/exchange/outbound.php",
      "regulation": null,
@@ -9188,29 +9198,41 @@
      "checked_at": "2026-11-07",
      "source_id": "oia-outbound",
      "quote": "징계받은 사실이 없는 자 (학사경고 제외)"
+    },
+    {
+     "title": "글로벌전략팀 FAQ",
+     "url": "https://oia.kw.ac.kr/campus/FAQ.php",
+     "regulation": null,
+     "article": "교환학생 관련 - 어학점수는 준비해야 하나요?",
+     "effective_date": null,
+     "checked_at": "2026-11-07",
+     "source_id": "oia-faq"
     }
    ],
    "applies_to": "학부 재학생",
-   "confidence": "high",
-   "disagreement": null,
+   "confidence": "medium",
+   "disagreement": "교환학생 내규는 지원 서류로 TOEFL 등 외국어 성적표 원본을 요구하지만, 글로벌전략팀 FAQ는 중국 대학은 어학점수 없이도 지원할 수 있다고 안내합니다.",
    "last_verified": "2026-11-07"
   },
   {
    "id": "exchange-outbound-selection",
    "category": "학점교류·교환학생",
    "questions": [
-    "교환학생 모집 언제 함?",
+    "교환학생 선발 언제 해?",
+    "교환 모집 몇 월임?",
+    "일본 교환 모집 언제?",
+    "SAF 선발 언제?",
     "교환 면접 어떻게 봄?",
-    "교환학생 신청 서류 뭐 필요해?",
-    "일본 교환 모집 몇 월?",
-    "교환 합격 발표 언제?"
+    "교환 신청 서류 뭐 필요해?"
    ],
-   "answer": "교환학생은 매년 3월(미국·유럽·아시아권), 4월(중국), 9월(일본)에 모집합니다. 지원신청서, 국문·영문 재학증명서와 성적증명서, 어학성적표 원본, 수학계획서, 서약서를 갖춰 학과장과 학장의 추천을 받아 제출합니다. 서류전형 후 교수 2인이 한국어/외국어 인터뷰로 면접을 진행하며, 최종 합격자는 면접 후 1주일 안에 홈페이지에 공고됩니다. 합격 후에는 상대교 지원서, 어학성적표 원본, MMR 접종 서류 등을 추가로 제출합니다.",
+   "answer": "지원할 대학의 선발공고로 정확한 날짜를 확인하십시오. Outbound 안내 페이지는 3월(미국·유럽·아시아권), 4월(중국), 9월(일본) 모집으로, FAQ는 SAF 1~2월, 미국·유럽·중국·아시아 2~3월, 일본 9~10월 선발로 안내합니다. 서류전형 뒤 교수 2인이 한국어·외국어 면접을 보고, 최종 합격자는 면접 후 1주일 안에 홈페이지에 공고됩니다.",
    "conditions_exceptions": [
-    "세부 선발 절차와 일정은 모집 때마다 따로 공고됩니다.",
-    "SAF 프로그램(미국·캐나다·영국·아일랜드·호주·뉴질랜드 약 50개교)도 별도 선발공고를 따릅니다."
+    "지원 서류는 지원신청서, 국문·영문 재학증명서와 성적증명서, 어학성적표 원본, 수학계획서, 서약서이며 소속 학부(과)장과 학장의 추천을 받아 냅니다.",
+    "FAQ 기준으로 미국·유럽·중국·아시아는 3~4월, 일본은 9~10월에 추가서류를 냅니다.",
+    "합격 후에는 상대교 지원서, 어학성적표 원본, MMR 접종 서류 등을 추가로 냅니다.",
+    "세부 절차와 일정은 모집 때마다 따로 공고됩니다."
    ],
-   "how_to": "국제교류 홈페이지 Global Exchange > Outbound에서 선발공고를 확인하십시오. 서류는 글로벌전략팀(국제교류팀, 화도관 103호, 평일 9시~17시 30분)에 제출합니다. 선배 후기는 https://cafe.naver.com/kwexchange 에서 볼 수 있습니다.",
+   "how_to": "글로벌전략팀(국제교류) 홈페이지 Global Exchange > Outbound와 공지사항에서 선발공고를 확인하십시오. 서류는 국제교류팀(화도관 103호, 평일 9시~17시 30분)에 냅니다.",
    "contact_office": {
     "name": "국제처 글로벌전략팀(국제교류팀)",
     "phone": "02-940-5014~5"
@@ -9224,6 +9246,15 @@
      "effective_date": null,
      "checked_at": "2026-11-07",
      "source_id": "oia-outbound"
+    },
+    {
+     "title": "글로벌전략팀 FAQ",
+     "url": "https://oia.kw.ac.kr/campus/FAQ.php",
+     "regulation": null,
+     "article": "교환학생 관련 - 교환학생 선발 시기는 언제인가요?",
+     "effective_date": null,
+     "checked_at": "2026-11-07",
+     "source_id": "oia-faq"
     },
     {
      "title": "4-3-18 국제기관 교환학생에 대한 내규",
@@ -9245,29 +9276,30 @@
     }
    ],
    "applies_to": "학부 재학생",
-   "confidence": "medium",
-   "disagreement": "교환 파견 담당 부서를 안내 페이지는 '국제교류팀(940-5014~5, 화도관 103호)'으로, 내규와 부서 소개는 '글로벌전략팀(화도관 102, 103호, 02-940-5014~6)'으로 표기합니다. 번호와 위치가 겹쳐 같은 부서로 보이지만 명칭이 다릅니다.",
+   "confidence": "low",
+   "disagreement": "Outbound 안내 페이지는 중국 모집을 4월로 따로 두지만, FAQ는 중국을 미국·유럽·아시아와 함께 2~3월 선발로 안내합니다. 담당 부서명도 안내 페이지는 '국제교류팀', 내규와 부서 소개는 '글로벌전략팀'으로 다르지만 전화번호와 위치가 겹쳐 같은 부서로 보입니다.",
    "last_verified": "2026-11-07"
   },
   {
    "id": "exchange-outbound-credit",
    "category": "학점교류·교환학생",
    "questions": [
-    "교환 가서 딴 학점 어떻게 인정됨?",
-    "교환학생 학점 최대 몇 학점 인정?",
+    "교환 가서 들은 과목 몇 학점까지 인정돼?",
+    "교환 학점 교양필수도 인정됨?",
     "교환 학점 전필로 인정돼?",
     "ECTS 학점 환산 어떻게 해?",
     "교환 성적 평점에 들어가?",
-    "교환 다녀오면 학점 GPA 반영됨?"
+    "교환에서 F 받으면 기록됨?"
    ],
-   "answer": "교환학생 학점은 1년 최고 35학점, 학기당 최고 19학점(2016학번까지는 21학점)까지 인정됩니다. 학과 심의를 거쳐 전공선택 또는 일반선택으로 인정됩니다. 인정 학점은 모두 졸업학점에 포함되지만, 성적은 GPA 계산에 들어가지 않습니다. ECTS 학점은 과목별로 1ECTS당 0.6학점으로 환산하고, 소수점 첫째자리에서 반올림해 정수로 부여합니다.",
+   "answer": "교환 학점은 1년에 최대 35학점, 한 학기에 최대 19학점(2016학년도 입학생까지는 21학점)까지 인정됩니다. 전공선택·일반선택으로만 인정되므로 교양필수·교양선택·전공필수는 본교에서 들어야 합니다. 인정 학점은 졸업학점에 들어가지만 성적은 GPA 계산에서 빠집니다. ECTS는 과목별로 1ECTS를 0.6학점으로 환산하고 반올림해 정수로 줍니다.",
    "conditions_exceptions": [
-    "출국 전에 교과목이수계획서를 내고 학과장 승인을 받아야 하며, 본인 전공·부전공 분야 과목 이수가 원칙입니다.",
-    "내규상 인정 구분은 전공선택·일반선택뿐이므로 전공필수로는 인정되지 않습니다.",
-    "현지생활보고서 심의에서 P를 받으면 '학습생활지도1·2'(일반선택 3학점)를 학기별로 받을 수 있습니다.",
-    "인정 여부는 소속 학과장 판정을 존중합니다."
+    "출국 전에 교과목이수계획서를 내고 학과장 승인을 받아야 하며, 본인 전공·부전공 과목 이수가 원칙입니다.",
+    "FAQ 기준으로 성적은 P/NP가 아닌 등급으로 입력되고, F학점도 입력됩니다.",
+    "FAQ는 한 학기 최소 신청학점을 12학점으로 안내합니다.",
+    "인정 여부는 소속 학과장의 판정을 존중하며, 성적심의는 복수전공·부전공·원전공 순으로 요청됩니다.",
+    "현지생활보고서 심의에서 P를 받으면 '학습생활지도1·2'(일반선택 3학점)를 학기별로 받습니다."
    ],
-   "how_to": "출국 전 교과목이수계획서를 제출해 학과장 승인을 받으십시오. 귀국 후에는 상대교 성적증명서를 글로벌전략팀에 제출하며, 이후 학과 심의와 교무처 처리를 거쳐 학점이 인정됩니다.",
+   "how_to": "출국 전에 교과목이수계획서를 내 학과장 승인을 받으십시오. 귀국 후 상대교 성적표 원본을 한 학기 단위로 보내면, 생활보고서 확인 → 단과대학 성적심의 → 국제교류팀 경유 → 교육지원팀 성적입력 순으로 처리됩니다.",
    "contact_office": {
     "name": "국제처 글로벌전략팀(국제교류팀)",
     "phone": "02-940-5014~5"
@@ -9284,6 +9316,15 @@
      "quote": "성적은 총평량평균(GPA) 계산에 적용하지 않는다"
     },
     {
+     "title": "글로벌전략팀 FAQ",
+     "url": "https://oia.kw.ac.kr/campus/FAQ.php",
+     "regulation": null,
+     "article": "교환학생 관련 - 성적심의는 어떻게 이루어지나요?",
+     "effective_date": null,
+     "checked_at": "2026-11-07",
+     "source_id": "oia-faq"
+    },
+    {
      "title": "국제교류팀 교환학생(파견) 안내",
      "url": "https://oia.kw.ac.kr/exchange/outbound.php",
      "regulation": null,
@@ -9293,9 +9334,9 @@
      "source_id": "oia-outbound"
     }
    ],
-   "applies_to": "학부 재학생(학기당 한도는 2016학번 이전/2017학번 이후 구분)",
-   "confidence": "high",
-   "disagreement": null,
+   "applies_to": "학부 재학생(학기당 한도는 2016학년도 이전/2017학년도 이후 입학생 구분)",
+   "confidence": "medium",
+   "disagreement": "내규는 전공선택과 일반선택으로 인정한다고만 정하지만, FAQ는 복수전공선택·부전공선택까지 인정 가능하다고 안내합니다. 복수·부전공 인정 여부는 학과 심의 결과로 확인하십시오.",
    "last_verified": "2026-11-07"
   },
   {
@@ -9304,14 +9345,16 @@
    "questions": [
     "교환학생 등록금 어디에 냄?",
     "교환 가면 상대교 등록금도 내야 돼?",
-    "교환 생활비 학교가 지원해줌?",
-    "교환 등록금 영수증 어디 제출?"
+    "미국 교환 등록금 광운대에 내?",
+    "네브라스카 교환 등록금 어떻게 됨?",
+    "교환 생활비 학교가 지원해줌?"
    ],
-   "answer": "교환학생은 해외 수학 기간에도 매 학기 정해진 기일 안에 본교에 등록금을 내야 합니다. 협정상 상대교에 직접 등록금을 내는 경우에는 납부 영수증을 글로벌전략팀에 제출하면 본교 납부로 인정됩니다. 등록금 외의 모든 경비는 본인이 부담하며, 경비 부담에 관한 보증인 서약서를 제출해야 합니다.",
+   "answer": "미국 대학과 SAF는 상대교에 등록금을 내고 본교 등록금은 면제됩니다. 유럽·아시아·일본·중국 대학은 본교에 내고 상대교 등록금이 면제됩니다. 네브라스카대(커니)는 예외로, 본교에 내고 상대교 Tuition은 면제되지만 상대교 Fees는 따로 내야 합니다. 등록금 외 경비는 모두 본인 부담이며, 경비 부담 보증인 서약서를 내야 합니다.",
    "conditions_exceptions": [
-    "Fee-paying Exchange Program 등 프로그램별 비용 차이는 자료에 나와 있지 않습니다."
+    "본교에 낼 때는 2월·8월 등록금 납부기간을 지켜야 합니다.",
+    "상대교에 직접 낸 경우 납부 영수증을 글로벌전략팀에 내면 본교 납부로 인정됩니다."
    ],
-   "how_to": "본교 등록금 수납은 재무팀(02-940-5048)이 담당합니다. 상대교 납부 영수증과 보증인 서약서는 글로벌전략팀에 제출하십시오.",
+   "how_to": "본교 등록금 수납은 재무팀(02-940-5048)이 맡습니다. 상대교 납부 영수증과 보증인 서약서는 글로벌전략팀에 내십시오.",
    "contact_office": {
     "name": "국제처 글로벌전략팀(국제교류팀)",
     "phone": "02-940-5014~5"
@@ -9327,6 +9370,15 @@
      "source_id": "reg-79"
     },
     {
+     "title": "글로벌전략팀 FAQ",
+     "url": "https://oia.kw.ac.kr/campus/FAQ.php",
+     "regulation": null,
+     "article": "교환학생 관련 - 등록금 납부는 어떻게 하나요?",
+     "effective_date": null,
+     "checked_at": "2026-11-07",
+     "source_id": "oia-faq"
+    },
+    {
      "title": "재무팀 소개",
      "url": "https://www.kw.ac.kr/ko/department/view.jsp?hpage=intro_0017",
      "regulation": null,
@@ -9337,7 +9389,7 @@
     }
    ],
    "applies_to": "학부 재학생",
-   "confidence": "high",
+   "confidence": "medium",
    "disagreement": null,
    "last_verified": "2026-11-07"
   },
@@ -9523,6 +9575,354 @@
    "last_verified": "2026-11-07"
   },
   {
+   "id": "exchange-partner-list",
+   "category": "학점교류·교환학생",
+   "questions": [
+    "교환 갈 수 있는 학교 목록 어디서 봐?",
+    "교환 협정대학 리스트 어딨음?",
+    "교환 파견 대학 어디어디임?",
+    "광운대 자매결연 해외대학 목록",
+    "교환 미국 학교 어디 있음?"
+   ],
+   "answer": "협정대학 목록은 글로벌전략팀(국제교류) 홈페이지의 Global Exchange > Affiliated Overseas Universities에서 지역·국가별로 보십시오. 목록은 여러 페이지로 나뉘어 있습니다. 실제로 교환학생을 보내는 대학과 대학별 파견조건은 Global Exchange > Outbound 페이지의 표와 각 대학의 최근 선발공고에서 확인하십시오.",
+   "conditions_exceptions": [
+    "협정대학 목록에 있다고 모두 Outbound 파견 대학 표에 있는 것은 아닙니다. 지원 가능 여부는 Outbound 표와 선발공고를 기준으로 확인하십시오.",
+    "SAF(Study Abroad Foundation)로 지원하면 미국·캐나다·영국·아일랜드·호주·뉴질랜드의 약 50개교에도 갈 수 있으며, 별도 선발공고를 따릅니다."
+   ],
+   "how_to": "글로벌전략팀(국제교류) 홈페이지 Global Exchange 메뉴에서 Affiliated Overseas Universities(협정대학)와 Outbound(파견 대학·조건)를 확인하십시오. 선배 후기는 교환학생 네이버 카페(kwexchange)에서 볼 수 있습니다. 협정대학 목록: https://oia.kw.ac.kr/exchange/agreement.php, 교환학생 FAQ: https://oia.kw.ac.kr/campus/FAQ.php",
+   "contact_office": {
+    "name": "국제처 글로벌전략팀(국제교류팀)",
+    "phone": "02-940-5014~5"
+   },
+   "sources": [
+    {
+     "title": "글로벌전략팀 해외 협정대학(Affiliated Overseas Universities)",
+     "url": "https://oia.kw.ac.kr/exchange/agreement.php",
+     "regulation": null,
+     "article": "Affiliated Overseas Universities",
+     "effective_date": null,
+     "checked_at": "2026-11-07",
+     "source_id": "oia-agreement"
+    },
+    {
+     "title": "국제교류팀 교환학생(파견) 안내",
+     "url": "https://oia.kw.ac.kr/exchange/outbound.php",
+     "regulation": null,
+     "article": "2. 교환학생 파견 대학 및 대학별 파견 조건, 4. 문의처",
+     "effective_date": null,
+     "checked_at": "2026-11-07",
+     "source_id": "oia-outbound"
+    },
+    {
+     "title": "글로벌전략팀 FAQ",
+     "url": "https://oia.kw.ac.kr/campus/FAQ.php",
+     "regulation": null,
+     "article": "링크",
+     "effective_date": null,
+     "checked_at": "2026-11-07",
+     "source_id": "oia-faq"
+    }
+   ],
+   "applies_to": "학부 재학생",
+   "confidence": "medium",
+   "disagreement": null,
+   "last_verified": "2026-11-07"
+  },
+  {
+   "id": "exchange-outbound-language-score",
+   "category": "학점교류·교환학생",
+   "questions": [
+    "교환학생 어학점수 꼭 있어야 돼?",
+    "중국 교환은 어학성적 없어도 됨?",
+    "교환 토플 없으면 지원 못함?",
+    "일본 교환 어학점수 필요?",
+    "교환 어학 기준 몇 점임?"
+   ],
+   "answer": "미국·유럽·일본·아시아권 대학은 어학점수가 있어야 지원할 수 있습니다. 중국 대학은 어학점수 없이도 지원할 수 있지만, 점수가 있으면 선발에 유리합니다. 요구 시험과 점수는 대학마다 다르니 지원할 대학의 최근 선발공고를 보고 미리 준비하십시오.",
+   "conditions_exceptions": [
+    "대학별 요구 시험과 점수는 각 대학의 최근 선발공고를 따릅니다.",
+    "합격 후 상대교 제출용으로 어학 성적표 원본을 추가로 내야 합니다."
+   ],
+   "how_to": "글로벌전략팀(국제교류) 홈페이지 Global Exchange > Outbound에서 대학별 최근 선발공고의 파견조건을 확인하십시오.",
+   "contact_office": {
+    "name": "국제처 글로벌전략팀(국제교류팀)",
+    "phone": "02-940-5014~5"
+   },
+   "sources": [
+    {
+     "title": "글로벌전략팀 FAQ",
+     "url": "https://oia.kw.ac.kr/campus/FAQ.php",
+     "regulation": null,
+     "article": "교환학생 관련 - 어학점수는 준비해야 하나요?",
+     "effective_date": null,
+     "checked_at": "2026-11-07",
+     "source_id": "oia-faq",
+     "quote": "중국 : 어학점수가 없어도 지원가능"
+    },
+    {
+     "title": "4-3-18 국제기관 교환학생에 대한 내규",
+     "url": "https://rule.kw.ac.kr/lmxsrv/law/lawFullContent.do?SEQ=79&SEQ_HISTORY=654",
+     "regulation": "국제기관 교환학생에 대한 내규",
+     "article": "제3조 제2항 제3호, 제4조 제1항 제4호",
+     "effective_date": "2026-04-22",
+     "checked_at": "2026-11-07",
+     "source_id": "reg-79"
+    },
+    {
+     "title": "국제교류팀 교환학생(파견) 안내",
+     "url": "https://oia.kw.ac.kr/exchange/outbound.php",
+     "regulation": null,
+     "article": "1. 지원 자격, 3. 선발 절차",
+     "effective_date": null,
+     "checked_at": "2026-11-07",
+     "source_id": "oia-outbound"
+    }
+   ],
+   "applies_to": "학부 재학생",
+   "confidence": "medium",
+   "disagreement": "교환학생 내규는 지원 서류로 TOEFL 등 외국어 성적표 원본을 요구하지만, 글로벌전략팀 FAQ는 중국 대학은 어학점수 없이도 지원할 수 있다고 안내합니다.",
+   "last_verified": "2026-11-07"
+  },
+  {
+   "id": "exchange-outbound-scholarship",
+   "category": "학점교류·교환학생",
+   "questions": [
+    "교환 가 있는 동안 장학금 받을 수 있어?",
+    "교환 성적으로 성적장학금 나옴?",
+    "교환 중 국가장학금 신청 가능?",
+    "교환학생 장학금 어디 문의함?"
+   ],
+   "answer": "교환 기간에 받은 성적으로는 교내장학금을 받을 수 없습니다. 교환 중 교내장학금이나 국가장학금을 신청할 수 있는지는 자료에 나와 있지 않으니, 출국 전에 학생복지팀에 확인하십시오.",
+   "conditions_exceptions": [
+    "교환 성적은 GPA 계산에도 반영되지 않습니다."
+   ],
+   "how_to": "교내장학금·국가장학금 문의는 학생처 학생복지팀(복지관 202호, 장학 담당 02-940-5033)으로 하십시오.",
+   "contact_office": {
+    "name": "학생처 학생복지팀",
+    "phone": "02-940-5032~3"
+   },
+   "sources": [
+    {
+     "title": "글로벌전략팀 FAQ",
+     "url": "https://oia.kw.ac.kr/campus/FAQ.php",
+     "regulation": null,
+     "article": "교환학생 관련 - 장학금은 어떻게 받나요?",
+     "effective_date": null,
+     "checked_at": "2026-11-07",
+     "source_id": "oia-faq"
+    },
+    {
+     "title": "학생처(학생복지팀) 소개",
+     "url": "https://www.kw.ac.kr/ko/department/view.jsp?hpage=intro_0005",
+     "regulation": null,
+     "article": "담당업무 및 연락처",
+     "effective_date": null,
+     "checked_at": "2026-11-07",
+     "source_id": "web-team-student"
+    },
+    {
+     "title": "4-3-18 국제기관 교환학생에 대한 내규",
+     "url": "https://rule.kw.ac.kr/lmxsrv/law/lawFullContent.do?SEQ=79&SEQ_HISTORY=654",
+     "regulation": "국제기관 교환학생에 대한 내규",
+     "article": "제14조 제2항",
+     "effective_date": "2026-04-22",
+     "checked_at": "2026-11-07",
+     "source_id": "reg-79"
+    }
+   ],
+   "applies_to": "학부 재학생",
+   "confidence": "medium",
+   "disagreement": null,
+   "last_verified": "2026-11-07"
+  },
+  {
+   "id": "exchange-outbound-life-report",
+   "category": "학점교류·교환학생",
+   "questions": [
+    "교환 생활보고서 꼭 써야 돼?",
+    "교환 생활보고서 언제까지 올림?",
+    "생활보고서 안 쓰면 학점 못 받음?",
+    "학습생활지도 3학점 어떻게 받음?",
+    "교환 현지생활보고서 어디 제출?"
+   ],
+   "answer": "네, 써야 합니다. 매 학기 4개월치를 작성해 1월·6월까지 교환학생 네이버 카페에 올려야 '학습생활지도'(일반선택 3학점)를 인정받습니다. 내규상 현지생활보고서는 정기 제출 대상이며, 부득이한 사유가 있을 때만 면제됩니다.",
+   "conditions_exceptions": [
+    "학과장이 보고서를 심의해 P/NP로 판정하며, P를 받아야 3학점이 부여됩니다.",
+    "FAQ상 교환 성적심의 절차에 생활보고서 확인 단계가 들어 있습니다."
+   ],
+   "how_to": "교환학생 네이버 카페(kwexchange)에 학번을 입력해 가입한 뒤 보고서를 올리십시오. 제출처가 헷갈리면 글로벌전략팀에 확인하십시오.",
+   "contact_office": {
+    "name": "국제처 글로벌전략팀(국제교류팀)",
+    "phone": "02-940-5014~5"
+   },
+   "sources": [
+    {
+     "title": "글로벌전략팀 FAQ",
+     "url": "https://oia.kw.ac.kr/campus/FAQ.php",
+     "regulation": null,
+     "article": "교환학생 관련 - 생활보고서는 어떻게 작성하나요?",
+     "effective_date": null,
+     "checked_at": "2026-11-07",
+     "source_id": "oia-faq"
+    },
+    {
+     "title": "4-3-18 국제기관 교환학생에 대한 내규",
+     "url": "https://rule.kw.ac.kr/lmxsrv/law/lawFullContent.do?SEQ=79&SEQ_HISTORY=654",
+     "regulation": "국제기관 교환학생에 대한 내규",
+     "article": "제14조 제3항, 제15조 제2항",
+     "effective_date": "2026-04-22",
+     "checked_at": "2026-11-07",
+     "source_id": "reg-79"
+    }
+   ],
+   "applies_to": "학부 재학생",
+   "confidence": "medium",
+   "disagreement": "FAQ는 생활보고서를 교환학생 카페에 올리도록 안내하지만, 내규는 글로벌전략팀에 제출하도록 정하고 있습니다.",
+   "last_verified": "2026-11-07"
+  },
+  {
+   "id": "exchange-outbound-after-selection",
+   "category": "학점교류·교환학생",
+   "questions": [
+    "교환 합격하고 뭐 해야 됨?",
+    "교환 비자 학교가 해줌?",
+    "교환학생 보험 들어야 돼?",
+    "교환 보험 국내꺼 써도 됨?",
+    "교환 항공권 학교에서 끊어줌?"
+   ],
+   "answer": "합격하면 상대교에 추가서류를 내고 입학허가서를 받은 뒤 비자 신청, 항공권 발급, 오리엔테이션 순으로 준비하십시오. 비자와 항공권은 학생이 직접 처리합니다. 파견기간 전체를 보장하는 보험은 의무이며, 파견교 지정 보험이 없으면 국내 보험에 가입하면 됩니다.",
+   "conditions_exceptions": [
+    "파견교가 지정한 보험을 사야 하는 경우도 있습니다.",
+    "출국 전에 교과목이수계획서를 내서 학과장 승인을 받아야 합니다.",
+    "출국 전 15일 이내에 출국신고서를, 귀국 후 7일 이내에 귀국신고서를 글로벌전략팀에 내야 합니다."
+   ],
+   "how_to": "추가서류와 출국·귀국신고서는 글로벌전략팀(국제교류팀)에 확인해 제출하십시오.",
+   "contact_office": {
+    "name": "국제처 글로벌전략팀(국제교류팀)",
+    "phone": "02-940-5014~5"
+   },
+   "sources": [
+    {
+     "title": "글로벌전략팀 FAQ",
+     "url": "https://oia.kw.ac.kr/campus/FAQ.php",
+     "regulation": null,
+     "article": "교환학생 관련 - 선발 후 절차, 교환학생 보험",
+     "effective_date": null,
+     "checked_at": "2026-11-07",
+     "source_id": "oia-faq"
+    },
+    {
+     "title": "4-3-18 국제기관 교환학생에 대한 내규",
+     "url": "https://rule.kw.ac.kr/lmxsrv/law/lawFullContent.do?SEQ=79&SEQ_HISTORY=654",
+     "regulation": "국제기관 교환학생에 대한 내규",
+     "article": "제8조, 제10조, 제11조",
+     "effective_date": "2026-04-22",
+     "checked_at": "2026-11-07",
+     "source_id": "reg-79"
+    },
+    {
+     "title": "국제교류팀 교환학생(파견) 안내",
+     "url": "https://oia.kw.ac.kr/exchange/outbound.php",
+     "regulation": null,
+     "article": "3. 선발 절차 - 추가 서류 제출",
+     "effective_date": null,
+     "checked_at": "2026-11-07",
+     "source_id": "oia-outbound"
+    }
+   ],
+   "applies_to": "학부 재학생",
+   "confidence": "high",
+   "disagreement": null,
+   "last_verified": "2026-11-07"
+  },
+  {
+   "id": "exchange-outbound-period-change",
+   "category": "학점교류·교환학생",
+   "questions": [
+    "교환 기간 연장 가능?",
+    "교환 한 학기 더 있고 싶음",
+    "교환 기간 줄일 수 있음?",
+    "교환 기간변경원 언제까지 냄?"
+   ],
+   "answer": "먼저 파견교에 기간 축소·연장이 되는지 문의해 승인을 받으십시오. 그다음 기간변경원을 작성해 4월 말·10월 말까지 국제교류팀에 보내면 되고, 비자 등 현지 수속은 본인이 직접 처리합니다. 연장하더라도 교환 기간은 1년을 넘을 수 없습니다.",
+   "conditions_exceptions": [
+    "교환 기간은 학기 또는 계절학기 단위로 1년 이내입니다.",
+    "질병·사고 등 부득이한 경우가 아니면 교환 기간 중 휴학할 수 없습니다."
+   ],
+   "how_to": "파견교 승인을 받은 뒤 기간변경원을 국제교류팀에 보내십시오. 서식은 국제교류팀에 확인하십시오.",
+   "contact_office": {
+    "name": "국제처 글로벌전략팀(국제교류팀)",
+    "phone": "02-940-5014~5"
+   },
+   "sources": [
+    {
+     "title": "글로벌전략팀 FAQ",
+     "url": "https://oia.kw.ac.kr/campus/FAQ.php",
+     "regulation": null,
+     "article": "교환학생 관련 - 파견 기간을 변경하고 싶은데 어떻게 하나요?",
+     "effective_date": null,
+     "checked_at": "2026-11-07",
+     "source_id": "oia-faq"
+    },
+    {
+     "title": "4-3-18 국제기관 교환학생에 대한 내규",
+     "url": "https://rule.kw.ac.kr/lmxsrv/law/lawFullContent.do?SEQ=79&SEQ_HISTORY=654",
+     "regulation": "국제기관 교환학생에 대한 내규",
+     "article": "제6조 제1항, 제2항",
+     "effective_date": "2026-04-22",
+     "checked_at": "2026-11-07",
+     "source_id": "reg-79"
+    }
+   ],
+   "applies_to": "학부 재학생",
+   "confidence": "medium",
+   "disagreement": null,
+   "last_verified": "2026-11-07"
+  },
+  {
+   "id": "exchange-outbound-grade-appeal",
+   "category": "학점교류·교환학생",
+   "questions": [
+    "교환 학점 인정 결과 이의신청 가능?",
+    "교환 성적 재심의 어떻게 함?",
+    "교환 과목 전공 인정 안 됐는데 다시 요청 가능?",
+    "교환 성적표 원본 어떻게 보냄?"
+   ],
+   "answer": "성적심의 결과에 이의가 있으면 학과(장)에 재심의요청 사유서와 이의 대상 과목의 강의계획서·강의자료 등을 내십시오. 재심의는 처음 심의와 같은 절차로 진행되며, 재심의 여부는 학과가 최종 결정합니다. 상대교 성적표는 한 학기 단위로 원본을 보내야 하며, 상대교 담당자가 직접 보내거나 본인이 원본을 학교로 보내면 됩니다.",
+   "conditions_exceptions": [
+    "교환 과목 인정 여부는 소속 학부(과)장의 판정을 존중합니다."
+   ],
+   "how_to": "재심의는 소속 학과(장)에 요청하고, 성적표 원본 송부는 국제교류팀에 확인하십시오.",
+   "contact_office": {
+    "name": "국제처 글로벌전략팀(국제교류팀)",
+    "phone": "02-940-5014~5"
+   },
+   "sources": [
+    {
+     "title": "글로벌전략팀 FAQ",
+     "url": "https://oia.kw.ac.kr/campus/FAQ.php",
+     "regulation": null,
+     "article": "교환학생 관련 - 성적재심의, 성적표 송부",
+     "effective_date": null,
+     "checked_at": "2026-11-07",
+     "source_id": "oia-faq"
+    },
+    {
+     "title": "4-3-18 국제기관 교환학생에 대한 내규",
+     "url": "https://rule.kw.ac.kr/lmxsrv/law/lawFullContent.do?SEQ=79&SEQ_HISTORY=654",
+     "regulation": "국제기관 교환학생에 대한 내규",
+     "article": "제13조",
+     "effective_date": "2026-04-22",
+     "checked_at": "2026-11-07",
+     "source_id": "reg-79"
+    }
+   ],
+   "applies_to": "학부 재학생",
+   "confidence": "high",
+   "disagreement": null,
+   "last_verified": "2026-11-07"
+  },
+  {
    "id": "scholar-merit-criteria",
    "category": "장학",
    "questions": [
@@ -9584,27 +9984,41 @@
    "category": "장학",
    "questions": [
     "성적장학금 신청 언제 함?",
-    "수석장학 신청기간",
+    "성적장학 공지 어디 올라와?",
+    "수석장학 신청기간 언제임",
     "휴학할 건데 성적장학 신청해야 돼?",
-    "비마장학 어디다 신청함"
+    "비마장학 어디다 신청함",
+    "복학생도 참빛장학 받을 수 있음?"
    ],
-   "answer": "단과대학장학금(수석·참빛·비마)은 학기를 마무리하는 시기에 신청합니다. 1학기 장학은 12월 1~2주차, 2학기 장학은 6월 1~2주차가 신청기간입니다. 신청한 학생 중에서만 다음 학기 장학생을 뽑으므로 휴학 예정자도 반드시 신청해야 합니다. 신청서는 소속 단과대학에 제출합니다.",
+   "answer": "성적장학금(수석·참빛·비마)은 1학기 장학이면 12월 1~2주차, 2학기 장학이면 6월 1~2주차에 소속 단과대학에 신청합니다. 신청한 학생 중에서 다음 학기 장학생을 뽑으므로 휴학 예정자도 신청해야 합니다. 신청공지는 대학 홈페이지 공지사항>등록/장학에, 선발기준은 소속 학과 홈페이지나 학과내규에 있습니다.",
    "conditions_exceptions": [
+    "학과마다 조건(전공학점, 특정과목 이수, 영어성적표 제출 등)이 다르므로 수강신청 전에 소속 학과 기준을 확인해야 합니다.",
+    "학과 자체기준이 없으면 직전학기 15학점(4학년·건축학과 5학년은 12학점) 이상 취득, 평량평균 3.0 이상이 기본요건입니다.",
+    "신·편·재입학생과 복학생, 직전 학기 외국대학파견·현장실습 참여 학생은 단과대학장학금을 받을 수 없습니다.",
+    "직전 학기 학사경고나 유기정학 이상의 징계를 받았거나 수업연한을 넘긴 학생은 장학금을 받을 수 없습니다.",
     "해당 학기 석차대장에 따라 심사합니다.",
-    "선발된 뒤 휴학해도 선발은 유지되며, 장학금은 복학학기 등록금고지서에서 자동 감면됩니다.",
-    "선발된 학생이 등록금을 미리 납부하고 휴학하는 것은 불가합니다."
+    "선발 뒤 휴학해도 선발은 유지되고, 장학금은 복학학기 등록금고지서에서 자동 감면됩니다. 등록금을 미리 내고 휴학하는 것은 안 됩니다."
    ],
-   "how_to": "신청기간 안에 장학생 지원신청서와 관련 서류를 소속 단과대학에 제출합니다. 정확한 일정은 대학 홈페이지 공지사항>등록/장학에서 확인합니다.",
+   "how_to": "대학 홈페이지 공지사항>등록/장학에서 신청공지를 확인하고, 신청기간 안에 장학생 지원신청서와 관련 서류를 소속 단과대학에 제출합니다.",
    "contact_office": {
     "name": "소속 단과대학",
     "phone": ""
    },
    "sources": [
     {
+     "title": "교내장학금",
+     "url": "https://www.kw.ac.kr/ko/life/scholarship01.jsp",
+     "regulation": null,
+     "article": "교내장학금 안내문 및 단과대학 장학금(수석·참빛·비마) 항목",
+     "effective_date": null,
+     "checked_at": "2026-11-07",
+     "source_id": "web-scholar01"
+    },
+    {
      "title": "장학안내",
      "url": "https://www.kw.ac.kr/ko/life/summary.jsp",
      "regulation": null,
-     "article": "장학제도 이것만은 놓치지 말자 - 성적우수자라면 이것",
+     "article": "장학금 지급제한; 장학제도 이것만은 놓치지 말자 - 성적우수자라면 이것, 휴학을 고민하고 있다면 이것",
      "effective_date": null,
      "checked_at": "2026-11-07",
      "source_id": "web-summary"
@@ -9613,13 +10027,13 @@
      "title": "4-6-4 장학 규정",
      "url": "https://rule.kw.ac.kr/lmxsrv/law/lawFullContent.do?SEQ=114&SEQ_HISTORY=666",
      "regulation": "장학 규정",
-     "article": "제9조 제2항, 제10조 제1항",
+     "article": "제9조 제2항, 제10조 제1항, 제14조 제1항",
      "effective_date": "2026-08-12",
      "checked_at": "2026-11-07",
      "source_id": "reg-114"
     }
    ],
-   "applies_to": "전체 학부생(재학생)",
+   "applies_to": "전체 학부생(직전학기 재학생; 신·편·재입학생과 복학생 제외)",
    "confidence": "medium",
    "disagreement": null,
    "last_verified": "2026-11-07"
@@ -11601,6 +12015,565 @@
    "applies_to": "2026학년도 2학기 화도/동해장학금 신청자",
    "confidence": "medium",
    "disagreement": null,
+   "last_verified": "2026-11-07"
+  },
+  {
+   "id": "scholar-alumni-apply",
+   "category": "장학",
+   "questions": [
+    "총동문회 장학금 어떻게 신청해?",
+    "총동문회 장학 공고 언제 떠?",
+    "동문회 장학 신청기간 언제임",
+    "총동 장학 메일로 내도 됨?",
+    "총동문회 장학 신청서 어디서 받아",
+    "총동장학 접수 어디로 감?"
+   ],
+   "answer": "8월 하순에 올라오는 선발 공지에서 신청서식을 내려받아 작성한 뒤, 접수기간 안에 총동문회 사무국에 직접 내거나 스캔본을 메일로 보내면 됩니다. 총동문회 장학생은 매년 하반기에 한 번 뽑으며, 공지는 총동문회 홈페이지 공지/행사안내와 학교 공지사항 [등록/장학]에 함께 올라옵니다. 접수는 2025년과 2026년 모두 9월 22일에 시작해 10월 중순에 끝났으므로, 그해 공지에서 정확한 날짜를 확인하세요.",
+   "conditions_exceptions": [
+    "제출서류는 장학금 신청서(서약서·개인정보동의서 포함) 1부와 지원분야별 서류입니다.",
+    "접수기간이 끝나면 신청서를 고칠 수 없고, 내용이 미비하면 따로 연락하지 않고 탈락 처리합니다.",
+    "신청서 내용이 허위로 확인되면 선발에서 제외됩니다.",
+    "공지 게시일은 2025년 8월 21일, 2026년 8월 28일이었습니다."
+   ],
+   "how_to": "총동문회 홈페이지 공지/행사안내 또는 대학 홈페이지 공지사항>등록/장학에서 선발 안내와 신청서식(hwp·pdf)을 내려받습니다. 작성한 서류는 화도관 3층 308-1호에 방문 제출하거나 스캔해 공지에 안내된 총동문회 메일로 보냅니다. 총동문회 공지/행사안내: https://www.kwuaa.com/bbs/board.php?bo_table=notice",
+   "contact_office": {
+    "name": "광운대학교 총동문회 사무국",
+    "phone": "02-917-7000"
+   },
+   "sources": [
+    {
+     "title": "총동문회 공지 2026년도 광운대학교 총동문회 장학생 선발 안내 (본문 포스터)",
+     "url": "https://www.kwuaa.com/data/editor/2608/thumb-2ff575866c189d75c8e21d9ea9d579ca_1787893581_0391_835x1181.jpg",
+     "regulation": null,
+     "article": "접수기간, 접수방법, 제출서류, 유의사항, 접수 문의",
+     "effective_date": null,
+     "checked_at": "2026-11-07",
+     "source_id": "kwuaa-notice-86-image"
+    },
+    {
+     "title": "총동문회 공지 2025년도 총동문회 장학생 선발안내 (본문 포스터)",
+     "url": "https://www.kwuaa.com/data/editor/2508/thumb-87051db0b5135ff34c1cf6053051e0d5_1755754158_258_835x1181.jpg",
+     "regulation": null,
+     "article": "접수기간, 접수방법, 제출서류, 접수 및 문의",
+     "effective_date": null,
+     "checked_at": "2026-11-07",
+     "source_id": "kwuaa-notice-73-image"
+    },
+    {
+     "title": "총동문회 공지 2026년도 광운대학교 총동문회 장학생 선발 안내",
+     "url": "https://www.kwuaa.com/bbs/board.php?bo_table=notice&wr_id=86",
+     "regulation": null,
+     "article": "작성일 26-08-28, 첨부파일",
+     "effective_date": null,
+     "checked_at": "2026-11-07",
+     "source_id": "kwuaa-notice-86"
+    },
+    {
+     "title": "총동문회 공지 2025년도 광운대학교 총동문회 장학생 선발 안내",
+     "url": "https://www.kwuaa.com/bbs/board.php?bo_table=notice&wr_id=73",
+     "regulation": null,
+     "article": "작성일 25-08-21, 첨부파일",
+     "effective_date": null,
+     "checked_at": "2026-11-07",
+     "source_id": "kwuaa-notice-73"
+    },
+    {
+     "title": "공지 [등록/장학] 2026년도 광운대학교 총동문회 장학생 선발안내",
+     "url": "https://www.kw.ac.kr/ko/life/notice.jsp?BoardMode=view&DUID=53217",
+     "regulation": null,
+     "article": "[등록/장학] 2026년도 총동문회 장학생 선발안내(작성일 2026.08.28.)",
+     "effective_date": null,
+     "checked_at": "2026-11-07",
+     "source_id": "notice-53217"
+    },
+    {
+     "title": "광운대학교 총동문회 장학/발전기금 안내",
+     "url": "https://www.kwuaa.com/pages/4_fund.php",
+     "regulation": null,
+     "article": "장학/발전기금 - 매년 후반기 장학생 선발",
+     "effective_date": null,
+     "checked_at": "2026-11-07",
+     "source_id": "kwuaa-fund"
+    },
+    {
+     "title": "교외장학금",
+     "url": "https://www.kw.ac.kr/ko/life/scholarship02.jsp",
+     "regulation": null,
+     "article": "교외장학금 표 - 광운대학교 총동문회(신청방법, 신청시기)",
+     "effective_date": null,
+     "checked_at": "2026-11-07",
+     "source_id": "web-scholar02"
+    },
+    {
+     "title": "광운대학교 총동문회 공지/행사안내 목록",
+     "url": "https://www.kwuaa.com/bbs/board.php?bo_table=notice",
+     "regulation": null,
+     "article": "링크",
+     "effective_date": null,
+     "checked_at": "2026-11-07",
+     "source_id": "kwuaa-notices"
+    }
+   ],
+   "applies_to": "학부 재학생(초과학기자 제외) 중 총동문회비 납부자",
+   "confidence": "medium",
+   "disagreement": "2025년 포스터는 접수 문의처를 02-940-5397~8로, 2026년 포스터는 02-917-7000으로 적고 있어 최신인 2026년 번호를 안내합니다. 학교 교외장학금 표는 신청방법을 '총동문회 방문신청'으로만 적었지만, 2025·2026 포스터는 방문과 메일 접수를 모두 안내합니다.",
+   "last_verified": "2026-11-07"
+  },
+  {
+   "id": "scholar-alumni-eligibility",
+   "category": "장학",
+   "questions": [
+    "총동문회 장학 자격 뭐야?",
+    "총동문회비 안 냈으면 동문회 장학 못 받아?",
+    "총동 장학 소득 몇 구간까지?",
+    "부모님이 광운대 나왔으면 총동문회 장학 돼?",
+    "초과학기인데 총동문회 장학 신청 가능?"
+   ],
+   "answer": "먼저 KLAS(학사서비스)에서 총동문회비 납부 여부를 확인하세요. 회비를 낸 학부 재학생만 지원할 수 있고 초과학기자는 제외됩니다. 지원분야는 학비 조달이 어려운 학생, 성적이 우수하고 품행이 바른 학생(4학기 이상 이수), 특기·예체능으로 학교 위상을 높인 학생, 형제·자매·부모가 광운대 소속이거나 출신인 학생, 그 밖에 학비 지원이 필요하다고 인정되는 학생이며, 이 중 하나에 들면 됩니다.",
+   "conditions_exceptions": [
+    "2025년 포스터는 학비 조달 곤란 분야를 국가장학금 4분위 이내로, 학교 교외장학금 표는 소득 0~4구간으로 적었습니다. 2026년 포스터에는 소득 기준이 없으니 그해 공지를 확인하세요.",
+    "성적 우수 분야에는 4학년 2학기 현재 학부 연구생이면서 본교 대학원에 진학할 예정인 학생도 포함됩니다.",
+    "학교 교외장학금 표는 대상을 정규학기 재학생으로 적고 있습니다(2024~2025학년도 기준)."
+   ],
+   "how_to": "KLAS(학사서비스)에서 총동문회비 납부 여부를 확인한 뒤, 그해 선발 공지에서 지원분야별 제출서류를 확인합니다. 총동문회 공지/행사안내: https://www.kwuaa.com/bbs/board.php?bo_table=notice",
+   "contact_office": {
+    "name": "광운대학교 총동문회 사무국",
+    "phone": "02-917-7000"
+   },
+   "sources": [
+    {
+     "title": "총동문회 공지 2026년도 광운대학교 총동문회 장학생 선발 안내 (본문 포스터)",
+     "url": "https://www.kwuaa.com/data/editor/2608/thumb-2ff575866c189d75c8e21d9ea9d579ca_1787893581_0391_835x1181.jpg",
+     "regulation": null,
+     "article": "지원자격",
+     "effective_date": null,
+     "checked_at": "2026-11-07",
+     "source_id": "kwuaa-notice-86-image",
+     "quote": "학부 재학생 (초과 학기자 제외)"
+    },
+    {
+     "title": "총동문회 공지 2025년도 총동문회 장학생 선발안내 (본문 포스터)",
+     "url": "https://www.kwuaa.com/data/editor/2508/thumb-87051db0b5135ff34c1cf6053051e0d5_1755754158_258_835x1181.jpg",
+     "regulation": null,
+     "article": "지원자격, 지원분야",
+     "effective_date": null,
+     "checked_at": "2026-11-07",
+     "source_id": "kwuaa-notice-73-image"
+    },
+    {
+     "title": "교외장학금",
+     "url": "https://www.kw.ac.kr/ko/life/scholarship02.jsp",
+     "regulation": null,
+     "article": "교외장학금 표 - 광운대학교 총동문회(지급대상 및 신청자격)",
+     "effective_date": null,
+     "checked_at": "2026-11-07",
+     "source_id": "web-scholar02"
+    },
+    {
+     "title": "광운대학교 총동문회 공지/행사안내 목록",
+     "url": "https://www.kwuaa.com/bbs/board.php?bo_table=notice",
+     "regulation": null,
+     "article": "링크",
+     "effective_date": null,
+     "checked_at": "2026-11-07",
+     "source_id": "kwuaa-notices"
+    }
+   ],
+   "applies_to": "학부 재학생(초과학기자 제외)",
+   "confidence": "medium",
+   "disagreement": null,
+   "last_verified": "2026-11-07"
+  },
+  {
+   "id": "scholar-alumni-result",
+   "category": "장학",
+   "questions": [
+    "총동문회 장학 결과 언제 나와?",
+    "동문회 장학 붙으면 연락 와?",
+    "총동 장학금 언제 입금됨?",
+    "총동문회 수여식 꼭 가야 돼?"
+   ],
+   "answer": "신청서에 적은 이메일과 휴대폰 연락처를 확인해 두세요. 결과는 총동문회 장학위원회 서류심사 뒤 이메일이나 문자로 개별 통보됩니다. 선발 발표는 2025년 10월 말, 2026년 11월 초로 예정되었고, 두 해 모두 12월 장학증서 수여식 뒤에 장학금을 지급했습니다. 최종 합격자는 수여식에 꼭 참석해야 하며, 불참하면 선발이 취소됩니다.",
+   "conditions_exceptions": [
+    "포스터는 일정이 상황에 따라 바뀔 수 있다고 안내합니다.",
+    "선발인원은 포스터에 'OO명'으로만 표기되어 있습니다."
+   ],
+   "how_to": "통보를 기다리고, 일정이 궁금하면 총동문회 사무국에 전화로 문의합니다. 총동문회 공지/행사안내: https://www.kwuaa.com/bbs/board.php?bo_table=notice",
+   "contact_office": {
+    "name": "광운대학교 총동문회 사무국",
+    "phone": "02-917-7000"
+   },
+   "sources": [
+    {
+     "title": "총동문회 공지 2026년도 광운대학교 총동문회 장학생 선발 안내 (본문 포스터)",
+     "url": "https://www.kwuaa.com/data/editor/2608/thumb-2ff575866c189d75c8e21d9ea9d579ca_1787893581_0391_835x1181.jpg",
+     "regulation": null,
+     "article": "선발방법, 선발일정, 장학증서 수여식, 유의사항 4",
+     "effective_date": null,
+     "checked_at": "2026-11-07",
+     "source_id": "kwuaa-notice-86-image"
+    },
+    {
+     "title": "총동문회 공지 2025년도 총동문회 장학생 선발안내 (본문 포스터)",
+     "url": "https://www.kwuaa.com/data/editor/2508/thumb-87051db0b5135ff34c1cf6053051e0d5_1755754158_258_835x1181.jpg",
+     "regulation": null,
+     "article": "선발방법, 선발일정, 장학증서수여식, 유의사항 4",
+     "effective_date": null,
+     "checked_at": "2026-11-07",
+     "source_id": "kwuaa-notice-73-image"
+    },
+    {
+     "title": "광운대학교 총동문회 공지/행사안내 목록",
+     "url": "https://www.kwuaa.com/bbs/board.php?bo_table=notice",
+     "regulation": null,
+     "article": "링크",
+     "effective_date": null,
+     "checked_at": "2026-11-07",
+     "source_id": "kwuaa-notices"
+    }
+   ],
+   "applies_to": "총동문회 장학금 신청자",
+   "confidence": "medium",
+   "disagreement": null,
+   "last_verified": "2026-11-07"
+  },
+  {
+   "id": "scholar-alumni-overlap-refund",
+   "category": "장학",
+   "questions": [
+    "총동문회 장학 다른 장학금이랑 같이 받아도 돼?",
+    "국장 받는데 총동문회 장학도 됨?",
+    "총동 장학 받고 휴학하면 반환해?",
+    "동문회 장학 생활비야 등록금 감면이야?"
+   ],
+   "answer": "국가장학금 등과 합쳐 등록금을 넘을 것 같으면 신청 전에 총동문회 사무국이나 학생복지팀에 중복 가능 여부를 확인하세요. 총동문회 포스터는 학업장려금이라 다른 장학금과 제한 없이 중복 수혜가 된다고 하지만, 학교 교외장학금 표는 등록금 범위 안에서만 중복된다고 적고 있습니다. 받은 학기 중에 휴학하거나, 재학 중 자퇴하거나 타 대학으로 옮기면 장학금을 전액 돌려줘야 합니다.",
+   "conditions_exceptions": [
+    "전액 반환 사유: 수혜 학기 중 휴학, 재학기간 중 자퇴 또는 타 대학 전출"
+   ],
+   "how_to": "총동문회 사무국이나 학생처 학생복지팀(교내 장학 담당 02-940-5033)에 문의합니다.",
+   "contact_office": {
+    "name": "광운대학교 총동문회 사무국",
+    "phone": "02-917-7000"
+   },
+   "sources": [
+    {
+     "title": "총동문회 공지 2026년도 광운대학교 총동문회 장학생 선발 안내 (본문 포스터)",
+     "url": "https://www.kwuaa.com/data/editor/2608/thumb-2ff575866c189d75c8e21d9ea9d579ca_1787893581_0391_835x1181.jpg",
+     "regulation": null,
+     "article": "지원자격 하단 안내, 유의사항 1",
+     "effective_date": null,
+     "checked_at": "2026-11-07",
+     "source_id": "kwuaa-notice-86-image",
+     "quote": "학업장려금으로 타 장학금과 중복 수혜가능 (제한없음)"
+    },
+    {
+     "title": "총동문회 공지 2025년도 총동문회 장학생 선발안내 (본문 포스터)",
+     "url": "https://www.kwuaa.com/data/editor/2508/thumb-87051db0b5135ff34c1cf6053051e0d5_1755754158_258_835x1181.jpg",
+     "regulation": null,
+     "article": "지원분야 하단 안내, 유의사항 1",
+     "effective_date": null,
+     "checked_at": "2026-11-07",
+     "source_id": "kwuaa-notice-73-image"
+    },
+    {
+     "title": "광운대학교 총동문회 장학/발전기금 안내",
+     "url": "https://www.kwuaa.com/pages/4_fund.php",
+     "regulation": null,
+     "article": "장학/발전기금 - 생활비성 장학금",
+     "effective_date": null,
+     "checked_at": "2026-11-07",
+     "source_id": "kwuaa-fund"
+    },
+    {
+     "title": "교외장학금",
+     "url": "https://www.kw.ac.kr/ko/life/scholarship02.jsp",
+     "regulation": null,
+     "article": "교외장학금 표 - 광운대학교 총동문회(지원목적, 중복지원)",
+     "effective_date": null,
+     "checked_at": "2026-11-07",
+     "source_id": "web-scholar02"
+    },
+    {
+     "title": "학생처(학생복지팀) 소개",
+     "url": "https://www.kw.ac.kr/ko/department/view.jsp?hpage=intro_0005",
+     "regulation": null,
+     "article": "담당업무 및 연락처 - 교내 장학 업무",
+     "effective_date": null,
+     "checked_at": "2026-11-07",
+     "source_id": "web-team-student"
+    }
+   ],
+   "applies_to": "총동문회 장학금 수혜 학부생",
+   "confidence": "low",
+   "disagreement": "2025·2026 포스터는 학업장려금으로 제한 없이 중복 가능하다고 하고 총동문회 장학기금 페이지도 생활비성 장학금이라고 합니다. 반면 학교 교외장학금 표(2024~2025학년도 기준)는 지원목적을 '등록금 감면', 중복지원을 '등록금 범위 내 중복 가능'으로 적고 있습니다.",
+   "last_verified": "2026-11-07"
+  },
+  {
+   "id": "scholar-alumni-fee",
+   "category": "장학",
+   "questions": [
+    "총동문회비가 뭐야?",
+    "총동문회비 꼭 내야 돼?",
+    "총동문회비 냈는지 어디서 확인해?",
+    "동문회비 얼마임?",
+    "입학할 때 동문회비 낸 거 확인 방법"
+   ],
+   "answer": "KLAS(학사서비스)에서 총동문회비를 냈는지 확인하세요. 총동문회 장학 포스터는 이 회비를 입학 때 한 번 내는 것으로 안내하며, 회비를 낸 학생만 총동문회 장학금에 지원할 수 있습니다. 재학생이 내는 금액, 납부 의무 여부, 입학 때 못 냈을 경우 나중에 낼 수 있는지는 자료에 없으니 총동문회 사무국에 문의하세요.",
+   "conditions_exceptions": [
+    "총동문회 홈페이지의 연회비·종신회비는 졸업 동문 대상이므로, 재학생이 입학 때 내는 회비 금액으로 보면 안 됩니다.",
+    "총동문회는 동문회비를 재학생 장학사업, 회보·SNS 운영, 모교 발전기금, 행사·사무국 운영에 쓴다고 안내합니다."
+   ],
+   "how_to": "KLAS(학사서비스)에서 납부 여부를 확인합니다. 2025년 포스터는 모교 재무팀에서도 확인할 수 있다고 안내했습니다. 회비 문의는 총동문회 사무국에 합니다.",
+   "contact_office": {
+    "name": "광운대학교 총동문회 사무국",
+    "phone": "02-917-7000"
+   },
+   "sources": [
+    {
+     "title": "총동문회 공지 2026년도 광운대학교 총동문회 장학생 선발 안내 (본문 포스터)",
+     "url": "https://www.kwuaa.com/data/editor/2608/thumb-2ff575866c189d75c8e21d9ea9d579ca_1787893581_0391_835x1181.jpg",
+     "regulation": null,
+     "article": "지원자격 - 총동문회비(입학 시 1회) 납부확인",
+     "effective_date": null,
+     "checked_at": "2026-11-07",
+     "source_id": "kwuaa-notice-86-image"
+    },
+    {
+     "title": "총동문회 공지 2025년도 총동문회 장학생 선발안내 (본문 포스터)",
+     "url": "https://www.kwuaa.com/data/editor/2508/thumb-87051db0b5135ff34c1cf6053051e0d5_1755754158_258_835x1181.jpg",
+     "regulation": null,
+     "article": "지원자격 - 총동문회비 납부확인",
+     "effective_date": null,
+     "checked_at": "2026-11-07",
+     "source_id": "kwuaa-notice-73-image"
+    },
+    {
+     "title": "광운대학교 총동문회 동문회비 안내",
+     "url": "https://www.kwuaa.com/pages/4_fees.php",
+     "regulation": null,
+     "article": "동문회비 사용처, 동문회비 관련 문의",
+     "effective_date": null,
+     "checked_at": "2026-11-07",
+     "source_id": "kwuaa-fees"
+    },
+    {
+     "title": "재무팀 소개",
+     "url": "https://www.kw.ac.kr/ko/department/view.jsp?hpage=intro_0017",
+     "regulation": null,
+     "article": "담당업무 및 연락처",
+     "effective_date": null,
+     "checked_at": "2026-11-07",
+     "source_id": "web-team-finance"
+    }
+   ],
+   "applies_to": "학부 재학생",
+   "confidence": "medium",
+   "disagreement": "2025년 포스터는 납부 확인처를 재무팀 02-940-5046으로 적었지만, 재무팀 소개 페이지에서 5046은 물품 구매·계약 담당이고 등록금 수납·등록 관련 증명서는 02-940-5048 담당으로 나옵니다. 2026년 포스터는 KLAS(학사서비스)만 안내합니다.",
+   "last_verified": "2026-11-07"
+  },
+  {
+   "id": "scholar-dept-recommend",
+   "category": "장학",
+   "questions": [
+    "교수상조회 장학금 뭐야",
+    "재직동문회 장학 어떻게 받음?",
+    "학과장 추천 장학 있어?",
+    "교학팀에서 받는 장학금 뭐 있음"
+   ],
+   "answer": "먼저 소속 단과대학 교학팀에 우리 단대가 올해 지정되었는지 물어보세요. 교수상조회 장학금은 매 학기 지정된 4개 단과대학의 학업성적 우수자 중 학과장 추천을 받은 학생에게 최대 100만원을 주며, 1학기는 5월, 2학기는 10월에 교학팀으로 신청합니다. 재직동문회 장학금은 매년 지정된 단과대학에서 학과장 추천을 받은 성적 우수자 3명에게 최대 100만원을 주며, 10월에 교학팀으로 신청합니다.",
+   "conditions_exceptions": [
+    "교수상조회 장학금은 등록금 감면 목적이라 다른 장학금과 중복지원이 안 되고, 재직동문회 장학금은 생활비 목적이라 중복이 가능합니다.",
+    "안내 표는 2024~2025학년도 기준이며 시행 여부, 시기, 조건이 바뀔 수 있습니다."
+   ],
+   "how_to": "소속 단과대학 교학팀에 신청합니다. 공고는 대학 홈페이지 공지사항>등록/장학에서 확인합니다.",
+   "contact_office": {
+    "name": "소속 단과대학 교학팀",
+    "phone": ""
+   },
+   "sources": [
+    {
+     "title": "교외장학금",
+     "url": "https://www.kw.ac.kr/ko/life/scholarship02.jsp",
+     "regulation": null,
+     "article": "교외장학금 표 - 광운대학교 교수상조회, 광운대학교 재직동문회",
+     "effective_date": null,
+     "checked_at": "2026-11-07",
+     "source_id": "web-scholar02"
+    }
+   ],
+   "applies_to": "지정 단과대학 소속 학부 재학생",
+   "confidence": "medium",
+   "disagreement": null,
+   "last_verified": "2026-11-07"
+  },
+  {
+   "id": "scholar-robot-micromodule",
+   "category": "장학",
+   "questions": [
+    "지능형로봇 마이크로모듈 장학금 받을 수 있어?",
+    "마이크로모듈 이수증 어떻게 신청함?",
+    "로봇 마이크로전공 12학점 들으면 장학 나와?",
+    "지능형로봇 모듈 이수증 신청",
+    "다전공인데 로봇 모듈 이수증 돼?",
+    "예전에 들은 과목도 모듈 인정됨?"
+   ],
+   "answer": "전기공학과 학과 공지사항의 '지능형로봇 마이크로모듈 이수증 신청 안내' 글에서 신청 바로가기로 신청합니다. 지능형로봇 마이크로모듈(초급·중급·고급) 지정 과목을 12학점 이상 들으면 8개 지능형로봇혁신공유대학사업단장 명의의 이수증이 나옵니다. 장학금은 공지상 성적우수자에게 지급할 예정이라고만 되어 있고 금액과 선발 기준은 나와 있지 않으니 지능형로봇학과에 확인하시기 바랍니다.",
+   "conditions_exceptions": [
+    "신청 직전 7학기에 수강한 교과목까지만 소급해 인정합니다.",
+    "마이크로모듈 개설 교과목 표에 있는 과목만 인정하며, 같은 표준교과목에 개설 과목이 여럿이면 1개만 인정합니다.",
+    "지능형로봇의 이해, 로봇명사와의 만남은 2학점 과목입니다.",
+    "동일교과목 인정 여부는 매 학기 수강신청 자료집의 동일교과목 현황표로 확인합니다.",
+    "2개 이상 모듈을 이수 신청할 수 있고, 다전공 신청자도 이수증과 장학금을 받을 수 있습니다.",
+    "초급 과정은 이공계와 비이공계 과정으로 나뉩니다.",
+    "2026학년도 교과목 표는 '예정'으로 게시되어 있습니다.",
+    "신청 후 필요 서류는 이메일이나 문자로 안내됩니다."
+   ],
+   "how_to": "전기공학과 홈페이지 학과 공지사항의 '지능형로봇 마이크로모듈 이수증 신청 안내' 글에서 신청 바로가기를 누릅니다. 인정 과목은 지능형로봇학과 홈페이지 '2026학년도 마이크로모듈 교과목(예정)'에서 확인합니다. 지능형로봇학과(사업단) 홈페이지: https://share.kw.ac.kr/main/main.php",
+   "contact_office": {
+    "name": "지능형로봇학과(누리관 112호)",
+    "phone": "02-940-8430~1"
+   },
+   "sources": [
+    {
+     "title": "전기공학과 공지 지능형로봇 마이크로모듈 이수증 신청 안내",
+     "url": "https://electric.kw.ac.kr/community/s_notice.php?BoardMode=view&UID=517",
+     "regulation": null,
+     "article": "지능형로봇 마이크로모듈 이수증 신청 안내 - 본문 및 안내 사항",
+     "effective_date": null,
+     "checked_at": "2026-11-07",
+     "source_id": "dept-electric-517"
+    },
+    {
+     "title": "지능형로봇학과 교육과정체계",
+     "url": "https://share.kw.ac.kr/edu_pro/edu_pro01.php?tmenu=3&smenu=1",
+     "regulation": null,
+     "article": "마이크로전공",
+     "effective_date": null,
+     "checked_at": "2026-11-07",
+     "source_id": "robot-edu-system"
+    },
+    {
+     "title": "2026학년도 마이크로모듈 교과목(예정)",
+     "url": "https://share.kw.ac.kr/department/department0403new.php?admin_mode=read&no=1592&make=&search=&tmenu=2&smenu=4",
+     "regulation": null,
+     "article": "2026학년도 마이크로모듈 교과목(예정) 표 및 주석",
+     "effective_date": null,
+     "checked_at": "2026-11-07",
+     "source_id": "robot-modules-2026"
+    },
+    {
+     "title": "지능형로봇학과(사업단) 메인",
+     "url": "https://share.kw.ac.kr/main/main.php",
+     "regulation": null,
+     "article": "링크",
+     "effective_date": null,
+     "checked_at": "2026-11-07",
+     "source_id": "share-main"
+    }
+   ],
+   "applies_to": "마이크로모듈 지정 과목을 이수한 학부생(다전공 신청자 포함)",
+   "confidence": "low",
+   "disagreement": "2022년 신청 공지는 성적이 우수한 학생에게 장학금을 지급할 예정이라고 하지만, 학과 교육과정체계 페이지는 이수 시 장학금을 지급한다고만 적고 있습니다. 공지가 2022년 글이므로 현재 지급 방식은 학과에 확인해야 합니다.",
+   "last_verified": "2026-11-07"
+  },
+  {
+   "id": "scholar-haedong",
+   "category": "장학",
+   "questions": [
+    "해동장학금 조건 뭐야",
+    "해동과학문화재단 장학 얼마임?",
+    "전자공학과 2학년 받을 수 있는 외부장학",
+    "해동장학 어디다 신청함",
+    "재료공학 반도체 장학재단 생활비 장학",
+    "해동장학 다른 장학이랑 같이 받아져?"
+   ],
+   "answer": "대학 홈페이지 공지사항>등록/장학의 '2027학년도 해동과학문화재단 해동장학생 모집 안내'를 확인하고 소속 단과대학 교학팀에 신청합니다. 화학공학·재료공학·전자공학·신소재공학·반도체공학 관련 학과 2, 3학년 재학생이 대상이며 학기당 500만원씩 2개 학기를 받습니다. 학업보조비 성격이라 다른 장학금과 함께 받을 수 있습니다.",
+   "conditions_exceptions": [
+    "2학기 이상 연속으로 학업을 이어 온 학생이어야 합니다.",
+    "재단 자체 소득구간 기준을 적용합니다.",
+    "교외장학금 안내표는 2024~2025학년도 기준이므로 조건과 일정은 모집 공지를 따라야 합니다."
+   ],
+   "how_to": "대학 홈페이지 공지사항>등록/장학에서 '2027학년도 해동과학문화재단 해동장학생 모집 안내(생활비성)'를 확인한 뒤 소속 단과대학 교학팀에 방문 신청합니다.",
+   "contact_office": {
+    "name": "소속 단과대학 교학팀",
+    "phone": ""
+   },
+   "sources": [
+    {
+     "title": "교외장학금",
+     "url": "https://www.kw.ac.kr/ko/life/scholarship02.jsp",
+     "regulation": null,
+     "article": "교외장학금 표 - 해동과학문화재단",
+     "effective_date": null,
+     "checked_at": "2026-11-07",
+     "source_id": "web-scholar02"
+    },
+    {
+     "title": "공지사항 등록/장학 목록 1쪽",
+     "url": "https://www.kw.ac.kr/ko/life/notice.jsp?srCategoryId=4&mode=list&tpage=1",
+     "regulation": null,
+     "article": "926번 2027학년도 해동과학문화재단 해동장학생 모집 안내(생활비성)",
+     "effective_date": null,
+     "checked_at": "2026-11-07",
+     "source_id": "notices-jang-1"
+    }
+   ],
+   "applies_to": "관련 학과 2·3학년 재학생",
+   "confidence": "medium",
+   "disagreement": "교외장학금 안내표는 신청시기를 1월로 적었지만, 2027학년도 모집 공지는 2026년 10월 20일에 게시되었습니다. 실제 신청기간은 모집 공지로 확인해야 합니다.",
+   "last_verified": "2026-11-07"
+  },
+  {
+   "id": "scholar-korea-leader",
+   "category": "장학",
+   "questions": [
+    "한국지도자육성장학재단 조건",
+    "지도자육성 장학 몇 점 이상이어야 돼?",
+    "3학년 등록금 전액 외부장학 뭐 있음",
+    "지도자육성장학 신청 어디서",
+    "4학년도 지도자육성 장학 됨?"
+   ],
+   "answer": "대학 홈페이지 공지사항>등록/장학의 '2027년도 한국지도자육성장학재단 신규장학생 모집 안내'를 확인하고 학생복지팀에 방문 신청합니다. 매 학기 12학점 이상을 취득하고 전체성적이 100점 만점에 85점 이상인 3, 4학년 재학생이 대상입니다. 정규학기 안에서 졸업할 때까지 등록금 전액과 학업보조비를 받으며, 다른 장학금과 중복지원은 안 됩니다.",
+   "conditions_exceptions": [
+    "교외장학금 안내표는 2024~2025학년도 기준이므로 조건과 일정은 모집 공지를 따라야 합니다."
+   ],
+   "how_to": "대학 홈페이지 공지사항>등록/장학에서 '2027년도 한국지도자육성장학재단 신규장학생 모집 안내'를 확인한 뒤 학생복지팀(복지관 202호)에 방문 신청합니다.",
+   "contact_office": {
+    "name": "학생처 학생복지팀",
+    "phone": "02-940-5032~3"
+   },
+   "sources": [
+    {
+     "title": "교외장학금",
+     "url": "https://www.kw.ac.kr/ko/life/scholarship02.jsp",
+     "regulation": null,
+     "article": "교외장학금 표 - 한국지도자육성 장학재단",
+     "effective_date": null,
+     "checked_at": "2026-11-07",
+     "source_id": "web-scholar02"
+    },
+    {
+     "title": "공지사항 등록/장학 목록 1쪽",
+     "url": "https://www.kw.ac.kr/ko/life/notice.jsp?srCategoryId=4&mode=list&tpage=1",
+     "regulation": null,
+     "article": "928번 2027년도 한국지도자육성장학재단 신규장학생 모집 안내",
+     "effective_date": null,
+     "checked_at": "2026-11-07",
+     "source_id": "notices-jang-1"
+    },
+    {
+     "title": "학생처(학생복지팀) 소개",
+     "url": "https://www.kw.ac.kr/ko/department/view.jsp?hpage=intro_0005",
+     "regulation": null,
+     "article": "소속부서 위치·교내전화",
+     "effective_date": null,
+     "checked_at": "2026-11-07",
+     "source_id": "web-team-student"
+    }
+   ],
+   "applies_to": "3·4학년 재학생",
+   "confidence": "medium",
+   "disagreement": "교외장학금 안내표는 신청시기를 2월로 적었지만, 2027년도 신규장학생 모집 공지는 2026년 10월 16일에 게시되었습니다(11월 4일 수정). 실제 신청기간은 모집 공지로 확인해야 합니다.",
    "last_verified": "2026-11-07"
   },
   {
@@ -14628,11 +15601,12 @@
     "도서관 전화번호 뭐야?",
     "중도 문의 어디로 함?",
     "도서관 팩스번호",
-    "도서관에 물어볼 거 있는데 연락처"
+    "도서관에 물어볼 거 있는데 연락처",
+    "도서관 리딩리딩 사이트 어디야?"
    ],
    "answer": "중앙도서관 문의 전화는 02-940-5061~9, 팩스는 02-919-0092입니다. 그 밖의 도서관 서비스는 도서관 웹사이트의 기타 서비스 안내를 확인하거나 위 번호로 문의하시면 됩니다.",
    "conditions_exceptions": [],
-   "how_to": "중앙도서관(02-940-5061~9)에 전화하거나 도서관 웹사이트의 기타 서비스 안내를 확인하십시오. 도서관 홈페이지: https://kupis.kw.ac.kr/",
+   "how_to": "중앙도서관(02-940-5061~9)에 전화하거나 도서관 웹사이트의 기타 서비스 안내를 확인하십시오. 도서관 홈페이지: https://kupis.kw.ac.kr/ 독서 프로그램 리딩리딩: https://reading.kw.ac.kr/",
    "contact_office": {
     "name": "중앙도서관",
     "phone": "02-940-5061~9"
@@ -14655,6 +15629,15 @@
      "effective_date": null,
      "checked_at": "2026-11-07",
      "source_id": "kupis-home"
+    },
+    {
+     "title": "광운대학교 리딩리딩 (도서관 독서 프로그램)",
+     "url": "https://reading.kw.ac.kr/",
+     "regulation": null,
+     "article": "링크",
+     "effective_date": null,
+     "checked_at": "2026-11-07",
+     "source_id": "reading-home"
     }
    ],
    "applies_to": "전체 학부생",
@@ -15720,29 +16703,37 @@
    "id": "military-contact-office",
    "category": "병무·예비군",
    "questions": [
+    "예비군연대 어디 있음?",
+    "예비군연대 위치 어디야?",
     "병무 상담 어디로 함?",
-    "예비군연대 전화번호",
-    "군휴학 문의 어디?",
-    "군 이러닝 문의 번호",
-    "병무상담 게시판 어디 있음?",
-    "예비군 문의 연락처 어디"
+    "예비군연대 전화번호 뭐임?",
+    "군휴학 문의 어디로 해?",
+    "병무상담 게시판 어디 있음?"
    ],
-   "answer": "예비군·병무 상담은 예비군연대(병무종합상담센터, 02-940-5038~9)에서 받으며, 업무시간은 평일 09:00~17:30이고 토요일·공휴일은 쉽니다(방학 중 변동 가능). 군휴학·복학 등 학적 업무는 교무처 교육지원팀(02-940-5511), 군 e-러닝은 교육지원팀 군e-러닝 관리 담당(02-940-5512)으로 문의하십시오. 학생 병무 업무는 학생복지팀(02-940-5033)도 담당합니다.",
+   "answer": "병무·예비군 문의는 누리관 233호 예비군연대(병무종합상담센터, 02-940-5038~9)로 하십시오. 업무시간은 평일 09:00~17:30이며 토요일·공휴일은 쉬고, 방학 중에는 바뀔 수 있습니다. 군휴학·복학 같은 학적 처리는 교무처 교육지원팀(02-940-5511), 군 e-러닝은 교육지원팀(02-940-5512), 학생 병무 업무는 학생복지팀(02-940-5033)도 맡고 있습니다.",
    "conditions_exceptions": [
-    "병무상담 게시판에는 개인정보를 입력하거나 첨부하지 마십시오.",
-    "연대본부 위치(문화관 지하1층)는 2006년 FAQ 기준이라 현재와 다를 수 있습니다."
+    "병무상담 게시판에는 개인정보를 입력하거나 첨부하지 마십시오."
    ],
-   "how_to": "전화하거나 학교 홈페이지 병무안내의 병무상담 게시판(현역/예비역 분류)에 글을 남기십시오. 2006년 FAQ는 경로를 학교홈페이지 > 학사안내 > 병무안내 > 병무상담으로 안내하나 현재 메뉴와 다를 수 있습니다.",
+   "how_to": "누리관 233호를 방문하거나 전화하십시오. 학교 홈페이지 병무안내의 병무상담 게시판(현역/예비역 분류)에 글을 남겨도 됩니다. 팩스는 02-940-5394입니다.",
    "contact_office": {
     "name": "예비군연대(병무종합상담센터)",
     "phone": "02-940-5038~9"
    },
    "sources": [
     {
+     "title": "예비군 연대",
+     "url": "https://www.kw.ac.kr/ko/department/affiliated_etc01.jsp",
+     "regulation": null,
+     "article": "예비군 연대 소개 - 위치·교내전화·팩스",
+     "effective_date": null,
+     "checked_at": "2026-11-07",
+     "source_id": "web-reserve"
+    },
+    {
      "title": "병무안내",
      "url": "https://www.kw.ac.kr/ko/life/military_consulting.jsp",
      "regulation": null,
-     "article": "병무안내 - 문의처·업무시간",
+     "article": "병무안내 - 문의처·업무시간·안내사항",
      "effective_date": null,
      "checked_at": "2026-11-07",
      "source_id": "web-military"
@@ -15766,15 +16757,6 @@
      "source_id": "web-team-edu"
     },
     {
-     "title": "종합 FAQ [교육지원팀] 군 복무 e-러닝 수강신청 및 학점 인정 안내",
-     "url": "https://www.kw.ac.kr/ko/life/faq.jsp?BoardMode=view&DUID=53053",
-     "regulation": null,
-     "article": "문의처",
-     "effective_date": null,
-     "checked_at": "2026-11-07",
-     "source_id": "faq-53053"
-    },
-    {
      "title": "종합 FAQ [예비군연대] 예비군업무 자주하는 질문",
      "url": "https://www.kw.ac.kr/ko/life/faq.jsp?BoardMode=view&DUID=791",
      "regulation": null,
@@ -15786,7 +16768,116 @@
    ],
    "applies_to": "전체 학부생",
    "confidence": "medium",
-   "disagreement": "군 e-러닝 문의처를 e-러닝 안내 FAQ는 02-940-5511로 안내하지만, 교육지원팀 소개 페이지는 군e-러닝 관리 담당 번호를 02-940-5512로 적고 있습니다.",
+   "disagreement": "2006년 예비군연대 FAQ는 연대본부를 문화관 지하1층으로 안내하지만, 현재 예비군 연대 소개 페이지는 누리관 233호로 적고 있습니다. 최신 페이지 기준으로 안내하되, 방문 전에 전화로 확인하는 것이 안전합니다.",
+   "last_verified": "2026-11-07"
+  },
+  {
+   "id": "military-reserve-training-schedule",
+   "category": "병무·예비군",
+   "questions": [
+    "1학기에 예비군 다녀왔는데 2학기에 또 가?",
+    "예비군 1년에 몇 시간 받음?",
+    "학생예비군 훈련 언제 있음?",
+    "예비군 보충훈련 언제야?",
+    "예비군 8시간 다 채우면 끝임?"
+   ],
+   "answer": "학생예비군은 1년에 8시간만 받으면 되므로, 이미 8시간을 채웠다면 그해 훈련은 끝납니다. 못 채웠다면 보충교육으로 채우십시오. 학교 FAQ 기준으로 보충교육은 10월 말, 시간미달 보충교육은 11월 중순, 이월 보충교육은 다음 해 2월 말~3월 초에 있습니다. 2026년 학교 예비군 훈련은 4월 28~30일, 5월 4일, 5월 18일로 공지됐습니다.",
+   "conditions_exceptions": [
+    "학교 예비군연대에 전입신고를 한 학생예비군에게만 연 8시간이 적용됩니다.",
+    "일정 근거인 FAQ는 2006년 자료라 현재 일정과 다를 수 있으니 매년 공지를 확인하십시오.",
+    "2026년 훈련일은 총학생회 지원 사업 수요조사 공지에 나온 날짜입니다."
+   ],
+   "how_to": "훈련 일정은 학교 홈페이지 공지사항에 올라옵니다. 연대본부에서 훈련소집통지서를 받은 뒤 그 날짜에 훈련장으로 각자 가면 됩니다. 본인 이수 여부는 예비군연대에 문의하십시오.",
+   "contact_office": {
+    "name": "예비군연대(병무종합상담센터)",
+    "phone": "02-940-5038~9"
+   },
+   "sources": [
+    {
+     "title": "종합 FAQ [예비군연대] 학생예비군의 연간 교육훈련시간을 알고 싶은데요",
+     "url": "https://www.kw.ac.kr/ko/life/faq.jsp?BoardMode=view&DUID=776",
+     "regulation": null,
+     "article": "학생예비군의 연간 교육훈련시간",
+     "effective_date": null,
+     "checked_at": "2026-11-07",
+     "source_id": "faq-776"
+    },
+    {
+     "title": "종합 FAQ [예비군연대] 예비군업무 자주하는 질문",
+     "url": "https://www.kw.ac.kr/ko/life/faq.jsp?BoardMode=view&DUID=791",
+     "regulation": null,
+     "article": "1. 자항, 2항",
+     "effective_date": null,
+     "checked_at": "2026-11-07",
+     "source_id": "faq-791"
+    },
+    {
+     "title": "총학생회 이음 공지사항",
+     "url": "https://www.kwu-studentcouncil.co.kr/notices",
+     "regulation": null,
+     "article": "예비군 훈련 지원 사업 수요조사 (2026.04.02)",
+     "effective_date": null,
+     "checked_at": "2026-11-07",
+     "source_id": "council-notices"
+    }
+   ],
+   "applies_to": "학교 예비군연대에 전입신고한 학생예비군",
+   "confidence": "medium",
+   "disagreement": "2006년 FAQ는 기본훈련을 5월 초로 안내하지만, 2026년 총학생회 공지에는 4월 28~30일, 5월 4일, 5월 18일 훈련이 나옵니다. 실제 일정은 그해 공지를 따르십시오.",
+   "last_verified": "2026-11-07"
+  },
+  {
+   "id": "military-reserve-shuttle-bus",
+   "category": "병무·예비군",
+   "questions": [
+    "예비군 셔틀버스 있어?",
+    "예비군 버스 대절 해줌?",
+    "예비군 훈련장 어떻게 감?",
+    "예비군 훈련장 어디임?",
+    "예비군 점심 나옴?"
+   ],
+   "answer": "예비군 셔틀버스는 총학생회 공지에서 일정과 신청 방법을 확인하십시오. 총학생회가 2026년 4월 예비군 훈련 참가자를 위해 셔틀버스 운행 사업을 공지했으나, 다른 학기에도 운행하는지는 문서에 없습니다. 학교 FAQ에 따르면 훈련장은 1호선 망월사역에서 걸어서 10분인 호원훈련장이고, 기본훈련 때는 학교가 점심을 지원합니다.",
+   "conditions_exceptions": [
+    "셔틀버스는 학교가 아니라 총학생회 사업이라 학기마다 운행 여부가 달라질 수 있습니다.",
+    "훈련장 위치와 점심 지원 내용은 2006년 FAQ 기준이라 현재와 다를 수 있습니다."
+   ],
+   "how_to": "총학생회 인스타그램·홈페이지 공지의 '버스 운행 일정·신청 안내' 게시물을 확인하십시오. 버스 문의는 총학생회 카카오톡 채널이나 총학생회실로, 훈련장 문의는 예비군연대(02-940-5038~9)로 하십시오. 총학생회 인스타그램: https://instagram.com/kwu_studentcouncil",
+   "contact_office": {
+    "name": "총학생회실",
+    "phone": "02-940-5381"
+   },
+   "sources": [
+    {
+     "title": "총학생회 이음 공지사항",
+     "url": "https://www.kwu-studentcouncil.co.kr/notices",
+     "regulation": null,
+     "article": "버스 운행 일정·신청 안내 (2026.04.21), 새로배움터 안내 문의처",
+     "effective_date": null,
+     "checked_at": "2026-11-07",
+     "source_id": "council-notices"
+    },
+    {
+     "title": "종합 FAQ [예비군연대] 예비군업무 자주하는 질문",
+     "url": "https://www.kw.ac.kr/ko/life/faq.jsp?BoardMode=view&DUID=791",
+     "regulation": null,
+     "article": "1. 아·자항",
+     "effective_date": null,
+     "checked_at": "2026-11-07",
+     "source_id": "faq-791"
+    },
+    {
+     "title": "학생자치활동(학생자치기구)",
+     "url": "https://www.kw.ac.kr/ko/life/activity01.jsp",
+     "regulation": null,
+     "article": "링크",
+     "effective_date": null,
+     "checked_at": "2026-11-07",
+     "source_id": "web-activity01"
+    }
+   ],
+   "applies_to": "예비군 훈련 대상 학부생",
+   "confidence": "medium",
+   "disagreement": null,
    "last_verified": "2026-11-07"
   },
   {
@@ -16483,21 +17574,33 @@
    "category": "상담·학생지원",
    "questions": [
     "취업상담 어디서 받음?",
-    "진로상담 학교에서 해줘?",
-    "이력서 첨삭 해주는 곳",
+    "진로상담 예약 어떻게 해?",
+    "취업상담 일정 언제 열림?",
+    "자소서 첨삭 면접 컨설팅 해주는 곳",
     "경력개발팀 어디야",
-    "면접캠프 문의"
+    "취업상담 줌으로 됨?"
    ],
-   "answer": "진로·취업상담은 학생처 경력개발팀에서 받을 수 있습니다. 위치는 복지관 206호, 전화는 02-940-5035~6입니다. 취업박람회, 면접캠프, 온라인 이력서 클리닉, 영문이력서·영어면접, 채용설명회, 현직자 직무특강 등을 운영하고 진로교과목 '진로탐색 및 설계'와 취업교과목 '경력개발과 취업전략'도 관리합니다.",
+   "answer": "경력개발팀 취업 홈페이지 상담신청에서 컨설턴트(저학년/고학년/졸업자 담당)를 골라 예약하세요. 다음 주 일정은 매주 수요일 오전에 열립니다. 상담은 회당 50분, 하루 1회까지이며 대면(복지관 206호)이나 ZOOM 비대면으로 진행합니다. 진로설계·직무탐색 상담, 입사서류 첨삭, 모의면접 같은 취업클리닉을 받을 수 있습니다.",
    "conditions_exceptions": [
-    "상담 예약 방법은 문서에 없으므로 경력개발팀에 확인해야 합니다."
+    "내부상담사는 대면·비대면으로 오전/오후에, 외부상담사는 비대면으로 저녁(주말 포함)에 상담합니다.",
+    "상담 대상은 전 학년 재학생과 졸업자입니다.",
+    "취업박람회, 면접캠프, 진로교과목 '진로탐색 및 설계', 취업교과목 '경력개발과 취업전략'도 경력개발팀이 운영합니다."
    ],
-   "how_to": "복지관 206호 경력개발팀을 방문하거나 02-940-5035~6으로 문의합니다(경력개발팀 취업 홈페이지도 운영).",
+   "how_to": "경력개발팀 취업 홈페이지 [진로 · 취업상담] → [상담신청]에서 컨설턴트와 일시를 선택해 예약합니다. 문의는 복지관 206호 또는 02-940-5035~6.",
    "contact_office": {
     "name": "학생처 경력개발팀",
     "phone": "02-940-5035~6"
    },
    "sources": [
+    {
+     "title": "경력개발팀 진로·취업 상담안내",
+     "url": "https://job.kw.ac.kr/jobprogram/counsel_info.php",
+     "regulation": null,
+     "article": "진로 · 취업상담 - 상담안내(상담대상, 상담신청, 상담시간, 상담방법)",
+     "effective_date": null,
+     "checked_at": "2026-11-07",
+     "source_id": "job-counsel-info"
+    },
     {
      "title": "경력개발팀 소개",
      "url": "https://www.kw.ac.kr/ko/department/view.jsp?hpage=intro_0008",
@@ -16508,9 +17611,9 @@
      "source_id": "web-team-career"
     }
    ],
-   "applies_to": "전체 학부생",
-   "confidence": "high",
-   "disagreement": null,
+   "applies_to": "전체 학부생 및 졸업자",
+   "confidence": "medium",
+   "disagreement": "상담안내 페이지 머리말은 '현장실습지원팀'을 환영 문구로 쓰지만 본문과 문의처는 경력개발팀으로 되어 있습니다. 상담 운영 부서는 경력개발팀으로 보이나 페이지 표기가 엇갈립니다.",
    "last_verified": "2026-11-07"
   },
   {
@@ -16655,6 +17758,406 @@
    ],
    "applies_to": "전체 재학생",
    "confidence": "medium",
+   "disagreement": null,
+   "last_verified": "2026-11-07"
+  },
+  {
+   "id": "support-counseling-sessions-confidentiality",
+   "category": "상담·학생지원",
+   "questions": [
+    "학생상담 몇 번까지 받을 수 있음?",
+    "상담 한 번에 몇 분임?",
+    "상담 기록 남아? 불이익 있음?",
+    "상담받은 거 교수님이나 부모님한테 알려짐?",
+    "심리상담 보통 몇 회 해?"
+   ],
+   "answer": "횟수 상한은 안내되어 있지 않습니다. 보통 주 1회 50분씩 10~15회 만나고, 상담자와 함께 정한 목표에 따라 늘거나 줄어듭니다. 상담 내용과 신상정보는 비밀이 보장되어 가족, 학교, 담당 교수에게도 알리지 않습니다. 기록은 학교 밖으로 나가지 않으며 일정 기간이 지나면 파쇄합니다.",
+   "conditions_exceptions": [
+    "본인이나 타인의 생명에 해가 되는 급박한 상황은 비밀보장의 예외입니다.",
+    "기록 보관 기간은 문서에 나와 있지 않으므로 학생상담실에 확인해야 합니다."
+   ],
+   "how_to": "학생상담실 홈페이지 [심리상담] → [온라인신청]에서 신청하거나 02-940-5395(운영시간 09:00~17:30)로 문의합니다.",
+   "contact_office": {
+    "name": "인권센터 학생상담실",
+    "phone": "02-940-5395"
+   },
+   "sources": [
+    {
+     "title": "학생상담실 상담관련 궁금증",
+     "url": "https://sangdam.kw.ac.kr/board/faq.php",
+     "regulation": null,
+     "article": "상담관련 궁금증 2번(상담 횟수), 5번(상담 기록)",
+     "effective_date": null,
+     "checked_at": "2026-11-07",
+     "source_id": "sangdam-faq"
+    },
+    {
+     "title": "학생상담실 개인상담 안내",
+     "url": "https://sangdam.kw.ac.kr/counseling/personal.php",
+     "regulation": null,
+     "article": "개인상담 안내 - 개인상담 소개",
+     "effective_date": null,
+     "checked_at": "2026-11-07",
+     "source_id": "sangdam-personal"
+    }
+   ],
+   "applies_to": "전체 재학생",
+   "confidence": "high",
+   "disagreement": null,
+   "last_verified": "2026-11-07"
+  },
+  {
+   "id": "support-aptitude-career-tests",
+   "category": "상담·학생지원",
+   "questions": [
+    "적성검사 학교에서 받을 수 있음?",
+    "직업적성검사 어디서 해?",
+    "진로검사 해주는 곳 있음?",
+    "MBTI 검사 학교에서 됨?",
+    "U&I 진로탐색검사 신청",
+    "심리검사 해석상담 몇 분?"
+   ],
+   "answer": "학생상담실 홈페이지에서 심리검사를 온라인으로 신청하면 직업적성검사(약 90분), U&I 진로탐색검사(약 30분), MBTI·TCI·MMPI-Ⅱ 같은 성격검사를 받을 수 있습니다. 검사가 끝나면 해석상담을 1회 50분 받습니다. 직무 탐색까지 함께 하고 싶다면 경력개발팀 진로상담에서도 진로 관련 심리검사와 피드백을 제공합니다.",
+   "conditions_exceptions": [
+    "검사 비용(무료 여부)은 문서에 나와 있지 않으므로 각 부서에 확인해야 합니다.",
+    "학생상담실 공지사항에 센터 내부공사로 '신규' 심리검사 관련 안내(2022년 게시)가 고정되어 있으니 현재 접수 가능 여부를 확인하세요.",
+    "개인용 지능검사·투사검사·종합심리검사는 전문상담사가 필요하다고 판단할 때만 실시합니다."
+   ],
+   "how_to": "학생상담실 홈페이지 [심리검사] → [온라인신청] 또는 02-940-5395. 경력개발팀은 취업 홈페이지 [진로 · 취업상담] → [상담신청]에서 컨설턴트를 골라 예약합니다.",
+   "contact_office": {
+    "name": "인권센터 학생상담실",
+    "phone": "02-940-5395"
+   },
+   "sources": [
+    {
+     "title": "학생상담실 심리검사 안내",
+     "url": "https://sangdam.kw.ac.kr/mental_state/check.php",
+     "regulation": null,
+     "article": "심리검사 안내 - 심리검사 종류(성격검사, 진로검사, 기타 검사)",
+     "effective_date": null,
+     "checked_at": "2026-11-07",
+     "source_id": "sangdam-check"
+    },
+    {
+     "title": "학생상담실 공지사항 목록",
+     "url": "https://sangdam.kw.ac.kr/board/notice.php",
+     "regulation": null,
+     "article": "공지사항 목록 - 센터 내부공사 관련 고정 공지",
+     "effective_date": null,
+     "checked_at": "2026-11-07",
+     "source_id": "sangdam-notice"
+    },
+    {
+     "title": "경력개발팀 진로·취업 상담안내",
+     "url": "https://job.kw.ac.kr/jobprogram/counsel_info.php",
+     "regulation": null,
+     "article": "상담안내 - 상담 내용(진로상담)",
+     "effective_date": null,
+     "checked_at": "2026-11-07",
+     "source_id": "job-counsel-info"
+    }
+   ],
+   "applies_to": "전체 재학생",
+   "confidence": "medium",
+   "disagreement": null,
+   "last_verified": "2026-11-07"
+  },
+  {
+   "id": "support-peer-counseling-supporters",
+   "category": "상담·학생지원",
+   "questions": [
+    "또래상담 있어?",
+    "광운 상담 서포터즈 뭐임?",
+    "상담 서포터즈 모집 언제 해?",
+    "또래끼리 상담하는 프로그램 있음?",
+    "상담 서포터즈 멘티 신청"
+   ],
+   "answer": "네, 학생상담실이 또래상담 프로그램인 '광운 상담 서포터즈'를 운영합니다. 서포터즈와 멘티는 공지사항으로 모집하며, 목록에 보이는 가장 최근 모집 공지는 2023년 8월 것입니다. 이번 학기 모집 여부는 공지사항을 확인하거나 학생상담실에 문의하세요.",
+   "conditions_exceptions": [
+    "모집 시기·자격·활동 내용은 각 모집 공지에만 있어 제공된 문서로는 확인되지 않습니다."
+   ],
+   "how_to": "학생상담실 홈페이지 [게시판] → [공지사항]에서 모집 안내를 확인하거나 02-940-5395로 문의합니다.",
+   "contact_office": {
+    "name": "인권센터 학생상담실",
+    "phone": "02-940-5395"
+   },
+   "sources": [
+    {
+     "title": "학생상담실 공지사항 목록",
+     "url": "https://sangdam.kw.ac.kr/board/notice.php",
+     "regulation": null,
+     "article": "공지사항 목록 - 광운 상담 서포터즈(또래상담) 모집 공지",
+     "effective_date": null,
+     "checked_at": "2026-11-07",
+     "source_id": "sangdam-notice"
+    },
+    {
+     "title": "학생상담실",
+     "url": "https://www.kw.ac.kr/ko/department/admin32.jsp",
+     "regulation": null,
+     "article": "학생상담실 소개 - 담당업무(광운상담 서포터즈 프로그램)",
+     "effective_date": null,
+     "checked_at": "2026-11-07",
+     "source_id": "web-counsel"
+    }
+   ],
+   "applies_to": "전체 재학생",
+   "confidence": "medium",
+   "disagreement": null,
+   "last_verified": "2026-11-07"
+  },
+  {
+   "id": "support-counseling-online-video",
+   "category": "상담·학생지원",
+   "questions": [
+    "학생상담 화상으로도 돼?",
+    "심리상담 줌으로 받을 수 있음?",
+    "상담 비대면 가능?",
+    "학생상담실 대면만 됨?",
+    "온라인 심리상담 어떻게 해"
+   ],
+   "answer": "신청할 때 학생상담실에 비대면 가능 여부를 먼저 확인하세요. 공지사항에 화상상담과 온라인 심리상담 준비 안내, 상담 앱 설치 방법이 올라와 있어 비대면 상담을 운영해 온 것은 확인됩니다. 다만 현재 방식과 사용하는 앱은 문서로 알 수 없습니다. ZOOM 비대면이 명시된 곳은 경력개발팀 진로·취업상담입니다.",
+   "conditions_exceptions": [
+    "관련 공지는 2020~2022년에 게시된 것이라 지금도 같은 방식인지 확인이 필요합니다.",
+    "경력개발팀의 ZOOM 상담은 진로·취업상담에만 해당하며 심리상담과는 별개입니다."
+   ],
+   "how_to": "학생상담실 홈페이지 [게시판] → [공지사항]의 온라인·화상상담 안내를 확인하고, [심리상담] → [온라인신청] 또는 02-940-5395로 문의합니다.",
+   "contact_office": {
+    "name": "인권센터 학생상담실",
+    "phone": "02-940-5395"
+   },
+   "sources": [
+    {
+     "title": "학생상담실 공지사항 목록",
+     "url": "https://sangdam.kw.ac.kr/board/notice.php",
+     "regulation": null,
+     "article": "공지사항 목록 - 온라인 심리상담·화상상담 관련 공지",
+     "effective_date": null,
+     "checked_at": "2026-11-07",
+     "source_id": "sangdam-notice"
+    },
+    {
+     "title": "경력개발팀 진로·취업 상담안내",
+     "url": "https://job.kw.ac.kr/jobprogram/counsel_info.php",
+     "regulation": null,
+     "article": "상담안내 - 상담방법",
+     "effective_date": null,
+     "checked_at": "2026-11-07",
+     "source_id": "job-counsel-info"
+    }
+   ],
+   "applies_to": "전체 재학생",
+   "confidence": "medium",
+   "disagreement": null,
+   "last_verified": "2026-11-07"
+  },
+  {
+   "id": "support-kw-major-tutoring",
+   "category": "상담·학생지원",
+   "questions": [
+    "KW전공튜터링 튜티 신청 어떻게 함?",
+    "전공튜터링 튜터 모집 언제야?",
+    "학습공동체 튜터링 하려면 뭐 해야돼",
+    "캠퍼스멘토링 없어졌어?",
+    "튜터링 보고서 몇 번 내야 됨?",
+    "전공 과목 튜터링 해주는 거 있음?"
+   ],
+   "answer": "학과 공지사항에 올라오는 교수학습센터의 KW전공튜터링 모집 공고를 보고 기간 안에 신청하세요. 학과(부) 전공 교과목을 두고 튜터가 튜티의 학습을 돕는 학습공동체 프로그램입니다. 매 학기 튜터를 먼저 선정한 뒤 튜티를 모집해 매칭합니다. 팀은 주간보고서 8회, 중간·최종보고서 각 1회, 최종 영상 1건을 내고 총 16시간 이상 학습해야 합니다.",
+   "conditions_exceptions": [
+    "KW캠퍼스멘토링은 KW전공튜터링과 하나의 활동으로 통합되었습니다.",
+    "모집 일정은 학기마다 달라지므로 그 학기 공고에서 날짜를 확인해야 합니다.",
+    "오프라인 OT에는 팀별로 최소 1명이 반드시 참석해야 합니다.",
+    "1~4회 활동과 중간보고서 제출은 중간지원금, 5~8회 활동은 최종지원금의 지급 조건입니다. 지원금 액수와 튜터 자격은 문서에 없으므로 교수학습센터에 확인해야 합니다."
+   ],
+   "how_to": "소속 학과 공지사항에 게시되는 교수학습센터 'KW전공튜터링' 튜터·튜티 모집 공고를 확인하고, 공고에 안내된 방법으로 기간 안에 신청합니다. 문의는 교수학습센터(02-940-5796) 또는 교수학습센터 카카오톡 채널로 합니다. 교수학습센터 프로그램 게시판: https://ontl.kw.ac.kr/bbs/board.php?bo_table=program2",
+   "contact_office": {
+    "name": "교육혁신원 교수학습센터",
+    "phone": "02-940-5796"
+   },
+   "sources": [
+    {
+     "title": "전기공학과 공지 2026-2 학습공동체 KW전공튜터링 '튜티' 모집 (본문 포스터 1)",
+     "url": "https://www.kw.ac.kr/KWData/webeditor/2026/2026_09_08_162705.png",
+     "regulation": null,
+     "article": "2026학년도 2학기 KW전공튜터링 포스터 - 프로그램 개요, 필수 활동 사항, 활동 일정, 기타문의",
+     "effective_date": null,
+     "checked_at": "2026-11-07",
+     "source_id": "dept-electric-877-image",
+     "quote": "KW캠퍼스멘토링과 KW전공튜터링이 하나의 활동으로 통합되었습니다"
+    },
+    {
+     "title": "전기공학과 공지 2026-2 학습공동체 KW전공튜터링 '튜티' 모집",
+     "url": "https://electric.kw.ac.kr/community/s_notice.php?BoardMode=view&UID=877",
+     "regulation": null,
+     "article": "학과 공지사항 - 2026-2 학습공동체 KW전공튜터링 '튜티' 모집",
+     "effective_date": null,
+     "checked_at": "2026-11-07",
+     "source_id": "dept-electric-877"
+    },
+    {
+     "title": "교수학습센터 프로그램 신청 게시판",
+     "url": "https://ontl.kw.ac.kr/bbs/board.php?bo_table=program2",
+     "regulation": null,
+     "article": "링크",
+     "effective_date": null,
+     "checked_at": "2026-11-07",
+     "source_id": "ontl-program"
+    }
+   ],
+   "applies_to": "전체 학부생",
+   "confidence": "medium",
+   "disagreement": null,
+   "last_verified": "2026-11-07"
+  },
+  {
+   "id": "support-basic-skills-clinic",
+   "category": "상담·학생지원",
+   "questions": [
+    "기초학력 클리닉 뭐야?",
+    "기초학력증진프로그램 튜터 지원 조건",
+    "수학 물리 튜터링 해주는 거 있음?",
+    "파이썬 C언어 기초 튜터링",
+    "휴학생도 기초학력 튜터 할 수 있음?"
+   ],
+   "answer": "튜터로 지원하려면 학과 공지사항에 올라오는 교수학습센터의 기초학력 클리닉 튜터링 모집 공고를 보고, 기간 안에 온라인 설문지를 제출하세요. AI 기반 맞춤형 기초학력증진프로그램을 바탕으로, 선발된 튜터가 튜티의 기초 역량을 돕는 프로그램입니다. 과목은 수학, 물리, 화학, C언어, JAVA, Python이며 최대 2개까지 고를 수 있습니다.",
+   "conditions_exceptions": [
+    "튜터는 3학년 이상 학부생(휴학생·초과학기생 포함)과 대학원 재학생이 지원할 수 있습니다.",
+    "모집은 학기마다 진행되며 기간은 그 학기 공고에서 확인해야 합니다.",
+    "튜티(도움받는 학생) 신청 방법은 문서에 없으므로 교수학습센터에 확인해야 합니다."
+   ],
+   "how_to": "학과 공지사항에 게시되는 '기초학력 클리닉 튜터링' 튜터 모집 공고에 안내된 온라인 설문지를 작성해 제출합니다. 문의는 교수학습센터(02-940-5796)로 합니다. 교수학습센터 프로그램 게시판: https://ontl.kw.ac.kr/bbs/board.php?bo_table=program2",
+   "contact_office": {
+    "name": "교육혁신원 교수학습센터",
+    "phone": "02-940-5796"
+   },
+   "sources": [
+    {
+     "title": "전자융합공학과 공지 2026학년도 2학기 교수학습센터 기초학력증진프로그램 기초학력 클리닉 튜터링 모집 안내",
+     "url": "https://radiowave.kw.ac.kr/community/s_notice.php?BoardMode=view&UID=1401",
+     "regulation": null,
+     "article": "2026학년도 2학기 기초학력 클리닉 튜터링 모집 안내 - 개요, 대상, 신청 과목, 신청 방법, 문의",
+     "effective_date": null,
+     "checked_at": "2026-11-07",
+     "source_id": "dept-radiowave-1401"
+    },
+    {
+     "title": "교수학습센터",
+     "url": "https://www.kw.ac.kr/ko/department/admin23.jsp",
+     "regulation": null,
+     "article": "교수학습센터 소개 - 학습법 지원(기초학력증진 프로그램), 담당업무 및 연락처",
+     "effective_date": null,
+     "checked_at": "2026-11-07",
+     "source_id": "web-ctl"
+    },
+    {
+     "title": "교수학습센터 프로그램 신청 게시판",
+     "url": "https://ontl.kw.ac.kr/bbs/board.php?bo_table=program2",
+     "regulation": null,
+     "article": "링크",
+     "effective_date": null,
+     "checked_at": "2026-11-07",
+     "source_id": "ontl-program"
+    }
+   ],
+   "applies_to": "튜터: 3학년 이상 학부생(휴학생·초과학기생 포함) 및 대학원 재학생",
+   "confidence": "medium",
+   "disagreement": null,
+   "last_verified": "2026-11-07"
+  },
+  {
+   "id": "support-learning-consulting",
+   "category": "상담·학생지원",
+   "questions": [
+    "학습코칭 받을 수 있어?",
+    "학습 컨설팅 어디서 해줌?",
+    "공부법 상담 학교에서 해주나",
+    "학습진단검사 받고 싶음",
+    "1:1 학습 컨설팅 신청"
+   ],
+   "answer": "네, 교수학습센터 학습법 지원 담당(02-940-5796)에 문의하면 됩니다. 센터는 1:1 및 다회기 학습 컨설팅과 학습진단검사를 운영하고, 학습법 특강·워크숍, 학습공동체, 학사경고자·학업부진자 지원 프로그램도 맡고 있습니다. 신청 방법과 시기는 문서에 없으니 전화로 먼저 안내를 받으세요.",
+   "conditions_exceptions": [
+    "신청 시기, 비용, 회기 수는 문서에 없으므로 교수학습센터에 확인해야 합니다."
+   ],
+   "how_to": "교수학습센터(화도관 310호)를 찾아가거나 학습법 지원 담당 02-940-5796으로 전화해 신청 방법을 안내받습니다. 교수학습센터 프로그램 게시판: https://ontl.kw.ac.kr/bbs/board.php?bo_table=program2",
+   "contact_office": {
+    "name": "교육혁신원 교수학습센터",
+    "phone": "02-940-5796"
+   },
+   "sources": [
+    {
+     "title": "교수학습센터",
+     "url": "https://www.kw.ac.kr/ko/department/admin23.jsp",
+     "regulation": null,
+     "article": "교수학습센터 소개 - 학습법 지원, 소속부서 위치, 담당업무 및 연락처",
+     "effective_date": null,
+     "checked_at": "2026-11-07",
+     "source_id": "web-ctl"
+    },
+    {
+     "title": "교수학습센터 프로그램 신청 게시판",
+     "url": "https://ontl.kw.ac.kr/bbs/board.php?bo_table=program2",
+     "regulation": null,
+     "article": "링크",
+     "effective_date": null,
+     "checked_at": "2026-11-07",
+     "source_id": "ontl-program"
+    }
+   ],
+   "applies_to": "전체 학부생",
+   "confidence": "high",
+   "disagreement": null,
+   "last_verified": "2026-11-07"
+  },
+  {
+   "id": "support-ctl-location-contact",
+   "category": "상담·학생지원",
+   "questions": [
+    "교수학습센터 어디야?",
+    "교수학습센터 전화번호",
+    "교학센터 몇 호임?",
+    "교수학습센터 뭐 하는 곳?",
+    "튜터링 문의 어디로 함?"
+   ],
+   "answer": "교수학습센터는 화도관 310호에 있고 전화는 02-940-5795~6입니다. 튜터링, 학습 컨설팅, 학습진단검사 같은 학생 학습 지원 문의는 학습법 지원 번호 02-940-5796으로 하세요. 센터는 교육혁신원 소속이며 교수법 지원 업무도 함께 맡습니다.",
+   "conditions_exceptions": [
+    "운영시간은 문서에 없습니다."
+   ],
+   "how_to": "화도관 310호를 방문하거나 02-940-5796(학습법 지원)으로 전화합니다. KW전공튜터링 관련 문의는 교수학습센터 카카오톡 채널로도 받습니다. 교수학습센터 프로그램 게시판: https://ontl.kw.ac.kr/bbs/board.php?bo_table=program2",
+   "contact_office": {
+    "name": "교육혁신원 교수학습센터",
+    "phone": "02-940-5795~6"
+   },
+   "sources": [
+    {
+     "title": "교수학습센터",
+     "url": "https://www.kw.ac.kr/ko/department/admin23.jsp",
+     "regulation": null,
+     "article": "교수학습센터 소개 - 소속부서 위치·교내전화, 담당업무 및 연락처",
+     "effective_date": null,
+     "checked_at": "2026-11-07",
+     "source_id": "web-ctl"
+    },
+    {
+     "title": "전기공학과 공지 2026-2 학습공동체 KW전공튜터링 '튜티' 모집 (본문 포스터 1)",
+     "url": "https://www.kw.ac.kr/KWData/webeditor/2026/2026_09_08_162705.png",
+     "regulation": null,
+     "article": "KW전공튜터링 포스터 - 기타문의",
+     "effective_date": null,
+     "checked_at": "2026-11-07",
+     "source_id": "dept-electric-877-image"
+    },
+    {
+     "title": "교수학습센터 프로그램 신청 게시판",
+     "url": "https://ontl.kw.ac.kr/bbs/board.php?bo_table=program2",
+     "regulation": null,
+     "article": "링크",
+     "effective_date": null,
+     "checked_at": "2026-11-07",
+     "source_id": "ontl-program"
+    }
+   ],
+   "applies_to": "전체 학생",
+   "confidence": "high",
    "disagreement": null,
    "last_verified": "2026-11-07"
   },
@@ -17703,6 +19206,149 @@
    "last_verified": "2026-11-07"
   },
   {
+   "id": "club-dept-council-sns",
+   "category": "동아리·학생자치",
+   "questions": [
+    "우리 과 학생회 인스타 어디서 찾아?",
+    "단과대 학생회 인스타 계정 목록 있어?",
+    "학과 학생회 계정 모아놓은 거 있음?",
+    "과 공지방 어떻게 들어감?",
+    "단대 학생회 인스타 알려줘",
+    "학부 학생회 sns 계정 정리된 거 있음?"
+   ],
+   "answer": "총학생회 공지 '단과대학·학부(과) 인스타그램 계정 안내'(2026.03.05)를 확인하시면 됩니다. 2026학년도 단과대학과 학부(과)의 인스타그램 계정을 이 게시물에 모아 두었으며, 총학생회 홈페이지 공지사항이나 총학생회 인스타그램에서 볼 수 있습니다. 학과 공지방 입장 방법은 자료에 없으므로 소속 학과(부) 학생회에 직접 문의하시기 바랍니다.",
+   "conditions_exceptions": [
+    "실제 계정 목록은 제공된 자료에 없으므로 게시물 원문에서 확인해야 합니다.",
+    "이 게시물은 누락된 단위가 있어 한 번 재업로드되었습니다. 재업로드된 최신본을 보시기 바랍니다.",
+    "연촌체전처럼 학과(부) 공지방으로 참가를 안내하는 사업도 있으나, 공지방 참여 방법은 공식 자료에 없습니다."
+   ],
+   "how_to": "총학생회 홈페이지(https://www.kwu-studentcouncil.co.kr/) 공지사항이나 총학생회 인스타그램(https://instagram.com/kwu_studentcouncil)에서 '단과대학·학부(과) 인스타그램 계정 안내' 게시물을 찾습니다. 학과 공지방은 소속 학과(부) 학생회에 문의합니다.",
+   "contact_office": {
+    "name": "총학생회",
+    "phone": "02-940-5381"
+   },
+   "sources": [
+    {
+     "title": "총학생회 이음 공지사항",
+     "url": "https://www.kwu-studentcouncil.co.kr/notices",
+     "regulation": null,
+     "article": "공지 '단과대학·학부(과) 인스타그램 계정 안내'(2026.03.05), 행사 '2026 연촌체전: 비마컵'(참가 방법)",
+     "effective_date": null,
+     "checked_at": "2026-11-07",
+     "source_id": "council-notices"
+    },
+    {
+     "title": "학생자치활동(학생자치기구)",
+     "url": "https://www.kw.ac.kr/ko/life/activity01.jsp",
+     "regulation": null,
+     "article": "총학생회 이음 소개(문의처·홈페이지·인스타그램)",
+     "effective_date": null,
+     "checked_at": "2026-11-07",
+     "source_id": "web-activity01"
+    }
+   ],
+   "applies_to": "전체 학부생(2026학년도 계정 기준)",
+   "confidence": "medium",
+   "disagreement": null,
+   "last_verified": "2026-11-07"
+  },
+  {
+   "id": "club-council-signup-events",
+   "category": "동아리·학생자치",
+   "questions": [
+    "귀향버스 신청 어디서 함?",
+    "예비군 셔틀 신청 어케 해?",
+    "총학 행사 신청 어디서 받음?",
+    "총학 공지 어디서 봐?",
+    "해커톤 신청 어디서 함?",
+    "총학 인스타 링크트리 뭐임?"
+   ],
+   "answer": "총학생회 행사는 총학생회 인스타그램 프로필의 링크트리에 올라오는 신청폼으로 신청하는 경우가 많습니다. 추석 귀향 버스(9.23 운행)는 2026.9.10 20:00~9.13 23:59에, KW해커톤은 9.9~9.14에 이 방식으로 접수했습니다. 예비군 훈련 셔틀버스는 2026.04.21 공지 '버스 운행 일정·신청 안내'에서 안내했습니다. 일정과 공지는 총학생회 홈페이지 공지사항과 인스타그램에서 확인하시면 됩니다.",
+   "conditions_exceptions": [
+    "사업마다 신청 기간이 짧고 선착순 조기 마감이 있을 수 있습니다. 위 일정은 모두 이미 지난 2026학년도 사례입니다.",
+    "KW해커톤은 2~4인 팀으로만 신청할 수 있었고(개인 신청 불가), 참가비 10,000원은 행사 종료 후 일괄 환불하는 조건이었습니다.",
+    "예비군 셔틀버스의 운행 일정과 신청 방법 세부 내용은 제공된 자료에 없습니다. 2026년 1학기 예비군 훈련 일정은 4월 28~30일, 5월 4일, 5월 18일이었습니다.",
+    "월계축전 등 축제 관련 신청 방법은 제공된 자료에 없습니다."
+   ],
+   "how_to": "총학생회 인스타그램(https://instagram.com/kwu_studentcouncil) 프로필의 링크트리에서 신청폼을 찾고, 총학생회 홈페이지(https://www.kwu-studentcouncil.co.kr/) 공지사항에서 세부 일정을 확인합니다. 문의는 총학생회 카카오톡 채널이나 전화로 합니다.",
+   "contact_office": {
+    "name": "총학생회",
+    "phone": "02-940-5381"
+   },
+   "sources": [
+    {
+     "title": "총학생회 이음 공지사항",
+     "url": "https://www.kwu-studentcouncil.co.kr/notices",
+     "regulation": null,
+     "article": "행사 '추석 귀향 버스 신청 (9/23 운행)'(2026.09.09), 행사 'KW해커톤 참가자 모집'(2026.09.09), 공지 '버스 운행 일정·신청 안내'(2026.04.21), 공지 '예비군 훈련 지원 사업 수요조사'(2026.04.02)",
+     "effective_date": null,
+     "checked_at": "2026-11-07",
+     "source_id": "council-notices"
+    },
+    {
+     "title": "학생자치활동(학생자치기구)",
+     "url": "https://www.kw.ac.kr/ko/life/activity01.jsp",
+     "regulation": null,
+     "article": "총학생회 이음 소개(문의처·홈페이지·인스타그램·오픈채팅)",
+     "effective_date": null,
+     "checked_at": "2026-11-07",
+     "source_id": "web-activity01"
+    }
+   ],
+   "applies_to": "전체 학부생",
+   "confidence": "medium",
+   "disagreement": null,
+   "last_verified": "2026-11-07"
+  },
+  {
+   "id": "club-council-staff-recruit",
+   "category": "동아리·학생자치",
+   "questions": [
+    "총학 집행위원 어떻게 들어감?",
+    "총학생회 들어가고 싶은데 모집 언제 함?",
+    "총학 집행부 지원 자격 뭐임?",
+    "과 학생회랑 총학 같이 할 수 있음?",
+    "총학 국 뭐뭐 있어?"
+   ],
+   "answer": "총학생회 집행위원은 총학생회 공지로 모집하며, 지원서 파일을 총학생회 이메일로 제출합니다. 2026학년도에는 1차(2025.12.22~2026.01.02)와 2차(2026.03.09~03.14)로 모집했고, 서류 합격자에게만 개별 연락한 뒤 대면 면접을 봤습니다. 다음 모집 일정은 자료에 없으므로 총학생회 공지와 인스타그램을 확인하시기 바랍니다.",
+   "conditions_exceptions": [
+    "두 차례 모두 임기 동안 재학생 신분으로 휴학 계획이 없는 사람을 대상으로 했고, 2차 모집은 26-2학기 휴학 예정자를 받지 않았습니다.",
+    "2차 모집은 26학번 신입생을 대상으로 했습니다(지원 자격 오기재로 재업로드된 공지 기준).",
+    "2차 모집 공지에는 단과대학·학과 학생회(비대위)와 겸임할 수 없고, 매주 화요일 18시 대면 회의에 참여할 수 있어야 한다는 조건이 있었습니다. Excel, Adobe, 웹 개발 숙련자는 우대했습니다.",
+    "1차 모집 국은 중앙집행국, 문화기획국, 대외협력국, 정책행정국, 인권복지국, 소통운영국, 홍보편집국입니다.",
+    "공식 페이지와 공지의 이메일 주소 칸이 비어 있으므로, 제출 주소와 지원서 양식은 총학생회 링크트리에서 확인해야 합니다."
+   ],
+   "how_to": "총학생회 홈페이지(https://www.kwu-studentcouncil.co.kr/) 공지사항이나 총학생회 인스타그램(https://instagram.com/kwu_studentcouncil)에서 집행위원 모집 공지를 확인합니다. 지원서 파일은 링크트리에 안내된 양식대로 작성해 총학생회 이메일로 제출합니다.",
+   "contact_office": {
+    "name": "총학생회",
+    "phone": "02-940-5381"
+   },
+   "sources": [
+    {
+     "title": "총학생회 이음 공지사항",
+     "url": "https://www.kwu-studentcouncil.co.kr/notices",
+     "regulation": null,
+     "article": "공지 '2026학년도 광운대학교 제53대 총학생회 이음 집행위원 1차 모집 안내'(2025.12.22), 공지 '총학생회 2차 집행위원 모집'(2026.03.10)",
+     "effective_date": null,
+     "checked_at": "2026-11-07",
+     "source_id": "council-notices"
+    },
+    {
+     "title": "학생자치활동(학생자치기구)",
+     "url": "https://www.kw.ac.kr/ko/life/activity01.jsp",
+     "regulation": null,
+     "article": "총학생회 이음 소개(국 소개·문의처·메일주소)",
+     "effective_date": null,
+     "checked_at": "2026-11-07",
+     "source_id": "web-activity01"
+    }
+   ],
+   "applies_to": "재학생(2026학년도 모집 기준)",
+   "confidence": "medium",
+   "disagreement": null,
+   "last_verified": "2026-11-07"
+  },
+  {
    "id": "etc-office-phone-ei",
    "category": "기타",
    "questions": [
@@ -18489,6 +20135,116 @@
    "confidence": "medium",
    "disagreement": "현장실습학기제 운영 규정(2024.2.1. 개정)은 재난 시 휴학하면 학칙 제27조의2를 따르도록 하지만, 현행 학칙에서 제27조의2는 2025.12.17.에 삭제되었습니다. 휴학 시 등록금 처리는 교육지원팀·재무팀에 확인해야 합니다.",
    "last_verified": "2026-11-07"
+  },
+  {
+   "id": "etc-iie-english-toeic",
+   "category": "기타",
+   "questions": [
+    "교내 토익 강좌 어디서 들어?",
+    "광운 TOEIC이 뭐야?",
+    "학교 영어 특강 있어?",
+    "영어회화 강좌 학교에서 들을 수 있음?",
+    "영어 경시대회 어디서 함?",
+    "국제교육원 번호 뭐임?"
+   ],
+   "answer": "교내 영어·토익 강좌는 국제교육원(동해문화예술관 117호, 02-940-5306~7)에 문의하세요. 국제교육원은 영어회화·TOEIC 등 어학 강좌와 영어특강을 운영하고, 광운 TOEIC 시행과 재학생 영어 경시대회도 맡습니다. 강좌 일정, 수강료, 신청 방법은 문서에 나와 있지 않으니 국제교육원에서 확인하세요.",
+   "conditions_exceptions": [
+    "광운 TOEIC의 시험 방식과 성적 활용처는 문서에 나와 있지 않습니다.",
+    "개설 강좌 목록과 수강료는 국제교육원에 직접 확인해야 합니다."
+   ],
+   "how_to": "국제교육원 소개 페이지의 '홈페이지 바로가기'를 확인하거나, 동해문화예술관 117호 국제교육원에 전화로 문의합니다. 교내 어학특강 사이트: https://kwu.ttceducation.net/campusedu/",
+   "contact_office": {
+    "name": "국제교육원",
+    "phone": "02-940-5306~7"
+   },
+   "sources": [
+    {
+     "title": "국제교육원",
+     "url": "https://www.kw.ac.kr/ko/department/affiliated_edu02.jsp",
+     "regulation": null,
+     "article": "국제교육원 소개 - 업무 및 위치·연락처",
+     "effective_date": null,
+     "checked_at": "2026-11-07",
+     "source_id": "web-iie"
+    },
+    {
+     "title": "2-0-1 광운대학교 학칙 (2026.10.28.)",
+     "url": "https://rule.kw.ac.kr/lmxsrv/law/lawFullContent.do?SEQ=21&SEQ_HISTORY=675",
+     "regulation": "광운대학교 학칙",
+     "article": "제98조",
+     "effective_date": "2026-10-28",
+     "checked_at": "2026-11-07",
+     "source_id": "reg-hakchik"
+    },
+    {
+     "title": "광운대학교 국제교육원 교내 어학특강 사이트",
+     "url": "https://kwu.ttceducation.net/campusedu/",
+     "regulation": null,
+     "article": "링크",
+     "effective_date": null,
+     "checked_at": "2026-11-07",
+     "source_id": "ttc-campusedu"
+    }
+   ],
+   "applies_to": "전체 학부생",
+   "confidence": "medium",
+   "disagreement": "홈페이지는 국제교육원을 부속교육기관으로 소개하지만, 현행 학칙 제98조의 부속교육기관 목록에는 정보과학교육원만 남아 있고 제2호는 2026.4.22.에 삭제되었습니다. 기관 위상이 바뀌었을 수 있으므로 운영 여부를 국제교육원에 확인해야 합니다.",
+   "last_verified": "2026-11-07"
+  },
+  {
+   "id": "etc-kmooc-matchup",
+   "category": "기타",
+   "questions": [
+    "K-MOOC 문의 어디로 해?",
+    "케이무크 균형교양으로 쳐줌?",
+    "매치업 집중이수제 문의처",
+    "K-MOOC 교양 인정돼?",
+    "온라인 강의로만 졸업 가능?"
+   ],
+   "answer": "K-MOOC와 매치업 집중이수제 교과목은 교육혁신원 원격교육지원센터(02-940-5794)에 문의하세요. K-MOOC와 매치업 강좌는 균형교양 학점으로 인정되지 않고, 졸업학점 전체를 원격수업으로 채울 수도 없습니다. 신청 방법과 어떤 이수구분으로 인정되는지는 문서에 나와 있지 않으니 원격교육지원센터에서 확인하세요.",
+   "conditions_exceptions": [
+    "2016학년도~2026학년도 신입생의 교양 이수체계 모두 균형교양에서 K-MOOC·매치업(서울권역 e-러닝, 외국어로서의 한국어 포함)을 제외합니다.",
+    "균형교양은 3·4학점 과목만 인정됩니다(체육·음악·미술 실기과목 제외)."
+   ],
+   "how_to": "2026학년도 2학기 수강신청자료집 공지의 문의처 안내대로 교육혁신원 원격교육지원센터에 문의합니다.",
+   "contact_office": {
+    "name": "교육혁신원 원격교육지원센터",
+    "phone": "02-940-5794"
+   },
+   "sources": [
+    {
+     "title": "공지 [학사] 2026-2 수강신청자료집",
+     "url": "https://www.kw.ac.kr/ko/life/notice.jsp?BoardMode=view&DUID=52981",
+     "regulation": null,
+     "article": "2026-2 수강신청자료집 - 문의처",
+     "effective_date": null,
+     "checked_at": "2026-11-07",
+     "source_id": "notice-52981"
+    },
+    {
+     "title": "학사정보 입학연도별 졸업학점 안내",
+     "url": "https://www.kw.ac.kr/ko/life/bachelor_info12.jsp",
+     "regulation": null,
+     "article": "입학연도별 교양 교과목 이수체계 주석",
+     "effective_date": null,
+     "checked_at": "2026-11-07",
+     "source_id": "web-info12"
+    },
+    {
+     "title": "2-0-1 광운대학교 학칙 (2026.10.28.)",
+     "url": "https://rule.kw.ac.kr/lmxsrv/law/lawFullContent.do?SEQ=21&SEQ_HISTORY=675",
+     "regulation": "광운대학교 학칙",
+     "article": "제63조",
+     "effective_date": "2026-10-28",
+     "checked_at": "2026-11-07",
+     "source_id": "reg-hakchik",
+     "quote": "전체 졸업학점을 원격수업으로 이수할 수는 없다"
+    }
+   ],
+   "applies_to": "전체 학부생(균형교양 제외 규정은 2016학년도 이후 신입생)",
+   "confidence": "medium",
+   "disagreement": null,
+   "last_verified": "2026-11-07"
   }
  ],
  "gaps": {
@@ -18642,7 +20398,12 @@
    "교환학생 대학별 어학 기준(TOEFL 점수 등): 각 대학 선발공고 링크로만 안내되어 자료에 없음",
    "교환학생 장학금·지원금 여부: 자료에 없음",
    "교환학생 합격 포기 원서 제출 기한, 귀국 후 학점 인정 처리 기간: 자료에 없음",
-   "학칙 시행세칙 제22조 졸업수석 요건 중 '교환학생으로서 해외 교류학점이 없는 자'의 의미(교환 학점이 있으면 수석 대상에서 빠지는지): 문구가 모호하여 교육지원팀 확인 필요"
+   "학칙 시행세칙 제22조 졸업수석 요건 중 '교환학생으로서 해외 교류학점이 없는 자'의 의미(교환 학점이 있으면 수석 대상에서 빠지는지): 문구가 모호하여 교육지원팀 확인 필요",
+   "교환 기간 중 교내장학금·국가장학금 신청 가능 여부(교환 성적으로 교내장학금을 못 받는다는 점만 확인됨)",
+   "대학별 구체적 어학 기준(시험 종류·점수)은 각 대학 선발공고에만 있어 자료로 확인 불가",
+   "생활보고서 '매학기 4개월치'의 정확한 작성 범위와 1월·6월 마감이 어느 학기에 해당하는지",
+   "기간변경원 서식의 위치와 합격 포기 원서 제출 기일",
+   "국제기관 단기연수 학점 인정을 정한 별도 내규"
   ],
   "장학": [
    "국가장학금Ⅱ유형의 구체적 자격요건과 지급액은 제공 문서에 없음",
@@ -18669,7 +20430,14 @@
    "휴학·자퇴 시 국가장학금의 구체적 반환액 산정 방식은 자료에 없음",
    "2026학년도 2학기 국가장학금 2차 지급의 정확한 날짜는 '11월 중순 예정'으로만 안내됨",
    "2027학년도 1학기 화도/동해장학금 신청의 정확한 기간은 2026년 12월 말 공지 예정으로 미확정",
-   "국가장학금Ⅱ유형의 향후 학기 시행 여부는 자료로 확정되지 않음"
+   "국가장학금Ⅱ유형의 향후 학기 시행 여부는 자료로 확정되지 않음",
+   "총동문회비(입학 시 1회)의 금액, 납부 의무 여부, 입학 때 못 낸 학생의 추후 납부 방법은 자료에 없습니다.",
+   "총동문회 장학금의 선발인원(포스터에 'OO명')과 1인당 지급액은 자료에 없습니다.",
+   "2026년 총동문회 장학 학비 조달 곤란 분야의 소득기준(2025년은 4분위 이내)이 유지되는지는 2026년 포스터에 표기되어 있지 않습니다.",
+   "지원분야별 제출서류의 구체 목록은 첨부 신청서식에만 있어 제공된 자료로 확인할 수 없습니다.",
+   "외부장학 신청용 학교장·학과장 추천서의 발급처와 1학년 지원 가능 여부: 장학 규정 제16조는 재단이 추천을 의뢰하면 단과대학장의 복수 추천이나 학생처장 추천을 거친다고만 정하고 있습니다. 추천서 발급 절차와 학년 제한은 재단 공지별로 달라 문서로 확정되지 않으므로 학생복지팀에 확인해야 합니다.",
+   "근로장학 선발 결과 발표 시기와 근로지 배정 방법: 문서에 없습니다(학생복지팀 02-940-5033 문의).",
+   "지능형로봇 마이크로모듈 성적 장학금의 금액과 선발 기준: 문서에 없습니다(지능형로봇학과 문의)."
   ],
   "등록·등록금": [
    "등록금 분할납부 횟수, 회차별 금액, 신청·납부 기간(규정에 '별도로 정한다'고만 되어 있음)",
@@ -18776,7 +20544,12 @@
    "현재 재학생 입영연기 제한연령과 병무청 출원 경로가 최신인지는 문서로 확인되지 않습니다(병사업무안내 페이지는 작성일 미상).",
    "올해 예비군 훈련 일정·장소와 2학기 전입신고 기간 등 구체 날짜는 현재 기준 문서가 없습니다(FAQ는 2003·2006년 작성).",
    "군입영 휴학 신청 기한 '입영일자 15일 이내'가 입영 전인지 후인지는 규정 문구만으로 확정되지 않습니다.",
-   "중간고사 이후에 군입대로 휴학하는 경우의 등록금 반환·이월 처리는 문서에 명시되어 있지 않습니다."
+   "중간고사 이후에 군입대로 휴학하는 경우의 등록금 반환·이월 처리는 문서에 명시되어 있지 않습니다.",
+   "학생예비군 편성 메일을 받았을 때 해야 할 일: 제공 문서에 편성 메일 안내가 없습니다. 예비군연대(02-940-5038~9)에 확인해야 합니다.",
+   "예비군 훈련비(실비) 지급 여부와 금액: 문서에 없습니다.",
+   "예비군 훈련 이수 증명서(확인증) 발급 방법: 문서에 없습니다.",
+   "현재 예비군 전입신고 온라인 경로: 2003년 FAQ의 '인터넷 복학신청 화면'만 있고, 현재 KLAS 메뉴 경로는 문서에 없습니다.",
+   "2학기 또는 2027년 예비군 셔틀버스 운행 여부와 구체적 운행 일정: 공지 본문 세부 내용이 제공되지 않았습니다."
   ],
   "IT·계정": [
    "eduroam 지원 여부: 문서에 언급이 없음 (통신운영팀 02-940-5076~7 확인 필요)",
@@ -18798,7 +20571,16 @@
    "뇌파·맥파 측정 장소와 사전 신청 필요 여부: 공지 본문에 없음(포스터 참조로만 안내).",
    "학생상담실 상담 비용(무료 여부)은 문서에 없음 - 학생상담실(02-940-5395)에 확인 필요",
    "학생상담실 상담 횟수 제한·예약 후 대기 기간은 문서에 없음",
-   "보건실 운영시간은 문서에 없음"
+   "보건실 운영시간은 문서에 없음",
+   "학생상담실 상담을 신청한 뒤 연락이 오기까지 걸리는 기간은 문서에 없음 - 학생상담실(02-940-5395)에 확인 필요",
+   "졸업생이 학생상담실 심리상담을 받을 수 있는지는 문서에 없음(안내는 재학생 대상) - 학생상담실에 확인 필요",
+   "학생상담실 심리검사·적성검사 비용(무료 여부)은 문서에 없음",
+   "학생상담실 비대면 상담의 현재 운영 방식(앱·플랫폼)은 문서에 없음",
+   "OT학기제 및 광운인되기 SLT 검사 결과를 어디서 조회하는지는 제공된 문서에 없습니다(교수학습센터 또는 교육지원팀에 확인 필요).",
+   "기초학력 클리닉의 튜티(도움받는 학생) 신청 방법과 AI 기반 기초학력증진프로그램 참여 방법은 문서에 없습니다.",
+   "교수학습센터 1:1 학습 컨설팅·학습진단검사의 신청 경로, 비용, 일정은 문서에 없습니다.",
+   "KW전공튜터링 튜터 지원 자격과 지원금 액수는 문서에 없습니다.",
+   "교수학습센터 운영시간은 문서에 없습니다."
   ],
   "진로·취업": [
    "진로·취업 상담 예약의 취소·변경 방법과 노쇼 시 제재는 문서에 없습니다.",
@@ -18819,7 +20601,12 @@
    "동아리 신규 등록(창설) 절차와 요건은 제공된 자료에 없습니다. 총동아리연합회(02-940-5680)나 학생복지팀(02-940-5033)에 확인해야 합니다.",
    "중앙동아리 가입 시기와 방법은 여전히 자료에 없습니다(기존 club-join-how 항목 참조).",
    "자율적학생경비의 금액, 납부 방법, 추가 납부 기간은 자료에 없습니다.",
-   "동아리방 신규 배정 절차는 자료에 없습니다."
+   "동아리방 신규 배정 절차는 자료에 없습니다.",
+   "학교 전체 공지용 카카오톡방이 있는지는 제공된 자료에 없습니다(총학생회 카카오톡 채널만 확인됨).",
+   "학과(부) 공지방(카톡방) 참여 방법은 자료에 없습니다.",
+   "월계축전 등 축제 참가·신청 방법과 일정은 자료에 없습니다.",
+   "2학기 예비군 셔틀버스 운행 여부와 신청 방법은 자료에 없습니다.",
+   "다음 총학생회 집행위원 모집 일정은 자료에 없습니다."
   ],
   "기타": [
    "교내 컴퓨터실(실습실) 위치·이용시간과 프린트 이용 방법·요금은 문서에 없음",
@@ -18827,7 +20614,11 @@
    "현장실습지원팀 전화번호·위치, 현장실습온라인시스템 주소, 학기별 모집 일정은 문서에 없음",
    "창업휴학 신청 기간과 창업대체학점의 구체적 인정 한도(학점 수)는 문서에 없음",
    "경력개발팀 취업 홈페이지 주소와 프로그램별 신청 일정은 문서에 없음",
-   "제증명 발급 수수료와 온라인 발급 경로는 문서에 없음"
+   "제증명 발급 수수료와 온라인 발급 경로는 문서에 없음",
+   "모의토익 시행 여부와 일정, 응시료는 문서에 없습니다.",
+   "국제교육원 영어·토익 특강의 일정, 수강료, 신청 사이트와 방학(여름·겨울) 특강 개설 여부는 문서에 없습니다.",
+   "광운 TOEIC의 시험 형식과 성적 활용처(졸업요건·장학 등)는 문서에 없습니다.",
+   "K-MOOC 수강 신청 경로와 학점 인정 범위·이수구분(일반선택 인정 여부, 최대 인정학점)은 문서에 없습니다."
   ]
  }
 }

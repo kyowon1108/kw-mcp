@@ -68,7 +68,10 @@ async def test_open_notices_come_with_their_extracted_facts(api):
     assert first == {"title": "교내 장학 신청", "posted": PAST, "url": first["url"], "deadline": f"{SOON} 17:00",
                      "target": "2~4학년", "how_to_apply": "KLAS 장학 신청"}
     assert out["recent_notices_note"] == knowledge.NOTICES_NOTE
-    assert fake.requests == [{"category": "장학", "limit": "5", "pinned": "true", "open_only": "true"}]
+    # one search per notice_links.json query (장학: the category, and the 총동문회 board), run together
+    assert sorted(fake.requests, key=str) == sorted([
+        {"category": "장학", "limit": "5", "pinned": "true", "open_only": "true"},
+        {"q": "총동문회", "limit": "5", "pinned": "true", "open_only": "true"}], key=str)
 
 
 async def test_without_open_deadlines_the_newest_of_90_days(api):
@@ -115,6 +118,9 @@ def test_notice_links_name_knowledge_categories():
     assert all(q.get("category") or q.get("q") for queries in links.values() for q in queries)
     assert knowledge.notice_queries("다전공") == [{"q": "다전공"}, {"q": "복수전공"}, {"q": "부전공"}, {"q": "마이크로"}]
     assert knowledge.notice_queries("학점교류·교환학생") == [{"category": "국제", "q": "교환"}]
+    assert knowledge.notice_queries("장학") == [{"category": "장학"}, {"q": "총동문회"}]
+    assert {"q": "총학생회"} in knowledge.notice_queries("동아리·학생자치")
+    assert {"q": "현장실습"} in knowledge.notice_queries("진로·취업")
     assert knowledge.notice_queries("도서관") == [] and knowledge.notice_queries(None) == []
 
 

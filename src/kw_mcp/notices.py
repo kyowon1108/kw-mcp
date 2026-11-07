@@ -2,7 +2,8 @@
 read_school_notice and the kw-campus connector's read_notice.
 
 Only pages on the hosts the kw-campus collectors read are fetched (PAGE_HOSTS): www.kw.ac.kr, the
-department and college boards (kwcampus.deptboards, aicon) and the two Wix sites (wixfeeds). A
+department and college boards (kwcampus.deptboards, aicon), the two Wix sites (wixfeeds) and 총동문회's
+gnuboard (kwcampus.smallboards; 총학생회 and 현장실습 are collected but never read as pages). A
 page's images and files may come from another allowed host (department pages show images kept on
 www.kw.ac.kr) or, for the Wix sites, from Wix's file host. Redirects are followed by hand and every
 hop is checked the same way, so nothing off the list is ever requested.
@@ -13,8 +14,9 @@ gets at most one request every MIN_INTERVAL_S (Pacer); the connector passes its 
 records, the same interval across Lambda instances, a daily cap). A parsed page is kept CACHE_S.
 
 Templates: www's boards (jwxe, div.board-view-box), the BoardMode department boards (div.view_top,
-view_file, view_con), the admin_mode=read boards of aicon, chemng and sports (table.board-view), and
-everything else (the agency and ingenium boards, Wix posts) by a generic main-content search. The
+view_file, view_con), the admin_mode=read boards of aicon, chemng and sports (table.board-view), gnuboard
+posts (article#bo_v), and everything else (the agency and ingenium boards, Wix posts) by a generic
+main-content search. The
 body and attachment text are someone else's writing and come wrapped by text.untrusted.
 """
 
@@ -31,7 +33,7 @@ import zipfile
 from dataclasses import dataclass, field
 from html.parser import HTMLParser
 from typing import Protocol
-from urllib.parse import unquote, urljoin, urlsplit, urlunsplit
+from urllib.parse import parse_qs, unquote, urljoin, urlsplit, urlunsplit
 
 import httpx
 from mcp.types import ImageContent, TextContent
@@ -111,11 +113,22 @@ WIX_SITES: dict[str, tuple[str, str]] = {
 }
 # www's boards (kw-notice is the main notice board; kwcampus.wwwboards has the other two).
 WWW_BOARDS = {"kw-notice": "/ko/life/notice.jsp", "kw-job": "/ko/life/job.jsp", "kw-faq": "/ko/life/faq.jsp"}
+# kwcampus.smallboards' gnuboard boards: key -> (name, host, bo_table). Post ids "<key>-<wr_id>". On such a
+# host only /bbs/board.php?bo_table=<a listed table>&wr_id=<n> is read as a page, and only images under
+# /data/editor/ and /data/file/ as assets: gnuboard's download.php serves a file only inside the session that
+# viewed the post (we keep no cookies), so attachments there are named in a note, never requested.
+GNU_BOARDS: dict[str, tuple[str, str, str]] = {
+    "alumni": ("총동문회", "www.kwuaa.com", "notice"),
+}
+GNU_TABLES: dict[str, frozenset[str]] = {
+    host: frozenset(t for _, h, t in GNU_BOARDS.values() if h == host) for _, host, _ in GNU_BOARDS.values()}
+_GNU_IMAGE = re.compile(r"/data/(?:editor|file)/[\w./-]+\.(?:jpe?g|png|gif|webp)", re.IGNORECASE)
 
 DEPARTMENT_OF_HOST = {
     AICON: "인공지능융합대학",
     **{host: name for name, host, _, _ in DEPT_BOARDS.values()},
     **{host: name for name, host in WIX_SITES.values()},
+    **{host: name for name, host, _ in GNU_BOARDS.values()},
 }
 PAGE_HOSTS = frozenset({WWW, *DEPARTMENT_OF_HOST})
 ASSET_HOSTS = PAGE_HOSTS | {WIX_FILES}
@@ -148,7 +161,12 @@ class NoticeError(Exception):
 
 
 class Refused(NoticeError):
-    """A gate refused the request (robots record, daily cap)."""
+    """A gate refused the request (robots record, daily cap). `reason` is a short code the caller may set
+    ("budget", "time", "off_host", "resting"); "refused" when it gave none."""
+
+    def __init__(self, message: str = "", reason: str = "refused") -> None:
+        super().__init__(message)
+        self.reason = reason
 
 
 class TooLarge(NoticeError):
@@ -222,7 +240,7 @@ class Answer:
 # --- addresses ---------------------------------------------------------------------------------
 
 def _off_list(host: str) -> NoticeError:
-    return NoticeError(f"광운대 공지 사이트(www.kw.ac.kr, 학과·단과대 게시판, 건축학과·미디어커뮤니케이션학부 사이트) 주소만 "
+    return NoticeError(f"광운대 공지 사이트(www.kw.ac.kr, 학과·단과대 게시판, 건축학과·미디어커뮤니케이션학부·총동문회 사이트) 주소만 "
                        f"읽습니다({host or '주소 없음'}). school_notices·my_notices 결과의 url을 주세요.")
 
 
@@ -250,12 +268,25 @@ def check_url(url: str, *, asset: bool = False) -> str:
         raise NoticeError(f"{host}의 이 경로는 사이트가 읽지 말라고 해서 읽지 않아요.")
     if not asset and host in HOST_PAGE_PATHS and plain not in HOST_PAGE_PATHS[host]:
         raise NoticeError(f"{host}에서는 공지 게시판({', '.join(HOST_PAGE_PATHS[host])}) 글만 읽어요.")
+    if host in GNU_TABLES and not _gnu_allowed(host, plain, parts.query, asset):
+        raise NoticeError(f"{host}에서는 공지 글과 글 속 이미지만 읽어요. 첨부 파일은 사이트에서 직접 받아 주세요.")
     return urlunsplit(("https", host, path, parts.query, ""))
+
+
+def _gnu_allowed(host: str, plain: str, query: str, asset: bool) -> bool:
+    """A gnuboard host: a post of a listed board as a page; an editor or board image as an asset."""
+    if asset:  # an image file: no script anywhere on the way, nothing after its extension
+        return (not query and ".." not in plain and ".php" not in plain and "/" not in plain[plain.rfind(".") + 1:]
+                and _GNU_IMAGE.fullmatch(plain) is not None)
+    fields = parse_qs(query, keep_blank_values=True)
+    return (plain == "/bbs/board.php" and sorted(fields) == ["bo_table", "wr_id"]
+            and all(len(v) == 1 for v in fields.values()) and fields["bo_table"][0] in GNU_TABLES[host]
+            and re.fullmatch(r"\d{1,12}", fields["wr_id"][0]) is not None)
 
 
 def url_for_post_id(post_id: str) -> str:
     """A notice's URL from its post_id in the school notice results: "12345" (main board), "kw-job-…",
-    "kw-faq-…", "aicon-…", "dept-<board>-…". Wix posts have no URL in their id."""
+    "kw-faq-…", "aicon-…", "dept-<board>-…", "alumni-…". Wix posts have no URL in their id."""
     pid = (post_id or "").strip()
     if re.fullmatch(r"\d{1,12}", pid):
         return f"https://{WWW}{WWW_BOARDS['kw-notice']}?BoardMode=view&DUID={pid}"
@@ -267,6 +298,9 @@ def url_for_post_id(post_id: str) -> str:
         _, host, path, group = DEPT_BOARDS[m.group(1)]
         query = f"BoardMode=view&UID={m.group(2)}" if group == "A" else f"admin_mode=read&no={m.group(2)}"
         return f"https://{host}{path}?{query}"
+    if (m := re.fullmatch(r"([a-z]+)-(\d{1,12})", pid)) and m.group(1) in GNU_BOARDS:
+        _, host, table = GNU_BOARDS[m.group(1)]
+        return f"https://{host}/bbs/board.php?bo_table={table}&wr_id={m.group(2)}"
     if (m := re.fullmatch(r"dept-([a-z]+)-[0-9a-f]{24}", pid)) and m.group(1) in WIX_SITES:
         raise NoticeError("이 글은 post_id로 주소를 알 수 없습니다. 공지 결과의 url을 주세요.")
     raise NoticeError(f"알 수 없는 post_id입니다({pid[:40]}). 공지 결과의 url을 주세요.")
@@ -473,6 +507,8 @@ class _Parsed:
     category: str | None = None
     generic: bool = False  # found by the generic search: only links that look like files are attachments
     skip: tuple[_Node, ...] = ()  # left out of the body text (a whole page's header, menus, footer)
+    pictures: _Node | None = None  # images shown apart from the body (gnuboard's attached images), listed first
+    site_files: int = 0  # files the site serves only to a browser session that opened the post: not listed
 
 
 def _jwxe(raw: str, root: _Node) -> _Parsed | None:
@@ -521,6 +557,29 @@ def _board_view_table(raw: str, root: _Node) -> _Parsed | None:
     when = next((_date(t) for _, t in rows if "작" in t and "일" in t and _date(t)), None) or _date(_line(raw, facts, limit=500))
     files = next((li for li, t in rows if "첨부" in t), None) or facts
     return _Parsed(_line(raw, head), body, files, date=when)
+
+
+_GNU_DATE = re.compile(r"(?<!\d)(\d{2}|\d{4})-(\d{1,2})-(\d{1,2})(?!\d)")
+
+
+def _gnuboard(raw: str, root: _Node) -> _Parsed | None:
+    """gnuboard 5 posts: article#bo_v with the title in its header (span.bo_v_tit in the basic skin), the
+    date in strong.if_date ("26-08-28 14:06"), images attached to the post in #bo_v_img, the body in #bo_v_con.
+    The files in section#bo_v_file come from download.php, which needs the session that viewed the post: they
+    are counted for a note, not listed. The writer is left out."""
+    article = _find(root, "article", pred=lambda n: n.attrs.get("id") == "bo_v")
+    body = _find(article, pred=lambda n: n.attrs.get("id") == "bo_v_con")
+    if article is None or body is None:
+        return None
+    head = _find(article, cls="bo_v_tit") or _find(_find(article, "header"), pred=lambda n: n.tag in ("h1", "h2", "h3"))
+    when, date = _GNU_DATE.search(_line(raw, _find(article, "strong", "if_date"))), None
+    if when:
+        year, month, day = int(when.group(1)), int(when.group(2)), int(when.group(3))
+        date = f"{year + 2000 if year < 100 else year:04d}-{month:02d}-{day:02d}" if 1 <= month <= 12 and 1 <= day <= 31 else None
+    files = _find(article, pred=lambda n: n.attrs.get("id") == "bo_v_file")
+    return _Parsed(_line(raw, head), body, None, date=date,
+                   pictures=_find(article, pred=lambda n: n.attrs.get("id") == "bo_v_img"),
+                   site_files=len(_find_all(files, "a", pred=lambda n: "download" in n.attrs.get("href", ""))))
 
 
 def _meta(root: _Node, prop: str) -> str:
@@ -595,6 +654,7 @@ class _Page:
     attachments: list[tuple[str, str]]  # (name, url)
     images: list[tuple[str, str | None]]  # (url, alt)
     at: float = 0.0
+    site_files: int = 0  # attachments only the site itself hands out (gnuboard): named in a note
 
 
 def _wix_image(url: str) -> str:
@@ -650,7 +710,7 @@ def _links(raw: str, page_url: str, parsed: _Parsed) -> tuple[list[tuple[str, st
             break
     images: list[tuple[str, str | None]] = []
     shown: set[str] = set()
-    for img in _find_all(parsed.body, "img"):
+    for img in [*_find_all(parsed.pictures, "img"), *_find_all(parsed.body, "img")]:
         src = next((img.attrs[k].strip() for k in ("src", "data-src", "data-original", "data-lazy-src")
                     if img.attrs.get(k, "").strip() and not img.attrs[k].strip().startswith("data:")), "")
         if not src:
@@ -675,14 +735,15 @@ def parse_page(html: str, url: str) -> _Page:
     tree.feed(html)
     tree.close()
     raw, root = tree.raw, tree.root
-    parsed = _jwxe(raw, root) or _boardmode(raw, root) or _board_view_table(raw, root) or _generic(raw, root)
+    parsed = (_jwxe(raw, root) or _boardmode(raw, root) or _board_view_table(raw, root) or _gnuboard(raw, root)
+              or _generic(raw, root))
     files, images = _links(raw, url, parsed)
     title = " ".join(clean(parsed.title).split())[:TITLE_CHARS]
     return _Page(url=url, title=title or "(제목 없음)", date=parsed.date,
                  updated=parsed.updated if parsed.updated != parsed.date else None,
                  department=parsed.department or DEPARTMENT_OF_HOST.get(urlsplit(url).hostname or "") or None,
                  category=parsed.category, body=_text(raw, parsed.body, parsed.skip, limit=BODY_CHARS),
-                 attachments=files, images=images)
+                 attachments=files, images=images, site_files=parsed.site_files)
 
 
 # --- images and files ----------------------------------------------------------------------------
@@ -816,6 +877,8 @@ def _summary(page: _Page) -> dict:
     data["body"] = untrusted(page.body)
     data["attachments"] = [{"index": i, "name": name, "url": url} for i, (name, url) in enumerate(page.attachments, 1)]
     data["images"] = [{"index": i, "url": url, "alt": alt} for i, (url, alt) in enumerate(page.images, 1)]
+    if page.site_files:
+        data["files_on_site"] = page.site_files  # attachments only a browser that opened the post can download
     data["source_url"] = page.url
     return data
 
@@ -827,6 +890,9 @@ def _notes(data: dict, page: _Page, images: bool) -> list[str]:
                      "포스터·표 그림을 볼 수 있습니다.")
     if page.attachments:
         notes.append("첨부 파일 내용은 attachment=번호로 읽으세요.")
+    if page.site_files:
+        notes.append(f"첨부 파일 {page.site_files}개는 사이트에서 글을 연 브라우저로만 받을 수 있어 읽지 않았습니다. "
+                     "source_url을 직접 여세요.")
     if not page.body.strip() and not page.images and not page.attachments:
         notes.append("본문을 찾지 못했습니다. 사이트 형식이 바뀌었을 수 있으니 source_url을 직접 열어 보세요.")
     return notes
@@ -838,31 +904,38 @@ async def _show_images(fetch: _Fetcher, page: _Page, data: dict, limits: Limits)
     for row in data["images"]:
         if len(pictures) >= limits.max_images:
             break
+        # "skip" is a short code next to the sentence: tries, time, too_large, error, not_image, icon,
+        # total_size, or the gate's own reason (budget, time, off_host, resting, refused)
         if tries >= MAX_IMAGE_TRIES:
-            row["skipped"] = "이번에는 더 요청하지 않음"
+            row["skipped"], row["skip"] = "이번에는 더 요청하지 않음", "tries"
             continue
         if fetch.left() < 5:
-            row["skipped"] = "시간이 부족해 건너뜀"
+            row["skipped"], row["skip"] = "시간이 부족해 건너뜀", "time"
             continue
         tries += 1
         try:
             r = await fetch.get(row["url"], asset=True, cap=limits.image_bytes, referer=page.url)
         except TooLarge:
-            row["skipped"] = f"이미지가 너무 큼({limits.image_bytes / MIB:.1f}MB 초과)"
+            row["skipped"], row["skip"] = f"이미지가 너무 큼({limits.image_bytes / MIB:.1f}MB 초과)", "too_large"
             continue
-        except NoticeError as e:  # refused by the gate (robots, daily cap), 404, no answer
-            row["skipped"] = str(e)
+        except Refused as e:  # the gate: robots, daily cap, no time to wait
+            row["skipped"], row["skip"] = str(e), e.reason
+            if e.reason == "done":  # the caller has this one already: no request went out, no try spent
+                tries -= 1
+            continue
+        except NoticeError as e:  # 404, no answer
+            row["skipped"], row["skip"] = str(e), "error"
             continue
         info = image_info(r.body)
         if info is None:
-            row["skipped"] = "PNG·JPEG·GIF·WebP 이미지가 아님"
+            row["skipped"], row["skip"] = "PNG·JPEG·GIF·WebP 이미지가 아님", "not_image"
             continue
         mime, width, height = info
         if _tiny(width, height):
-            row["skipped"] = "아이콘이나 추적용으로 보이는 작은 이미지"
+            row["skipped"], row["skip"] = "아이콘이나 추적용으로 보이는 작은 이미지", "icon"
             continue
         if total + len(r.body) > limits.images_total:
-            row["skipped"] = f"이미지 합계가 {limits.images_total / MIB:.0f}MB를 넘어 건너뜀"
+            row["skipped"], row["skip"] = f"이미지 합계가 {limits.images_total / MIB:.0f}MB를 넘어 건너뜀", "total_size"
             continue
         total += len(r.body)
         row["shown"] = True
@@ -875,6 +948,9 @@ async def _show_images(fetch: _Fetcher, page: _Page, data: dict, limits: Limits)
 
 async def _attachment(fetch: _Fetcher, page: _Page, index: int, part: int, limits: Limits) -> Answer:
     if not page.attachments:
+        if page.site_files:  # gnuboard's download.php: only for the session that opened the post
+            raise NoticeError(f"이 글의 첨부 파일은 사이트에서 글을 연 브라우저로만 받을 수 있어 읽지 않습니다. "
+                              f"링크를 직접 여세요: {page.url}")
         raise NoticeError("이 공지에는 첨부 파일이 없습니다.")
     names = ", ".join(f"{i}. {n}" for i, (n, _) in enumerate(page.attachments, 1))
     if not 1 <= index <= len(page.attachments):
